@@ -90,37 +90,37 @@
     "pagination": {
       "previous": "Vorige",
       "next": "Volgende",
-      "page_of": "",
-      "load_more": "",
-      "load_more_items": "",
-      "load_finish": ""
+      "page_of": "{{ page_start }} - {{ page_end }} van {{ total }} items",
+      "load_more": "Meer laden",
+      "load_more_items": "Laad {{ count }} meer items",
+      "load_finish": "{{ count }} meer items zijn geladen"
     },
     "share": {
-      "share": "",
-      "copy": "",
-      "copied": ""
+      "share": "Deel",
+      "copy": "Kopieer",
+      "copied": "Gekopieerd!"
     },
     "wishlist": {
-      "wishlist": "",
-      "add": "",
-      "remove": "",
-      "remove_all": "",
-      "empty_html": ""
+      "wishlist": "Verlanglijst",
+      "add": "Voeg toe aan verlanglijst!",
+      "remove": "Verwijder van verlanglijst",
+      "remove_all": "Alles verwijderen",
+      "empty_html": "<p>Je verlanglijst is momenteel leeg!</p>"
     },
     "bundle_builder": {
-      "add_to_bundle": "",
-      "added_to_bundle": "",
-      "remove_from_bundle": "",
-      "bundle_tiers": "",
-      "subtotal": "",
-      "savings": "",
-      "btn_view_contents": "",
-      "btn_add_to_cart": "",
-      "btn_checkout": "",
-      "text_min_items_html": "",
-      "text_max_items_html": "",
-      "promo_amount_html": "",
-      "promo_quantity_html": "",
+      "add_to_bundle": "Voeg toe aan bundel",
+      "added_to_bundle": "Toegevoegd aan bundel",
+      "remove_from_bundle": "Verwijder uit bundel",
+      "bundle_tiers": "Bundelniveaus",
+      "subtotal": "Totaal",
+      "savings": "Je bespaart",
+      "btn_view_contents": "Inhoud bekijken",
+      "btn_add_to_cart": "Toevoegen in winkelwagen",
+      "btn_checkout": "Afrekenen",
+      "text_min_items_html": "Minimale items vereist: <b>{{ count }}</b>",
+      "text_max_items_html": "Maximale items toegestaan: <b>{{ count }}</b>",
+      "promo_amount_html": "Voeg <b>{{ amount }}</b> of meer toe en <b>bespaar{{ discount}}</b>",
+      "promo_quantity_html": "Koop <b>{{ amount }}</b> of meer items om <b>te besparen{{ discount}}</b>",
       "promo_final_html": "",
       "contents_modal_title": "",
       "contents_modal_empty_html": ""
