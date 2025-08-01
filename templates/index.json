@@ -65,17 +65,17 @@
             "overlay_blur": 0,
             "position_mobile": "center",
             "position_desktop": "right",
-            "subheading": "Developed by KondaSoft",
-            "heading": "Inline with Shopify vision",
+            "subheading": "",
+            "heading": "Wil Je het Beste Voer? Probeer Compleet Voer Uit!",
             "heading_size": "h1",
-            "description": "<p>Inspired by the official Dawn theme, but fully loaded with  premium features.</p>",
-            "description_size": "",
-            "btn_primary_text": "Buy theme",
+            "description": "<p>Geef je kippen het beste kippenvoer voor een optimale gezondheid en weerstand</p>",
+            "description_size": "fs-lg",
+            "btn_primary_text": "Bekijk Volledige Complete Voeding",
             "btn_primary_style": "btn-primary",
-            "btn_primary_url": "https://www.kondasoft.com/products/falcon-pro",
-            "btn_secondary_text": "Learn more",
+            "btn_primary_url": "shopify://products/compleet-kippenvoer-volledige-voeding-voor-gezonde-kippen-1",
+            "btn_secondary_text": "Bekijk Alle Soorten Kippenvoer",
             "btn_secondary_style": "btn-outline",
-            "btn_secondary_url": "https://www.kondasoft.com/products/falcon-pro"
+            "btn_secondary_url": "shopify://collections/kippenvoer"
           }
         }
       },
