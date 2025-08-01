@@ -44,16 +44,16 @@
             "position_mobile": "center",
             "position_desktop": "left",
             "subheading": "★ ★ ★ ★ ★",
-            "heading": "30+ Advanced Sections",
+            "heading": "Premium Snackmixen - Nergens Anders Verkrijgbaar",
             "heading_size": "h1",
-            "description": "<p>Inspired by the official Dawn theme, but fully loaded with  premium features.</p>",
+            "description": "<p>Unieke Premium Snackmixen Beoordeeld met gemiddeld een 4.9 uit meer dan 1800 beoordelingen</p>",
             "description_size": "fs-lg",
-            "btn_primary_text": "Buy theme",
+            "btn_primary_text": "Bekijk Onze Krachtmix",
             "btn_primary_style": "btn-primary",
-            "btn_primary_url": "https://www.kondasoft.com/products/falcon-pro",
-            "btn_secondary_text": "Learn more",
+            "btn_primary_url": "shopify://products/krachtmix-eiwitrijke-voedingsboost-voor-sterke-kippen",
+            "btn_secondary_text": "Bekijk Alle Snacks",
             "btn_secondary_style": "btn-outline",
-            "btn_secondary_url": "https://www.kondasoft.com/products/falcon-pro"
+            "btn_secondary_url": "shopify://collections/natuurlijke-gezonde-kippensnacks"
           }
         },
         "image_WFmphb": {
