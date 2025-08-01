@@ -7,4 +7,287 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
-{}
+{
+  "accessibility": {
+    "skip_to_content": "Ga naar inhoud",
+    "skip_to_product_info": "Ga naar productinfo",
+    "decrease_qty": "Aantal verminderen",
+    "increase_qty": "Verhoog de hoeveelheid",
+    "slideshow": "Slideshow",
+    "carousel": "Carousel",
+    "slide": "Slide",
+    "slide_of_total": "Slide {{ slide }} of {{ total }}",
+    "slide_go_to": "Ga naar slide {{ slide }}",
+    "previous_slide": "Vorige slide",
+    "next_slide": "Volgende slide",
+    "close": "Sluiten",
+    "selected": "Geselecteerd",
+    "cart_items": "Winkelwagen items",
+    "total_reviews": "Totale reviews",
+    "star_reviews_info": "",
+    "payment_methods": "{{ rating_value }} van {{ rating_max }} sterren",
+    "policy_links": "Beleidslinks",
+    "pagination": "Paginering",
+    "countdown_label": "Verloopt over {{ days }} dagen, {{ hours }} uren, {{ minutes }} minuten",
+    "adjust_items_per_row": "Items per rij aanpassen",
+    "product_media_gallery": "Productmediagalerij - {{ count }} items",
+    "product_media_gallery_thumbnails": "Productmediagalerij - {{ count }} miniaturen",
+    "product_media_gallery_thumb": "Show {{ media_type }} {{ index }} in the gallery",
+    "product_media_gallery_modal_link": "",
+    "product_media_gallery_modal": "",
+    "select_variants": "",
+    "previous_product": "",
+    "next_product": "",
+    "cart_offerings": "",
+    "cart_status": "",
+    "image_compare_slider": ""
+  },
+  "general": {
+    "menu": "",
+    "cart": "",
+    "search": "",
+    "account": "",
+    "remove": "",
+    "quantity": "",
+    "social_icons": "",
+    "all_rights_reserved": "",
+    "payments_secure": "",
+    "scroll_top": "",
+    "times": {
+      "day": "",
+      "days": "",
+      "hour": "",
+      "hours": "",
+      "minute": "",
+      "minutes": "",
+      "seconds": "",
+      "days_short": "",
+      "hours_short": "",
+      "minutes_short": "",
+      "seconds_short": "",
+      "expires_in": "",
+      "today": "",
+      "moments": "",
+      "ago": ""
+    },
+    "newsletter": {
+      "input_label": "",
+      "confirmation_text": "",
+      "submit_button": ""
+    },
+    "localization": {
+      "localization": "",
+      "countries": "",
+      "country": "",
+      "languages": "",
+      "language": ""
+    },
+    "breadcrumbs": {
+      "label": "",
+      "home": "",
+      "collections": ""
+    },
+    "pagination": {
+      "previous": "",
+      "next": "",
+      "page_of": "",
+      "load_more": "",
+      "load_more_items": "",
+      "load_finish": ""
+    },
+    "share": {
+      "share": "",
+      "copy": "",
+      "copied": ""
+    },
+    "wishlist": {
+      "wishlist": "",
+      "add": "",
+      "remove": "",
+      "remove_all": "",
+      "empty_html": ""
+    },
+    "bundle_builder": {
+      "add_to_bundle": "",
+      "added_to_bundle": "",
+      "remove_from_bundle": "",
+      "bundle_tiers": "",
+      "subtotal": "",
+      "savings": "",
+      "btn_view_contents": "",
+      "btn_add_to_cart": "",
+      "btn_checkout": "",
+      "text_min_items_html": "",
+      "text_max_items_html": "",
+      "promo_amount_html": "",
+      "promo_quantity_html": "",
+      "promo_final_html": "",
+      "contents_modal_title": "",
+      "contents_modal_empty_html": ""
+    },
+    "password_page": {
+      "input_label": "",
+      "btn_label": ""
+    }
+  },
+  "collection": {
+    "empty_html": "",
+    "sort_by": "",
+    "cols_selector": "",
+    "count_products": {
+      "one": "",
+      "other": ""
+    },
+    "filters": {
+      "btn_text": "",
+      "title": "",
+      "reset": "",
+      "from": "",
+      "to": "",
+      "view_more": "",
+      "remove_filter": "",
+      "remove_all": "",
+      "show_all": "",
+      "view_results": {
+        "one": "",
+        "other": ""
+      }
+    }
+  },
+  "product": {
+    "regular_price": "",
+    "sale_price": "",
+    "price_from": "",
+    "sold_out": "",
+    "add_to_cart": "",
+    "buy_it_now": "",
+    "unavailable": "",
+    "quick_view": "",
+    "product_details": "",
+    "color_options": "",
+    "select_variant": "",
+    "sale_badge": "",
+    "quantity": {
+      "label": "",
+      "increase": "",
+      "decrease": ""
+    },
+    "inventory_bar": {
+      "low_stock_count": {
+        "one": "",
+        "other": ""
+      },
+      "normal_stock_count": "",
+      "no_stock": "",
+      "untracked_stock": ""
+    },
+    "cross_sells": {
+      "select_this": "",
+      "this_item": "",
+      "total_price": "",
+      "total_savings": "",
+      "add_selected_to_cart": "",
+      "additional_discount_html": ""
+    }
+  },
+  "cart": {
+    "title": "",
+    "empty_html": "",
+    "continue_shopping": "",
+    "quantity": "",
+    "property_view_file": "",
+    "subscribe_and_save": "",
+    "applied_discounts": "",
+    "subtotal": "",
+    "regular_price": "",
+    "sale_price": "",
+    "final_price": "",
+    "taxes_shipping_at_checkout_html": "",
+    "checkout": "",
+    "variant_switcher": {
+      "button_label": "",
+      "title": "",
+      "select_variant": ""
+    },
+    "note": {
+      "title": "",
+      "label": "",
+      "button": "",
+      "saved": ""
+    },
+    "shipping_calculator": {
+      "title": "",
+      "country": "",
+      "province": "",
+      "zip": "",
+      "btn_label": "",
+      "no_results": "",
+      "empty_cart_message": ""
+    },
+    "discount_form": {
+      "title": "",
+      "label": "",
+      "btn_apply": "",
+      "btn_applied": "",
+      "remove_discount": "",
+      "error_message": "",
+      "empty_cart_message": ""
+    },
+    "delivery_date": {
+      "title": "",
+      "label": "",
+      "description_html": "",
+      "selected_date": ""
+    }
+  },
+  "search": {
+    "form": {
+      "input_label": "",
+      "input_focus": "",
+      "button_label": "",
+      "clear_input": "",
+      "loading": ""
+    },
+    "results": {
+      "suggestions": "",
+      "products": "",
+      "collections": "",
+      "pages": "",
+      "articles": "",
+      "search_for": "",
+      "no_results": "",
+      "total_results_count": {
+        "one": "",
+        "other": ""
+      },
+      "product_results_count": {
+        "one": "",
+        "other": ""
+      }
+    },
+    "search_page": {
+      "title": "",
+      "title_search_performed": "",
+      "no_results": "",
+      "results_with_count_and_term": {
+        "one": "",
+        "other": ""
+      },
+      "count_products": {
+        "one": "",
+        "other": ""
+      }
+    }
+  },
+  "blog": {
+    "empty_html": "",
+    "count_articles": {
+      "one": "",
+      "other": ""
+    },
+    "tags_btn": "",
+    "tags_title": "",
+    "tags_show_all": "",
+    "posted_in": ""
+  }
+}
