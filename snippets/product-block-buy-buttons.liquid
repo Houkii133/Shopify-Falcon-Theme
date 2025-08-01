@@ -1,0 +1,119 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% liquid
+  assign current_variant = product.selected_or_first_available_variant
+
+  if current_variant.inventory_management != null and current_variant.inventory_policy == 'deny'
+    assign qty_max = current_variant.inventory_quantity
+  endif
+%}
+
+<div
+  id="product-block-{{ block.id }}"
+  class="product-block"
+  style="
+    --padding-top: {{ block.settings.padding_top | append: 'rem' }};
+    --padding-bottom: {{ block.settings.padding_bottom | append: 'rem' }};
+  "
+  data-type="{{ block.type }}"
+  {{ block.shopify_attributes }}
+>
+  {%- if product.gift_card? -%}
+    {%- render 'product-gift-card-form', form: form -%}
+  {%- endif -%}
+  <div class="btn-atc-wrapper">
+    {% if block.settings.show_qty_field %}
+      <product-qty-switcher
+        id="product-qty-switcher-{{ block.id }}"
+        data-id="{{ block.id }}"
+        class="qty-switcher"
+        role="group"
+        aria-label="{{ 'product.quantity.label' | t }}"
+      >
+        <button
+          class="btn btn-outline"
+          type="button"
+          name="decrease"
+          aria-label="{{ 'product.quantity.decrease' | t }}"
+          disabled
+        >
+          {% render 'svg-icons', icon: 'minus', size: 14, stroke_width: 1.5 %}
+        </button>
+        <input
+          class="input"
+          name="quantity"
+          type="number"
+          value="1"
+          min="1"
+          max="{{ qty_max }}"
+          aria-label="{{ 'product.quantity.label' | t }}"
+        >
+        <button
+          class="btn btn-outline"
+          type="button"
+          name="increase"
+          aria-label="{{ 'product.quantity.increase' | t }}"
+        >
+          {% render 'svg-icons', icon: 'plus', size: 14, stroke_width: 1.5 %}
+        </button>
+      </product-qty-switcher>
+    {% else %}
+      <input type="hidden" name="quantity" value="1">
+    {% endif %}
+    <button
+      class="btn btn-atc {{ block.settings.atc_btn_style }}"
+      type="submit"
+      name="add"
+      data-text-add="{{ 'product.add_to_cart' | t }}"
+      data-text-sold-out="{{ 'product.sold_out' | t }}"
+      data-text-unavailable="{{ 'product.unavailable' | t }}"
+      {% unless current_variant.available %}
+        disabled
+      {% endunless %}
+    >
+      {% if current_variant.available %}
+        {{ 'product.add_to_cart' | t }}
+      {% else %}
+        {{ 'product.sold_out' | t }}
+      {% endif %}
+    </button>
+  </div>
+
+  {% if block.settings.show_dynamic_buttons %}
+    <div class="product-dynamic-buttons mt-5 pb-2">
+      {{ form | payment_button }}
+    </div>
+  {% endif %}
+
+  {% if block.settings.show_buy_btn %}
+    <product-buy-button
+      data-cart-url="{{ routes.cart_url }}"
+    >
+      <button
+        class="btn btn-buy {{ block.settings.buy_btn_style }}"
+        name="buy"
+        type="button"
+        {% unless current_variant.available %}
+          disabled
+        {% endunless %}
+      >
+        {{ 'product.buy_it_now' | t }}
+      </button>
+    </product-buy-button>
+  {% endif %}
+
+  {% if block.settings.show_wishlist_btn and settings.wishlist %}
+    <button
+      class="wishlist-btn btn btn-plain btn-with-icon"
+      type="button"
+      data-product-handle="{{ product.handle }}"
+      aria-pressed="false"
+    >
+      {% render 'svg-icons', icon: 'heart', size: 16, stroke_width: 1.5 %}
+      {{ 'general.wishlist.wishlist' | t }}
+    </button>
+  {% endif %}
+</div>

@@ -1,0 +1,23 @@
+{
+  "sections": {
+    "template-search": {
+      "type": "search-main",
+      "settings": {
+        "header_color_scheme": "",
+        "header_padding_top": 2,
+        "header_padding_bottom": 2.4,
+        "header_heading_size": "h2",
+        "color_scheme": "",
+        "limit": 20,
+        "mobile_cols": 2,
+        "tablet_cols": 3,
+        "desktop_cols": 5,
+        "padding_top": 2.4,
+        "padding_bottom": 2.4
+      }
+    }
+  },
+  "order": [
+    "template-search"
+  ]
+}

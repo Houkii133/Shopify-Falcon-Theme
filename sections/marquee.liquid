@@ -1,0 +1,276 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% if section.index <= 3 or request.design_mode %}
+  <link href="{{ 'marquee.css' | asset_url }}" rel="stylesheet" fetchpriority="high">
+{% endif %}
+
+<marquee-component
+  id="marquee-{{ section.id }}"
+  class="marquee {{ section.settings.color_scheme | prepend: 'color-' }}"
+  style="
+    --border-opacity: {{ section.settings.border_opacity | append: '%' }};
+    --font-size: {{ section.settings.font_size | divided_by: 100.0 | append: 'rem' }};
+    --text-transform: {{ section.settings.text_transform }};
+    --letter-spacing: {{ section.settings.letter_spacing | divided_by: 100.0 | append: 'rem' }};
+    --gap: {{ section.settings.gap | append: 'rem' }};
+    --padding-top: {{ section.settings.padding_top | append: 'rem' }};
+    --padding-bottom: {{ section.settings.padding_bottom | append: 'rem' }};
+  "
+  data-marquee-duration="{{ section.settings.marquee_duration }}"
+  data-marquee-direction="{{ section.settings.marquee_direction }}"
+  data-marquee-id="{{ section.id }}"
+  data-section-css="{{ 'marquee.css' | asset_url }}"
+  data-section-js="{{ 'marquee.js' | asset_url }}"
+>
+  <div class="marquee-wrapper">
+    <ul
+      class="marquee-list"
+      aria-label="{{ section.settings.list_label }}"
+    >
+      {% for block in section.blocks %}
+        <li class="marquee-item" {{ block.shopify_attributes }}>
+          <span class="{{ section.settings.gap | prepend: 'px-' }}">
+            {% if block.settings.url != null %}
+              <a href="{{ block.settings.url }}">
+            {% endif %}
+            {% if block.type == 'image' %}
+              {% if block.settings.img == blank %}
+                <div
+                  class=""
+                  style="width: 120px; height: 120px;"
+                >
+                  {{ 'image' | placeholder_svg_tag: 'img-thumbnail' }}
+                </div>
+              {% else %}
+                {% assign img_height_scaled = block.settings.img_height | times: 2 %}
+                <img
+                  src="{{ block.settings.img | image_url: height: img_height_scaled }}"
+                  class="img-fluid"
+                  alt="{{ block.settings.img.alt }}"
+                  width="{{ block.settings.img_height | times: block.settings.img.aspect_ratio | round }}"
+                  height="{{ block.settings.img_height }}"
+                  loading="lazy"
+                  style="opacity: {{ section.settings.img_opacity }}"
+                >
+              {% endif %}
+            {% else %}
+              <span>
+                {{ block.settings.text }}
+              </span>
+            {% endif %}
+            {% if block.settings.url != null %}
+              </a>
+            {% endif %}
+          </span>
+          {% if section.settings.separator_icon != blank %}
+            <div class="marquee-separator-icon" aria-hidden="true">
+              {% render 'svg-icons', icon: section.settings.separator_icon, stroke_width: 1.5 %}
+            </div>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</marquee-component>
+
+{% schema %}
+{
+  "name": "Marquee",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Styling"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-3"
+    },
+    {
+      "type": "range",
+      "id": "border_opacity",
+      "label": "Border opacity",
+      "default": 0,
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Font size",
+      "min": 75,
+      "max": 125,
+      "step": 5,
+      "default": 100,
+      "unit": "%"
+    },
+    {
+      "type": "select",
+      "id": "text_transform",
+      "label": "Text transform",
+      "default": "capitalize",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "capitalize", "label": "Capitalize" },
+        { "value": "lowercase", "label": "Lowercase" },
+        { "value": "uppercase", "label": "Uppercase" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "letter_spacing",
+      "label": "Letter spacing",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "header",
+      "content": "Marquee"
+    },
+    {
+      "type": "range",
+      "id": "marquee_duration",
+      "label": "Duration",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "default": 30,
+      "unit": "sec"
+    },
+    {
+      "type": "select",
+      "id": "marquee_direction",
+      "label": "Marquee direction",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "separator_icon",
+      "label": "Icon",
+      "default": "star",
+      "options": [
+        { "value": "", "label": "None" },
+        { "value": "award", "label": "Award" },
+        { "value": "smile", "label": "Smile" },
+        { "value": "thumbs-up", "label": "Thumbs up" },
+        { "value": "sun", "label": "Sun" },
+        { "value": "star", "label": "Star" },
+        { "value": "percent", "label": "Percent" },
+        { "value": "truck", "label": "Truck" },
+        { "value": "gift", "label": "Gift" },
+        { "value": "heart", "label": "Heart" },
+        { "value": "cart", "label": "Cart" }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "list_label",
+      "label": "List label",
+      "default": "Promotional list",
+      "info": "It is needed for accessibility purposes."
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Gap",
+      "info": "Spacing between items",
+      "min": 0,
+      "max": 3,
+      "step": 0.1,
+      "default": 1,
+      "unit": "rem"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top",
+      "min": 0,
+      "max": 3,
+      "step": 0.1,
+      "default": 0.6,
+      "unit": "rem"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 3,
+      "step": 0.1,
+      "default": 0.6,
+      "unit": "rem"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "img",
+          "label": "Image"
+        },
+        {
+          "type": "range",
+          "id": "img_height",
+          "label": "Image height (px)",
+          "min": 10,
+          "max": 100,
+          "step": 2,
+          "default": 16,
+          "unit": "px"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "URL",
+          "info": "Optional"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Marquee Text"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "URL",
+          "info": "Optional"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Marquee",
+      "category": "Promotional",
+      "blocks": [{ "type": "text" }, { "type": "text" }, { "type": "text" }, { "type": "text" }, { "type": "text" }, { "type": "text" }, { "type": "text" }, { "type": "text" }]
+    }
+  ]
+}
+{% endschema %}

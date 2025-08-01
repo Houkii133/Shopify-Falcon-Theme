@@ -1,0 +1,123 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% if product %}
+  <div class="product-card text-{{ settings.product_card_alignment }}">
+    <div class="product-card-wrapper">
+      <div class="img-wrapper">
+        {% render 'product-card-img', image: product.featured_image %}
+        {% if settings.product_card_img_hover and product.images.size > 1 %}
+          {% render 'product-card-img', image: product.images[1] %}
+        {% endif %}
+        {% render 'product-custom-badge', product: product %}
+        {% render 'product-sale-badge', product: product %}
+        {% if settings.wishlist %}
+          <button
+            class="wishlist-btn"
+            type="button"
+            aria-pressed="false"
+            data-product-handle="{{ product.handle }}"
+          >
+            {% render 'svg-icons', icon: 'heart', size: 18, stroke_width: 1.5 %}
+          </button>
+        {% endif %}
+      </div>
+      <div class="product-card-inner">
+        <h3 class="heading {{ settings.product_card_heading_size }}">
+          <a href="{{ product.url | within: collection }}">
+            <span>{{ product.title }}</span>
+          </a>
+        </h3>
+        {% if settings.product_card_show_vendor %}
+          <p class="vendor fs-xs">
+            {{ product.vendor }}
+          </p>
+        {% endif %}
+        {% if settings.product_card_show_rating %}
+          {% render 'product-rating-badge', product: product %}
+        {% endif %}
+        {% render 'product-card-price', product: product %}
+      </div>
+    </div>
+    {% render 'product-card-color-swatches', product: product %}
+    <form 
+      class="bundle-product-form"
+      data-product-id="{{ product.id }}"
+      data-product-handle="{{ product.handle }}"
+      data-product-title="{{ product.title }}"
+      data-product-url="{{ product.url }}">
+      <div class="select-wrapper" {% if product.has_only_default_variant %}hidden{% endif %}>
+        <select
+          name="id"
+          class="select fs-sm"
+          aria-label="{{ 'product.select_variant' | t }}"
+          {% unless product.available %}
+            disabled
+          {% endunless %}
+        >
+          {% if product.available == false %}
+            <option value="">{{ 'product.sold_out' | t }}</option>
+          {% else %}
+            {% for variant in product.variants %}
+              <option
+                value="{{ variant.id }}"
+                data-variant-image="
+                  {%- if variant.image -%}
+                    {%- render 'product-card-img', image: variant.image, only_src: true -%}
+                  {%- else -%}
+                    {%- render 'product-card-img', image: product.featured_image, only_src: true -%}
+                  {%- endif -%}
+                "
+                data-variant-price="{{ variant.price }}"
+                data-variant-title="{{ variant.title }}"
+                {% unless variant.available %}
+                  disabled
+                {% endunless %}
+              >
+                {{ variant.title }}
+                {% if product.price_varies %}
+                  - {{ variant.price | money_without_trailing_zeros }}
+                {% endif %}
+                {% unless variant.available %}({{ 'product.sold_out' | t }}){% endunless %}
+              </option>
+            {% endfor %}
+          {% endif %}
+        </select>
+        {% render 'svg-icons', icon: 'chevron-down', size: 16, stroke_width: 1.5 %}
+      </div>
+      <button
+        class="btn {{ settings.product_card_form_button_style }}"
+        type="submit"
+        {% unless product.available %}
+          disabled
+        {% endunless %}
+      >
+        {% if product.available %}
+          {{ 'general.bundle_builder.add_to_bundle' | t }}
+        {% else %}
+          {{ 'product.sold_out' | t }}
+        {% endif %}
+      </button>
+    </form>
+  </div>
+{% else %}
+  {% liquid
+    assign index = index | modulo: 4
+    if index == 0
+      assign index = 4
+    endif
+  %}
+  <div class="product-card text-{{ settings.product_card_alignment }}">
+    <div class="img-wrapper">
+      {{ 'product-apparel-' | append: index | placeholder_svg_tag: 'placeholder-svg' }}
+    </div>
+    <div class="product-card-inner">
+      <h3 class="heading {{ settings.product_card_heading_size }}">
+        <a href="#">Product {{ index }}</a>
+      </h3>
+      <p class="price">$19.99</p>
+    </div>
+  </div>
+{% endif %}

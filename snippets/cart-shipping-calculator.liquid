@@ -1,0 +1,103 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% if cart.item_count > 0 %}
+  <div
+    id="cart-block-{{ block.id }}"
+    class="cart-block"
+    data-type="{{ block.type }}"
+    data-is-collapse-block="true"
+    {{ block.shopify_attributes }}
+  >
+    <collapse-component>
+      <details>
+        <summary>
+          <span>
+            {% render 'svg-icons', icon: 'truck', size: 16, stroke_width: 1.5 %}
+            {{ block.settings.title }}
+          </span>
+          {% render 'svg-icons', icon: 'chevron-down', size: 16, stroke_width: 1.5 %}
+        </summary>
+        <div class="collapse-content">
+          <div class="collapse-content-inner">
+            <cart-shipping-calculator
+              class="cart-shipping-calculator"
+              data-shopify-common-js="{{ 'shopify_common.js' | shopify_asset_url }}"
+              data-allowed-countries="{{ block.settings.allowed_countries }}"
+            >
+              <form>
+                {% if cart.item_count == 0 %}
+                  <div class="alert fs-sm" role="alert" data-alert-type="error">
+                    {{ 'cart.shipping_calculator.empty_cart_message' | t }}
+                  </div>
+                {% else %}
+                  <div
+                    id="shipping-calculator-alert"
+                    class="alert"
+                    role="alert"
+                    aria-atomic="true"
+                    data-text-no-results="{{ 'cart.shipping_calculator.no_results' | t }}"
+                    hidden
+                  ></div>
+                {% endif %}
+                <div class="form-group">
+                  <label for="shipping-calculator-country" class="fs-sm">
+                    {{ 'cart.shipping_calculator.country' | t }}
+                  </label>
+                  <div class="select-wrapper">
+                    <select
+                      id="shipping-calculator-country"
+                      class="select fs-sm"
+                      autocomplete="country"
+                    >
+                      {{ all_country_option_tags }}
+                    </select>
+                    {% render 'svg-icons', icon: 'chevron-down', size: 16, stroke_width: 1.5 %}
+                  </div>
+                </div>
+                <div
+                  id="shipping-calculator-province-wrapper"
+                  class="form-group"
+                  style="display: none;"
+                >
+                  <label for="shipping-calculator-province" class="fs-sm">
+                    {{ 'cart.shipping_calculator.province' | t }}
+                  </label>
+                  <div class="select-wrapper">
+                    <select
+                      id="shipping-calculator-province"
+                      class="select fs-sm"
+                      autocomplete="address-level1"
+                    ></select>
+                    {% render 'svg-icons', icon: 'chevron-down', size: 16, stroke_width: 1.5 %}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="shipping-calculator-zip" class="fs-sm">
+                    {{ 'cart.shipping_calculator.zip' | t }}
+                  </label>
+                  <input
+                    id="shipping-calculator-zip"
+                    class="input fs-sm"
+                    type="text"
+                    autocomplete="postal-code"
+                  >
+                </div>
+                <button
+                  id="shipping-calculator-btn"
+                  class="btn btn-sm btn-full {{ block.settings.btn_style }}"
+                  data-text="{{ 'cart.shipping_calculator.btn_label' | t }}"
+                  type="submit"
+                >
+                  {{ 'cart.shipping_calculator.btn_label' | t }}
+                </button>
+              </form>
+            </cart-shipping-calculator>
+          </div>
+        </div>
+      </details>
+    </collapse-component>
+  </div>
+{% endif %}

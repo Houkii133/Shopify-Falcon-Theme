@@ -1,0 +1,169 @@
+{
+  "sections": {
+    "91492711-8ea6-4c3d-b346-30c8b72100ec": {
+      "type": "faq",
+      "blocks": {
+        "template--15846749896843__91492711-8ea6-4c3d-b346-30c8b72100ec-item-1": {
+          "type": "item",
+          "settings": {
+            "title": "Where do you ship?",
+            "description": "<p>We ship all around the world... Please provide here you own shipping information, including times, prices, options etc.<\/p>",
+            "page": ""
+          }
+        },
+        "template--15846749896843__91492711-8ea6-4c3d-b346-30c8b72100ec-item-2": {
+          "type": "item",
+          "settings": {
+            "title": "How long will it take to receive my order",
+            "description": "<p>This depends on whether it is an International or a Domestic order. All orders within the U.S. are considered domestic orders and they are shipped and delivered within 2-5 business days. Please see International Orders for more details.<\/p>",
+            "page": ""
+          }
+        },
+        "template--15846749896843__91492711-8ea6-4c3d-b346-30c8b72100ec-item-3": {
+          "type": "item",
+          "settings": {
+            "title": "What payment methods do you support?",
+            "description": "<p>We accept PayPal, Visa, MasterCard, Discover, and American Express but feel free to contact us for other payment options.<\/p>",
+            "page": ""
+          }
+        },
+        "template--15846749896843__91492711-8ea6-4c3d-b346-30c8b72100ec-item-4": {
+          "type": "item",
+          "settings": {
+            "title": "How can I track my order?",
+            "description": "<p>We will send tracking information to the e-mail address associated with your order once the item has shipped. If you have not received your tracking information and it has been over 2 business day, please contact us at (012) 123 - 4567<\/p>",
+            "page": ""
+          }
+        },
+        "template--15846749896843__91492711-8ea6-4c3d-b346-30c8b72100ec-item-5": {
+          "type": "item",
+          "settings": {
+            "title": "Can I order as a gift for someone else?",
+            "description": "<p>When ordering as a gift for someone, be sure to enter in your email address to receive all summary information but enter in the recipient’s name and shipping information. We will be sure to keep all prices and receipts out of the package.<\/p>",
+            "page": ""
+          }
+        },
+        "template--15846749896843__91492711-8ea6-4c3d-b346-30c8b72100ec-item-6": {
+          "type": "item",
+          "settings": {
+            "title": "How can I get a refund for my order?",
+            "description": "<p>If for any reason you are not completely satisfied with your purchase, within 30 days of placing your order, we will refund you for your purchase with no questions asked.<\/p>",
+            "page": ""
+          }
+        },
+        "item_6dejdx": {
+          "type": "item",
+          "settings": {
+            "title": "Can I modify or cancel my order after placing it?",
+            "description": "<p>If your order hasn't shipped yet, contact us as soon as possible and we’ll do our best to help.<\/p>",
+            "page": ""
+          }
+        },
+        "item_iCj4DT": {
+          "type": "item",
+          "settings": {
+            "title": "Do you offer gift cards?",
+            "description": "<p>Yes, digital gift cards are available and can be used for any purchase in our store.<\/p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--15846749896843__91492711-8ea6-4c3d-b346-30c8b72100ec-item-1",
+        "template--15846749896843__91492711-8ea6-4c3d-b346-30c8b72100ec-item-2",
+        "template--15846749896843__91492711-8ea6-4c3d-b346-30c8b72100ec-item-3",
+        "template--15846749896843__91492711-8ea6-4c3d-b346-30c8b72100ec-item-4",
+        "template--15846749896843__91492711-8ea6-4c3d-b346-30c8b72100ec-item-5",
+        "template--15846749896843__91492711-8ea6-4c3d-b346-30c8b72100ec-item-6",
+        "item_6dejdx",
+        "item_iCj4DT"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "container_narrow": true,
+        "header_alignment": "left",
+        "heading": "FAQs",
+        "heading_size": "h1",
+        "description": "<p>Here are some of the most frequently asked questions we receive from our customers.<\/p>",
+        "description_font_size": "fs-md",
+        "open_first": false,
+        "collapse_title_font_size": 100,
+        "collapse_title_text_transform": "capitalize",
+        "collapse_title_letter_spacing": 0,
+        "padding_top": 2,
+        "padding_bottom": 2
+      }
+    },
+    "separator_tJknwr": {
+      "type": "separator",
+      "name": "Separator",
+      "settings": {
+        "color_scheme": "",
+        "line_height": 1,
+        "line_opacity": 25,
+        "line_style": "gradient",
+        "full_width": false,
+        "icon": "leaf-1",
+        "icon_size": 36,
+        "padding_top": 2,
+        "padding_bottom": 2
+      }
+    },
+    "richtext_bUw8Rr": {
+      "type": "richtext",
+      "blocks": {
+        "subheading_E44nyB": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "Optional Subheading",
+            "font_size": "fs-sm"
+          }
+        },
+        "heading_HPpHwV": {
+          "type": "heading",
+          "settings": {
+            "heading": "More Ways To Connect!",
+            "heading_size": "h2"
+          }
+        },
+        "description_YK3fq7": {
+          "type": "description",
+          "settings": {
+            "description": "<p>Take the time to learn about us or drop us an email anytime.<\/p>",
+            "font_size": "fs-lg"
+          }
+        },
+        "buttons_XqB7Vz": {
+          "type": "buttons",
+          "settings": {
+            "primary_btn_text": "About us",
+            "primary_btn_url": "shopify:\/\/pages\/about-us",
+            "primary_btn_style": "btn-primary",
+            "secondary_btn_text": "Contact us",
+            "secondary_btn_url": "shopify:\/\/pages\/contact-us",
+            "secondary_btn_style": "btn-outline"
+          }
+        }
+      },
+      "block_order": [
+        "subheading_E44nyB",
+        "heading_HPpHwV",
+        "description_YK3fq7",
+        "buttons_XqB7Vz"
+      ],
+      "name": "Richtext",
+      "settings": {
+        "color_scheme": "",
+        "container_narrow": true,
+        "text_align": "center",
+        "padding_top": 1,
+        "padding_bottom": 3
+      }
+    }
+  },
+  "order": [
+    "91492711-8ea6-4c3d-b346-30c8b72100ec",
+    "separator_tJknwr",
+    "richtext_bUw8Rr"
+  ]
+}

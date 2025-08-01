@@ -1,0 +1,69 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% if product %}
+  <div 
+    class="product-card text-{{ settings.product_card_alignment }}"
+    data-img-ratio="{{ settings.product_card_img_ratio }}">
+    <div class="product-card-wrapper">
+      <div class="img-wrapper">
+        {% render 'product-card-img', image: product.featured_image %}
+        {% if settings.product_card_img_hover and product.images.size > 1 %}
+          {% render 'product-card-img', image: product.images[1] %}
+        {% endif %}
+        {% render 'product-custom-badge', product: product %}
+        {% render 'product-sale-badge', product: product %}
+        {% if settings.wishlist %}
+          <button
+            class="wishlist-btn"
+            type="button"
+            aria-pressed="false"
+            data-product-handle="{{ product.handle }}"
+          >
+            {% render 'svg-icons', icon: 'heart', size: 18, stroke_width: 1.5 %}
+          </button>
+        {% endif %}
+      </div>
+      <div class="product-card-inner">
+        <h3 class="heading {{ settings.product_card_heading_size }}">
+          <a 
+            href="{{ product.url | within: collection }}"
+            class="product-card-link">
+            <span>{{ product.title }}</span>
+          </a>
+        </h3>
+        {% if settings.product_card_show_vendor %}
+          <p class="vendor fs-xs">
+            {{ product.vendor }}
+          </p>
+        {% endif %}
+        {% if settings.product_card_show_rating %}
+          {% render 'product-rating-badge', product: product %}
+        {% endif %}
+        {% render 'product-card-price', product: product %}
+      </div>
+    </div>
+    {% render 'product-card-color-swatches', product: product %}
+    {% render 'product-card-form', product: product %}
+  </div>
+{% else %}
+  {% liquid
+    assign index = index | modulo: 4
+    if index == 0
+      assign index = 4
+    endif
+  %}
+  <div class="product-card text-{{ settings.product_card_alignment }}">
+    <div class="img-wrapper">
+      {{ 'product-apparel-' | append: index | placeholder_svg_tag: 'placeholder-svg' }}
+    </div>
+    <div class="product-card-inner">
+      <h3 class="heading {{ settings.product_card_heading_size }}">
+        <a href="#">Product {{ index }}</a>
+      </h3>
+      <p class="price">$19.99</p>
+    </div>
+  </div>
+{% endif %}

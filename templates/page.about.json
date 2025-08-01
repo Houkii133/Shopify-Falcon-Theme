@@ -1,0 +1,208 @@
+{
+  "sections": {
+    "parallax_media_hh4nWQ": {
+      "type": "parallax-media",
+      "name": "Parallax media",
+      "settings": {
+        "color_scheme": "",
+        "img_mobile": "shopify:\/\/shop_images\/tamara-bellis-tYnqqEJrRrw-unsplash.jpg",
+        "img_desktop": "shopify:\/\/shop_images\/tamara-bellis-tYnqqEJrRrw-unsplash.jpg",
+        "media_height_mobile": 300,
+        "media_height_desktop": 300,
+        "overlay_color": "#000000",
+        "overlay_opacity": 50,
+        "overlay_blur": 0,
+        "position_mobile": "center",
+        "position_desktop": "center",
+        "subheading": "",
+        "subheading_font_size": "fs-md",
+        "heading": "Welcome To Our Store",
+        "heading_size": "h1",
+        "description": "<p>An optional description for this banner or simply hide all text<\/p>",
+        "description_font_size": "fs-lg",
+        "btn_primary_text": "",
+        "btn_primary_url": "",
+        "btn_primary_style": "btn-primary",
+        "btn_secondary_text": "",
+        "btn_secondary_url": "",
+        "btn_secondary_style": "btn-outline",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "page_content_d3AeL4": {
+      "type": "page-content",
+      "name": "Page content",
+      "settings": {
+        "color_scheme": "",
+        "container_narrow": true,
+        "show_heading": true,
+        "heading_size": "h1",
+        "description_font_size": "fs-md",
+        "padding_top": 2.4,
+        "padding_bottom": 2.4
+      }
+    },
+    "separator_LQpkkH": {
+      "type": "separator",
+      "disabled": true,
+      "name": "Separator",
+      "settings": {
+        "color_scheme": "",
+        "line_height": 1,
+        "line_opacity": 25,
+        "line_style": "gradient",
+        "full_width": false,
+        "icon": "leaf-1",
+        "icon_size": 36,
+        "padding_top": 1,
+        "padding_bottom": 1
+      }
+    },
+    "card_slider_QEdhLQ": {
+      "type": "card-slider",
+      "blocks": {
+        "item_jQQhai": {
+          "type": "item",
+          "settings": {
+            "img": "shopify:\/\/shop_images\/nassim-boughazi-4frKet-PJss-unsplash_63437267-2de0-41b9-876e-9b413ac799b7.jpg",
+            "heading": "John Doe",
+            "description": "<p>CEO & Founder<\/p>",
+            "btn_text": "Learn more",
+            "btn_url": ""
+          }
+        },
+        "item_jP7Lxj": {
+          "type": "item",
+          "settings": {
+            "img": "shopify:\/\/shop_images\/tamara-bellis-HPvN6rs86F0-unsplash.jpg",
+            "heading": "Jane Doe",
+            "description": "<p>Marking<\/p>",
+            "btn_text": "Learn more",
+            "btn_url": ""
+          }
+        },
+        "item_tTmr7E": {
+          "type": "item",
+          "settings": {
+            "img": "shopify:\/\/shop_images\/nassim-boughazi-4frKet-PJss-unsplash.jpg",
+            "heading": "Jim Doe",
+            "description": "<p>Sales<\/p>",
+            "btn_text": "Learn more",
+            "btn_url": ""
+          }
+        },
+        "item_TAfGYD": {
+          "type": "item",
+          "settings": {
+            "img": "shopify:\/\/shop_images\/tamara-bellis-IwVRO3TLjLc-unsplash.jpg",
+            "heading": "Jill Doe",
+            "description": "<p>Developer<\/p>",
+            "btn_text": "Learn more",
+            "btn_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "item_jQQhai",
+        "item_jP7Lxj",
+        "item_tTmr7E",
+        "item_TAfGYD"
+      ],
+      "name": "Card slider",
+      "settings": {
+        "color_scheme": "",
+        "full_width": false,
+        "header_alignment": "left",
+        "heading": "Our Team",
+        "heading_size": "h3",
+        "description": "<p>An optional description for this section<\/p>",
+        "description_font_size": "fs-md",
+        "carousel_mobile_cols": 1,
+        "carousel_desktop_cols": 4,
+        "carousel_mobile_stack": false,
+        "carousel_desktop_stack": true,
+        "carousel_controls_style": "outline",
+        "show_controls_on_mobile": false,
+        "show_pagination": true,
+        "item_color_scheme": "",
+        "item_border": true,
+        "item_shadow": false,
+        "item_text_align": "left",
+        "item_img_ratio": "16x9",
+        "item_heading_size": "fs-xl",
+        "item_description_font_size": "fs-md",
+        "item_btn_style": "btn-outline",
+        "padding_top": 2,
+        "padding_bottom": 2
+      }
+    },
+    "richtext_GfWwzm": {
+      "type": "richtext",
+      "blocks": {
+        "image_ipNCaN": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "max_width": "",
+            "url": ""
+          }
+        },
+        "subheading_4VhgLK": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "Optional Subtitle",
+            "font_size": "fs-sm"
+          }
+        },
+        "heading_HY3HJY": {
+          "type": "heading",
+          "settings": {
+            "heading": "Want to get in touch?!",
+            "heading_size": "h2"
+          }
+        },
+        "description_n6rmFh": {
+          "type": "description",
+          "settings": {
+            "description": "<p>Please contact us anytime from Monday to Friday<\/p>",
+            "font_size": "fs-lg"
+          }
+        },
+        "buttons_967Bem": {
+          "type": "buttons",
+          "settings": {
+            "primary_btn_text": "Contact us",
+            "primary_btn_url": "shopify:\/\/pages\/contact-us",
+            "primary_btn_style": "btn-primary",
+            "secondary_btn_text": "Read FAQ",
+            "secondary_btn_url": "shopify:\/\/pages\/faqs",
+            "secondary_btn_style": "btn-outline"
+          }
+        }
+      },
+      "block_order": [
+        "image_ipNCaN",
+        "subheading_4VhgLK",
+        "heading_HY3HJY",
+        "description_n6rmFh",
+        "buttons_967Bem"
+      ],
+      "name": "Richtext",
+      "settings": {
+        "color_scheme": "",
+        "container_narrow": true,
+        "text_align": "center",
+        "padding_top": 3,
+        "padding_bottom": 3
+      }
+    }
+  },
+  "order": [
+    "parallax_media_hh4nWQ",
+    "page_content_d3AeL4",
+    "separator_LQpkkH",
+    "card_slider_QEdhLQ",
+    "richtext_GfWwzm"
+  ]
+}

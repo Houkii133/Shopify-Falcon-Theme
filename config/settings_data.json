@@ -1,0 +1,249 @@
+{
+  "current": {
+    "container_max_width": 1400,
+    "border_radius": 0,
+    "border_opacity": 100,
+    "wishlist": true,
+    "scroll_animations": true,
+    "cart_icon": "cart",
+    "font_headings": "assistant_n4",
+    "font_headings_size": 1,
+    "font_body": "assistant_n4",
+    "logo": "shopify:\/\/shop_images\/logo.png",
+    "favicon": "shopify:\/\/shop_images\/logo-icon.png",
+    "product_card_color_scheme": "scheme-1",
+    "product_card_style": "default",
+    "product_card_alignment": "left",
+    "product_card_img_ratio": "square",
+    "product_card_img_hover": true,
+    "product_card_show_form": true,
+    "product_card_atc_style": "variant_selector",
+    "product_card_form_button_style": "btn-outline",
+    "social_facebook": "#",
+    "social_instagram": "#",
+    "social_x": "#",
+    "social_tiktok": "#",
+    "social_youtube": "#",
+    "social_linkedin": "#",
+    "social_threads": "",
+    "dialog_color_scheme": "scheme-1",
+    "dialog_border_opacity": 100,
+    "dialog_backdrop_color": "text",
+    "sections": {
+      "cart-drawer": {
+        "type": "cart-drawer",
+        "blocks": {
+          "announcement_FVX63K": {
+            "type": "announcement",
+            "settings": {
+              "announcement": "<p>10% OFF for your first order. Use code <strong>NEW10<\/strong><\/p>",
+              "color_scheme": "scheme-5",
+              "font_size": "fs-sm",
+              "padding_top": 0,
+              "padding_bottom": 0.6
+            }
+          },
+          "goal_BPM4nA": {
+            "type": "goal",
+            "settings": {
+              "color": "#9e0812",
+              "progress_height": 8,
+              "desc_completed": "<p>Congrats! You're eligible for <strong>ALL OFFERINGS.<\/strong><\/p>",
+              "goal_one_value": "USD:100, EUR:90, GBP:80",
+              "goal_one_title": "Free Shipping",
+              "goal_one_icon": "truck",
+              "goal_one_desc": "<p>You're <strong>[amount]<\/strong> away from <strong>FREE SHIPPING!<\/strong><\/p>",
+              "goal_two_value": "USD:200, EUR:180, GBP:160",
+              "goal_two_title": "Free Gift",
+              "goal_two_icon": "gift",
+              "goal_two_desc": "<p>You're <strong>[amount]<\/strong> away from a <strong>FREE GIFT!<\/strong><\/p>",
+              "goal_three_value": "USD:300, EUR:270, GBP:240",
+              "goal_three_title": "30% Off",
+              "goal_three_icon": "percent",
+              "goal_three_desc": "<p>You're <strong>[amount]<\/strong> away from <strong>30% OFF!<\/strong><\/p>",
+              "padding_top": 0,
+              "padding_bottom": 1.8
+            }
+          },
+          "items_g4pGFi": {
+            "type": "items",
+            "settings": {
+              "variant_switcher": true,
+              "upgrade_to_sub": true,
+              "low_stock_threshold": 5,
+              "padding_top": 0,
+              "padding_bottom": 1.2
+            }
+          },
+          "upsells_CVyBeN": {
+            "type": "upsells",
+            "settings": {
+              "heading": "You may like...",
+              "collection": "best-selling",
+              "limit": 5,
+              "show_rating": true,
+              "btn_style": "btn-outline"
+            }
+          },
+          "note_eTrLYA": {
+            "type": "note",
+            "settings": {
+              "title": "Add a note to your order",
+              "btn_style": "btn-outline"
+            }
+          },
+          "discount_form_rTqdX9": {
+            "type": "discount_form",
+            "settings": {
+              "title": "Apply a discount code",
+              "btn_style": "btn-outline"
+            }
+          },
+          "gift_upsell_AiTzBB": {
+            "type": "gift_upsell",
+            "settings": {
+              "product": "gift-wrap",
+              "title": "Add gift wrapping",
+              "description": "<p>Wrap as gifts the items in the cart for only <strong>only [price]<\/strong><\/p>",
+              "btn_style": "btn-outline"
+            }
+          },
+          "shipping_calculator_RpBtbJ": {
+            "type": "shipping_calculator",
+            "settings": {
+              "title": "Calculate shipping",
+              "btn_style": "btn-outline",
+              "allowed_countries": "United States, Canada, United Kingdom, Australia, Germany, France, Italy, Spain, Netherlands"
+            }
+          },
+          "delivery_calendar_CNcbkK": {
+            "type": "delivery_date",
+            "settings": {
+              "title": "Select a delivery date",
+              "min_days": 0
+            }
+          }
+        },
+        "block_order": [
+          "announcement_FVX63K",
+          "goal_BPM4nA",
+          "items_g4pGFi",
+          "upsells_CVyBeN",
+          "note_eTrLYA",
+          "discount_form_rTqdX9",
+          "gift_upsell_AiTzBB",
+          "shipping_calculator_RpBtbJ",
+          "delivery_calendar_CNcbkK"
+        ],
+        "settings": {
+          "dynamic_buttons": false,
+          "taxes_shipping": true,
+          "continue_btn": false,
+          "payment_icons": true
+        }
+      },
+      "wishlist-drawer": {
+        "type": "wishlist-drawer",
+        "settings": {}
+      },
+      "newsletter-popup-modal": {
+        "type": "newsletter-popup-modal",
+        "settings": {
+          "enable_section": true,
+          "config_delay": 5,
+          "config_days_to_wait": 3,
+          "config_path": "newsletter-popup",
+          "color_scheme": "scheme-1",
+          "max_width": "600",
+          "img": "shopify:\/\/shop_images\/tamara-bellis-HPvN6rs86F0-unsplash.jpg",
+          "img_height": "260",
+          "header_alignment": "center",
+          "heading": "Newsletter Subscribe",
+          "heading_size": "h3",
+          "description": "<p>Be the first to know about our latest offers<\/p>",
+          "description_font_size": "fs-md",
+          "btn_style": "text",
+          "notice": "<p>By signing up for email, you agree to our <a href=\"\/policies\/terms-of-service\">Terms of Service<\/a> and <a href=\"\/policies\/privacy-policy\">Privacy Policy<\/a>.<\/p>"
+        }
+      }
+    },
+    "content_for_index": [],
+    "blocks": {
+      "1768834845299682660": {
+        "type": "shopify:\/\/apps\/subscriptions\/blocks\/app-embed-block\/a3bfe9ec-96f8-4508-a003-df608a36d2ad",
+        "disabled": true,
+        "settings": {
+          "color_text_title": "#6D7175",
+          "color_text_body": "#6D7175",
+          "dividers_color": "#8F8D8D",
+          "bacgkround_color": "#FFFFFF",
+          "border_thickness": 1,
+          "border_radius": 0,
+          "subscription_policy_url": ""
+        }
+      },
+      "14060646107696862457": {
+        "type": "shopify:\/\/apps\/judge-me-reviews\/blocks\/judgeme_core\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+        "disabled": false,
+        "settings": {}
+      }
+    },
+    "color_schemes": {
+      "scheme-1": {
+        "settings": {
+          "background": "#ffffff",
+          "background_gradient": "",
+          "text": "#020617",
+          "accent": "#9e0812",
+          "btn_background": "#020617",
+          "btn_text": "#ffffff",
+          "btn_border": "#020617"
+        }
+      },
+      "scheme-2": {
+        "settings": {
+          "background": "#f7fafb",
+          "background_gradient": "",
+          "text": "#020617",
+          "accent": "#9e0812",
+          "btn_background": "#020617",
+          "btn_text": "#ffffff",
+          "btn_border": "#020617"
+        }
+      },
+      "scheme-3": {
+        "settings": {
+          "background": "#020617",
+          "background_gradient": "",
+          "text": "#ffffff",
+          "accent": "#fad5d5",
+          "btn_background": "#ffffff",
+          "btn_text": "#020617",
+          "btn_border": "#ffffff"
+        }
+      },
+      "scheme-4": {
+        "settings": {
+          "background": "#9e0812",
+          "background_gradient": "",
+          "text": "#ffffff",
+          "accent": "#fad5d5",
+          "btn_background": "#ffffff",
+          "btn_text": "#9e0812",
+          "btn_border": "#ffffff"
+        }
+      },
+      "scheme-5": {
+        "settings": {
+          "background": "#b38970",
+          "background_gradient": "",
+          "text": "#ffffff",
+          "accent": "#f9eae1",
+          "btn_background": "#ffffff",
+          "btn_text": "#b38970",
+          "btn_border": "#ffffff"
+        }
+      }
+    }
+  }
+}

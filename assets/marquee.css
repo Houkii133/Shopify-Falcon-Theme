@@ -1,0 +1,123 @@
+/*
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+*/
+
+.marquee {
+  background-color: rgba(var(--color-background));
+  background-image: var(--color-background-gradient, none);
+  color: rgba(var(--color-text));
+  text-transform: var(--text-transform);
+  letter-spacing: var(--letter-spacing);
+  position: relative;
+  display: block;
+  border-top: 1px solid rgba(var(--color-text), var(--border-opacity));
+  border-bottom: 1px solid rgba(var(--color-text), var(--border-opacity));
+  opacity: 1;
+}
+
+.marquee-wrapper {
+  overflow: hidden;
+  display: flex;
+}
+
+[data-design-mode="false"] .marquee-wrapper {
+  opacity: 0;
+  animation: marquee_init 0.4s ease-out both;
+}
+
+@keyframes marquee_init {
+  to {
+    opacity: 1;
+  }
+}
+
+.marquee-list {
+  margin: 0;
+  list-style: none;
+  display: inline-flex;
+  align-items: center;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  padding: 0;
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-list {
+    animation: none;
+  }
+}
+
+.marquee-list:hover {
+  animation-play-state: paused;
+}
+
+.marquee-list li {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s ease-out;
+}
+
+.marquee-list li span {
+  display: inline-flex;
+}
+
+.marquee-list li a {
+  transition: all 0.2s ease-out;
+  text-decoration: none;
+  color: currentColor;
+  display: inline-flex;
+}
+
+.marquee-list li a:hover,
+.marquee-list li a:focus {
+  opacity: 0.75;
+}
+
+.marquee-list li img {
+  transition: all 0.2s ease-out;
+}
+
+.marquee-list li a:hover img,
+.marquee-list li a:focus img {
+  transform: scale(1.1);
+}
+
+.marquee-separator-icon {
+  display: flex;
+}
+
+.marquee-separator-icon svg {
+  width: 1.15em;
+  height: 1.15em;
+}
+
+@media (max-width: 599px) {
+  .marquee {
+    font-size: calc(var(--font-size) * 0.9);
+    padding-top: calc(var(--padding-top) * 0.75);
+    padding-bottom: calc(var(--padding-bottom) * 0.75);
+  }
+  .marquee-list {
+    gap: calc(var(--gap) * 0.75);
+  }
+  .marquee-separator-icon {
+    margin-left: calc(var(--gap) * 0.75);
+  }
+}
+
+@media (min-width: 600px) {
+  .marquee {
+    font-size: calc(var(--font-size) * 1);
+    padding-top: calc(var(--padding-top) * 1);
+    padding-bottom: calc(var(--padding-bottom) * 1);
+  }
+  .marquee-list {
+    gap: calc(var(--gap) * 1);
+  }
+  .marquee-separator-icon {
+    margin-left: calc(var(--gap) * 1);
+  }
+}

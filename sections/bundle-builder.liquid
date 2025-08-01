@@ -1,0 +1,570 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% if section.index <= 3 or request.design_mode %}
+  <link href="{{ 'bundle-builder.css' | asset_url }}" rel="stylesheet" fetchpriority="high">
+  <script src="{{ 'bundle-builder.js' | asset_url }}" defer></script>
+{% endif %}
+
+{% liquid
+  if section.settings.collection == blank
+    assign products = section.settings.products
+  else
+    assign products = collections[section.settings.collection].products
+  endif
+
+  if section.settings.bundle_mode == 'amount'
+    assign bundle_tiers = section.settings.bundle_amount_tiers | split: ';'
+    assign max_tier_value = bundle_tiers | last | split: ':' | first | times: 100
+  else
+    assign bundle_tiers = section.settings.bundle_quantity_tiers | split: ';'
+    assign max_tier_value = bundle_tiers | last | split: ':' | first
+  endif
+%}
+
+<bundle-builder
+  id="bundle-builder-{{ section.id }}"
+  class="bundle-builder {{ section.settings.color_scheme | prepend: 'color-' }}"
+  style="
+    --padding-top: {{ section.settings.padding_top | append: 'rem' }};
+    --padding-bottom: {{ section.settings.padding_bottom | append: 'rem' }};
+  "
+  data-viewport-entered="false"
+  data-section-css="{{- 'bundle-builder.css' | asset_url -}}"
+  data-section-js="{{- 'bundle-builder.js' | asset_url -}}"
+  data-cart-url="{{ routes.cart_url }}"
+  data-bundle-id="{{ section.id }}"
+  data-bundle-mode="{{ section.settings.bundle_mode }}"
+  data-bundle-amount-tiers="{{ section.settings.bundle_amount_tiers | strip_newlines }}"
+  data-bundle-quantity-tiers="{{ section.settings.bundle_quantity_tiers | strip_newlines }}"
+  data-bundle-checkout-mode="{{ section.settings.bundle_checkout_mode }}"
+  data-max-tier-value="{{ max_tier_value }}"
+  data-bundle-min="{{ section.settings.bundle_min }}"
+  data-bundle-max="{{ section.settings.bundle_max}}"
+  data-img-ratio="{{ settings.product_card_img_ratio }}"
+  data-text-add-to-bundle="{{ 'general.bundle_builder.add_to_bundle' | t }}"
+  data-text-added-to-bundle="{{ 'general.bundle_builder.added_to_bundle' | t }}"
+  data-text-promo-amount-html="{{ 'general.bundle_builder.promo_amount_html' | t }}"
+  data-text-promo-quantity-html="{{ 'general.bundle_builder.promo_quantity_html' | t }}"
+  data-text-promo-final-html="{{ 'general.bundle_builder.promo_final_html' | t }}"
+>
+  <div class="container {% if section.settings.full_width %}container-full{% endif %}">
+    {% unless section.settings.heading == blank %}
+      <header class="section-header scroll-animate-fade-in-up text-{{ section.settings.header_alignment }}">
+        {% unless section.settings.heading == blank %}
+          <h2
+            id="heading-{{ section.id }}"
+            class="heading {{ section.settings.heading_size }}"
+          >
+            {{ section.settings.heading }}
+          </h2>
+        {% endunless %}
+        {% if section.settings.description_from_collection and section.settings.collection != blank %}
+          <div class="description rte {{ section.settings.description_font_size }}">
+            {{ section.settings.collection.description }}
+          </div>
+        {% elsif section.settings.description != blank %}
+          <div class="description rte {{ section.settings.description_font_size }}">
+            {{ section.settings.description }}
+          </div>
+        {% endif %}
+      </header>
+    {% endunless %}
+    <div class="bundle-builder-inner">
+      <ul
+        class="product-grid"
+        style="
+          --mobile-cols: {{ section.settings.mobile_cols }};
+          --tablet-cols: {{ section.settings.tablet_cols }};
+          --desktop-cols: {{ section.settings.desktop_cols }};
+        "
+        data-product-card-style="{{ settings.product_card_style }}"
+        data-product-card-alignment="{{ settings.product_card_alignment }}"
+        data-product-card-heading-font="{{ settings.product_card_heading_font }}"
+        aria-labelledby="collection-heading-{{ collection.id }}"
+      >
+        {% for product in products limit: section.settings.limit %}
+          <li
+            class="product-item scroll-animate-fade-in-up"
+            style="animation-delay: {{ forloop.index0 | times: 100 }}ms"
+          >
+            {% render 'bundle-product-card', product: product %}
+          </li>
+        {% else %}
+          {% for index in (1..section.settings.limit) %}
+            <li
+              class="product-item scroll-animate-fade-in-up"
+              style="animation-delay: {{ forloop.index0 | times: 100 }}ms"
+            >
+              {% render 'bundle-product-card', index: index %}
+            </li>
+          {% endfor %}
+        {% endfor %}
+      </ul>
+      <div class="">
+        <div class="bundle-builder-card card scroll-animate-fade-in-up {{ section.settings.card_color_scheme | prepend: 'color-' }}">
+          <h3 class="heading card-heading {{ section.settings.card_heading_size }}">
+            {{ section.settings.card_heading }}
+          </h3>
+          <div class="card-body">
+            <div 
+              class="bundle-builder-progress progress" 
+              style="--height: 8px;">
+              <div 
+                class="progress-bar progress-bar-animated progress-bar-striped bg-#9e0812" 
+                role="progressbar" 
+                aria-valuenow="0" 
+                aria-valuemin="0" 
+                aria-valuemax="100"
+                style="width: 0%;">
+              </div>
+              <ul
+                class="small" 
+                aria-label="{{ 'general.bundle_builder.bundle_tiers' | t }}">
+                {% for tier in bundle_tiers %}
+                  {% liquid 
+                    if section.settings.bundle_mode == 'amount'
+                      assign tier_value = tier | split: ':' | first | times: 100 | money_without_trailing_zeros
+                      assign tier_discount = tier | split: ':' | last
+                      assign tier_left = tier | split: ':' | first | times: 100.0 | divided_by: max_tier_value | times: 100 | round
+                    else
+                      assign tier_value =  tier | split: ':' | first 
+                      assign tier_discount = tier | split: ':' | last
+                      assign tier_left = tier | split: ':' | first | times: 1.0 | divided_by: max_tier_value | times: 100 | round
+                    endif
+                  %}
+                  <li style="left: {{ tier_left | append: '%' }};">
+                    <span>
+                      {{ tier_value }}
+                    </span>
+                    <span></span>
+                    <span>
+                      {{ tier_discount | append: '%' }}
+                    </span>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+            <p 
+              class="bundle-builder-promo-text"
+              role="status" 
+              aria-atomic="true" 
+              aria-live="polite">
+              -
+            </p>
+            <hr>
+            <p class="bundle-builder-subtotal fs-lg" role="status" aria-atomic="true" aria-live="polite">
+              <span> 
+                {{ 'general.bundle_builder.subtotal' | t }}
+              </span>
+              <span data-bundle-builder-subtotal>-</span>
+            </p>
+            <p class="bundle-builder-savings">
+              <span> 
+                {{ 'general.bundle_builder.savings' | t }}
+              </span>
+              <span data-bundle-builder-savings>-</span>
+            </p>
+            <button 
+              class="btn btn-outline"
+              data-open-dialog="bundle-builder-contents-modal-{{ section.id }}"
+              data-bundle-builder-btn-view-contents
+              aria-controls="bundle-builder-contents-modal-{{ section.id }}"
+              aria-haspopup="dialog">
+              {{ 'general.bundle_builder.btn_view_contents' | t }}
+            </button>
+            {% if section.settings.bundle_checkout_mode == 'cart' %}
+              <button 
+                class="btn btn-primary"
+                data-bundle-builder-btn-action
+                data-bundle-builder-btn-add-to-cart>
+                {{ 'general.bundle_builder.btn_add_to_cart' | t }}
+              </button>
+            {% else %}
+              <button 
+                class="btn btn-primary"
+                data-bundle-builder-btn-action
+                data-bundle-builder-btn-checkout>
+                {{ 'general.bundle_builder.btn_checkout' | t }}
+              </button>
+            {% endif %}
+            {% if section.settings.bundle_min > 0 or section.settings.bundle_max > 0 %}
+              <ul class="bundle-builder-text-min-max fs-sm">
+                {% if section.settings.bundle_min > 0 %}
+                  <li>
+                    {{ 'general.bundle_builder.text_min_items_html' | t: count: section.settings.bundle_min }}
+                  </li>
+                {% endif %}
+                {% if section.settings.bundle_max > 0 %}
+                  <li>
+                    {{ 'general.bundle_builder.text_max_items_html' | t: count: section.settings.bundle_max }}
+                  </li>
+                {% endif %}
+              </ul>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div 
+    class="bundle-builder-card bundle-builder-sticky-card-mobile card {{ section.settings.card_color_scheme | prepend: 'color-' }}"
+    aria-label="{{ section.settings.card_heading }}">
+    <div class="card-body">
+      <p 
+        class="bundle-builder-subtotal fs-lg">
+        <span> 
+          {{ 'general.bundle_builder.subtotal' | t }}
+        </span>
+        <span data-bundle-builder-subtotal>-</span>
+      </p>
+      <p class="bundle-builder-savings">
+        <span> 
+          {{ 'general.bundle_builder.savings' | t }}
+        </span>
+        <span data-bundle-builder-savings>-</span>
+      </p>
+      <button 
+        class="btn btn-outline"
+        data-open-dialog="bundle-builder-contents-modal-{{ section.id }}"
+        data-bundle-builder-btn-view-contents
+        aria-controls="bundle-builder-contents-modal-{{ section.id }}"
+        aria-haspopup="dialog">
+        {{ 'general.bundle_builder.btn_view_contents' | t }}
+      </button>
+      {% if section.settings.bundle_checkout_mode == 'cart' %}
+        <button 
+          class="btn btn-primary"
+          data-bundle-builder-btn-action
+          data-bundle-builder-btn-add-to-cart>
+          {{ 'general.bundle_builder.btn_add_to_cart' | t }}
+        </button>
+      {% else %}
+        <button 
+          class="btn btn-primary"
+          data-bundle-builder-btn-action
+          data-bundle-builder-btn-checkout>
+          {{ 'general.bundle_builder.btn_checkout' | t }}
+        </button>
+      {% endif %}
+    </div>
+  </div>
+
+  <dialog
+    id="bundle-builder-contents-modal-{{ section.id }}"
+    class="dialog modal bundle-builder-contents-modal"
+    aria-labelledby="bundle-builder-contents-modal-title-{{ section.id }}"
+  >
+    <dialog-component class="dialog-inner">
+      <div class="dialog-header">
+        <h2 id="bundle-builder-contents-modal-title-{{ section.id }}" class="dialog-title">
+          {{ 'general.bundle_builder.contents_modal_title' | t }}
+          (<span data-bundle-builder-item-count>0</span>)
+        </h2>
+        <button
+          class="dialog-close"
+          data-dialog-close
+          aria-label="{{ 'accessibility.close' | t }}"
+        >
+          {% render 'svg-icons', icon: 'x', size: 20, stroke_width: 1.5 %}
+        </button>
+      </div>
+      <div class="dialog-body">
+        <div class="bundle-builder-contents-empty rte" hidden>
+          {{ 'general.bundle_builder.contents_modal_empty_html' | t }}
+        </div>
+        <ul class="bundle-builder-contents-list list-unstyled" hidden>
+        </ul>
+      </div>
+      <div class="dialog-footer">
+        <p class="bundle-builder-subtotal fs-lg" role="status" aria-atomic="true" aria-live="polite">
+          <span> 
+            {{ 'general.bundle_builder.subtotal' | t }}
+          </span>
+          <span data-bundle-builder-subtotal>-</span>
+        </p>
+        <p class="bundle-builder-savings">
+          <span> 
+            {{ 'general.bundle_builder.savings' | t }}
+          </span>
+          <span data-bundle-builder-savings>-</span>
+        </p>
+        {% if section.settings.bundle_checkout_mode == 'cart' %}
+          <button 
+            class="btn btn-primary"
+            data-bundle-builder-btn-action
+            data-bundle-builder-btn-add-to-cart>
+            {{ 'general.bundle_builder.btn_add_to_cart' | t }}
+          </button>
+        {% else %}
+          <button 
+            class="btn btn-primary"
+            data-bundle-builder-btn-action
+            data-bundle-builder-btn-checkout>
+            {{ 'general.bundle_builder.btn_checkout' | t }}
+          </button>
+        {% endif %}
+      </div>
+    </dialog-component>
+  </dialog>
+
+</bundle-builder>
+
+
+{% schema %}
+{
+  "name": "Bundle builder",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Products"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "product_list",
+      "id": "products",
+      "label": "Products",
+      "info": "Select individual products to display. If you select a collection, this will be ignored."
+    },
+    {
+      "type": "range",
+      "id": "limit",
+      "label": "Limit products",
+      "min": 2,
+      "max": 50,
+      "default": 16,
+      "step": 1
+    },
+    {
+      "type": "header",
+      "content": "Bundle"
+    },
+    {
+      "type": "select",
+      "id": "bundle_mode",
+      "label": "Bundle mode",
+      "default": "amount",
+      "options": [
+        { "value": "amount", "label": "Amount" },
+        { "value": "quantity", "label": "Quantity" }
+      ],
+      "info": "Choose how the bundle is calculated. 'Amount' will calculate based on the total price of the products, while 'Quantity' will calculate based on the number of products in the bundle."
+    },
+    {
+      "type": "textarea",
+      "id": "bundle_amount_tiers",
+      "label": "Bundle amount tiers",
+      "default": "100:10; 200:20; 300:30",
+      "info": "Define the bundle tiers in the format 'amount:discount; amount:discount'. For example, '100:10; 200:20; 300:30' means $100 gets $10 off, $200 gets $20 off, and $300 gets $30 off.",
+      "visible_if": "{{ section.settings.bundle_mode == 'amount' }}"
+    },
+    {
+      "type": "textarea",
+      "id": "bundle_quantity_tiers",
+      "label": "Bundle quantity tiers",
+      "default": "2:10; 3:20; 4:30",
+      "info": "Define the bundle tiers in the format 'quantity:discount; quantity:discount'. For example, '2:10; 3:20; 4:30' means 2 products get $10 off, 3 products get $20 off, and 4 products get $30 off.",
+      "visible_if": "{{ section.settings.bundle_mode == 'quantity' }}"
+    },
+    {
+      "type": "range",
+      "id": "bundle_min",
+      "label": "Bundle min products",
+      "info": "Minimum number of products required in the bundle. Set to 0 for no minimum.",
+      "min": 0,
+      "max": 20,
+      "default": 0,
+      "step": 1
+    },
+    {
+      "type": "range",
+      "id": "bundle_max",
+      "label": "Bundle max products",
+      "info": "Maximum number of products allowed in the bundle. Set to 0 for no maximum.",
+      "min": 0,
+      "max": 20,
+      "default": 0,
+      "step": 1
+    },
+    {
+      "type": "select",
+      "id": "bundle_checkout_mode",
+      "label": "Bundle checkout mode",
+      "default": "cart",
+      "options": [
+        { "value": "cart", "label": "Add to cart" },
+        { "value": "checkout", "label": "Direct checkout" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text_alignment",
+      "id": "header_alignment",
+      "label": "Alignment",
+      "default": "left"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Bundle Builder",
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "default": "h3",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" },
+        { "value": "h5", "label": "H5" },
+        { "value": "h6", "label": "H6" }
+      ]
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description (optional)",
+      "default": "<p>An optional description for this section</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "description_from_collection",
+      "label": "Use collection description",
+      "default": false,
+      "info": "If checked, the collection description will be used instead of the one above."
+    },
+    {
+      "type": "select",
+      "id": "description_font_size",
+      "label": "Description font-size",
+      "default": "fs-md",
+      "options": [
+        { "value": "fs-sm", "label": "sm" },
+        { "value": "fs-md", "label": "md" },
+        { "value": "fs-lg", "label": "lg" },
+        { "value": "fs-xl", "label": "xl" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Columns"
+    },
+    {
+      "type": "range",
+      "id": "mobile_cols",
+      "label": "Mobile",
+      "info": "< 600px",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "tablet_cols",
+      "label": "Tablet",
+      "info": "600px - 1199px",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "desktop_cols",
+      "label": "Desktop columns",
+      "info": ">= 1200px",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Bundle Card"
+    },
+    {
+      "type": "color_scheme",
+      "id": "card_color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "card_heading",
+      "label": "Heading",
+      "default": "My Bundle",
+    },
+    {
+      "type": "select",
+      "id": "card_heading_size",
+      "label": "Heading size",
+      "default": "h5",
+      "options": [
+        { "value": "h4", "label": "H4" },
+        { "value": "h5", "label": "H5" },
+        { "value": "h6", "label": "H6" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 2,
+      "unit": "rem"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 2,
+      "unit": "rem"
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "presets": [
+    {
+      "name": "Bundle builder",
+      "category": "Products"
+    }
+  ]
+}
+{% endschema %}

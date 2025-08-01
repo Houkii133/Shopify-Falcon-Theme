@@ -1,0 +1,30 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% unless settings.product_card_custom_badge == blank %}
+  {% liquid
+    assign metafield_namespace = settings.product_card_custom_badge | split: '.' | first
+    assign metafield_key = settings.product_card_custom_badge | split: '.' | last
+    assign custom_badge = product.metafields[metafield_namespace][metafield_key].value
+  %}
+  {% if custom_badge %}
+    {% liquid
+      assign custom_badge_text = custom_badge | split: '|' | first
+      if custom_badge contains '|'
+        assign custom_badge_color = custom_badge | split: '|' | last
+      else
+        assign custom_badge_color = null
+      endif
+    %}
+    <span
+      class="badge badge-custom"
+      {%- if custom_badge_color -%}
+        style="background-color: {{ custom_badge_color }}; color: white;"
+      {%- endif -%}
+    >
+      {{ custom_badge_text }}
+    </span>
+  {% endif %}
+{% endunless %}

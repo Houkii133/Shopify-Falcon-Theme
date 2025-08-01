@@ -1,0 +1,327 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+
+  TODO: Test acceessibility
+{% endcomment %}
+
+{% if section.index <= 3 or request.design_mode %}
+  <link href="{{ 'lookbook.css' | asset_url }}" rel="stylesheet" fetchpriority="high">
+  <script src="{{ 'lookbook.js' | asset_url }}" defer></script>
+{% endif %}
+
+{% liquid 
+  if section.index > 1
+    assign loading = 'lazy'
+    assign fetchpriority = 'low'
+  else
+    assign loading = 'eager'
+    assign fetchpriority = 'high'
+  endif
+%}
+
+<look-book
+  id="lookbook-{{ section.id }}" 
+  class="lookbook {{ section.settings.color_scheme | prepend: 'color-' }}"
+  style="
+    --padding-top: {{ section.settings.padding_top | append: 'rem' }};
+    --padding-bottom: {{ section.settings.padding_bottom | append: 'rem' }};
+  "
+  data-section-css="{{ 'lookbook.css' | asset_url }}"
+  data-section-js="{{ 'lookbook.js' | asset_url }}"
+  data-viewport-entered="false"
+>
+  <div class="container {% if section.settings.container_narrow %}container-narrow{% endif %}">
+    {% unless section.settings.heading == blank %}
+      <header class="section-header scroll-animate-fade-in-up text-{{ section.settings.header_alignment }}">
+        {% unless section.settings.heading == blank %}
+          <h2
+            id="heading-{{ section.id }}"
+            class="heading {{ section.settings.heading_size }}"
+          >
+            {{ section.settings.heading }}
+          </h2>
+        {% endunless %}
+        {% unless section.settings.description == blank %}
+          <div class="description rte {{ section.settings.description_font_size }}">
+            {{ section.settings.description }}
+          </div>
+        {% endunless %}
+      </header>
+    {% endunless %}
+    <div class="img-wrapper scroll-animate-fade-in-up">
+      {% if section.settings.img != blank %}
+        <picture>
+          {% if section.settings.img_mobile == blank %}
+            <source
+              media="(max-width: 599px)"
+              srcset="{{ section.settings.img | image_url: width: 800 }}"
+              sizes="100vw"
+            >
+            {% else %}
+              <source
+                media="(max-width: 599px)"
+                srcset="{{ section.settings.img_mobile | image_url: width: 800 }}"
+                sizes="100vw"
+              >
+            {% endif %}
+          <img
+            src="{{ section.settings.img | image_url: width: 1600 }}"
+            sizes="100vw"
+            alt="{{ section.settings.img.alt }}"
+            width="1600"
+            height="{{ 1600 | divided_by: section.settings.img.aspect_ratio | round }}"
+            loading="{{ loading }}"
+            fetchpriority="{{ fetchpriority }}"
+          >
+        </picture>
+      {% else %}
+        {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      {% endif %}
+      <ul 
+        class="lookbook-points"
+        aria-label="Lookbook points"> 
+        {% for block in section.blocks %}
+          {% assign product = block.settings.product | default: null %}
+          <li 
+            class="lookbook-points-item" 
+            {{ block.shopify_attributes }}>
+            <button 
+              class="{% if forloop.first %}active{% endif %}" 
+              data-index="{{ forloop.index0 }}"
+              style="
+                --position-mobile-left: {{ block.settings.mobile_pos_left | append: '%' }};
+                --position-mobile-top: {{ block.settings.mobile_pos_top | append: '%' }};
+                --position-desktop-left: {{ block.settings.desktop_pos_left | append: '%' }};
+                --position-desktop-top: {{ block.settings.desktop_pos_top | append: '%' }};
+                --point-color: {{ section.settings.point_color | color_to_rgb | remove: 'rgb(' | remove: ')' }};
+                --point-diameter: {{ section.settings.point_diameter | append: 'rem' }};
+              "
+              {% if product %}
+                {% if block.settings.product_link_style == 'quick_view' %}
+                  name="quick-view"
+                  data-product-url="{{ product.url }}"
+                  aria-controls="quick-view-dialog"
+                  aria-haspopup="dialog"
+                {% else %}
+                  name="product-page"
+                  onclick="location.href='{{ product.url }}'"
+                {% endif %}
+              {% endif %}
+              aria-label="Point {{ forloop.index }}">
+              <span><span></span></span>
+            </button>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</look-book>
+
+{% schema %}
+{
+  "name": "Lookbook",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "container_narrow",
+      "label": "Use narrow container",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text_alignment",
+      "id": "header_alignment",
+      "label": "Alignment",
+      "default": "left"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Lookbook",
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "default": "h3",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" },
+        { "value": "h5", "label": "H5" },
+        { "value": "h6", "label": "H6" }
+      ] 
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description (optional)",
+      "default": "<p>An optional description for this section</p>"
+    },
+    {
+      "type": "select",
+      "id": "description_font_size",
+      "label": "Description font-size",
+      "default": "fs-md",
+      "options": [
+        { "value": "fs-sm", "label": "sm" },
+        { "value": "fs-md", "label": "md" },
+        { "value": "fs-lg", "label": "lg" },
+        { "value": "fs-xl", "label": "xl" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Image",
+    },
+    {
+      "type": "image_picker",
+      "id": "img",
+      "label": "Image",
+    },
+    {
+      "type": "image_picker",
+      "id": "img_mobile",
+      "label": "Mobile image",
+      "info": "Optional, leave empty to use one image for all devices",
+    },
+    {
+      "type": "header",
+      "content": "Points"
+    },
+    {
+      "type": "color",
+      "id": "point_color",
+      "label": "Point color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "point_diameter",
+      "label": "Point diameter",
+      "unit": "rem",
+      "min": 0.2,
+      "max": 3,
+      "step": 0.1,
+      "default": 1
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 0,
+      "unit": "rem"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 0,
+      "unit": "rem"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "point",
+      "name": "Point",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Position - Mobile"
+        },
+        {
+          "type": "range",
+          "id": "mobile_pos_left",
+          "label": "Left (%)",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "mobile_pos_top",
+          "label": "Top (%)",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Position - Desktop"
+        },
+        {
+          "type": "range",
+          "id": "desktop_pos_left",
+          "label": "Left (%)",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "desktop_pos_top",
+          "label": "Top (%)",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Product",   
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "select",
+          "id": "product_link_style",
+          "label": "Link style",
+          "default": "quick_view",
+          "options": [
+            { "value": "quick_view", "label": "Quick view" },
+            { "value": "product_page", "label": "Product page" }
+          ]
+        },
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "presets": [
+    {
+      "name": "Lookbook",
+      "category": "Image/Video",
+    }
+  ]
+}
+{% endschema %}

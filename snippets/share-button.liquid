@@ -1,0 +1,51 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+ 
+{% capture title %}
+  {{ page_title }}
+  {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+  {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+  {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+{% endcapture %}
+
+<share-component
+  class="share-component"
+>
+  <button
+    class="btn-share btn btn-sm btn-with-icon {{ button_style | default: 'btn-outline' }}"
+    type="button"
+    data-title="{{ title }}"
+  >
+    {% render 'svg-icons', icon: 'share', size: 16 %}
+    {{ 'general.share.share' | t }}
+  </button>
+  <dropdown-component hidden>
+    <button
+      class="dropdown-btn btn btn-sm btn-with-icon  {{ button_style | default: 'btn-outline' }}"
+      type="button"
+      aria-expanded="false"
+      aria-haspopup="true"
+    >
+      {% render 'svg-icons', icon: 'share', size: 16 %}
+      {{ 'general.share.share' | t }}
+    </button>
+    <div class="dropdown-content right" hidden>
+      <input
+        type="text"
+        class="input"
+        value="https://{{ shop.domain | append: request.path }}"
+      >
+      <button
+        class="btn btn-primary"
+        type="button"
+        aria-live="polite"
+        data-text-copy="{{ 'general.share.copy' | t }}"
+        data-text-copied="{{ 'general.share.copied' | t }}"
+      >
+        {{ 'general.share.copy' | t }}
+      </button>
+    </div>
+  </dropdown-component>
+</share-component>

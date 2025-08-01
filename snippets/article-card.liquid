@@ -1,0 +1,88 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% liquid
+  assign article_img_ratio = block.settings.article_img_ratio | default: section.settings.article_img_ratio
+  assign article_heading_size = block.settings.article_heading_size | default: section.settings.article_heading_size
+  assign article_meta = block.settings.article_meta | default: section.settings.article_meta
+  assign article_text_align = block.settings.article_text_align | default: section.settings.article_text_align
+  assign article_excerpt = block.settings.article_excerpt | default: section.settings.article_excerpt
+  assign article_tags = block.settings.article_tags | default: section.settings.article_tags
+
+  if article.image
+    case article_img_ratio
+      when 'adapt'
+        assign img_width = 600
+        assign img_height = 600 | divided_by: article.image.aspect_ratio | round
+      when 'square'
+        assign img_width = 600
+        assign img_height = 600
+      when '4x3'
+        assign img_width = 600
+        assign img_height = 600 | times: 3 | divided_by: 4 | round
+      when '16x9'
+        assign img_width = 600
+        assign img_height = 600 | times: 9 | divided_by: 16 | round
+    endcase
+  endif
+%}
+
+{% if article %}
+  <div class="article-card {{ article_text_align | prepend: 'text-' }}">
+    {% unless article.image == null %}
+      <div class="img-wrapper">
+        {% if article_tags %}
+          <ul
+            class="article-tags list-unstyled"
+            aria-label="{{ 'blog.posted_in' | t }}"
+          >
+            {% for tag in article.tags %}
+              <li class="article-tag badge">
+                {{ tag }}
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+        <img
+          src="{{ article.image | image_url: width: img_width, height: img_height, crop: 'center' }}"
+          alt="{{ article.image.alt | escape }}"
+          class="img-fluid"
+          width="{{ img_width }}"
+          height="{{ img_height }}"
+          loading="lazy"
+        >
+      </div>
+    {% endunless %}
+    <h3 class="heading {{ article_heading_size }}">
+      <a href="{{ article.url }}">
+        {{ article.title }}
+      </a>
+    </h3>
+    {% if article_meta %}
+      <p class="article-meta fs-sm">{{ article.author }} - {{ article.created_at | time_tag: '%b %d, %Y' }}</p>
+    {% endif %}
+    {% if article_excerpt and article.excerpt != blank %}
+      <div class="article-excerpt description rte">
+        {{ article.excerpt }}
+      </div>
+    {% endif %}
+  </div>
+{% else %}
+  {% liquid
+    assign index = index | modulo: 6
+    if index == 0
+      assign index = 4
+    endif
+  %}
+  <div class="article-card {{ article_text_align | prepend: 'text-' }}">
+    <div class="img-wrapper">
+      {{ 'collection-' | append: index | placeholder_svg_tag: 'placeholder-svg' }}
+    </div>
+    <h3 class="heading {{ article_heading_size }}">
+      <a href="#">Article {{ index }}</a>
+    </h3>
+    <p class="article-meta fs-sm">John Doe - {{ now | time_tag: '%b %d, %Y' }}</p>
+  </div>
+{% endif %}

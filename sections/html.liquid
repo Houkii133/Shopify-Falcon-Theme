@@ -1,0 +1,164 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+<style>
+  .html-section {
+    background-color: rgba(var(--color-background), 1);
+    background-image: var(--color-background-gradient);
+    color: rgba(var(--color-text), 1);
+  }
+  
+  @media (max-width: 1199px) {
+    .html-section {
+      padding-top: calc(var(--padding-top) * 0.75);
+      padding-bottom: calc(var(--padding-bottom) * 0.75);
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .html-section {
+      padding-top: calc(var(--padding-top) * 1);
+      padding-bottom: calc(var(--padding-bottom) * 1);
+    }
+  }
+</style>
+ 
+<div
+  id="html-section-{{ section.id }}" 
+  class="html-section {{ section.settings.color_scheme | prepend: 'color-' }}"
+  style="
+    --padding-top: {{ section.settings.padding_top | append: 'rem' }};
+    --padding-bottom: {{ section.settings.padding_bottom | append: 'rem' }};
+  "
+  data-viewport-entered="false">
+  <div class="container {% if section.settings.full_width %}container-full{% endif %}">
+    {% unless section.settings.heading == blank %}
+      <header class="section-header scroll-animate-fade-in-up text-{{ section.settings.header_alignment }}">
+        {% unless section.settings.heading == blank %}
+          <h2 class="heading {{ section.settings.heading_size }}">
+            {{ section.settings.heading }}
+          </h2>
+        {% endunless %}
+        {% unless section.settings.description == blank %}
+          <div class="description rte {{ section.settings.description_font_size }}">
+            {{ section.settings.description }}
+          </div>
+        {% endunless %}
+      </header>
+    {% endunless %}
+    <div class="html-section-inner scroll-animate-fade-in-up">
+      {{ section.settings.liquid }}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "HTML/Liquid",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "liquid",
+      "id": "liquid",
+      "label": "HTML/Liquid code",
+      "default": "<p class=\"alert text-center\">Current time is: {{ \"now\" | date: \"%Y-%m-%d %H:%M\" }}</p>"
+    },
+    {
+      "type": "header",
+      "content": "Styling"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text_alignment",
+      "id": "header_alignment",
+      "label": "Alignment",
+      "default": "left"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "HTML/Liquid section"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "default": "h3",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" },
+        { "value": "h5", "label": "H5" },
+        { "value": "h6", "label": "H6" }
+      ]
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description (optional)",
+      "default": "<p>An optional description for this section</p>"
+    },
+    {
+      "type": "select",
+      "id": "description_font_size",
+      "label": "Description font-size",
+      "default": "fs-md",
+      "options": [
+        { "value": "fs-sm", "label": "sm" },
+        { "value": "fs-md", "label": "md" },
+        { "value": "fs-lg", "label": "lg" },
+        { "value": "fs-xl", "label": "xl" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 2,
+      "unit": "rem"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 2,
+      "unit": "rem"
+    }
+  ],
+  "presets": [
+    {
+      "name": "HTML/Liquid",
+      "category": "Miscellaneous",
+    }
+  ]
+}
+{% endschema %}

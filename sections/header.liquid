@@ -1,0 +1,453 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+<div
+  id="header"
+  class="{{ section.settings.color_scheme | prepend: 'color-' }}"
+  data-border="{{ section.settings.border }}"
+  data-shadow="{{ section.settings.shadow }}"
+  data-sticky-header="{{ section.settings.sticky_header }}"
+>
+  {% for block in section.blocks %}
+    {% if block.type == 'mobile' %}
+      <div
+        id="header-mobile"
+        style="
+          --icons-spacing: {{ block.settings.icons_spacing | default: 0.6 }}rem;
+          --padding-top: {{ block.settings.padding_top | append: 'rem' }};
+          --padding-bottom: {{ block.settings.padding_bottom | append: 'rem' }};
+        "
+        {{ block.shopify_attributes }}
+      >
+        <div class="container">
+          <div id="header-mobile-inner">
+            <ul class="header-mobile-icons">
+              {% render 'header-icon', icon: 'menu', block: block %}
+              {% render 'header-icon', icon: block.settings.icons_left_icon, block: block %}
+            </ul>
+            <div id="header-mobile-logo">
+              {% render 'header-logo', height: block.settings.logo_height %}
+            </div>
+            <ul class="header-mobile-icons">
+              {% render 'header-icon', icon: block.settings.icons_right_icon, block: block %}
+              {% render 'header-icon', icon: 'cart', block: block %}
+            </ul>
+          </div>
+        </div>
+      </div>
+      {% render 'header-mobile-menu', block: block %}
+    {% else %}
+      <div
+        id="header-desktop"
+        style="
+          --font-size: {{ block.settings.font_size | divided_by: 100.0 | append: 'rem' }};
+          --text-transform: {{ block.settings.text_transform }};
+          --letter-spacing: {{ block.settings.letter_spacing | divided_by: 100.0 | append: 'rem' }};
+          --icons-spacing: {{ block.settings.icons_spacing | default: 0.6 }}rem;
+          --padding-top: {{ block.settings.padding_top | append: 'rem' }};
+          --padding-bottom: {{ block.settings.padding_bottom | append: 'rem' }};
+        "
+        data-logo-position="{{ block.settings.logo_position }}"
+        {{ block.shopify_attributes }}
+      >
+        <div class="container {% if section.settings.full_width %}container-full{% endif %}">
+          <div id="header-desktop-inner">
+            <div id="header-desktop-logo">
+              {% render 'header-logo', height: block.settings.logo_height %}
+            </div>
+            <div id="header-desktop-menu">
+              {% render 'header-desktop-menu', block: block %}
+            </div>
+            <ul id="header-desktop-icons">
+              {% render 'header-icon', icon: 'localization', block: block %}
+              {% render 'header-icon', icon: 'account', block: block %}
+              {% render 'header-icon', icon: 'search', block: block %}
+              {% render 'header-icon', icon: 'wishlist', block: block %}
+              {% render 'header-icon', icon: 'cart', block: block %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
+
+{% schema %}
+{
+  "name": "Header",
+  "tag": "header",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "NOTE: Settings for mobile and desktop are separated into their respective blocks."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "border",
+      "label": "Border bottom",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "shadow",
+      "label": "Shadow",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "sticky_header",
+      "label": "Sticky header",
+      "default": "scroll-up",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "scroll-up", "label": "On scroll up" },
+        { "value": "always", "label": "Always" }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "mobile",
+      "name": "Mobile",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Logo"
+        },
+        {
+          "type": "range",
+          "id": "logo_height",
+          "label": "Logo height",
+          "min": 10,
+          "max": 100,
+          "step": 2,
+          "default": 40,
+          "info": "Select your logo in [theme settings](\/editor?context=theme&category=logo)"
+        },
+        {
+          "type": "header",
+          "content": "Menu"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu",
+          "default": "main-menu"
+        },
+        {
+          "type": "color_scheme",
+          "id": "menu_color_scheme",
+          "label": "Color scheme",
+          "default": "scheme-1"
+        },
+        {
+          "type": "range",
+          "id": "font_size",
+          "label": "Font size",
+          "min": 75,
+          "max": 125,
+          "step": 5,
+          "default": 100,
+          "unit": "%"
+        },
+        {
+          "type": "select",
+          "id": "text_transform",
+          "label": "Text transform",
+          "default": "capitalize",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "capitalize", "label": "Capitalize" },
+            { "value": "lowercase", "label": "Lowercase" },
+            { "value": "uppercase", "label": "Uppercase" }
+          ]
+        },
+        {
+          "type": "range",
+          "id": "letter_spacing",
+          "label": "Letter spacing",
+          "min": 0,
+          "max": 10,
+          "step": 1,
+          "default": 2
+        },
+        {
+          "type": "range",
+          "id": "border_opacity",
+          "label": "Border opacity",
+          "default": 100,
+          "min": 0,
+          "max": 100,
+          "step": 10,
+          "unit": "%"
+        },
+        {
+          "type": "range",
+          "id": "vertical_spacing",
+          "label": "Vertical spacing",
+          "default": 0.8,
+          "min": 0.6,
+          "max": 1.2,
+          "step": 0.1,
+          "unit": "rem"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_social_icons",
+          "label": "Show social icons",
+          "info": "Set your social links in [theme settings](\/editor?context=theme&category=social%20links)",
+          "default": true
+        },
+        {
+          "type": "range",
+          "id": "social_icons_size",
+          "label": "Social icons size",
+          "default": 18,
+          "min": 16,
+          "max": 24,
+          "step": 1,
+          "unit": "px"
+        },
+        {
+          "type": "header",
+          "content": "Icons"
+        },
+        {
+          "type": "select",
+          "id": "icons_left_icon",
+          "label": "Left icon",
+          "options": [
+            { "value": "search", "label": "Search" },
+            { "value": "account", "label": "Account" },
+            { "value": "wishlist", "label": "Wishlist" },
+            { "value": "localization", "label": "Localization" }
+          ],
+          "default": "search"
+        },
+        {
+          "type": "select",
+          "id": "icons_right_icon",
+          "label": "Right icon",
+          "options": [
+            { "value": "search", "label": "Search" },
+            { "value": "account", "label": "Account" },
+            { "value": "wishlist", "label": "Wishlist" },
+            { "value": "localization", "label": "Localization" }
+          ],
+          "default": "wishlist"
+        },
+        {
+          "type": "range",
+          "id": "icons_size",
+          "label": "Size",
+          "min": 16,
+          "max": 24,
+          "step": 1,
+          "default": 20,
+          "unit": "px"
+        },
+        {
+          "type": "range",
+          "id": "icons_stroke_width",
+          "label": "Stroke width",
+          "min": 1,
+          "max": 2,
+          "step": 0.2,
+          "default": 1.6,
+          "unit": "px"
+        },
+        {
+          "type": "range",
+          "id": "icons_spacing",
+          "label": "Spacing",
+          "min": 0.4,
+          "max": 1,
+          "step": 0.1,
+          "default": 0.6,
+          "unit": "rem"
+        },
+        {
+          "type": "header",
+          "content": "Spacing"
+        },
+        {
+          "type": "range",
+          "id": "padding_top",
+          "label": "Top",
+          "min": 0,
+          "max": 2,
+          "step": 0.1,
+          "default": 0.3,
+          "unit": "rem"
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom",
+          "label": "Bottom",
+          "min": 0,
+          "max": 2,
+          "step": 0.1,
+          "default": 0.3,
+          "unit": "rem"
+        }
+      ]
+    },
+    {
+      "type": "desktop",
+      "name": "Desktop",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Logo"
+        },
+        {
+          "type": "range",
+          "id": "logo_height",
+          "label": "Logo height",
+          "min": 10,
+          "max": 100,
+          "step": 2,
+          "default": 40,
+          "info": "Select your logo in [theme settings](\/editor?context=theme&category=logo)"
+        },
+        {
+          "type": "select",
+          "id": "logo_position",
+          "label": "Logo position",
+          "default": "left",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "center", "label": "Center" }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Menu"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu",
+          "default": "main-menu"
+        },
+        {
+          "type": "range",
+          "id": "font_size",
+          "label": "Font size",
+          "min": 75,
+          "max": 125,
+          "step": 5,
+          "default": 90,
+          "unit": "%"
+        },
+        {
+          "type": "select",
+          "id": "text_transform",
+          "label": "Text transform",
+          "default": "capitalize",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "capitalize", "label": "Capitalize" },
+            { "value": "lowercase", "label": "Lowercase" },
+            { "value": "uppercase", "label": "Uppercase" }
+          ]
+        },
+        {
+          "type": "range",
+          "id": "letter_spacing",
+          "label": "Letter spacing",
+          "min": 0,
+          "max": 10,
+          "step": 1,
+          "default": 2
+        },
+        {
+          "type": "color_scheme",
+          "id": "menu_dropdowns_color_scheme",
+          "label": "Dropdowns",
+          "default": "scheme-1"
+        },
+        {
+          "type": "header",
+          "content": "Icons"
+        },
+        {
+          "type": "range",
+          "id": "icons_size",
+          "label": "Size",
+          "min": 16,
+          "max": 24,
+          "step": 1,
+          "default": 20,
+          "unit": "px"
+        },
+        {
+          "type": "range",
+          "id": "icons_stroke_width",
+          "label": "Stroke width",
+          "min": 1,
+          "max": 2,
+          "step": 0.2,
+          "default": 1.6,
+          "unit": "px"
+        },
+        {
+          "type": "range",
+          "id": "icons_spacing",
+          "label": "Spacing",
+          "min": 0.4,
+          "max": 1,
+          "step": 0.1,
+          "default": 0.6,
+          "unit": "rem"
+        },
+        {
+          "type": "header",
+          "content": "Spacing"
+        },
+        {
+          "type": "range",
+          "id": "padding_top",
+          "label": "Top",
+          "min": 0,
+          "max": 2,
+          "step": 0.1,
+          "default": 0.8,
+          "unit": "rem"
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom",
+          "label": "Bottom",
+          "min": 0,
+          "max": 2,
+          "step": 0.1,
+          "default": 0.8,
+          "unit": "rem"
+        }
+      ]
+    }
+  ],
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "presets": [{ "name": "Header" }]
+}
+{% endschema %}

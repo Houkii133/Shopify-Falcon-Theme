@@ -1,0 +1,307 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% if section.index <= 3 or request.design_mode %}
+  <link href="{{ 'collection-circles.css' | asset_url }}" rel="stylesheet" fetchpriority="high">
+{% endif %}
+
+<div
+  id="collection-circles-{{ section.id }}"
+  class="collection-circles {{ section.settings.color_scheme | prepend: 'color-' }}"
+  style="
+    --padding-top: {{ section.settings.padding_top | append: 'rem' }};
+    --padding-bottom: {{ section.settings.padding_bottom | append: 'rem' }};
+  "
+  data-section-css="{{ 'collection-circles.css' | asset_url }}"
+  data-viewport-entered="false"
+>
+  <div class="container {% if section.settings.full_width %}container-full{% endif %}">
+    {% unless section.settings.heading == blank %}
+      <header class="section-header scroll-animate-fade-in-up text-{{ section.settings.header_alignment }}">
+        {% unless section.settings.heading == blank %}
+          <h2
+            id="heading-{{ section.id }}"
+            class="heading {{ section.settings.heading_size }}"
+          >
+            {{ section.settings.heading }}
+          </h2>
+        {% endunless %}
+        {% unless section.settings.description == blank %}
+          <div class="description rte {{ section.settings.description_font_size }}">
+            {{ section.settings.description }}
+          </div>
+        {% endunless %}
+      </header>
+    {% endunless %}
+    <ul
+      class="collection-circles-list"
+      style="
+        --align: {{ section.settings.header_alignment }};
+        --img-size: {{ section.settings.img_size }}px;
+      "
+    >
+      {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+          {% liquid
+            assign collection = block.settings.collection
+            assign img = block.settings.img | default: block.settings.collection.image
+            assign title = block.settings.title | default: block.settings.collection.title
+          %}
+          <li
+            class="scroll-animate-fade-in-up"
+            style="animation-delay: {{ forloop.index | times: 100 | append: 'ms' }}"
+          >
+            <a href="{{ collection.url }}">
+              <div class="img-wrapper">
+                {% if img %}
+                  {% liquid
+                    assign img_size_x2 = section.settings.img_size | times: 2
+                  %}
+                  <img
+                    src="{{ img | image_url: width: img_size_x2, height: img_size_x2, crop: 'center' }}"
+                    class="img-fluid"
+                    alt="{{ img.alt }}"
+                    width="{{ section.settings.img_size }}"
+                    height="{{ section.settings.img_size }}"
+                    loading="lazy"
+                  >
+                  {% else %}
+                    {%- assign placeholder_index = forloop.index0 | modulo: 4 | plus: 1 -%}
+                    {{ 'collection-apparel-' | append: placeholder_index | placeholder_svg_tag: 'placeholder-svg' }}
+                  {% endif %}
+              </div>
+              <h3 class="heading {{ section.settings.item_title_font_size }}">
+                {{ title | default: 'Collection' }}
+                {% if section.settings.item_show_product_count %}
+                  ({{ collection.products_count | default: 0 }})
+                {% endif %}
+              </h3>
+            </a>
+          </li>
+        {% endfor %}
+      {% elsif section.settings.menu != null %}
+        {% for link in linklists[section.settings.menu].links %}
+          {% if link.type == 'collection_link' or link.type == 'product_link' %}
+            <li
+              class="scroll-animate-fade-in-up"
+              style="animation-delay: {{ forloop.index | times: 100 | append: 'ms' }}"
+            >
+              <a href="{{ link.url }}">
+                <div class="img-wrapper">
+                  {% liquid
+                    assign img_size_x2 = section.settings.img_size | times: 2
+                    if link.type == 'collection_link'
+                      assign img = link.object.image
+                    else
+                      assign img = link.object.featured_image
+                    endif
+                  %}
+                  <img
+                    src="{{ img | image_url: width: img_size_x2, height: img_size_x2, crop: 'center' }}"
+                    class="img-fluid"
+                    alt="{{ img.alt }}"
+                    width="{{ section.settings.img_size }}"
+                    height="{{ section.settings.img_size }}"
+                    loading="lazy"
+                  >
+                </div>
+                <h3 class="heading {{ section.settings.item_title_font_size }}">
+                  {{ link.title }}
+                  {% if section.settings.item_show_product_count and link.type == 'collection_link' %}
+                    ({{ link.object.products_count }})
+                  {% endif %}
+                </h3>
+              </a>
+            </li>
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        {% for index in (1..6) %}
+          {%- assign placeholder_index = forloop.index0 | modulo: 4 | plus: 1 -%}
+          <li
+            class="scroll-animate-fade-in-up"
+            style="animation-delay: {{ forloop.index | times: 100 | append: 'ms' }}"
+          >
+            <a href="#">
+              <div class="img-wrapper">
+                {{ 'collection-apparel-' | append: placeholder_index | placeholder_svg_tag: 'placeholder-svg' }}
+              </div>
+              <h3 class="heading {{ section.settings.item_title_font_size }}">Collection {{ forloop.index }}</h3>
+            </a>
+          </li>
+        {% endfor %}
+      {% endif %}
+    </ul>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collection circles",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "info": "Either select a menu here or add blocks to this section to show collections."
+    },
+    {
+      "type": "header",
+      "content": "General"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text_alignment",
+      "id": "header_alignment",
+      "label": "Alignment",
+      "default": "center"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Collection Circles"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "default": "h3",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" },
+        { "value": "h5", "label": "H5" },
+        { "value": "h6", "label": "H6" }
+      ]
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description (optional)",
+      "default": "<p>An optional description for this section</p>"
+    },
+    {
+      "type": "select",
+      "id": "description_font_size",
+      "label": "Description font-size",
+      "default": "fs-md",
+      "options": [
+        { "value": "fs-sm", "label": "sm" },
+        { "value": "fs-md", "label": "md" },
+        { "value": "fs-lg", "label": "lg" },
+        { "value": "fs-xl", "label": "xl" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Item"
+    },
+    {
+      "type": "range",
+      "id": "img_size",
+      "label": "Image size",
+      "min": 60,
+      "max": 360,
+      "step": 10,
+      "default": 120,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "item_title_font_size",
+      "label": "Title font-size",
+      "default": "fs-sm",
+      "options": [
+        { "value": "fs-sm", "label": "sm" },
+        { "value": "fs-md", "label": "md" },
+        { "value": "fs-lg", "label": "lg" },
+        { "value": "fs-xl", "label": "xl" }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "item_show_product_count",
+      "label": "Show product count",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 2,
+      "unit": "rem"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 2,
+      "unit": "rem"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "img",
+          "label": "Image (optional)",
+          "info": "Leave empty to use the default collection image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title (optional)",
+          "info": "Leave empty to use the default collection title"
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "presets": [
+    {
+      "name": "Collection circles",
+      "category": "Collection"
+    }
+  ]
+}
+{% endschema %}

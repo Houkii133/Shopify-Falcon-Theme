@@ -1,0 +1,295 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% if section.index <= 3 or request.design_mode %}
+  <link href="{{ 'announcement-bar.css' | asset_url }}" rel="stylesheet" fetchpriority="high">
+{% endif %}
+
+<div
+  id="announcement-bar-{{ section.id }}"
+  class="announcement-bar {{ section.settings.color_scheme | prepend: 'color-' }}"
+  style="
+    --max-width: {{ section.settings.max_width | append: 'px' }};
+    --font-size: {{ section.settings.font_size | divided_by: 100.0 | append: 'rem' }};
+    --text-transform: {{ section.settings.text_transform }};
+    --letter-spacing: {{ section.settings.letter_spacing | divided_by: 100.0 | append: 'rem' }};
+    --padding-top: {{ section.settings.padding_top | append: 'rem' }};
+    --padding-bottom: {{ section.settings.padding_bottom | append: 'rem' }};
+  "
+  data-section-id="{{ section.id }}"
+  data-section-css="{{ 'announcement-bar.css' | asset_url }}"
+>
+  <div class="container">
+    <slideshow-component
+      class="slideshow"
+      style="
+        --speed: {{ section.settings.speed | append: 's' }};
+        --interval: {{ section.settings.autoplay | append: 's' }};
+      "
+      data-autoplay="{{ section.settings.slider_autoplay }}"
+      data-autoplay-stopped="false"
+      data-section-id="{{ section.id }}"
+      role="region"
+      aria-label="{{ section.settings.label }}"
+      aria-roledescription="{{ 'accessibility.carousel' | t | downcase }}"
+    >
+      {% if section.blocks.size > 1 %}
+        <button
+          class="slideshow-control"
+          name="previous"
+          type="button"
+          aria-label="{{ 'accessibility.previous_slide' | t }}"
+        >
+          {% render 'svg-icons', icon: 'chevron-left', stroke_width: 1, size: 22 %}
+        </button>
+      {% endif %}
+      <div class="slideshow-track-wrapper">
+        <div
+          class="slideshow-track"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          {% for block in section.blocks %}
+            <div
+              id="slideshow-slide-{{ block.id }}"
+              class="slideshow-slide {% if forloop.first %}active{% endif %}"
+              data-index="{{ forloop.index0 }}"
+              role="group"
+              aria-roledescription="{{ 'accessibility.slide' | t | downcase }}"
+              aria-label="{{ 'accessibility.slide_of_total' | t: slide: forloop.index, total: forloop.length }}"
+              tabindex="-1"
+              {{ block.shopify_attributes }}
+            >
+              <div class="announcement-bar-content">
+                {% if block.settings.url != blank %}
+                  <a href="{{ block.settings.url }}">
+                {% endif %}
+                <p class="">
+                  {{ block.settings.announcement }}
+                </p>
+                {% unless block.settings.countdown == blank %}
+                  {% liquid
+                    assign countdown = block.settings.countdown | date: '%s'
+                    assign now = 'now' | date: '%s'
+
+                    if shop.permanent_domain contains 'ks-'
+                      assign countdown = now | plus: 43200 | minus: 1
+                    endif
+
+                    assign now = 'now' | date: '%s'
+                    assign diff = countdown | minus: now
+
+                    assign days = diff | divided_by: 86400
+                    assign hours = diff | modulo: 86400 | divided_by: 3600
+                    assign minutes = diff | modulo: 3600 | divided_by: 60
+                    assign seconds = diff | modulo: 60
+                  %}
+                  <countdown-component
+                    class="countdown"
+                    data-countdown="{{ countdown | times: 1000 }}"
+                    aria-label="{{ 'accessibility.countdown_label' | t: days: days, hours: hours, minutes: minutes  }}"
+                    role="timer"
+                  >
+                    <span class="{% if days == 0 %}hidden{% endif %}">
+                      <span data-countdown-days>{{- days -}}</span>
+                      <span> {{- 'general.times.days_short' | t -}}</span>
+                    </span>
+                    <span class="{% if hours == 0 %} hidden{% endif %}">
+                      <span data-countdown-hours>{{- hours -}}</span>
+                      <span>{{- 'general.times.hours_short' | t -}}</span>
+                    </span>
+                    <span>
+                      <span data-countdown-minutes>{{- minutes -}}</span>
+                      <span>{{- 'general.times.minutes_short' | t -}}</span>
+                    </span>
+                    <span>
+                      <span data-countdown-seconds>{{- seconds -}}</span>
+                      <span>{{- 'general.times.seconds_short' | t -}}</span>
+                    </span>
+                  </countdown-component>
+                {% endunless %}
+                {% if block.settings.url != blank %}
+                  {% render 'svg-icons', icon: 'arrow-right', stroke_width: 1, size: 20 %}
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% if section.blocks.size > 1 %}
+        <button
+          class="slideshow-control"
+          name="next"
+          type="button"
+          aria-label="{{ 'accessibility.next_slide' | t }}"
+        >
+          {% render 'svg-icons', icon: 'chevron-right', stroke_width: 1, size: 22 %}
+        </button>
+      {% endif %}
+    </slideshow-component>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Styling"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-4"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Font size",
+      "min": 75,
+      "max": 125,
+      "step": 5,
+      "default": 85,
+      "unit": "%"
+    },
+    {
+      "type": "select",
+      "id": "text_transform",
+      "label": "Text transform",
+      "default": "capitalize",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "capitalize", "label": "Capitalize" },
+        { "value": "lowercase", "label": "Lowercase" },
+        { "value": "uppercase", "label": "Uppercase" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "letter_spacing",
+      "label": "Letter spacing",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Max-width",
+      "min": 400,
+      "max": 1000,
+      "default": 600,
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Slider"
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "Speed",
+      "info": "Transition between slides",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "default": 0.5,
+      "unit": "s"
+    },
+    {
+      "type": "range",
+      "id": "slider_autoplay",
+      "label": "Autoplay",
+      "min": 0,
+      "max": 10,
+      "default": 5,
+      "unit": "sec",
+      "info": "Select \"0\" to disable autoplay"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label",
+      "default": "Announcement bar",
+      "info": "It is needed for accessibility purposes."
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top",
+      "min": 0,
+      "max": 2,
+      "step": 0.1,
+      "default": 0,
+      "unit": "rem"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 2,
+      "step": 0.1,
+      "default": 0,
+      "unit": "rem"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "text",
+          "id": "announcement",
+          "label": "Announcement",
+          "default": "Announce something important here"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        },
+        {
+          "type": "text",
+          "id": "countdown",
+          "label": "Countdown (optional)",
+          "info": "Format: yyyy-mm-dd hh:mm. Leave blank to disable"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement bar",
+      "category": "Content",
+      "blocks": [
+        {
+          "type": "slide",
+          "settings": {
+            "announcement": "Announce something important here"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "announcement": "Free shipping over $100 USD"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

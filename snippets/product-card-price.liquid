@@ -1,0 +1,28 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+<p
+  class="product-card-price price"
+  data-has-price-compare="{% if product.compare_at_price > product.price %}true{% else %}false{% endif %}"
+  data-price-varies="{% if product.price_varies %}true{% else %}false{% endif %}"
+>
+  <s class="price-compare">
+    <span class="visually-hidden"> {{ 'product.regular_price' | t }} &nbsp; </span>
+    <span data-compare-price>{{ product.compare_at_price | money_without_trailing_zeros }}</span>
+  </s>
+  <span class="price-sale">
+    <span class="visually-hidden"> {{ 'product.sale_price' | t }} &nbsp; </span>
+    <span class="price-from">
+      {{ 'product.price_from' | t }}
+    </span>
+    <span data-price> {{ product.price | money_without_trailing_zeros }}</span>
+  </span>
+  <span class="price-regular">
+    <span class="price-from">
+      {{ 'product.price_from' | t }}
+    </span>
+    <span data-price>{{ product.price | money_without_trailing_zeros }}</span>
+  </span>
+</p>

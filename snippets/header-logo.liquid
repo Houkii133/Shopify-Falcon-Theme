@@ -1,0 +1,31 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+ 
+{% liquid
+  assign height = height | default: 40
+  assign height_scaled = height | times: 2
+%}
+
+{% if request.page_type == 'index' %}
+  <h1>
+{% endif %}
+<a href="{{ routes.root_url }}">
+  {% if settings.logo %}
+    <img
+      class="img-fluid"
+      src="{{ settings.logo | image_url: height: height_scaled }}"
+      alt="{{ shop.name }}"
+      width="{{ height | times: settings.logo.aspect_ratio | round }}"
+      height="{{ height }}"
+      fetchpriority="high"
+      loading="eager"
+    >
+  {% else %}
+    <span>{{ shop.name }}</span>
+  {% endif %}
+</a>
+{% if request.page_type == 'index' %}
+  </h1>
+{% endif %}

@@ -1,0 +1,451 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "falcon_pro",
+    "theme_version": "1.1.0",
+    "theme_author": "KondaSoft",
+    "theme_documentation_url": "https:\/\/www.kondasoft.com",
+    "theme_support_url": "https:\/\/forum.kondasoft.com"
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "color_scheme_group",
+        "id": "color_schemes",
+        "definition": [
+          {
+            "type": "color",
+            "id": "background",
+            "label": "Background",
+            "default": "#FFFFFF"
+          },
+          {
+            "type": "color_background",
+            "id": "background_gradient",
+            "label": "Background gradient",
+            "info": "Background gradient replaces background where possible."
+          },
+          {
+            "type": "color",
+            "id": "text",
+            "label": "Text",
+            "default": "#121212"
+          },
+          {
+            "type": "color",
+            "id": "accent",
+            "label": "Accent",
+            "default": "#121212"
+          },
+          {
+            "type": "header",
+            "content": "Buttons"
+          },
+          {
+            "type": "color",
+            "id": "btn_background",
+            "label": "Background",
+            "default": "#121212"
+          },
+          {
+            "type": "color",
+            "id": "btn_text",
+            "label": "Text",
+            "default": "#FFFFFF"
+          },
+          {
+            "type": "color",
+            "id": "btn_border",
+            "label": "Border",
+            "default": "#121212"
+          }
+        ],
+        "role": {
+          "background": {
+            "solid": "background",
+            "gradient": "background_gradient"
+          },
+          "text": "text",
+          "links": "text",
+          "icons": "text",
+          "primary_button": "btn_background",
+          "on_primary_button": "btn_text",
+          "primary_button_border": "btn_border",
+          "secondary_button": "btn_text",
+          "on_secondary_button": "btn_background",
+          "secondary_button_border": "btn_border"
+        }
+      }
+    ]
+  },
+  {
+    "name": "General",
+    "settings": [
+      {
+        "type": "range",
+        "id": "container_max_width",
+        "label": "Container max-width",
+        "min": 1200,
+        "max": 2000,
+        "default": 1400,
+        "step": 50,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "border_radius",
+        "label": "Global border-radius",
+        "unit": "rem",
+        "min": 0,
+        "max": 2,
+        "step": 0.1,
+        "default": 0.3
+      },
+      {
+        "type": "range",
+        "id": "border_opacity",
+        "label": "Global border-opacity",
+        "default": 100,
+        "min": 10,
+        "max": 100,
+        "step": 5,
+        "unit": "%"
+      },
+      {
+        "type": "checkbox",
+        "id": "search",
+        "label": "Enable search",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "wishlist",
+        "label": "Enable wishlist"
+      },
+      {
+        "type": "checkbox",
+        "id": "scroll_animations",
+        "label": "Scroll animations",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "cart_icon",
+        "label": "Cart icon",
+        "default": "cart",
+        "options": [
+          {
+            "value": "cart",
+            "label": "Cart"
+          },
+          {
+            "value": "bag",
+            "label": "Bag"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "font_headings",
+        "label": "Headings font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "range",
+        "id": "font_headings_size",
+        "label": "Headings base font-size",
+        "min": 0.8,
+        "max": 2,
+        "step": 0.1,
+        "default": 1,
+        "unit": "rem"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_body",
+        "label": "Body font",
+        "default": "sans-serif"
+      }
+    ]
+  },
+  {
+    "name": "Logo",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo"
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon image",
+        "info": "A small square version of your logo that is used by browsers. Upload a large image as it will crop automatically."
+      }
+    ]
+  },
+  {
+    "name": "Product cards",
+    "settings": [
+      {
+        "type": "color_scheme",
+        "id": "product_card_color_scheme",
+        "label": "Color scheme",
+        "default": "scheme-1"
+      },
+      {
+        "type": "select",
+        "id": "product_card_style",
+        "label": "Style",
+        "default": "default",
+        "options": [
+          {
+            "value": "default",
+            "label": "Default"
+          },
+          {
+            "value": "card",
+            "label": "Card"
+          }
+        ]
+      },
+      {
+        "type": "text_alignment",
+        "id": "product_card_alignment",
+        "label": "Alignment",
+        "default": "left"
+      },
+      {
+        "type": "select",
+        "id": "product_card_heading_size",
+        "label": "Heading size",
+        "default": "fs-md",
+        "options": [
+          {
+            "value": "fs-sm",
+            "label": "sm"
+          },
+          {
+            "value": "fs-md",
+            "label": "md"
+          },
+          {
+            "value": "fs-lg",
+            "label": "lg"
+          },
+          {
+            "value": "fs-xl",
+            "label": "xl"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "product_card_heading_font",
+        "label": "Heading font",
+        "default": "headings",
+        "options": [
+          {
+            "value": "headings",
+            "label": "Headings"
+          },
+          {
+            "value": "body",
+            "label": "Body"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "product_card_show_vendor",
+        "label": "Show vendor",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "product_card_show_rating",
+        "label": "Show rating",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "product_card_color_swatches",
+        "label": "Show color swatches",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Image"
+      },
+      {
+        "type": "select",
+        "id": "product_card_img_ratio",
+        "label": "Image ratio",
+        "default": "square",
+        "options": [
+          {
+            "value": "adapt",
+            "label": "Adapt"
+          },
+          {
+            "value": "square",
+            "label": "Square"
+          },
+          {
+            "value": "portrait",
+            "label": "Portrait"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "product_card_img_hover",
+        "label": "Show second image on hover",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "product_card_sale_badge",
+        "label": "Sale badge",
+        "default": "percentage",
+        "options": [
+          {
+            "value": "",
+            "label": "Hide"
+          },
+          {
+            "value": "percentage",
+            "label": "Percentage"
+          },
+          {
+            "value": "value",
+            "label": "Value"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "product_card_custom_badge",
+        "label": "Custom badge - metafield",
+        "info": "[Create the metafield](https:\/\/shopify.com\/admin\/metafields\/product\/create) with the type of \"Single Line Text\" and for each product add the value to the metafield. E.g: \"New\" or \"Best seller | #121212\".",
+        "default": "custom.badge"
+      },
+      {
+        "type": "color",
+        "id": "product_card_wishtlist_color",
+        "label": "Wishlist heart icon color",
+        "default": "#121212"
+      },
+      {
+        "type": "header",
+        "content": "\"Add to cart\" form"
+      },
+      {
+        "type": "checkbox",
+        "id": "product_card_show_form",
+        "label": "Show \"Add to cart\" form",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "product_card_atc_style",
+        "label": "Form style",
+        "options": [
+          {
+            "value": "options_selector",
+            "label": "Options selector"
+          },
+          {
+            "value": "variant_selector",
+            "label": "Variant selector"
+          },
+          {
+            "value": "quick_view",
+            "label": "Quick view"
+          }
+        ],
+        "default": "variant_selector"
+      },
+      {
+        "type": "select",
+        "id": "product_card_form_button_style",
+        "label": "Button style",
+        "default": "btn-outline",
+        "options": [
+          {
+            "value": "btn-primary",
+            "label": "Primary"
+          },
+          {
+            "value": "btn-outline",
+            "label": "Outline"
+          },
+          {
+            "value": "btn-accent",
+            "label": "Accent"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Social links",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Enter the full URL for each social media site below. E.g: https:\/\/www.facebook.com\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook",
+        "label": "Facebook"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram",
+        "label": "Instagram"
+      },
+      {
+        "type": "text",
+        "id": "social_x",
+        "label": "X"
+      },
+      {
+        "type": "text",
+        "id": "social_tiktok",
+        "label": "TikTok"
+      },
+      {
+        "type": "text",
+        "id": "social_pinterest",
+        "label": "Pinterest"
+      },
+      {
+        "type": "text",
+        "id": "social_snapchat",
+        "label": "Snapchat"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube",
+        "label": "Youtube"
+      },
+      {
+        "type": "text",
+        "id": "social_linkedin",
+        "label": "Linkedin"
+      },
+      {
+        "type": "text",
+        "id": "social_threads",
+        "label": "Threads"
+      }
+    ]
+  }
+]

@@ -1,0 +1,420 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% if section.index <= 3 or request.design_mode %}
+  <link href="{{ 'cross-sells.css' | asset_url }}" rel="stylesheet" fetchpriority="high">
+  <script src="{{ 'cross-sells.js' | asset_url }}" defer></script>
+{% endif %}
+
+{% liquid
+  assign product = section.settings.product | default: product
+
+  assign metafield_namespace = section.settings.metafield | split: '.' | first
+  assign metafield_key = section.settings.metafield | split: '.' | last
+  assign metafield_value = product.metafields[metafield_namespace][metafield_key].value
+%}
+
+{% if metafield_value == blank %}
+  {% if request.design_mode %}
+    <div class="container" style="padding-top: 2rem; padding-bottom: 2rem;">
+      <div class="alert">
+        <p>No cross-sells found for this product. NOTE: On the front-end this message is hidden</p>
+      </div>
+    </div>
+  {% endif %}
+{% else %}
+  {% liquid
+    assign product_handles = product.handle | append: ','
+    assign total_price = 0
+    assign total_compare_price = 0
+
+    for product in metafield_value
+      assign product_handles = product_handles | append: product.handle
+      unless forloop.last
+        assign product_handles = product_handles | append: ','
+      endunless
+    endfor
+
+    assign product_handles = product_handles | split: ','
+  %}
+  <cross-sells
+    id="cross-sells-{{ section.id }}"
+    class="cross-sells {{ section.settings.color_scheme | prepend: 'color-' }}"
+    style="
+      --padding-top: {{ section.settings.padding_top | append: 'rem' }};
+      --padding-bottom: {{ section.settings.padding_bottom | append: 'rem' }};
+    "
+    data-viewport-entered="false"
+    data-section-css="{{- 'cross-sells.css' | asset_url -}}"
+    data-section-js="{{ 'cross-sells.js' | asset_url }}"
+    data-discount="{{ section.settings.discount }}"
+    data-discount-min-items="{{ section.settings.discount_min_items }}"
+  >
+    <div
+      class="container {% if section.settings.full_width %}container-full{% endif %}"
+      style="--container-max-width: {{ section.settings.container_max_width | append: 'px' }};"
+    >
+      {% unless section.settings.heading == blank %}
+        <header class="section-header scroll-animate-fade-in-up text-{{ section.settings.header_alignment }}">
+          {% unless section.settings.heading == blank %}
+            <h2 id="heading-{{ section.id }}" class="heading {{ section.settings.heading_size }}">
+              {{ section.settings.heading }}
+            </h2>
+          {% endunless %}
+          {% unless section.settings.description == blank %}
+            <div class="description rte {{ section.settings.description_font_size }}">
+              {{ section.settings.description }}
+            </div>
+          {% endunless %}
+        </header>
+      {% endunless %}
+      <div class="inner">
+        <ul class="cross-sells-list-images">
+          {% for handle in product_handles %}
+            {% liquid
+              assign product = all_products[handle]
+              assign featured_image = product.first_available_variant.image | default: product.featured_image
+            %}
+            <li
+              class="cross-sells-list-images-item scroll-animate-fade-in-up"
+              style="animation-delay: {{ forloop.index0 | times: 0.1 }}s"
+            >
+              <div class="cross-sells-list-images-item-inner {% if product.available %}active{% endif %}">
+                <a href="{{ product.url }}">
+                  <div class="img-wrapper">
+                    {% if section.settings.show_custom_badge %}
+                      {% render 'product-custom-badge', product: product %}
+                    {% endif %}
+                    {% if section.settings.show_sale_badge %}
+                      {% render 'product-sale-badge', product: product %}
+                    {% endif %}
+                    {% render 'product-card-img', image: featured_image %}
+                  </div>
+                </a>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+        <div class="cross-sells-footer">
+          {% liquid
+            for handle in product_handles
+              assign product = all_products[handle]
+              assign total_compare_price = total_compare_price | plus: product.first_available_variant.compare_at_price
+              assign total_price = total_price | plus: product.first_available_variant.price
+            endfor
+            if section.settings.discount > 0
+              assign total_price = 100 | minus: section.settings.discount | divided_by: 100.0 | times: total_price
+            endif
+            assign total_savings = total_compare_price | minus: total_price
+            assign total_discount = total_compare_price | minus: total_price | times: 100 | divided_by: total_compare_price | round | append: '%'
+          %}
+          {% if section.settings.discount > 0 %}
+            {% liquid
+              assign discount = section.settings.discount | append: '%'
+              assign discount_min = section.settings.discount_min_items
+            %}
+            <div
+              class="cross-sells-footer-discount alert"
+              data-alert-type="success"
+            >
+              {{ 'product.cross_sells.additional_discount_html' | t: discount: discount, count: discount_min }}
+            </div>
+          {% endif %}
+          <p class="cross-sells-footer-price fs-lg" role="alert" aria-atomic="true">
+            <span> {{ 'product.cross_sells.total_price' | t }}: </span>
+            <span>
+              <s
+                {% if total_compare_price <= total_price %}
+                  hidden
+                {% endif %}
+              >
+                <span class="visually-hidden">
+                  {{ 'product.regular_price' | t }}
+                </span>
+                <span data-total-compare-price>
+                  {{ total_compare_price | money }}
+                </span>
+              </s>
+              <b data-total-price>
+                {{ total_price | money }}
+              </b>
+            </span>
+          </p>
+          <p
+            class="cross-sells-footer-savings fs-md"
+            {% if total_compare_price <= total_price %}
+              hidden
+            {% endif %}
+          >
+            <span> {{ 'product.cross_sells.total_savings' | t }}: </span>
+            <span data-total-savings> {{ total_savings | money }} ({{ total_discount }}) </span>
+          </p>
+          <button
+            class="btn btn-atc {{ section.settings.btn_style }}"
+            name="cross-sells-atc"
+            {% if total_price == 0 %}
+              disabled
+            {% endif %}
+          >
+            {{ 'product.cross_sells.add_selected_to_cart' | t }}
+          </button>
+        </div>
+      </div>
+      <ul class="cross-sells-secondary-list">
+        {% for handle in product_handles %}
+          <li class="cross-sells-secondary-list-item">
+            {% liquid
+              assign product = all_products[handle]
+            %}
+            <label class="check-label">
+              <input
+                type="checkbox"
+                value="{{ product.first_available_variant.id }}"
+                data-compare-price="{{ product.first_available_variant.compare_at_price }}"
+                data-price="{{ product.first_available_variant.price }}"
+                checked
+                {% unless product.available %}
+                  disabled
+                {% endunless %}
+              >
+              <span class="fs-md">
+                {% if forloop.first %}
+                  {{ 'product.cross_sells.this_item' | t }}:
+                {% endif %}
+                {{ product.title }}
+              </span>
+            </label>
+            <div class="cross-sells-secondary-list-item-inner">
+              {% unless product.has_only_default_variant %}
+                <div class="select-wrapper">
+                  <select
+                    name="id"
+                    class="select fs-sm"
+                    aria-label="{{ 'product.select_variant' | t }}"
+                    {% unless product.available %}
+                      disabled
+                    {% endunless %}
+                  >
+                    {% if product.available == false %}
+                      <option value="">{{ 'product.sold_out' | t }}</option>
+                    {% else %}
+                      {% for variant in product.variants %}
+                        <option
+                          value="{{ variant.id }}"
+                          data-variant-image="
+                            {%- if variant.image -%}
+                              {%- render 'product-card-img', image: variant.image, only_src: true -%}
+                            {%- endif -%}
+                          "
+                          data-variant-compare-price="{{ variant.compare_at_price }}"
+                          data-variant-price="{{ variant.price }}"
+                          {% unless variant.available %}
+                            disabled
+                          {% endunless %}
+                        >
+                          {{ variant.title }}
+                        </option>
+                      {% endfor %}
+                    {% endif %}
+                  </select>
+                  {% render 'svg-icons', icon: 'chevron-down', size: 16, stroke_width: 1.5 %}
+                </div>
+              {% endunless %}
+              <div
+                class="product-card-price price"
+                data-has-price-compare="{% if product.first_available_variant.compare_at_price > product.first_available_variant.price %}true{% else %}false{% endif %}"
+              >
+                <span class="price-sale">
+                  <span class="visually-hidden"> {{ 'product.sale_price' | t }} &nbsp; </span>
+                  <span data-price-sale>{{ product.first_available_variant.price | money }}</span>
+                </span>
+                <s class="price-compare">
+                  <span class="visually-hidden"> {{ 'product.regular_price' | t }} &nbsp; </span>
+                  <span data-price-compare>{{ product.first_available_variant.compare_at_price | money }}</span>
+                </s>
+                <span class="price-regular" data-price-regular>
+                  {{ product.first_available_variant.price | money }}
+                </span>
+              </div>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </cross-sells>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Cross sells",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product",
+      "info": "NOTE: Select a product if you are using this section outside of a product page."
+    },
+    {
+      "type": "text",
+      "id": "metafield",
+      "label": "Metafield namespace\/key",
+      "default": "custom.cross_sells",
+      "info": "[Create the above metafield](https:\/\/shopify.com\/admin\/metafields\/product\/create) with the type of \"Product (List)\" and add the products you want to cross-sell."
+    },
+    {
+      "type": "header",
+      "content": "Discount"
+    },
+    {
+      "type": "range",
+      "id": "discount",
+      "label": "Discount",
+      "info": "IMPORTANT: You must create an [automatic discount](https:\/\/shopify.com\/admin\/discounts) in Shopify admin with this exact value to apply the discount to the cart.",
+      "min": 0,
+      "max": 100,
+      "default": 20,
+      "step": 1,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "discount_min_items",
+      "label": "Minimum items to apply discount",
+      "min": 2,
+      "max": 10,
+      "default": 2
+    },
+    {
+      "type": "header",
+      "content": "Styling"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "container_max_width",
+      "label": "Container max-width",
+      "min": 800,
+      "max": 1400,
+      "default": 1200,
+      "step": 50,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text_alignment",
+      "id": "header_alignment",
+      "label": "Alignment",
+      "default": "center"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Frequently Bought Together"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "default": "h3",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" },
+        { "value": "h5", "label": "H5" },
+        { "value": "h6", "label": "H6" }
+      ]
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description (optional)",
+      "default": "<p>An optional description for this section</p>"
+    },
+    {
+      "type": "select",
+      "id": "description_font_size",
+      "label": "Description font-size",
+      "default": "fs-md",
+      "options": [
+        { "value": "fs-sm", "label": "sm" },
+        { "value": "fs-md", "label": "md" },
+        { "value": "fs-lg", "label": "lg" },
+        { "value": "fs-xl", "label": "xl" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "General"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_custom_badge",
+      "label": "Show custom badge",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sale_badge",
+      "label": "Show sale badge",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "btn_style",
+      "label": "\"Add to cart\" button style",
+      "default": "btn-primary",
+      "options": [
+        { "value": "btn-primary", "label": "Primary" },
+        { "value": "btn-outline", "label": "Outline" },
+        { "value": "btn-accent", "label": "Accent" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 2,
+      "unit": "rem"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 2,
+      "unit": "rem"
+    }
+  ],
+  "enabled_on": {
+    "templates": [ "product"]
+  },
+  "presets": [
+    {
+      "name": "Cross sells",
+      "category": "Promotions",
+    }
+  ]
+}
+{% endschema %}

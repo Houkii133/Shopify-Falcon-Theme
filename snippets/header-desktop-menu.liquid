@@ -1,0 +1,125 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+<nav class="nav">
+  <ul data-level="1">
+    {% for link in linklists[block.settings.menu].links %}
+      {% if link.levels == 0 %}
+        <li>
+          <a
+            href="{{ link.url }}"
+            class="{% if link.active %}active{% endif %}"
+            aria-current="{% if link.active %}page{% endif %}"
+          >
+            {{ link.title }}
+          </a>
+        </li>
+      {% elsif link.levels == 1 %}
+        <li>
+          <dropdown-component>
+            <a
+              href="#"
+              class="dropdown-btn has-chevron {% if link.active or link.child_active %}active{% endif %}"
+              aria-current="{% if link.active %}page{% endif %}"
+              aria-haspopup="true"
+              aria-expanded="false"
+              aria-controls="header-desktop-menu-dropdown-{{ forloop.index }}"
+              role="button"
+            >
+              {{ link.title }}
+              {% render 'svg-icons', icon: 'chevron-down', size: 14 %}
+            </a>
+            <div
+              id="header-desktop-menu-dropdown-{{ forloop.index }}"
+              class="dropdown-content {{ block.settings.menu_dropdowns_color_scheme | prepend: 'color-' }}"
+              hidden
+            >
+              <ul data-level="2">
+                {% for child_link in link.links %}
+                  <li style="--index: {{ forloop.index }};">
+                    {% if child_link.title == '-' %}
+                      <hr class="dropdown-divider">
+                    {% else %}
+                      <a
+                        class="{% if child_link.active %}active{% endif %}"
+                        href="{{ child_link.url }}"
+                        aria-current="{% if child_link.active %}page{% endif %}"
+                      >
+                        {{ child_link.title }}
+                      </a>
+                    {% endif %}
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </dropdown-component>
+        </li>
+      {% else %}
+        <li>
+          <dropdown-component class="has-megamenu">
+            <a
+              href="#"
+              class="dropdown-btn has-chevron {% if link.active or link.child_active %}active{% endif %}"
+              aria-current="{% if link.active %}page{% endif %}"
+              aria-haspopup="true"
+              aria-expanded="false"
+              aria-controls="header-desktop-menu-dropdown-{{ forloop.index }}"
+              role="button"
+            >
+              {{ link.title }}
+              {% render 'svg-icons', icon: 'chevron-down', size: 14 %}
+            </a>
+            <div
+              id="header-desktop-menu-dropdown-{{ forloop.index }}"
+              class="dropdown-content megamenu {{ block.settings.menu_dropdowns_color_scheme | prepend: 'color-' }}"
+              hidden
+            >
+              <div class="container">
+                <ul data-level="2">
+                  {% for child_link in link.links %}
+                    <li style="--index: {{ forloop.index }};">
+                      <a
+                        class="{% if child_link.active %}active{% endif %}"
+                        href="{{ child_link.url }}"
+                        aria-current="{% if child_link.active %}page{% endif %}"
+                      >
+                        {% if child_link.levels == 0 and child_link.type == 'collection_link' %}
+                          <img
+                            src="{{ child_link.object.image | image_url: width: 480, height: 360, crop: 'center' }}"
+                            class="img-fluid"
+                            alt="{{ child_link.object.image.alt }}"
+                            width="480"
+                            height="360"
+                            loading="lazy"
+                          >
+                        {% endif %}
+                        <span>
+                          {{ child_link.title }}
+                        </span>
+                      </a>
+                      <ul data-level="3">
+                        {% for child_child_link in child_link.links %}
+                          <li>
+                            <a
+                              class="{% if child_child_link.active %}active{% endif %}"
+                              href="{{ child_child_link.url }}"
+                              aria-current="{% if child_child_link.active %}page{% endif %}"
+                            >
+                              {{ child_child_link.title }}
+                            </a>
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </dropdown-component>
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</nav>

@@ -1,0 +1,133 @@
+/*
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+*/
+
+.parallax-media {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  color: rgba(var(--color-text));
+}
+
+.parallax-media .media-wrapper {
+  height: var(--media-height);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.parallax-media .media-wrapper::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(var(--overlay-color), var(--overlay-opacity));
+  -webkit-backdrop-filter: blur(var(--overlay-blur));
+  backdrop-filter: blur(var(--overlay-blur));
+}
+
+.parallax-media .media-wrapper picture {
+  width: 100%;
+  display: block;
+}
+
+.parallax-media .media-wrapper img,
+.parallax-media .media-wrapper video,
+.parallax-media .media-wrapper .placeholder-svg {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  display: block;
+}
+
+.parallax-media-content {
+  position: absolute;
+  z-index: 1;
+  left: 1rem; 
+  right: 1rem;
+  top: 2rem;
+  bottom: 2rem;
+  display: flex;
+}
+
+.parallax-media-content .subheading {
+  margin-bottom: 0.25rem;
+}
+
+.parallax-media-content .heading {
+  margin: 0;
+}
+
+.parallax-media-content .description {
+  margin-top: 0.6rem;
+}
+
+.parallax-media-content .description p {
+  margin-top: 0;
+}
+
+.parallax-media-content .btn-wrapper {
+  margin-top: 1.75rem;
+  display: inline-flex;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 599px) {
+  .parallax-media {
+    padding-top: calc(var(--padding-top) * 0.75);
+    padding-bottom: calc(var(--padding-bottom) * 0.75);
+  }
+  .parallax-media-content[data-position-mobile="top"] {
+    top: 2rem;
+    align-items: flex-start;
+    text-align: center;
+  }
+  .parallax-media-content[data-position-mobile="center"] {
+    align-items: center;
+    text-align: center;
+  }
+  .parallax-media-content[data-position-mobile="bottom"] {
+    align-items: flex-end;
+    text-align: center;
+    bottom: 2rem;
+  }
+  .parallax-media .media-wrapper {
+    --media-height: var(--media-height-mobile);
+  }
+  .parallax-media-content .btn-wrapper .btn {
+    width: 100%;
+  }
+}
+
+@media (min-width: 600px) {
+  .parallax-media {
+    padding-top: calc(var(--padding-top) * 1);
+    padding-bottom: calc(var(--padding-bottom) * 1);
+  }
+  .parallax-media-content[data-position-desktop="left"] {
+    align-items: center;
+    text-align: left;
+  }
+  .parallax-media-content[data-position-desktop="center"] {
+    align-items: center;
+    text-align: center;
+  }
+  .parallax-media-content[data-position-desktop="right"] {
+    align-items: center;
+    text-align: right;
+  }
+  .parallax-media-content[data-position-desktop="bottom"] {
+    bottom: 2rem;
+    align-items: flex-end;
+    text-align: center;
+  }
+  .parallax-media .media-wrapper {
+    --media-height: var(--media-height-desktop);
+  }
+}

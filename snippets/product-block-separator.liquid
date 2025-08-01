@@ -1,0 +1,24 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+<div
+  id="product-block-{{ block.id }}"
+  class="product-block"
+  style="
+    --padding-top: {{ block.settings.padding_top | append: 'rem' }};
+    --padding-bottom: {{ block.settings.padding_bottom | append: 'rem' }};
+  "
+  data-type="{{ block.type }}"
+  {{ block.shopify_attributes }}
+>
+  <hr
+    class="separator"
+    style="
+      --line-opacity: {{ block.settings.line_opacity | append: '%' }};
+      --line-height: {{ block.settings.line_height | append: 'px' }};
+    "
+    data-line-style="{{ block.settings.line_style }}"
+  >
+</div>

@@ -1,0 +1,186 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+<div
+  id="product-block-{{ block.id }}"
+  class="product-block"
+  style="
+    --padding-top: {{ block.settings.padding_top | append: 'rem' }};
+    --padding-bottom: {{ block.settings.padding_bottom | append: 'rem' }};
+  "
+  data-type="{{ block.type }}"
+  {{ block.shopify_attributes }}
+>
+  {% case block.settings.type %}
+    {% when 'text' %}
+      <div class="form-group">
+        <label for="personalization-field-{{ block.id }}">
+          {{ block.settings.label }}
+          {% if block.settings.required %}
+            <span class="form-asterisk" aria-hidden="true">*</span>
+          {% endif %}
+        </label>
+        <input
+          id="personalization-field-{{ block.id }}"
+          class="input"
+          type="text"
+          name="properties[{{ block.settings.label }}]"
+          placeholder="{{ block.settings.placeholder }}"
+          {% if block.settings.required %}
+            required
+          {% endif %}
+        >
+      </div>
+    {% when 'textarea' %}
+      <div class="form-group">
+        <label for="personalization-field-{{ block.id }}">
+          {{ block.settings.label }}
+          {% if block.settings.required %}
+            <span class="form-asterisk" aria-hidden="true">*</span>
+          {% endif %}
+        </label>
+        <textarea
+          id="personalization-field-{{ block.id }}"
+          class="input"
+          name="properties[{{ block.settings.label }}]"
+          placeholder="{{ block.settings.placeholder }}"
+          style="height: {{ block.settings.textarea_height | append: 'px' }}"
+          {% if block.settings.required %}
+            required
+          {% endif -%}
+        ></textarea>
+      </div>
+    {% when 'file' %}
+      <div class="form-group">
+        <label for="personalization-field-{{ block.id }}">
+          {{ block.settings.label }}
+          {% if block.settings.required %}
+            <span class="form-asterisk" aria-hidden="true">*</span>
+          {% endif %}
+        </label>
+        <input
+          id="personalization-field-{{ block.id }}"
+          class="input"
+          type="file"
+          name="properties[{{ block.settings.label }}]"
+          {% if block.settings.required %}
+            required
+          {% endif %}
+        >
+      </div>
+    {% when 'date' %}
+      <div class="form-group">
+        {% unless block.settings.floating_field %}
+          <label for="personalization-field-{{ block.id }}">
+            {{ block.settings.label }}
+            {% if block.settings.required %}
+              <span class="form-asterisk" aria-hidden="true">*</span>
+            {% endif %}
+          </label>
+        {% endunless %}
+        <input
+          id="personalization-field-{{ block.id }}"
+          class="input"
+          type="date"
+          name="properties[{{ block.settings.label }}]"
+          placeholder="{{ block.settings.placeholder }}"
+          {% if block.settings.required %}
+            required
+          {% endif %}
+        >
+      </div>
+    {% when 'select' %}
+      {% assign options = block.settings.options | split: ',' %}
+      <div class="form-group">
+        {% unless block.settings.floating_field %}
+          <label for="personalization-field-{{ block.id }}">
+            {{ block.settings.label }}
+            {% if block.settings.required %}
+              <span class="form-asterisk" aria-hidden="true">*</span>
+            {% endif %}
+          </label>
+        {% endunless %}
+        <div class="select-wrapper">
+          <select
+            id="personalization-field-{{ block.id }}"
+            class="select"
+            name="properties[{{ block.settings.label }}]"
+            aria-label="{{ block.settings.label }}"
+          >
+            {% for option in options %}
+              <option>{{ option }}</option>
+            {% endfor %}
+          </select>
+          {% render 'svg-icons', icon: 'chevron-down', size: 16, stroke_width: 1.5 %}
+        </div>
+      </div>
+    {% when 'checkbox' %}
+      {% assign options = block.settings.options | split: ',' %}
+      <div class="form-group">
+        <p class="subheading form-label">
+          {{ block.settings.label }}
+        </p>
+        <input
+          id="personalization-field-{{ block.id }}-hidden"
+          type="hidden"
+          name="properties[{{ block.settings.label }}]"
+          value=""
+        >
+        {% for option in options %}
+          <label class="check-label">
+            <input
+              type="checkbox"
+              name="personalization-field-{{ block.id }}"
+              value="{{ option | strip }}"
+            >
+            {{ option | strip }}
+          </label>
+        {% endfor %}
+      </div>
+      <script>
+        window.addEventListener('DOMContentLoaded', function () {
+          const inputHidden = document.querySelector('#product-block-{{ block.id }} input[type="hidden"]');
+          document.querySelectorAll('#product-block-{{ block.id }} input[type="checkbox"]').forEach((checkbox) => {
+            checkbox.addEventListener('change', () => {
+              console.log(checkbox);
+              const checkedValues = [...document.querySelectorAll('#product-block-{{ block.id }} input[type="checkbox"]:checked')].map((checkbox, index) => {
+                if (index > 0) {
+                  return ' ' + checkbox.value;
+                } else {
+                  return checkbox.value;
+                }
+              });
+              inputHidden.value = checkedValues;
+            });
+          });
+        });
+      </script>
+    {% when 'radio' %}
+      {% assign options = block.settings.options | split: ',' %}
+      <div class="form-group">
+        <p class="subheading form-label">
+          {{ block.settings.label }}
+        </p>
+        {% for option in options %}
+          <label class="check-label">
+            <input
+              type="radio"
+              name="properties[{{ block.settings.label }}]"
+              value="{{ option | strip }}"
+              {% if forloop.first %}
+                checked
+              {% endif %}
+            >
+            {{ option | strip }}
+          </label>
+        {% endfor %}
+      </div>
+  {% endcase %}
+  {% unless block.settings.info_text == blank %}
+    <div class="personalization-field-helper-text description rte fs-sm">
+      {{ block.settings.info_text }}
+    </div>
+  {% endunless %}
+</div>

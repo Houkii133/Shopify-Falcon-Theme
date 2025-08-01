@@ -1,0 +1,37 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+ 
+<div class="collection-sort-by collection-sort-by-{{ type }}">
+  <dropdown-component>
+    <button
+      class="btn btn-outline btn-sm dropdown-btn has-chevron"
+      type="button"
+      aria-haspopup="true"
+      aria-expanded="false"
+    >
+      {{ 'collection.sort_by' | t }}
+      {% render 'svg-icons', icon: 'chevron-down', size: 14 %}
+    </button>
+    <div class="dropdown-content right" hidden>
+      <ul class="list-unstyled">
+        {% for option in collection.sort_options %}
+          <li>
+            <label class="check-label">
+              <input
+                type="radio"
+                name="sort_by_{{ type }}"
+                value="{{ option.value }}"
+                {% if option.value == collection.sort_by %}
+                  checked
+                {% endif %}
+              >
+              {{ option.name }}
+            </label>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </dropdown-component>
+</div>

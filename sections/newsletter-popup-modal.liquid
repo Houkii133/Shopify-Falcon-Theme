@@ -1,0 +1,214 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% if section.settings.enable_section %}
+  <dialog
+    id="newsletter-popup-modal"
+    class="dialog modal {{ section.settings.color_scheme | prepend: 'color-' }}"
+    style="--max-width: {{ section.settings.max_width }}px"
+    aria-labelledby="newsletter-popup-modal-title"
+    data-section-css="{{ 'newsletter.css' | asset_url }}"
+    data-section-js="{{ 'newsletter-popup.js' | asset_url }}"
+  >
+    <dialog-component class="dialog-inner">
+      <newsletter-popup
+        id="newsletter-popup"
+        style="--img-height: {{ section.settings.img_height }}px;"
+        data-config-delay="{{ section.settings.config_delay }}"
+        data-config-days-to-wait="{{ section.settings.config_days_to_wait }}"
+        data-config-path="{{ section.settings.config_path }}"
+      >
+        <button
+          class="dialog-close"
+          data-dialog-close
+          aria-label="{{ 'accessibility.close' | t }}"
+        >
+          {% render 'svg-icons', icon: 'x', size: 20, stroke_width: 1.5 %}
+        </button>
+        {% unless section.settings.img == blank %}
+          <div class="img-wrapper">
+            <img
+              src="{{ section.settings.img | image_url: width: 800 }}"
+              class="img-fluid"
+              alt="{{ section.settings.img.alt }}"
+              width="800"
+              height="{{ 800 | divided_by: section.settings.img.aspect_ratio | round }}"
+              loading="lazy"
+            >
+          </div>
+        {% endunless %}
+        <div class="dialog-body">
+          <header class="section-header text-{{ section.settings.header_alignment }}">
+            {% unless section.settings.heading == blank %}
+              <h2
+                id="newsletter-popup-modal-title"
+                class="heading {{ section.settings.heading_size }}"
+              >
+                {{ section.settings.heading }}
+              </h2>
+            {% endunless %}
+            {% unless section.settings.description == blank %}
+              <div class="description rte {{ section.settings.description_font_size }}">
+                {{ section.settings.description }}
+              </div>
+            {% endunless %}
+          </header>
+          {% render 'newsletter-form' %}
+          {% unless section.settings.notice == blank %}
+            <div class="newsletter-notice rte fs-xs text-center">
+              {{ section.settings.notice }}
+            </div>
+          {% endunless %}
+        </div>
+      </newsletter-popup>
+    </dialog-component>
+  </dialog>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Newsletter popup",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_section",
+      "label": "Enable this section",
+      "info": "Disable this checkbox to completely hide the newsletter popup feature.",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Config"
+    },
+    {
+      "type": "range",
+      "id": "config_delay",
+      "label": "Delay (sec)",
+      "info": "The time to wait before showing the dialog on page load. (in seconds)",
+      "default": 5,
+      "min": 1,
+      "max": 20,
+      "unit": "sec"
+    },
+    {
+      "type": "range",
+      "id": "config_days_to_wait",
+      "label": "Days to wait",
+      "info": "Days to wait before showing the newsletter popup again.",
+      "default": 3,
+      "min": 1,
+      "max": 30
+    },
+    {
+      "type": "text",
+      "id": "config_path",
+      "label": "URL path",
+      "info": "You can bypass the settings above and open the newsletter popup modal directly by using this path in the URL. For example: myshopifystore.com?newsletter-popup. Usually you don't need to change this. Also, this is handy for testing on the live store.",
+      "default": "newsletter-popup"
+    },
+    {
+      "type": "header",
+      "content": "Styling"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "max_width",
+      "label": "Modal max-width (px)",
+      "default": "600"
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "img",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "img_height",
+      "label": "Image height (px)",
+      "default": "300"
+    },
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text_alignment",
+      "id": "header_alignment",
+      "label": "Alignment",
+      "default": "center"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Newsletter Subscribe"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "default": "h2",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" },
+        { "value": "h5", "label": "H5" },
+        { "value": "h6", "label": "H6" }
+      ]
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description (optional)",
+      "default": "<p>Be the first to know about our latest offers</p>"
+    },
+    {
+      "type": "select",
+      "id": "description_font_size",
+      "label": "Description font-size",
+      "default": "fs-md",
+      "options": [
+        { "value": "fs-sm", "label": "sm" },
+        { "value": "fs-md", "label": "md" },
+        { "value": "fs-lg", "label": "lg" },
+        { "value": "fs-xl", "label": "xl" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Newsletter form"
+    },
+    {
+      "type": "select",
+      "id": "btn_style",
+      "label": "Button style",
+      "default": "text",
+      "options": [
+        { "value": "text", "label": "Text" },
+        { "value": "accent", "label": "Accent" },
+        { "value": "text-inverted", "label": "Text-inverted" },
+        { "value": "accent-inverted", "label": "Accent-inverted" }
+      ]
+    },
+    {
+      "type": "richtext",
+      "id": "notice",
+      "label": "Notice text",
+      "default": "<p>By signing up for email, you agree to our <a href=\"/policies/terms-of-service\">Terms of Service</a> and <a href=\"/policies/privacy-policy\">Privacy Policy</a>.</p>"
+    }
+  ]
+}
+{% endschema %}

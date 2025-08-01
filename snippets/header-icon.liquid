@@ -1,0 +1,125 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% liquid
+  assign size = block.settings.icons_size | default: 20
+  assign stroke_width = block.settings.icons_stroke_width | default: 1.5
+%}
+
+{% case icon %}
+  {% when 'cart' %}
+    {% liquid
+      case settings.cart_icon
+        when 'bag'
+          assign cart_icon = 'bag'
+        else
+          assign cart_icon = 'cart'
+      endcase
+    %}
+    <li>
+      <a
+        href="#"
+        class="header-icon"
+        data-open-dialog="cart-drawer"
+        aria-controls="cart-drawer"
+        aria-haspopup="dialog"
+        aria-label="{{ 'general.cart' | t }} {{ cart.item_count }}"
+        role="button"
+      >
+        <span>
+          {% render 'svg-icons', icon: cart_icon, size: size, stroke_width: stroke_width %}
+          {% render 'cart-badge' %}
+        </span>
+      </a>
+    </li>
+  {% when 'search' %}
+    {% if settings.search %}
+      <li>
+        <a
+          href="#"
+          class="header-icon"
+          data-open-dialog="search-modal"
+          aria-controls="search-modal"
+          aria-haspopup="dialog"
+          aria-label="{{ 'general.search' | t }}"
+          role="button"
+        >
+          <span>
+            {% render 'svg-icons', icon: 'search', size: size, stroke_width: stroke_width %}
+          </span>
+        </a>
+      </li>
+    {% endif %}
+  {% when 'account' %}
+    {% if shop.customer_accounts_enabled %}
+      <li>
+        <a
+          href="{{ routes.account_url }}"
+          class="header-icon"
+          aria-label="{{ 'general.account' | t }}"
+        >
+          <span>
+            {% render 'svg-icons', icon: 'account', size: size, stroke_width: stroke_width %}
+          </span>
+        </a>
+      </li>
+    {% endif %}
+  {% when 'wishlist' %}
+    {% if settings.wishlist %}
+      <li>
+        <a
+          href="#"
+          class="header-icon"
+          data-open-dialog="wishlist-drawer"
+          aria-controls="wishlist-drawer"
+          aria-haspopup="dialog"
+          aria-label="{{ 'general.wishlist.wishlist' | t }}"
+          role="button"
+        >
+          <span>
+            {% render 'svg-icons', icon: 'heart', size: size, stroke_width: stroke_width %}
+            <span class="count-badge" data-badge="wishlist" data-count="0">0</span>
+          </span>
+        </a>
+      </li>
+    {% endif %}
+  {% when 'menu' %}
+    <li>
+      <a
+        href="#"
+        class="header-icon"
+        aria-controls="header-mobile-menu"
+        aria-expanded="false"
+        aria-haspopup="true"
+        aria-label="{{ 'general.menu' | t }}"
+        role="button"
+      >
+        <span>
+          {% render 'svg-icons', icon: 'menu', size: size, stroke_width: stroke_width %}
+        </span>
+      </a>
+    </li>
+  {% when 'localization' %}
+    {% if localization.available_countries.size > 1 or localization.available_languages.size > 1 %}
+      <li>
+        <dropdown-component>
+          <a
+            href="#"
+            class="dropdown-btn header-icon"
+            aria-haspopup="true"
+            aria-expanded="false"
+            aria-label="{{ 'general.localization.localization' | t }}"
+            role="button"
+          >
+            <span>
+              {% assign globe_stroke_width = stroke_width | minus: 0.4 %}
+              {% render 'svg-icons', icon: 'globe', size: size, stroke_width: globe_stroke_width %}
+            </span>
+          </a>
+          {% render 'localization-dropdown' %}
+        </dropdown-component>
+      </li>
+    {% endif %}
+{% endcase %}

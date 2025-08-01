@@ -1,0 +1,66 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+ 
+{% if type == 'mobile' %}
+  <dropdown-component>
+    <button
+      class="btn btn-outline btn-sm dropdown-btn has-chevron"
+      type="button"
+      aria-haspopup="true"
+      aria-expanded="false"
+      aria-label="{{ 'accessibility.adjust_items_per_row' | t }}"
+    >
+      {% render 'svg-icons', icon: 'grid', size: 18, stroke_width: 1.5 %}
+      {% render 'svg-icons', icon: 'chevron-down', size: 14 %}
+    </button>
+    <div class="dropdown-content right" hidden>
+      <div
+        class="collection-cols-selector"
+        data-type="mobile"
+        data-text="{{'collection.cols_selector' | t }}"
+      >
+        <input
+          type="range"
+          min="1"
+          max="2"
+          value="{{ block.settings.mobile_cols }}"
+        >
+        <p>
+          {{ 'collection.cols_selector' | t: count: block.settings.mobile_cols }}
+        </p>
+      </div>
+    </div>
+  </dropdown-component>
+{% else %}
+  <dropdown-component>
+    <button
+      class="btn btn-outline btn-sm dropdown-btn has-chevron"
+      type="button"
+      aria-haspopup="true"
+      aria-expanded="false"
+      aria-label="{{ 'accessibility.adjust_items_per_row' | t }}"
+    >
+      {% render 'svg-icons', icon: 'grid', size: 18, stroke_width: 1.5 %}
+      {% render 'svg-icons', icon: 'chevron-down', size: 14 %}
+    </button>
+    <div class="dropdown-content right" hidden>
+      <div
+        class="collection-cols-selector"
+        data-type="desktop"
+        data-text="{{'collection.cols_selector' | t }}"
+      >
+        <input
+          type="range"
+          min="2"
+          max="6"
+          value="{{ block.settings.desktop_cols }}"
+        >
+        <p>
+          {{ 'collection.cols_selector' | t: count: block.settings.desktop_cols }}
+        </p>
+      </div>
+    </div>
+  </dropdown-component>
+{% endif %}

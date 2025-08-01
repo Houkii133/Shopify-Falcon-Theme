@@ -1,0 +1,90 @@
+/*
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+*/
+.pagination-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1.5rem 0 0.75rem;
+}
+
+.pagination-counter {
+  font-size: 0.875rem;
+  margin: 0 0 0.75rem;
+}
+
+.pagination-line {
+  max-width: 400px;
+  border-radius: 50rem;
+  background-color: rgba(var(--color-accent), 0.15);
+  height: 2px;
+  width: 100%;
+  display: inline-flex;
+  margin: 0 0 1.25rem;
+}
+.pagination-line span {
+  background-color: rgba(var(--color-accent), 1);
+  display: block;
+  height: 2px;
+  width: 100%;
+  border-radius: 50rem;
+}
+
+ul.pagination {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+ul.pagination li a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--border-radius);
+  background-color: transparent;
+  border: 1px solid rgba(var(--color-text), 1);
+  color: rgba(var(--color-text));
+  text-decoration: none;
+  transition: all 0.2s ease-out;
+}
+
+ul.pagination li a:hover {
+  background-color: rgba(var(--color-text), 0.05);
+  color: rgba(var(--color-text));
+}
+
+ul.pagination li a:active {
+  background-color: rgba(var(--color-text), 0.1);
+  color: rgba(var(--color-text));
+}
+
+ul.pagination li a[aria-current="page"] {
+  background-color: rgba(var(--color-accent), 0.05);
+  color: rgba(var(--color-accent));
+  border-color: rgba(var(--color-accent));
+}
+
+.infinite-pagination-btn svg {
+  animation: infinite-pagination-btn 1s ease-in-out infinite;
+}
+
+@keyframes infinite-pagination-btn {
+  0% {
+    transform: translateY(-0.125rem);
+  }
+  100% {
+    transform: translateY(0.125rem);
+  }
+}
+
+@media (max-width: 599px) {
+  .pagination-wrapper {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+  }
+}

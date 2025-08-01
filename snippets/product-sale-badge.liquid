@@ -1,0 +1,21 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% if product.available == false %}
+  <span class="badge badge-sold-out">
+    {{ 'product.sold_out' | t }}
+  </span>
+{% elsif product.compare_at_price > product.price and settings.product_card_sale_badge != blank %}
+  {% liquid
+    if settings.product_card_sale_badge == 'percentage'
+      assign sale_value = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price | round | append: '%'
+    else
+      assign sale_value = product.compare_at_price | minus: product.price | money_without_trailing_zeros
+    endif
+  %}
+  <span class="badge badge-sale">
+    {{ 'product.sale_badge' | t: value: sale_value }}
+  </span>
+{% endif %}

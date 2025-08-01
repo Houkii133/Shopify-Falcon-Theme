@@ -1,0 +1,64 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+<div
+  id="product-block-{{ block.id }}"
+  class="product-block"
+  style="
+    --padding-top: {{ block.settings.padding_top | append: 'rem' }};
+    --padding-bottom: {{ block.settings.padding_bottom | append: 'rem' }};
+  "
+  data-type="{{ block.type }}"
+  data-is-collapse-block="true"
+  {{ block.shopify_attributes }}
+>
+  <collapse-component>
+    <details
+      {% if block.settings.open_by_default %}
+        open
+      {% endif %}
+    >
+      <summary
+        style="
+          --font-size: {{ block.settings.title_font_size | divided_by: 100.0 | append: 'rem' }};
+          --text-transform: {{ block.settings.title_text_transform }};
+          --letter-spacing: {{ block.settings.title_letter_spacing | divided_by: 100.0 | append: 'rem' }};
+        "
+      >
+        <span>
+          {% unless block.settings.icon == blank %}
+            {% assign icon_size_x2 = block.settings.icon_size | times: 2 %}
+            <img
+              class="img-fluid"
+              src="{{ block.settings.icon | image_url: width: icon_size_x2 }}"
+              alt="{{ block.settings.icon.alt }}"
+              width="{{ block.settings.icon_size }}"
+              height="{{ block.settings.icon_size | divided_by: block.settings.icon.aspect_ratio | round }}"
+              loading="lazy"
+            >
+          {% endunless %}
+          {{ block.settings.title -}}
+        </span>
+        {% render 'svg-icons', icon: 'chevron-down', size: 16, stroke_width: 1.5 %}
+      </summary>
+      <div class="collapse-content">
+        <div class="collapse-content-inner description rte">
+          {{ block.settings.description }}
+          {% unless block.settings.page == null %}
+            {{ block.settings.page.content }}
+          {% endunless %}
+          {% unless block.settings.btn_primary_text == blank %}
+            <a
+              class="{{ block.settings.btn_primary_style }}"
+              href="{{ block.settings.btn_primary_url }}"
+            >
+              {{ block.settings.btn_primary_text }}
+            </a>
+          {% endunless %}
+        </div>
+      </div>
+    </details>
+  </collapse-component>
+</div>

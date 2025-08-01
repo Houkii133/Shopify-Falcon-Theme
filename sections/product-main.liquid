@@ -1,0 +1,1764 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+<div
+  id="product-{{ product.id }}"
+  class="product {{ section.settings.color_scheme | prepend: 'color-' }}"
+  style="
+    --padding-top: {{ section.settings.padding_top }}rem;
+    --padding-bottom: {{ section.settings.padding_bottom }}rem;
+  "
+>
+  <div class="container">
+    <div class="product-inner">
+      {% render 'product-media-gallery' %}
+      <div
+        id="product-content-{{ product.id }}"
+        class="product-content"
+      >
+        <product-form class="product-form">
+          {% form 'product', product, data-product-url: product.url %}
+            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+            {% liquid
+              for block in section.blocks
+                case block.type
+                  when 'title'
+                    render 'product-block-title', block: block
+                  when 'price'
+                    render 'product-block-price', block: block
+                  when 'rating_badge'
+                    render 'product-block-rating-badge', block: block
+                  when 'breadcrumb'
+                    render 'product-block-breadcrumb', block: block
+                  when 'richtext'
+                    render 'product-block-richtext', block: block
+                  when 'options'
+                    render 'product-block-options', block: block
+                  when 'buy_buttons'
+                    render 'product-block-buy-buttons', block: block
+                  when 'collapse'
+                    render 'product-block-collapse', block: block
+                  when 'inventory_bar'
+                    render 'product-block-inventory-bar', block: block
+                  when 'qty_breaks'
+                    render 'product-block-qty-breaks', block: block
+                  when 'personalization_field'
+                    render 'product-block-personalization-field', block: block
+                  when 'upsell_checkbox'
+                    render 'product-block-upsell-checkbox', block: block
+                  when 'local_delivery'
+                    render 'product-block-local-delivery', block: block
+                  when 'delivery_info'
+                    render 'product-block-delivery-info', block: block
+                  when 'separator'
+                    render 'product-block-separator', block: block
+                  when 'trust_icons'
+                    render 'product-block-trust-icons', block: block
+                  when 'prev_next'
+                    render 'product-block-prev-next', block: block
+                  when 'countdown'
+                    render 'product-block-countdown', block: block
+                  when 'liquid'
+                    render 'product-block-liquid', block: block
+                  when '@app'
+                    render block
+                endcase
+              endfor
+            %}
+          {% endform %}
+        </product-form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Media gallery"
+    },
+    {
+      "type": "select",
+      "id": "gallery_img_ratio",
+      "label": "Image ratio",
+      "default": "adapt",
+      "options": [
+        { "value": "adapt", "label": "Adapt" },
+        { "value": "square", "label": "Square" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "Speed",
+      "info": "Transition between slides",
+      "min": 0,
+      "max": 1000,
+      "step": 50,
+      "default": 300,
+      "unit": "ms"
+    },
+    {
+      "type": "checkbox",
+      "id": "gallery_show_controls",
+      "label": "Show Controls",
+      "info": "Prev/Next buttons",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "gallery_show_pagination",
+      "label": "Show pagination",
+      "info": "Media count at the bottom",
+      "default": true
+    },
+    {
+      "type": "color_scheme",
+      "id": "gallery_controls_color_scheme",
+      "label": "Controls color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "select",
+      "id": "gallery_controls_style",
+      "label": "Controls style",
+      "options": [
+        { "value": "minimal", "label": "Minimal" },
+        { "value": "circle", "label": "Circle" },
+        { "value": "side", "label": "Side" }
+      ],
+      "default": "circle"
+    },
+    {
+      "type": "checkbox",
+      "id": "gallery_show_thumbs",
+      "label": "Show thumbnails",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "gallery_thumbs_per_view",
+      "label": "Thumbnails per view",
+      "min": 4,
+      "max": 8,
+      "default": 5
+    },
+    {
+      "type": "checkbox",
+      "id": "gallery_hide_thumbs_on_mobile",
+      "label": "Hide thumbnails on mobile",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "gallery_show_custom_badge",
+      "label": "Show custom badge",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "gallery_full_screen",
+      "label": "Enable \"full screen\" gallery",
+      "default": true
+    },
+
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 2,
+      "unit": "rem"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 2,
+      "unit": "rem"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "title",
+      "name": "Title",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "heading_size",
+          "label": "Heading size",
+          "info": "This controls styling only, the \"H1\" tag is used for the product title",
+          "default": "h2",
+          "options": [
+            { "value": "h1", "label": "H1" },
+            { "value": "h2", "label": "H2" },
+            { "value": "h3", "label": "H3" },
+            { "value": "h4", "label": "H4" },
+            { "value": "h5", "label": "H5" },
+            { "value": "h6", "label": "H6" }
+          ]
+        },
+        {
+          "type": "checkbox",
+          "id": "share",
+          "label": "Show share button",
+          "default": true
+        },
+        {
+          "type": "select",
+          "id": "share_button_style",
+          "label": "Share button style",
+          "default": "btn-outline",
+          "options": [
+            { "value": "btn-primary", "label": "Primary" },
+            { "value": "btn-outline", "label": "Outline" },
+            { "value": "btn-accent", "label": "Accent" },
+            { "value": "btn-plain", "label": "Plain" }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Spacing"
+        },
+        {
+          "type": "range",
+          "id": "padding_top",
+          "label": "Top",
+          "min": 0,
+          "max": 3,
+          "step": 0.2,
+          "default": 0,
+          "unit": "rem"
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom",
+          "label": "Bottom",
+          "min": 0,
+          "max": 3,
+          "step": 0.2,
+          "default": 0,
+          "unit": "rem"
+        }
+      ]
+    },
+    {
+      "type": "price",
+      "name": "Price",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "font_size",
+          "label": "Font-size",
+          "default": "fs-xl",
+          "options": [
+            { "value": "fs-sm", "label": "sm" },
+            { "value": "fs-md", "label": "md" },
+            { "value": "fs-lg", "label": "lg" },
+            { "value": "fs-xl", "label": "xl" },
+            { "value": "fs-2xl", "label": "2xl" }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "badge_discount_type",
+          "label": "Sale badge discount type",
+          "default": "percentage",
+          "options": [
+            { "value": "percentage", "label": "Percentage" },
+            { "value": "value", "label": "Value" }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Spacing"
+        },
+        {
+          "type": "range",
+          "id": "padding_top",
+          "label": "Top",
+          "min": 0,
+          "max": 3,
+          "step": 0.2,
+          "default": 0,
+          "unit": "rem"
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom",
+          "label": "Bottom",
+          "min": 0,
+          "max": 3,
+          "step": 0.2,
+          "default": 0,
+          "unit": "rem"
+        }
+      ]
+    },
+    {
+      "type": "rating_badge",
+      "name": "Rating badge",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "font_size",
+          "label": "Font-size",
+          "default": "fs-md",
+          "options": [
+            { "value": "fs-sm", "label": "sm" },
+            { "value": "fs-md", "label": "md" },
+            { "value": "fs-lg", "label": "lg" },
+            { "value": "fs-xl", "label": "xl" },
+            { "value": "fs-2xl", "label": "2xl" }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Spacing"
+        },
+        {
+          "type": "range",
+          "id": "padding_top",
+          "label": "Top",
+          "min": 0,
+          "max": 3,
+          "step": 0.2,
+          "default": 0,
+          "unit": "rem"
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom",
+          "label": "Bottom",
+          "min": 0,
+          "max": 3,
+          "step": 0.2,
+          "default": 0,
+          "unit": "rem"
+        }
+      ]
+    },
+    {
+      "type": "options",
+      "name": "Options",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "options_style",
+          "label": "Options style",
+          "options": [
+            { "value": "buttons", "label": "Buttons" },
+            { "value": "select", "label": "Select" }
+          ],
+          "default": "buttons"
+        },
+        {
+          "type": "header",
+          "content": "Spacing"
+        },
+        {
+          "type": "range",
+          "id": "padding_top",
+          "label": "Top",
+          "min": 0,
+          "max": 3,
+          "step": 0.2,
+          "default": 0,
+          "unit": "rem"
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom",
+          "label": "Bottom",
+          "min": 0,
+          "max": 3,
+          "step": 0.2,
+          "default": 0,
+          "unit": "rem"
+        }
+      ]
+    },
+    {
+      "type": "buy_buttons",
+      "name": "Buy buttons",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_qty_field",
+          "label": "Show quantity field",
+          "default": true
+        },
+        {
+          "type": "select",
+          "id": "atc_btn_style",
+          "label": "\"Add to cart\" button style",
+          "default": "btn-primary",
+          "options": [
+            { "value": "btn-primary", "label": "Primary" },
+            { "value": "btn-outline", "label": "Outline" },
+            { "value": "btn-accent", "label": "Accent" }
+          ]
+        },
+        {
+          "type": "checkbox",
+          "id": "show_buy_btn",
+          "label": "Show \"Buy it now\" button",
+          "default": true
+        },
+        {
+          "type": "select",
+          "id": "buy_btn_style",
+          "label": "\"Buy it now\" button style",
+          "default": "btn-outline",
+          "options": [
+            { "value": "btn-primary", "label": "Primary" },
+            { "value": "btn-outline", "label": "Outline" },
+            { "value": "btn-accent", "label": "Accent" },
+            { "value": "btn-link", "label": "Link" }
+          ]
+        },
+        {
+          "type": "checkbox",
+          "id": "show_dynamic_buttons",
+          "label": "Show dynamic buttons",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "show_wishlist_btn",
+          "label": "Show wishlist button",
+          "default": true
+        },
+        {
+          "type": "header",
+          "content": "Spacing"
+        },
+        {
+          "type": "range",
+          "id": "padding_top",
+          "label": "Top",
+          "min": 0,
+          "max": 3,
+          "step": 0.2,
+          "default": 0,
+          "unit": "rem"
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom",
+          "label": "Bottom",
+          "min": 0,
+          "max": 3,
+          "step": 0.2,
+          "default": 0,
+          "unit": "rem"
+        }
+      ]
+    },
+    {
+      "type": "richtext",
+      "name": "Richtext",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Styling"
+        },
+        {
+          "type": "color_scheme",
+          "id": "color_scheme",
+          "label": "Color scheme",
+          "default": "scheme-1"
+        },
+        {
+          "type": "range",
+          "id": "border_width",
+          "label": "Border width",
+          "default": 0,
+          "min": 0,
+          "max": 10,
+          "step": 1,
+          "unit": "px"
+        },
+        {
+          "type": "range",
+          "id": "border_opacity",
+          "label": "Border opacity",
+          "default": 100,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%"
+        },
+        {
+          "type": "range",
+          "id": "inner_padding",
+          "label": "Inner padding",
+          "default": 0,
+          "min": 0,
+          "max": 2,
+          "step": 0.2,
+          "unit": "rem"
+        },
+        {
+          "type": "text_alignment",
+          "id": "text_align",
+          "label": "Text align",
+          "default": "left"
+        },
+        {
+          "type": "select",
+          "id": "text_transform",
+          "label": "Text transform",
+          "default": "none",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "capitalize", "label": "Capitalize" },
+            { "value": "lowercase", "label": "Lowercase" },
+            { "value": "uppercase", "label": "Uppercase" }
+          ]
+        },
+        {
+          "type": "range",
+          "id": "letter_spacing",
+          "label": "Letter spacing",
+          "min": 0,
+          "max": 10,
+          "step": 1,
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Text"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Richtext Block"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "label": "Heading size",
+          "default": "h3",
+          "options": [
+            { "value": "h1", "label": "H1" },
+            { "value": "h2", "label": "H2" },
+            { "value": "h3", "label": "H3" },
+            { "value": "h4", "label": "H4" },
+            { "value": "h5", "label": "H5" },
+            { "value": "h6", "label": "H6" }
+          ]
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>Optional description for this block</p>"
+        },
+        {
+          "type": "select",
+          "id": "description_font_size",
+          "label": "Description font-size",
+          "default": "fs-md",
+          "options": [
+            { "value": "fs-sm", "label": "sm" },
+            { "value": "fs-md", "label": "md" },
+            { "value": "fs-lg", "label": "lg" },
+            { "value": "fs-xl", "label": "xl" }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Spacing"
+        },
+        {
+          "type": "range",
+          "id": "padding_top",
+          "label": "Top",
+          "min": 0,
+          "max": 3,
+          "step": 0.2,
+          "default": 0,
+          "unit": "rem"
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom",
+          "label": "Bottom",
+          "min": 0,
+          "max": 3,
+          "step": 0.2,
+          "default": 0,
+          "unit": "rem"
+        }
+      ]
+    },
+    {
+      "type": "collapse",
+      "name": "Collapse",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Content"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Collapse Title"
+        },
+        {
+          "type": "range",
+          "id": "title_font_size",
+          "label": "Title font-size",
+          "min": 75,
+          "max": 125,
+          "step": 5,
+          "default": 100,
+          "unit": "%"
+        },
+        {
+          "type": "select",
+          "id": "title_text_transform",
+          "label": "Title text-transform",
+          "default": "capitalize",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "capitalize", "label": "Capitalize" },
+            { "value": "lowercase", "label": "Lowercase" },
+            { "value": "uppercase", "label": "Uppercase" }
+          ]
+        },
+        {
+          "type": "range",
+          "id": "title_letter_spacing",
+          "label": "Title letter-spacing",
+          "min": 0,
+          "max": 10,
+          "step": 1,
+          "default": 0
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "range",
+          "id": "icon_size",
+          "label": "Icon size",
+          "default": 20,
+          "min": 16,
+          "max": 32,
+          "step": 2,
+          "unit": "px"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>Collapse description goes here</p>"
+        },
+        {
+          "type": "page",
+          "id": "page",
+          "label": "Page",
+          "info": "Select a page to show its content in the collapse"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_by_default",
+          "label": "Open by default",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "Button"
+        },
+        {
+          "type": "text",
+          "id": "btn_primary_text",
+          "label": "Button text",
+          "info": "Leave empty to disable"
+        },
+        {
+          "type": "url",
+          "id": "btn_primary_url",
+          "label": "Button URL"
+        },
+        {
+          "type": "select",
+          "id": "btn_primary_style",
+          "label": "Button color",
+          "default": "link",
+          "options": [
+            { "value": "link", "label": "Link" },
+            { "value": "btn btn-sm btn-primary", "label": "Primary" },
+            { "value": "btn btn-sm btn-outline", "label": "Outline" },
+            { "value": "btn btn-sm btn-accent", "label": "Accent" }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Spacing"
+        },
+        {
+          "type": "range",
+          "id": "padding_top",
+          "label": "Top",
+          "min": 0,
+          "max": 3,
+          "step": 0.2,
+          "default": 0,
+          "unit": "rem"
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom",
+          "label": "Bottom",
+          "min": 0,
+          "max": 3,
+          "step": 0.2,
+          "default": 0,
+          "unit": "rem"
+        }
+      ]
+    },
+    {
+      "type": "liquid",
+      "name": "HTML/Liquid code",
+      "settings": [
+        {
+          "type": "liquid",
+          "id": "liquid",
+          "label": "HTML/Liquid code",
+          "default": "<p>Today's date: <b>{{ 'now' | date: \"%b %d, %Y\" }}</b></p>",
+          "info": "Note: You may use both HTML and Liquid codes."
+        },
+        {
+          "type": "header",
+          "content": "Spacing"
+        },
+        {
+          "type": "range",
+          "id": "padding_top",
+          "label": "Top",
+          "min": 0,
+          "max": 3,
+          "step": 0.2,
+          "default": 0,
+          "unit": "rem"
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom",
+          "label": "Bottom",
+          "min": 0,
+          "max": 3,
+          "step": 0.2,
+          "default": 0,
+          "unit": "rem"
+        }
+      ]
+    },
+    {
+      "type": "trust_icons",
+      "name": "Trust icons",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "NOTE: You may download svg icons from libraries like [Bootstrap Icons](https://icons.getbootstrap.com) and upload them below as images"
+        },
+        {
+          "type": "header",
+          "content": "General"
+        },
+        {
+          "type": "select",
+          "id": "style",
+          "label": "Style",
+          "default": "horizontal",
+          "options": [
+            { "value": "horizontal", "label": "Horizontal" },
+            { "value": "vertical", "label": "Vertical" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "max_width",
+          "label": "Max-width (px)",
+          "info": "Leave empty for auto width",
+          "default": "500"
+        },
+        {
+          "type": "select",
+          "id": "description_font_size",
+          "label": "Description font-size",
+          "default": "fs-md",
+          "options": [
+            { "value": "fs-sm", "label": "sm" },
+            { "value": "fs-md", "label": "md" },
+            { "value": "fs-lg", "label": "lg" },
+            { "value": "fs-xl", "label": "xl" }
+          ]
+        },
+        {
+          "type": "range",
+          "id": "img_size",
+          "label": "Image (icon) size",
+          "default": 24,
+          "min": 16,
+          "max": 64,
+          "unit": "px"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "What we promise",
+          "info": "Used for accessibility purposes"
+        },
+        {
+          "type": "header",
+          "content": "item 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "img_1",
+          "label": "Image"
+        },
+        {
+          "type": "richtext",
+          "id": "text_1",
+          "label": "Text"
+        },
+        {
+          "type": "header",
+          "content": "item 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "img_2",
+          "label": "Image"
+        },
+        {
+          "type": "richtext",
+          "id": "text_2",
+          "label": "Text"
+        },
+        {
+          "type": "header",
+          "content": "item 3"
+        },
+        {
+          "type": "image_picker",
+          "id": "img_3",
+          "label": "Image"
+        },
+        {
+          "type": "richtext",
+          "id": "text_3",
+          "label": "Text"
+        },
+        {
+          "type": "header",
+          "content": "item 4"
+        },
+        {
+          "type": "image_picker",
+          "id": "img_4",
+          "label": "Image"
+        },
+        {
+          "type": "richtext",
+          "id": "text_4",
+          "label": "Text"
+        },
+        {
+          "type": "header",
+          "content": "item 5"
+        },
+        {
+          "type": "image_picker",
+          "id": "img_5",
+          "label": "Image"
+        },
+        {
+          "type": "richtext",
+          "id": "text_5",
+          "label": "Text"
+        },
+        {
+          "type": "header",
+          "content": "Spacing"
+        },
+        {
+          "type": "range",
+          "id": "padding_top",
+          "label": "Top",
+          "min": 0,
+          "max": 3,
+          "step": 0.2,
+          "default": 0,
+          "unit": "rem"
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom",
+          "label": "Bottom",
+          "min": 0,
+          "max": 3,
+          "step": 0.2,
+          "default": 0,
+          "unit": "rem"
+        }
+      ]
+    },
+    {
+      "type": "breadcrumb",
+      "name": "Breadcrumb",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Spacing"
+        },
+        {
+          "type": "range",
+          "id": "padding_top",
+          "label": "Top",
+          "min": 0,
+          "max": 3,
+          "step": 0.2,
+          "default": 0,
+          "unit": "rem"
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom",
+          "label": "Bottom",
+          "min": 0,
+          "max": 3,
+          "step": 0.2,
+          "default": 0,
+          "unit": "rem"
+        }
+      ]
+    },
+    {
+      "type": "separator",
+      "name": "Separator",
+      "settings": [
+        {
+          "type": "range",
+          "id": "line_height",
+          "label": "Line height",
+          "min": 0,
+          "max": 16,
+          "default": 1,
+          "step": 1,
+          "unit": "px"
+        },
+        {
+          "type": "range",
+          "id": "line_opacity",
+          "label": "Line opacity",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "default": 15,
+          "unit": "%"
+        },
+        {
+          "type": "select",
+          "id": "line_style",
+          "label": "Line style",
+          "default": "solid",
+          "options": [
+            { "value": "solid", "label": "Solid" },
+            { "value": "gradient", "label": "Gradient" }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Spacing"
+        },
+        {
+          "type": "range",
+          "id": "padding_top",
+          "label": "Top",
+          "min": 0,
+          "max": 3,
+          "step": 0.2,
+          "default": 0,
+          "unit": "rem"
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom",
+          "label": "Bottom",
+          "min": 0,
+          "max": 3,
+          "step": 0.2,
+          "default": 0,
+          "unit": "rem"
+        }
+      ]
+    },
+    {
+      "type": "inventory_bar",
+      "name": "Inventory bar",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "range",
+          "id": "low_stock_threshold",
+          "label": "Low stock threshold",
+          "info": "If the stock is less than this value then the bar will be displayed with low-stock styling",
+          "default": 10,
+          "min": 2,
+          "max": 100,
+          "step": 1
+        },
+        {
+          "type": "range",
+          "id": "max_stock",
+          "label": "Max stock to compare",
+          "info": "We use this value to calculate the progress bar width.",
+          "default": 100,
+          "min": 10,
+          "max": 500,
+          "step": 5
+        },
+        {
+          "type": "range",
+          "id": "progress_height",
+          "label": "Progress bar height",
+          "default": 8,
+          "min": 2,
+          "max": 24,
+          "step": 2,
+          "unit": "px"
+        },
+        {
+          "type": "header",
+          "content": "Styling"
+        },
+        {
+          "type": "color",
+          "id": "color_low_stock",
+          "label": "Low stock",
+          "default": "#A16207"
+        },
+        {
+          "type": "color",
+          "id": "color_has_stock",
+          "label": "Has stock",
+          "default": "#15803d"
+        },
+        {
+          "type": "color",
+          "id": "color_sold_out",
+          "label": "Sold out",
+          "default": "#b91c1c"
+        },
+        {
+          "type": "checkbox",
+          "id": "animate_progress_width",
+          "label": "Animate progres-bar width",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "colored_text",
+          "label": "Colored text",
+          "default": true
+        },
+        {
+          "type": "header",
+          "content": "Spacing"
+        },
+        {
+          "type": "range",
+          "id": "padding_top",
+          "label": "Top",
+          "min": 0,
+          "max": 3,
+          "step": 0.2,
+          "default": 0,
+          "unit": "rem"
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom",
+          "label": "Bottom",
+          "min": 0,
+          "max": 3,
+          "step": 0.2,
+          "default": 0,
+          "unit": "rem"
+        }
+      ]
+    },
+    {
+      "type": "qty_breaks",
+      "name": "Quantity breaks",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "NOTE: For each of the quantity break options, you must create an [automatic discount](https:\/\/shopify.com\/admin\/discounts) in your Shopify admin."
+        },
+        {
+          "type": "header",
+          "content": "Header"
+        },
+        {
+          "type": "text_alignment",
+          "id": "header_alignment",
+          "label": "Alignment",
+          "default": "center"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Buy more, save more!"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "label": "Heading size",
+          "default": "h5",
+          "options": [
+            { "value": "h1", "label": "H1" },
+            { "value": "h2", "label": "H2" },
+            { "value": "h3", "label": "H3" },
+            { "value": "h4", "label": "H4" },
+            { "value": "h5", "label": "H5" },
+            { "value": "h6", "label": "H6" }
+          ]
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>Save up to 40% with a bundled option</p>"
+        },
+        {
+          "type": "select",
+          "id": "description_font_size",
+          "label": "Description font-size",
+          "default": "fs-sm",
+          "options": [
+            { "value": "fs-sm", "label": "sm" },
+            { "value": "fs-md", "label": "md" },
+            { "value": "fs-lg", "label": "lg" },
+            { "value": "fs-xl", "label": "xl" }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Quantity break #1"
+        },
+        {
+          "type": "range",
+          "id": "qty_break_1_qty",
+          "label": "Quantity",
+          "min": 1,
+          "max": 50,
+          "step": 1,
+          "default": 1
+        },
+        {
+          "type": "range",
+          "id": "qty_break_1_discount",
+          "label": "Discount",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 0,
+          "unit": "%"
+        },
+        {
+          "type": "text",
+          "id": "qty_break_1_title",
+          "label": "Title",
+          "default": "Buy 1 | No savings"
+        },
+        {
+          "type": "text",
+          "id": "qty_break_1_badge",
+          "label": "Badge"
+        },
+        {
+          "type": "checkbox",
+          "id": "qty_break_1_selected",
+          "label": "Selected option",
+          "default": false,
+          "info": "Note: Only one quantity break can be selected at a time"
+        },
+        {
+          "type": "header",
+          "content": "Quantity break #2"
+        },
+        {
+          "type": "range",
+          "id": "qty_break_2_qty",
+          "label": "Quantity",
+          "min": 1,
+          "max": 50,
+          "step": 1,
+          "default": 2
+        },
+        {
+          "type": "range",
+          "id": "qty_break_2_discount",
+          "label": "Discount",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 10,
+          "unit": "%"
+        },
+        {
+          "type": "text",
+          "id": "qty_break_2_title",
+          "label": "Title",
+          "default": "Buy 2 | You save 10%"
+        },
+        {
+          "type": "text",
+          "id": "qty_break_2_badge",
+          "label": "Badge",
+          "default": "Most popular | #3450B3"
+        },
+        {
+          "type": "checkbox",
+          "id": "qty_break_2_selected",
+          "label": "Selected option",
+          "default": true,
+          "info": "Note: Only one quantity break can be selected at a time"
+        },
+        {
+          "type": "header",
+          "content": "Quantity break #3"
+        },
+        {
+          "type": "range",
+          "id": "qty_break_3_qty",
+          "label": "Quantity",
+          "min": 1,
+          "max": 50,
+          "step": 1,
+          "default": 3
+        },
+        {
+          "type": "range",
+          "id": "qty_break_3_discount",
+          "label": "Discount",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 20,
+          "unit": "%"
+        },
+        {
+          "type": "text",
+          "id": "qty_break_3_title",
+          "label": "Title",
+          "default": "Buy 3 | You save 20%"
+        },
+        {
+          "type": "text",
+          "id": "qty_break_3_badge",
+          "label": "Badge",
+          "default": "+ Free Shipping | #7434B3"
+        },
+        {
+          "type": "checkbox",
+          "id": "qty_break_3_selected",
+          "label": "Selected option",
+          "default": false,
+          "info": "Note: Only one quantity break can be selected at a time"
+        },
+        {
+          "type": "header",
+          "content": "Spacing"
+        },
+        {
+          "type": "range",
+          "id": "padding_top",
+          "label": "Top",
+          "min": 0,
+          "max": 3,
+          "step": 0.2,
+          "default": 0,
+          "unit": "rem"
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom",
+          "label": "Bottom",
+          "min": 0,
+          "max": 3,
+          "step": 0.2,
+          "default": 0,
+          "unit": "rem"
+        }
+      ]
+    },
+    {
+      "type": "upsell_checkbox",
+      "name": "Upsell checkbox",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product",
+          "info": "Select the product you want to upsell. NOTE: The first available variant will be selected by default."
+        },
+        {
+          "type": "inline_richtext",
+          "id": "label",
+          "label": "Label",
+          "default": "Add gift wrapping for just <strong>[price]</strong>"
+        },
+        {
+          "type": "checkbox",
+          "id": "checked",
+          "label": "Checked by default",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "Spacing"
+        },
+        {
+          "type": "range",
+          "id": "padding_top",
+          "label": "Top",
+          "min": 0,
+          "max": 3,
+          "step": 0.2,
+          "default": 0,
+          "unit": "rem"
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom",
+          "label": "Bottom",
+          "min": 0,
+          "max": 3,
+          "step": 0.2,
+          "default": 0,
+          "unit": "rem"
+        }
+      ]
+    },
+    {
+      "type": "personalization_field",
+      "name": "Personalization field",
+      "settings": [
+        {
+          "type": "select",
+          "id": "type",
+          "label": "Type",
+          "default": "text",
+          "options": [
+            { "value": "text", "label": "Text" },
+            { "value": "textarea", "label": "Textarea" },
+            { "value": "file", "label": "File Upload" },
+            { "value": "date", "label": "Date" },
+            { "value": "select", "label": "Select" },
+            { "value": "checkbox", "label": "Checkbox" },
+            { "value": "radio", "label": "Radio" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Your Name"
+        },
+        {
+          "type": "text",
+          "id": "placeholder",
+          "label": "Placeholder",
+          "default": "E.g. John Doe"
+        },
+        {
+          "type": "textarea",
+          "id": "options",
+          "label": "Options",
+          "default": "United States, Canada, France",
+          "info": "Comma separated list of options. Applies only if the type above is \"Select\", \"Checkbox\", or  \"Radio\""
+        },
+        {
+          "type": "richtext",
+          "id": "info_text",
+          "label": "Info text",
+          "info": "Helper text to show below the field"
+        },
+        {
+          "type": "checkbox",
+          "id": "required",
+          "label": "Required",
+          "default": true,
+          "info": "If enabled, the \"Add to cart\" button will be disabled unless this field is completed. Selectable fields like  \"Select\", \"Checkbox\", or \"Radio\" can't have a required check."
+        },
+        {
+          "type": "range",
+          "id": "textarea_height",
+          "label": "Textarea height",
+          "info": "Applies only if the selected type above is \"Textarea\"",
+          "default": 100,
+          "min": 40,
+          "max": 300,
+          "step": 20,
+          "unit": "px"
+        },
+        {
+          "type": "header",
+          "content": "Spacing"
+        },
+        {
+          "type": "range",
+          "id": "padding_top",
+          "label": "Top",
+          "min": 0,
+          "max": 3,
+          "step": 0.2,
+          "default": 0,
+          "unit": "rem"
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom",
+          "label": "Bottom",
+          "min": 0,
+          "max": 3,
+          "step": 0.2,
+          "default": 0,
+          "unit": "rem"
+        }
+      ]
+    },
+    {
+      "type": "local_delivery",
+      "name": "Local delivery",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Header"
+        },
+        {
+          "type": "text_alignment",
+          "id": "header_alignment",
+          "label": "Alignment",
+          "default": "center"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Store Availability"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "label": "Heading size",
+          "default": "h5",
+          "options": [
+            { "value": "h1", "label": "H1" },
+            { "value": "h2", "label": "H2" },
+            { "value": "h3", "label": "H3" },
+            { "value": "h4", "label": "H4" },
+            { "value": "h5", "label": "H5" },
+            { "value": "h6", "label": "H6" }
+          ]
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>This product is available for local pickup.</p>"
+        },
+        {
+          "type": "select",
+          "id": "description_font_size",
+          "label": "Description font-size",
+          "default": "fs-sm",
+          "options": [
+            { "value": "fs-sm", "label": "sm" },
+            { "value": "fs-md", "label": "md" },
+            { "value": "fs-lg", "label": "lg" },
+            { "value": "fs-xl", "label": "xl" },
+            { "value": "fs-2xl", "label": "2xl" }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Spacing"
+        },
+        {
+          "type": "range",
+          "id": "padding_top",
+          "label": "Top",
+          "min": 0,
+          "max": 3,
+          "step": 0.2,
+          "default": 0,
+          "unit": "rem"
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom",
+          "label": "Bottom",
+          "min": 0,
+          "max": 3,
+          "step": 0.2,
+          "default": 0,
+          "unit": "rem"
+        }
+      ]
+    },
+    {
+      "type": "prev_next",
+      "name": "Prev/Next buttons",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "NOTE: The \"Prev\" and \"Next\" buttons will only be shown if the product has a previous or next product within a collection view."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Prev/Next products"
+        }
+      ]
+    },
+    {
+      "type": "delivery_info",
+      "name": "Delivery info",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>Buy it now and receive it between [start] and [end]</p>",
+          "info": "NOTE: [start] and [end] are date placeholders. You can change them through the 2 settings below."
+        },
+        {
+          "type": "range",
+          "id": "start",
+          "label": "Start (days)",
+          "min": 1,
+          "max": 60,
+          "step": 1,
+          "default": 7
+        },
+        {
+          "type": "range",
+          "id": "end",
+          "label": "End (days)",
+          "min": 1,
+          "max": 60,
+          "step": 1,
+          "default": 10
+        },
+        {
+          "type": "text",
+          "id": "date_format",
+          "label": "Date format",
+          "default": "%A, %e %b",
+          "info": "[View all available formats](https://strftime.net)"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_icon",
+          "label": "Show icon",
+          "default": true
+        },
+        {
+          "type": "range",
+          "id": "icon_size",
+          "label": "Icon size",
+          "default": 20,
+          "min": 8,
+          "max": 32,
+          "unit": "px"
+        },
+        {
+          "type": "select",
+          "id": "description_font_size",
+          "label": "Font-size",
+          "default": "fs-md",
+          "options": [
+            { "value": "fs-sm", "label": "sm" },
+            { "value": "fs-md", "label": "md" },
+            { "value": "fs-lg", "label": "lg" },
+            { "value": "fs-xl", "label": "xl" },
+            { "value": "fs-2xl", "label": "2xl" }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Spacing"
+        },
+        {
+          "type": "range",
+          "id": "padding_top",
+          "label": "Top",
+          "min": 0,
+          "max": 3,
+          "step": 0.2,
+          "default": 0,
+          "unit": "rem"
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom",
+          "label": "Bottom",
+          "min": 0,
+          "max": 3,
+          "step": 0.2,
+          "default": 0,
+          "unit": "rem"
+        }
+      ]
+    },
+    {
+      "type": "countdown",
+      "name": "Countdown",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "countdown",
+          "label": "Countdown",
+          "default": "2025-12-31 23:59",
+          "info": "Format: yyyy-mm-dd hh:mm. Leave blank to disable"
+        },
+        {
+          "type": "color_scheme",
+          "id": "color_scheme",
+          "label": "Color scheme",
+          "default": "scheme-1"
+        },
+        {
+          "type": "header",
+          "content": "Header"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Hurry up!"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "label": "Heading size",
+          "default": "h5",
+          "options": [
+            { "value": "h1", "label": "H1" },
+            { "value": "h2", "label": "H2" },
+            { "value": "h3", "label": "H3" },
+            { "value": "h4", "label": "H4" },
+            { "value": "h5", "label": "H5" },
+            { "value": "h6", "label": "H6" }
+          ]
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>This sale is going to end soon!</p>"
+        },
+        {
+          "type": "select",
+          "id": "description_font_size",
+          "label": "Description font-size",
+          "default": "fs-sm",
+          "options": [
+            { "value": "fs-sm", "label": "sm" },
+            { "value": "fs-md", "label": "md" },
+            { "value": "fs-lg", "label": "lg" },
+            { "value": "fs-xl", "label": "xl" },
+            { "value": "fs-2xl", "label": "2xl" }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Spacing"
+        },
+        {
+          "type": "range",
+          "id": "padding_top",
+          "label": "Top",
+          "min": 0,
+          "max": 3,
+          "step": 0.2,
+          "default": 0,
+          "unit": "rem"
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom",
+          "label": "Bottom",
+          "min": 0,
+          "max": 3,
+          "step": 0.2,
+          "default": 0,
+          "unit": "rem"
+        }
+      ]
+    },
+    {
+      "type": "@app"
+    }
+  ],
+  "enabled_on": {
+    "templates": ["product"]
+  },
+  "presets": [
+    {
+      "name": "Product main",
+      "category": "Product",
+    }
+  ]
+}
+{% endschema %}

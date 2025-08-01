@@ -1,0 +1,81 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% if settings.search %}
+  <dialog
+    id="search-modal"
+    class="dialog modal modal-top"
+    aria-label="{{ 'general.search' | t }}"
+  >
+    <dialog-component class="dialog-inner">
+      <div class="dialog-body">
+        <predictive-search
+          data-route="{{ routes.predictive_search_url }}"
+          data-resource-types="query,product,collection,article,page"
+          data-limit="10"
+          data-text-loading="{{ 'search.form.loading' | t }}"
+        >
+          <search>
+            <div class="search-form-wrapper">
+              <form
+                action="{{ routes.search_url }}"
+                class="search-form"
+                method="get"
+              >
+                <input name="options[prefix]" type="hidden" value="last">
+                <input
+                  id="predictive-search-input"
+                  class="input"
+                  type="search"
+                  name="q"
+                  value="{{ search.terms | escape }}"
+                  placeholder="{{ 'search.form.input_label' | t }}"
+                  autocorrect="off"
+                  autocomplete="off"
+                  autocapitalize="off"
+                  spellcheck="false"
+                  role="combobox"
+                  aria-label="{{ 'search.form.input_label' | t }}"
+                  aria-expanded="false"
+                  aria-controls="predictive-search-results"
+                  aria-owns="predictive-search-results"
+                  aria-haspopup="listbox"
+                  aria-autocomplete="list"
+                  data-text-blur="{{ 'search.form.input_label' | t }}"
+                  data-text-focus="{{ 'search.form.input_focus' | t }}"
+                >
+                <span class="loading-spinner-wrapper" hidden>
+                  <span class="loading-spinner"></span>
+                </span>
+                <button
+                  type="reset"
+                  aria-label="{{ 'search.form.clear_input' | t }}"
+                  hidden
+                >
+                  {% render 'svg-icons', icon: 'x', size: 16, stroke_width: 1.5 %}
+                </button>
+                <button
+                  type="submit"
+                  aria-label="{{ 'search.form.button_label' | t }}"
+                >
+                  {% render 'svg-icons', icon: 'search', size: 20, stroke_width: 1.5 %}
+                </button>
+              </form>
+              <button
+                class="dialog-close"
+                data-dialog-close
+                aria-label="{{ 'accessibility.close' | t }}"
+              >
+                {% render 'svg-icons', icon: 'x', size: 20, stroke_width: 1.5 %}
+              </button>
+            </div>
+            <div id="predictive-search-results" role="listbox" hidden></div>
+            <div id="predictive-search-status" class="visually-hidden" role="status" aria-live="polite"></div>
+          </search>
+        </predictive-search>
+      </div>
+    </dialog-component>
+  </dialog>
+{% endif %}

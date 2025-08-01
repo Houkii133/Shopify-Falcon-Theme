@@ -1,0 +1,38 @@
+<style>
+  .page {
+  }
+
+  .page .heading {
+    margin: 0 0 1rem;
+  }
+
+  .page .description {
+    margin: 0;
+  }
+
+  @media (min-width: 1199px) {
+    .page {
+      padding: 2rem 0;
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .page {
+      padding: 2.5rem 0;
+    }
+  }
+
+</style>
+
+<article 
+  class="page"
+  data-viewport-entered="false">
+  <div class="container">
+    <h1 class="heading scroll-animate-fade-in-up">
+      {{ page.title }}
+    </h1>
+    <div class="description rte scroll-animate-fade-in-up">
+      {{ page.content }}
+    </div>
+  </div>
+</article>

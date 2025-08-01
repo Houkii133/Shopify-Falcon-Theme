@@ -1,0 +1,114 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+ 
+<ul class="nav">
+  {% for link in linklists[block.settings.main_menu].links %}
+    <li class="nav-item {% if link.links %}dropdown{% endif %} {% if link.levels > 1 %}position-static{% endif %}">
+      {% if link.links == blank %}
+        <a
+          class="nav-link {% if link.active %}active{% endif %}" 
+          href="{{ link.url }}"
+          aria-current="{% if link.active %}page{% endif %}">
+          {{ link.title }}
+        </a>
+      {% else %}
+        <a 
+          class="nav-link dropdown-toggle {% if link.child_active %}active{% endif %}" 
+          href="#"
+          data-bs-toggle="dropdown" 
+          data-bs-display="static"
+          aria-expanded="false"
+          role="button">
+          {{ link.title }}
+        </a>
+        {% if link.levels > 1 %}
+          <div class="dropdown-megamenu dropdown-menu" 
+            data-bs-popper="static">
+            <div class="container">
+              <ul class="list-unstyled row mx-n3">
+                {% for child_link in link.links %}
+                  {% if child_link.links.size == 0 %}
+                    {% liquid 
+                      if child_link.type == 'collection_link'
+                        assign img = child_link.object.image
+                      elsif child_link.type == 'product_link'
+                        assign img = child_link.object.featured_image
+                      endif
+                    %}
+                    <li class="col p-3" style="max-width: 260px">
+                      <a 
+                        class="d-block {% if child_link.active %}active{% endif %}" 
+                        href="{{ child_link.url }}">
+                        <div class="img-thumbnail-has-title">
+                          {% render 'image-url' img: img, ratio: block.settings.main_menu_img_ratio, class: 'img-thumbnail mt-2' %}
+                          <h6 class="img-thumbnail-title fs-lg mb-0 text-truncate">
+                            {{ child_link.title }}
+                          </h6>
+                        </div>
+                      </a>
+                    </li>
+                  {% else %}
+                    <li class="col p-3">
+                      {% unless child_link.title == '-'%}
+                        <a 
+                          class="dropdown-item dropdown-item-title {% if child_link.active %}active{% endif %}"
+                          href="{{ child_link.url }}"
+                          aria-current="{% if child_link.active %}page{% endif %}">
+                          {{ child_link.title }}
+                        </a>
+                      {% endunless %}
+                      <ul class="list-unstyled">
+                        {% for grandchild_link in child_link.links %}
+                          {% liquid 
+                            assign grandchild_btn_class = nil
+                            if grandchild_link.title contains 'btn'
+                              assign grandchild_btn_class = grandchild_link.title | split: '|' | last
+                            endif
+                          %}
+                          <li class="{% if grandchild_btn_class %}grandchild-is-btn{% endif %}">
+                            <a 
+                              class="
+                                {% if grandchild_btn_class %}btn btn-sm {{ grandchild_btn_class }}{% else %}dropdown-item{% endif %}
+                                {% if grandchild_link.active %}active{% endif %}
+                              " 
+                              href="{{ grandchild_link.url }}"
+                              aria-current="{% if grandchild_link.active %}page{% endif %}">
+                              {{ grandchild_link.title | split: '|' | first }}
+                            </a>
+                        </li>
+                        {% endfor %}
+                      </ul>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        {% else %}
+          <ul class="dropdown-menu">
+            {% for child_link in link.links %}
+              <li>
+                {% if child_link.title == '-' %}
+                  <hr class="dropdown-divider">
+                {% elsif child_link.url == '#' %}
+                  <h6 class="dropdown-header">
+                    {{ child_link.title }}
+                  </h6>
+                {% else %}
+                  <a
+                    class="dropdown-item {% if child_link.active %}active{% endif %}" 
+                    href="{{ child_link.url }}"
+                    aria-current="{% if child_link.active %}page{% endif %}">
+                    {{ child_link.title }}
+                  </a>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>

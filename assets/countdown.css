@@ -1,0 +1,157 @@
+/*
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+*/
+
+.countdown-section {
+  background-color: rgba(var(--color-background), 1);
+  background-image: var(--color-background-gradient, none);
+  color: rgba(var(--color-text), 1);
+}
+
+.countdown-section-inner {
+  background-color: rgba(var(--color-background), 1);
+  background-image: var(--color-background-gradient, none);
+  color: rgba(var(--color-text), 1);
+  border-radius: var(--border-radius);
+  border: 1px solid rgba(var(--color-text), var(--border-opacity, 1));
+  text-align: center;
+  position: relative;
+}
+
+.countdown-section-inner .countdown {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+}
+
+.countdown-section-inner .countdown > span {
+  background-color: rgba(var(--color-background), 1);
+  color: rgba(var(--color-text), 1);
+  border: 1px solid rgba(var(--color-text), var(--border-opacity, 1));
+  border-radius: 50rem;
+  line-height: normal;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  line-height: 1.1;
+  animation: animated_countdown_item 1s linear infinite alternate;
+}
+
+.countdown-section-inner .countdown > span > span:first-child {
+}
+
+.countdown-section-inner .countdown > span > span:last-child {
+  font-weight: 400;
+  opacity: 0.75;
+}
+
+.countdown-section-inner .countdown > span:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+.countdown-section-inner .countdown > span:nth-child(3) {
+  animation-delay: 1s;
+}
+
+.countdown-section-inner .countdown > span:nth-child(4) {
+  animation-delay: 1.5s;
+}
+
+@keyframes animated_countdown_item {
+  from { transform: translateY(-0.25rem); }
+  to { transform: translateY(0.25rem); }
+}
+
+.countdown-section-inner .subheading {
+  margin-bottom: 0.25rem;
+}
+
+.countdown-section-inner .heading {
+  margin: 0;
+}
+
+.countdown-section-inner .description {
+  margin-top: 0.4rem;
+}
+
+.countdown-section-inner .description p {
+  margin-top: 0;
+}
+
+.countdown-section-inner .btn-wrapper {
+  margin-top: 1.5rem;
+  display: inline-flex;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 1199px) {
+  .countdown-section {
+    --circle-size: var(--circle-size-mobile, 60px);
+    padding-top: calc(var(--padding-top) * 0.75);
+    padding-bottom: calc(var(--padding-bottom) * 0.75);
+  }
+  .countdown-section-inner {
+    margin-top: calc(var(--circle-size) * 0.5);
+  }
+  .countdown-section-inner .countdown {
+    gap: 0.5rem;
+  }
+  .countdown-section-inner .countdown > span {
+    width: var(--circle-size);
+    height: var(--circle-size);
+  }
+  .countdown-section-inner .countdown > span > span:first-child {
+    font-size: calc(var(--circle-size) / 3);
+    transform: translateY(-10%);
+  }
+  .countdown-section-inner .countdown > span > span:last-child {
+    font-size: calc(var(--circle-size) / 7);
+    transform: translateY(-15%);
+  }
+  .countdown-section-content {
+    padding: 1rem;
+    padding-top: calc(var(--circle-size) * 0.5 + .75rem);
+  }
+  .countdown-section-content .btn-wrapper .btn {
+    width: 100%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .countdown-section {
+    --circle-size: var(--circle-size-desktop, 80px);
+    padding-top: calc(var(--padding-top) * 1);
+    padding-bottom: calc(var(--padding-bottom) * 1);
+  }
+  .countdown-section-inner {
+    margin-top: calc(var(--circle-size) * 0.5);
+  }
+  .countdown-section-inner .countdown {
+    gap: .5rem;
+  }
+  .countdown-section-inner .countdown > span {
+    width: var(--circle-size);
+    height: var(--circle-size);
+  }
+  .countdown-section-inner .countdown > span > span:first-child {
+    font-size: calc(var(--circle-size) / 3);
+    transform: translateY(-10%);
+  }
+  .countdown-section-inner .countdown > span > span:last-child {
+    font-size: calc(var(--circle-size) / 7);
+    transform: translateY(-15%);
+  }
+  .countdown-section-content {
+    padding: 2rem;
+    padding-top: calc(var(--circle-size) * 0.5 + 1.5rem);
+  }
+  
+}

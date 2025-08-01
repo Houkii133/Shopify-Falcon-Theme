@@ -1,0 +1,173 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% unless block.settings.collection == null %}
+  {% liquid
+    assign upsells_handles = ''
+    for product in block.settings.collection.products
+      assign is_in_cart = false
+      for line_item in cart.items
+        if line_item.product.id == product.id
+          assign is_in_cart = true
+        endif
+      endfor
+      unless is_in_cart
+        assign upsells_handles = upsells_handles | append: product.handle | append: ','
+      endunless
+    endfor
+    assign upsells_handles = upsells_handles | split: ','
+  %}
+  {% unless upsells_handles == empty %}
+    <div
+      id="cart-block-{{ block.id }}"
+      class="cart-block"
+      data-type="{{ block.type }}"
+      data-is-collapse-block="true"
+      {{ block.shopify_attributes }}
+    >
+      <collapse-component>
+        <details open>
+          <summary>
+            <span>
+              {% render 'svg-icons', icon: 'star', size: 16, stroke_width: 1.5 %}
+              {{ block.settings.heading }}
+            </span>
+            {% render 'svg-icons', icon: 'chevron-down', size: 16, stroke_width: 1.5 %}
+          </summary>
+          <div class="collapse-content">
+            <div class="collapse-content-inner">
+              <cart-upsells class="cart-upsells">
+                <carousel-component class="carousel">
+                  <ul
+                    class="carousel-track"
+                    aria-roledescription="{{ 'accessibility.carousel' | t | downcase }}"
+                  >
+                    {% for handle in upsells_handles limit: block.settings.limit %}
+                      {% assign product = all_products[handle] %}
+                      <li class="carousel-slide">
+                        <div class="cart-upsells-item">
+                          <a href="{{ product.url }}" tabindex="-1">
+                            <div class="img-wrapper">
+                              {% render 'product-card-img', image: product.featured_image %}
+                            </div>
+                          </a>
+                          <div class="cart-upsells-item-inner">
+                            <h4 class="heading h6">
+                              <a href="{{ product.url }}">
+                                {{ product.title }}
+                              </a>
+                            </h4>
+                            {% if block.settings.show_rating %}
+                              {% render 'product-rating-badge', product: product %}
+                            {% endif %}
+                            {% if product.has_only_default_variant %}
+                              <div class="product-card-price price">
+                                {% if product.first_available_variant.compare_at_price > product.first_available_variant.price %}
+                                  <s class="price-compare">
+                                    <span class="visually-hidden"> {{ 'product.regular_price' | t }} &nbsp; </span>
+                                    <span>{{ product.first_available_variant.compare_at_price | money }}</span>
+                                  </s>
+                                  <span class="price-sale">
+                                    <span class="visually-hidden"> {{ 'product.sale_price' | t }} &nbsp; </span>
+                                    <span>{{ product.first_available_variant.price | money }}</span>
+                                  </span>
+                                {% else %}
+                                  <span class="price-regular">
+                                    {{ product.first_available_variant.price | money }}
+                                  </span>
+                                {% endif %}
+                              </div>
+                            {% endif %}
+                            <product-card-form class="product-card-form">
+                              {% form 'product', product %}
+                                {% if product.has_only_default_variant %}
+                                  <input type="hidden" name="id" value="{{ product.first_available_variant.id }}">
+                                {% else %}
+                                  <div class="select-wrapper">
+                                    <select
+                                      class="select fs-sm"
+                                      name="id"
+                                      aria-label="{{ 'product.select_variant' | t }}"
+                                    >
+                                      {% unless product.available %}
+                                        <option>
+                                          {{ 'product.sold_out' | t }}
+                                        </option>
+                                      {% endunless %}
+                                      {% for variant in product.variants %}
+                                        <option
+                                          value="{{ variant.id }}"
+                                          data-variant-image="
+                                            {%- if variant.image -%}
+                                              {%- render 'product-card-img', image: variant.image, only_src: true -%}
+                                            {%- endif -%}
+                                          "
+                                          {% unless variant.available %}
+                                            disabled
+                                          {% endunless %}
+                                        >
+                                          {{ variant.title }} - {{ variant.price | money_without_trailing_zeros }}
+                                        </option>
+                                      {% endfor %}
+                                    </select>
+                                    {% render 'svg-icons', icon: 'chevron-down', size: 16, stroke_width: 1.5 %}
+                                  </div>
+                                {% endif %}
+                                <button
+                                  class="btn btn-sm btn-full {{ block.settings.btn_style }}"
+                                  type="submit"
+                                  name="add"
+                                  {% unless product.available %}
+                                    disabled
+                                  {% endunless %}
+                                >
+                                  {% if product.available %}
+                                    {{ 'product.add_to_cart' | t }}
+                                  {% else %}
+                                    {{ 'product.sold_out' | t }}
+                                  {% endif %}
+                                </button>
+                              {% endform %}
+                            </product-card-form>
+                          </div>
+                        </div>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                  <div class="carousel-controls">
+                    <button
+                      class="carousel-control"
+                      name="previous"
+                      type="button"
+                      aria-label="{{ 'accessibility.previous_slide' | t }}"
+                    >
+                      {% render 'svg-icons', icon: 'chevron-left', stroke_width: 1.5, size: 22 %}
+                    </button>
+                    <div
+                      class="carousel-pagination"
+                      aria-live="polite"
+                      aria-atomic="true"
+                      aria-label="{{ 'accessibility.pagination' | t }}"
+                    >
+                      <span>-</span>
+                    </div>
+                    <button
+                      class="carousel-control"
+                      name="next"
+                      type="button"
+                      aria-label="{{ 'accessibility.next_slide' | t }}"
+                    >
+                      {% render 'svg-icons', icon: 'chevron-right', stroke_width: 1.5, size: 22 %}
+                    </button>
+                  </div>
+                </carousel-component>
+              </cart-upsells>
+            </div>
+          </div>
+        </details>
+      </collapse-component>
+    </div>
+  {% endunless %}
+{% endunless %}

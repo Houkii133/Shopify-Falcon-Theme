@@ -1,0 +1,55 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% liquid
+  assign current_variant = product.selected_or_first_available_variant
+
+  if block.settings.badge_discount_type == 'percentage'
+    assign sale_value = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price | round | append: '%'
+  else
+    assign sale_value = product.compare_at_price | minus: product.price | money_without_trailing_zeros
+  endif
+%}
+
+<div
+  id="product-block-{{ block.id }}"
+  class="product-block {{ block.settings.font_size }}"
+  style="
+    --padding-top: {{ block.settings.padding_top | append: 'rem' }};
+    --padding-bottom: {{ block.settings.padding_bottom | append: 'rem' }};
+  "
+  data-type="{{ block.type }}"
+  {{ block.shopify_attributes }}
+>
+  <div
+    class="price"
+    data-has-price-compare="{% if current_variant.compare_at_price > current_variant.price %}true{% else %}false{% endif %}"
+    data-sold-out="{% if current_variant.available == false %}true{% else %}false{% endif %}"
+  >
+    <s class="price-compare">
+      <span class="visually-hidden"> {{ 'product.regular_price' | t }} &nbsp; </span>
+      <span data-compare-price>{{ current_variant.compare_at_price | money }}</span>
+    </s>
+    <span class="price-sale">
+      <span class="visually-hidden"> {{ 'product.sale_price' | t }} &nbsp; </span>
+      <span data-price>{{ current_variant.price | money }}</span>
+    </span>
+    <span class="price-regular">
+      <span data-price>{{ current_variant.price | money }}</span>
+    </span>
+    <span
+      class="badge badge-sale"
+      data-discount-type="{{ block.settings.badge_discount_type }}"
+      data-text="{{ 'product.sale_badge' | t }}"
+    >
+      {{ 'product.sale_badge' | t: value: sale_value }}
+    </span>
+    <span class="badge badge-sold-out">
+      {{ 'product.sold_out' | t }}
+    </span>
+  </div>
+</div>
+
+{{ form | payment_terms }}

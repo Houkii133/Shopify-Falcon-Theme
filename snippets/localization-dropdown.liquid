@@ -1,0 +1,42 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+<div class="dropdown-content" hidden>
+  <ul class="localization-dropdown-list">
+    <li>
+      <a
+        href="#"
+        data-open-dialog="countries-modal"
+        aria-controls="countries-modal"
+        aria-haspopup="dialog"
+        role="button"
+      >
+        <span>{{ 'general.localization.country' | t }}:</span>
+        <span>
+          {{- localization.country.name }}
+          <small>
+            ({{ localization.country.currency.iso_code }}
+            {{ localization.country.currency.symbol }})
+          </small>
+        </span>
+      </a>
+    </li>
+    <li>
+      <a
+        href="#"
+        data-open-dialog="languages-modal"
+        aria-controls="languages-modal"
+        aria-haspopup="dialog"
+        role="button"
+      >
+        <span>{{ 'general.localization.language' | t }}:</span>
+        <span>
+          {{ localization.language.endonym_name | capitalize }}
+          <small> ({{ localization.language.iso_code }}) </small>
+        </span>
+      </a>
+    </li>
+  </ul>
+</div>

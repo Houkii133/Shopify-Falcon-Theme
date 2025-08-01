@@ -1,0 +1,37 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% liquid
+  assign first_available_variant = block.settings.product.first_available_variant
+  assign price = first_available_variant.price | money_without_trailing_zeros | default: '0.00'
+%}
+
+<div
+  id="product-block-{{ block.id }}"
+  class="product-block"
+  style="
+    --padding-top: {{ block.settings.padding_top | append: 'rem' }};
+    --padding-bottom: {{ block.settings.padding_bottom | append: 'rem' }};
+  "
+  data-type="{{ block.type }}"
+  {{ block.shopify_attributes }}
+>
+  <label class="check-label">
+    <input
+      type="checkbox"
+      value="{{ first_available_variant.id }}"
+      name="product-form-upsell-{{ block.id }}"
+      {% unless first_available_variant.available %}
+        disabled
+      {% endunless %}
+      {% if block.settings.checked %}
+        checked
+      {% endif %}
+    >
+    <span>
+      {{ block.settings.label | replace: '[price]', price }}
+    </span>
+  </label>
+</div>

@@ -1,0 +1,51 @@
+/*
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+*/
+
+.separator {
+  position: relative;
+  background-color: rgba(var(--color-background), 1);
+  color: rgba(var(--color-text), 1);
+}
+
+.separator .container {
+  position: relative;
+}
+
+.separator hr {
+  height: var(--line-height);
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+.separator[data-line-style="solid"] hr {
+  background-color: rgba(var(--color-text), var(--line-opacity));
+}
+.separator[data-line-style="gradient"] hr {
+  background-image: linear-gradient(to right, transparent, rgba(var(--color-text), var(--line-opacity)), transparent);
+}
+
+.separator-icon {
+  background-color: rgba(var(--color-background), 1);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  padding: 0 1rem;
+}
+
+@media (max-width: 599px) {
+  .separator {
+    padding-top: calc(var(--padding-top) * 0.75);
+    padding-bottom: calc(var(--padding-bottom) * 0.75);
+  }
+}
+
+@media (min-width: 600px) {
+  .separator {
+    padding-top: calc(var(--padding-top) * 1);
+    padding-bottom: calc(var(--padding-bottom) * 1);
+  }
+}

@@ -1,0 +1,98 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% assign cart_items_block = section.blocks | where: 'type', 'items' | first %}
+
+{% if cart_items_block and cart_items_block.settings.variant_switcher %}
+  {% for line_item in cart.items %}
+    {% unless line_item.product.has_only_default_variant %}
+      <dialog
+        id="cart-items-variant-switcher-modal-{{ forloop.index0 }}"
+        class="dialog modal cart-items-variant-switcher-modal"
+        aria-labelledby="cart-items-variant-switcher-modal-{{ forloop.index0 }}-title"
+      >
+        <dialog-component class="dialog-inner">
+          <div class="dialog-header">
+            <h2
+              id="cart-items-variant-switcher-modal-{{ forloop.index0 }}-title"
+              class="dialog-title "
+            >
+              <a href="{{ line_item.url }}">
+                <span class="text-truncate">
+                  {{ line_item.product.title }}
+                </span>
+              </a>
+            </h2>
+            <button
+              class="dialog-close"
+              data-dialog-close
+              aria-label="{{ 'accessibility.close' | t }}"
+            >
+              {% render 'svg-icons', icon: 'x', size: 20, stroke_width: 1.5 %}
+            </button>
+          </div>
+          <div class="dialog-body">
+            <cart-item-variant-switcher
+              id="cart-items-variant-switcher-{{ forloop.index0 }}"
+              class="cart-item-variant-switcher"
+              data-quantity="{{ line_item.quantity }}"
+              data-line-item-key="{{ line_item.key }}"
+            >
+              <div class="inner">
+                <div class="inner-left">
+                  <a href="{{ line_item.url }}" tabindex="-1">
+                    <div class="img-wrapper">
+                      {% render 'product-custom-badge', product: product %}
+                      {% render 'product-card-img', image: line_item.image %}
+                    </div>
+                  </a>
+                </div>
+                <div class="inner-right">
+                  <fieldset>
+                    <div class="select-wrapper">
+                      <select
+                        class="select"
+                        aria-label=" {{ 'cart.variant_switcher.select_variant' | t }}"
+                      >
+                        {% for variant in line_item.product.variants %}
+                          <option
+                            value="{{ variant.id }}"
+                            {% if line_item.variant.id == variant.id %}
+                              selected
+                            {% endif %}
+                            data-variant-image="
+                              {%- if variant.image -%}
+                                {% render 'product-card-img', image: variant.image, only_src: true %}
+                              {%- endif -%}
+                            "
+                            {% unless variant.available %}
+                              disabled
+                            {% endunless %}
+                          >
+                            {{ variant.title }}
+                            {% if line_item.product.price_varies %}
+                              - {{ variant.price | money_without_trailing_zeros }}
+                            {% endif %}
+                            {% unless variant.available %}
+                              ({{ 'product.sold_out' | t }})
+                            {% endunless %}
+                          </option>
+                        {% endfor %}
+                      </select>
+                      {% render 'svg-icons', icon: 'chevron-down', size: 16, stroke_width: 1.5 %}
+                    </div>
+                  </fieldset>
+                  <button class="btn btn-primary btn-full">
+                    {{ 'cart.variant_switcher.button_label' | t }}
+                  </button>
+                </div>
+              </div>
+            </cart-item-variant-switcher>
+          </div>
+        </dialog-component>
+      </dialog>
+    {% endunless %}
+  {% endfor %}
+{% endif %}

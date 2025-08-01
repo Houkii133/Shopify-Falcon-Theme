@@ -1,0 +1,29 @@
+/*
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+*/
+
+{% comment %}
+  Fonts
+{% endcomment %}
+{{ settings.font_headings | font_face: font_display: 'swap' }}
+
+{% unless settings.font_body.system %}
+  {{ settings.font_body | font_face: font_display: 'swap' }}
+  {{ settings.font_body | font_modify: 'weight', '500' | font_face: font_display: 'swap' }}
+  {{ settings.font_body | font_modify: 'weight', '600' | font_face: font_display: 'swap' }}
+  {{ settings.font_body | font_modify: 'weight', '700' | font_face: font_display: 'swap' }}
+  {{ settings.font_body | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
+{% endunless %}
+
+:root { 
+  --headings-font-family: {{ settings.font_headings.family }}, {{ settings.font_headings.fallback_families }};
+  --headings-font-weight: {{ settings.font_headings.weight }};
+  --headings-font-size-base: {{ settings.font_headings_size | append: 'rem' }};
+  --body-font-family: {{ settings.font_body.family }}, {{ settings.font_body.fallback_families }}; --bs-body-font-weight: {{ settings.font_body.weight }};
+  --container-max-width: {{ settings.container_max_width | append: 'px' }};
+  --border-opacity: {{ settings.border_opacity | append: '%' }};
+  --border-radius: {{ settings.border_radius | append: 'rem' }};
+  --border-radius-safe: {% if settings.border_radius > 0.3 %}0.25{% else %}{{ settings.border_radius }}{% endif %}rem;
+  --wishlist-btn-heart-color: {{ settings.product_card_wishtlist_color | color_to_rgb | remove: 'rgb(' | remove: ')' }};
+}

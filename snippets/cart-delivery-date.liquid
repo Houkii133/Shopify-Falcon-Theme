@@ -1,0 +1,60 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% liquid
+  assign days_in_seconds = block.settings.min_days | times: 24 | times: 60 | times: 60
+  assign min_date = 'now' | date: '%s' | plus: days_in_seconds | date: '%Y-%m-%d'
+%}
+
+<div
+  id="cart-block-{{ block.id }}"
+  class="cart-block"
+  data-type="{{ block.type }}"
+  data-is-collapse-block="true"
+  {{ block.shopify_attributes }}
+>
+  <collapse-component>
+    <details>
+      <summary>
+        <span>
+          {% render 'svg-icons', icon: 'calendar', size: 16, stroke_width: 1.5 %}
+          {{ block.settings.title }}
+        </span>
+        {% render 'svg-icons', icon: 'chevron-down', size: 16, stroke_width: 1.5 %}
+      </summary>
+      <div class="collapse-content">
+        <div class="collapse-content-inner">
+          <cart-delivery-date
+            class="cart-delivery-date"
+            data-route-update="{{ routes.cart_update_url }}"
+          >
+            <div
+              class="alert"
+              role="alert"
+              aria-atomic="true"
+              data-alert-type="success"
+              data-text="{{ 'cart.delivery_date.selected_date' | t }}"
+              hidden
+            ></div>
+            <label for="cart-delivery-date-input">
+              {{ 'cart.delivery_date.label' | t }}
+            </label>
+            <input
+              id="cart-delivery-date-input"
+              type="date"
+              class="input fs-sm"
+              name="cart[delivery_date]"
+              min="{{ min_date }}"
+              value="{{ cart.attributes.delivery_date }}"
+            >
+            <div class="description rte fs-sm">
+              {{ 'cart.delivery_date.description_html' | t }}
+            </div>
+          </cart-delivery-date>
+        </div>
+      </div>
+    </details>
+  </collapse-component>
+</div>

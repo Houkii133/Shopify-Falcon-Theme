@@ -1,0 +1,408 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% if section.index <= 3 or request.design_mode %}
+  <link href="{{ 'sticky-media.css' | asset_url }}" rel="stylesheet" fetchpriority="high">
+  <script src="{{ 'sticky-media.js' | asset_url }}" defer></script>
+{% endif %}
+
+<sticky-media
+  id="sticky-media-{{ section.id }}" 
+  class="sticky-media {{ section.settings.color_scheme | prepend: 'color-' }}"
+  style="
+    --padding-top: {{ section.settings.padding_top | append: 'rem' }};
+    --padding-bottom: {{ section.settings.padding_bottom | append: 'rem' }};
+  "
+  data-section-css="{{ 'sticky-media.css' | asset_url }}"
+  data-section-js="{{ 'sticky-media.js' | asset_url }}">
+  <div class="media-outter">
+    {% for block in section.blocks %}
+      {% liquid
+        if section.index > 1 or forloop.index > 1
+          assign loading = 'lazy'
+          assign fetchpriority = 'low'
+        else
+          assign loading = 'eager'
+          assign fetchpriority = 'high'
+        endif
+      %}
+      <div 
+        class="media-wrapper" 
+        style="
+          --opacity: {% if forloop.first %}1{% else %}0{% endif %};
+          --overlay-color: {{ block.settings.overlay_color | color_to_rgb | remove: 'rgb(' | remove: ')'  }};
+          --overlay-opacity: {{ block.settings.overlay_opacity | append: '%' }};
+          --overlay-blur: {{ block.settings.overlay_blur | append: 'px' }}
+        "
+        data-overlay-opacity="{{ block.settings.overlay_opacity }}">
+        <div 
+          class="media-inner"
+          data-viewport-entered="false"
+          data-video-autoplay="true">
+          {% if block.settings.video != null %}
+            {{-
+              block.settings.video | video_tag:
+                image_size: '1600x', 
+                autoplay: false, 
+                loop: true, 
+                muted: true, 
+                controls: false,
+                loading: loading,
+                preload: 'none',
+                fetchpriority: fetchpriority
+            -}}
+          {% elsif block.settings.img != blank %}
+            <picture>
+              {% if block.settings.img_mobile == blank %}
+                <source
+                  media="(max-width: 599px)"
+                  srcset="{{ block.settings.img | image_url: width: 800 }}"
+                  sizes="100vw"
+                >
+                {% else %}
+                  <source
+                    media="(max-width: 599px)"
+                    srcset="{{ block.settings.img_mobile | image_url: width: 800 }}"
+                    sizes="100vw"
+                  >
+                {% endif %}
+              <img
+                src="{{ block.settings.img | image_url: width: 1600 }}"
+                sizes="100vw"
+                alt="{{ block.settings.img.alt }}"
+                width="1600"
+                height="{{ 1600 | divided_by: block.settings.img.aspect_ratio | round }}"
+                loading="{{ loading }}"
+                fetchpriority="{{ fetchpriority }}"
+              >
+            </picture>
+          {% else %}
+            {% capture current %}{% cycle 1, 2, 3 %}{% endcapture %}
+            {{ 'hero-apparel-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  {% if section.blocks.size > 0 %}
+    <div class="sticky-media-content">
+      <div class="container">
+        {% for block in section.blocks %}
+          <div
+            class="sticky-media-content-inner"
+            style="
+              --position: {{ block.settings.position }};
+              --text-align: {{ block.settings.text_align }};
+            ">
+            <div class="sticky-media-content-inner-inner container-narrow">
+              {% unless block.settings.subheading == blank %}
+                <div class="subheading {{ block.settings.subheading_font_size }}">
+                  {{ block.settings.subheading }}
+                </div>
+              {% endunless %}
+              {% unless block.settings.heading == blank %}
+                <h2 class="heading {{ block.settings.heading_size }}">
+                  {{ block.settings.heading }}
+                </h2>
+              {% endunless %}
+              {% unless block.settings.description == blank %}
+                <div class="description rte {{ block.settings.description_font_size }}">
+                  {{ block.settings.description }}
+                </div>
+              {% endunless %}
+              {% if block.settings.btn_primary_text != blank or block.settings.btn_secondary_text != blank %}
+                <div class="btn-wrapper">
+                  {% unless block.settings.btn_primary_text == blank %}
+                    <a
+                      class="btn {{ block.settings.btn_primary_style }}"
+                      href="{{ block.settings.btn_primary_url }}"
+                    >
+                      {{ block.settings.btn_primary_text }}
+                    </a>
+                  {% endunless %}
+                  {% unless block.settings.btn_secondary_text == blank %}
+                    <a
+                      class="btn {{ block.settings.btn_secondary_style }}"
+                      href="{{ block.settings.btn_secondary_url }}"
+                    >
+                      {{ block.settings.btn_secondary_text }}
+                    </a>
+                  {% endunless %}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+</sticky-media>
+
+{% schema %}
+{
+  "name": "Sticky media",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-3"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 0,
+      "unit": "rem"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 0,
+      "unit": "rem"
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Image",
+        },
+        {
+          "type": "image_picker",
+          "id": "img",
+          "label": "Image",
+        },
+        {
+          "type": "image_picker",
+          "id": "img_mobile",
+          "label": "Mobile image",
+          "info": "Optional, leave empty to use one image for all devices",
+        },
+        {
+          "type": "header",
+          "content": "Video",
+          "info": "NOTE: Either image or video can be used, not both."
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video" 
+        },
+        {
+          "type": "header",
+          "content": "Media overlay"
+        },
+        {
+          "type": "color",
+          "id": "overlay_color",
+          "label": "Overlay color",
+          "default": "#000000"
+        },
+        {
+          "type": "range",
+          "id": "overlay_opacity",
+          "label": "Opacity",
+          "min": 0,
+          "max": 100,
+          "step": 10,
+          "default": 30,
+          "unit": "%"
+        },
+        {
+          "type": "range",
+          "id": "overlay_blur",
+          "label": "Blur",
+          "min": 0,
+          "max": 10,
+          "step": 1,
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Content"
+        },
+        {
+          "type": "select",
+          "id": "position",
+          "label": "Position",
+          "default": "center",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "right", "label": "Right" },
+          ]
+        },
+        {
+          "type": "text_alignment",
+          "id": "text_align",
+          "label": "Text alignment",
+          "default": "center"
+        },
+        {
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading",
+          "default": "Slide subheading"
+        },
+        {
+          "type": "select",
+          "id": "subheading_font_size",
+          "label": "Suheading font-size",
+          "default": "fs-md",
+          "options": [
+            { "value": "fs-sm", "label": "sm" },
+            { "value": "fs-md", "label": "md" },
+            { "value": "fs-lg", "label": "lg" },
+            { "value": "fs-xl", "label": "xl" }
+          ],
+          "visible_if": "{{ block.settings.subheading != blank }}"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Slide heading"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "label": "Heading size",
+          "default": "h1",
+          "options": [
+            { "value": "h1", "label": "H1" },
+            { "value": "h2", "label": "H2" },
+            { "value": "h3", "label": "H3" },
+            { "value": "h4", "label": "H4" },
+            { "value": "h5", "label": "H5" },
+            { "value": "h6", "label": "H6" }
+          ],
+          "visible_if": "{{ block.settings.heading != blank }}",
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>An optional description for this slide</p>"
+        },
+        {
+          "type": "select",
+          "id": "description_font_size",
+          "label": "Description font-size",
+          "default": "fs-lg",
+          "options": [
+            { "value": "fs-sm", "label": "sm" },
+            { "value": "fs-md", "label": "md" },
+            { "value": "fs-lg", "label": "lg" },
+            { "value": "fs-xl", "label": "xl" }
+          ],
+          "visible_if": "{{ block.settings.description != blank }}"
+        },
+        {
+          "type": "header",
+          "content": "Primary button"
+        },
+        {
+          "type": "text",
+          "id": "btn_primary_text",
+          "label": "Button text",
+          "default": "Primary button",
+          "info": "Leave empty to disable"
+        },
+        {
+          "type": "url",
+          "id": "btn_primary_url",
+          "label": "Button URL",
+          "visible_if": "{{ block.settings.btn_primary_text != blank }}"
+        },
+        {
+          "type": "select",
+          "id": "btn_primary_style",
+          "label": "Button style",
+          "default": "btn-primary",
+          "options": [
+            { "value": "btn-primary", "label": "Primary" },
+            { "value": "btn-outline", "label": "Outline" },
+            { "value": "btn-accent", "label": "Accent" },
+            { "value": "btn-link", "label": "Link" }
+          ],
+          "visible_if": "{{ block.settings.btn_primary_text != blank }}"
+        },
+        {
+          "type": "header",
+          "content": "Secondary button"
+        },
+        {
+          "type": "text",
+          "id": "btn_secondary_text",
+          "label": "Button text",
+          "default": "Secondary button",
+          "info": "Leave empty to disable"
+        },
+        {
+          "type": "url",
+          "id": "btn_secondary_url",
+          "label": "Button URL",
+          "visible_if": "{{ block.settings.btn_secondary_text != blank }}"
+        },
+        {
+          "type": "select",
+          "id": "btn_secondary_style",
+          "label": "Button style",
+          "default": "btn-outline",
+          "options": [
+            { "value": "btn-primary", "label": "Primary" },
+            { "value": "btn-outline", "label": "Outline" },
+            { "value": "btn-accent", "label": "Accent" },
+            { "value": "btn-link", "label": "Link" }
+          ],
+          "visible_if": "{{ block.settings.btn_secondary_text != blank }}"
+        },
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sticky media",
+      "category": "Image/Video",
+      "blocks": [
+        {
+          "type": "slide",
+          "name": "Slide",
+          "settings": { "heading": "First slide heading", }
+        },
+        {
+          "type": "slide",
+          "name": "Slide",
+          "settings": { "heading": "Second slide heading", }
+        },
+        {
+          "type": "slide",
+          "name": "Slide",
+          "settings": { "heading": "Third slide heading", }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

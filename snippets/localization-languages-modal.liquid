@@ -1,0 +1,45 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% if localization.available_languages.size > 1 %}
+  <dialog
+    id="languages-modal"
+    class="dialog modal"
+    aria-labelledby="languages-modal-title"
+  >
+    <dialog-component class="dialog-inner">
+      <div class="dialog-header">
+        <h2 id="languages-modal-title" class="dialog-title">
+          {{ 'general.localization.languages' | t }}
+        </h2>
+        <button
+          class="dialog-close"
+          data-dialog-close
+          aria-label="{{ 'accessibility.close' | t }}"
+        >
+          {% render 'svg-icons', icon: 'x', size: 20, stroke_width: 1.5 %}
+        </button>
+      </div>
+      <div class="dialog-body">
+        <ul class="localization-list list-unstyled">
+          {% for language in localization.available_languages %}
+            <li>
+              <a
+                class="{% if language.iso_code == localization.language.iso_code %}active{% endif %}"
+                href="{{ language.root_url }}"
+                aria-current="{% if language.iso_code == localization.language.iso_code %}true{% endif %}"
+              >
+                <span class="text-wrapper">
+                  {{ language.endonym_name | capitalize }}
+                  <small> {{ language.name }} ({{ language.iso_code }}) </small>
+                </span>
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </dialog-component>
+  </dialog>
+{% endif %}

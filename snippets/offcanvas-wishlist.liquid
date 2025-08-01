@@ -1,0 +1,41 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+ 
+{% if settings.wishlist %}
+  <div
+    id="offcanvas-wishlist"
+    class="offcanvas-wishlist offcanvas offcanvas-end" 
+    tabindex="-1" 
+    aria-labelledby="offcanvas-wishlist-label"
+    {% if cart_upsells_enable %}data-cart-upsells{% endif %}>
+    <wishlist-container 
+      class="wishlist-container"
+      data-img-ratio="ratio-1x1"
+      data-img-border="img-thumbnail">
+      <div class="offcanvas-header">
+        <h2 id="offcanvas-wishlist-label" class="offcanvas-title">
+          {{ 'general.wishlist.title' | t }}
+        </h2>
+        <button class="btn-close" type="button" data-bs-dismiss="offcanvas" aria-label="{{ 'general.accessibility.close' | t }}"></button>
+      </div> 
+      <div class="offcanvas-body">
+        <div class="wishlist-empty offcanvas-empty-center" hidden>
+          <div class="">
+            <div class="svg-icon-horizontal-animate">
+              {% render 'svg-icons', icon: 'heart', size: 20, stroke_width: 2, class: 'mb-4' %}
+            </div>
+            <div class="rte fs-sm mb-5">
+              {{ 'general.wishlist.empty_html' | t }} 
+            </div>
+            <button class="btn btn-outline-primary btn-sm" type="button" data-bs-dismiss="offcanvas">
+              {{ 'general.wishlist.continue_shopping' | t }}
+            </button>
+          </div>
+        </div>
+        <ul class="wishlist-product-list list-unstyled mb-7" hidden></ul>
+      </div>
+    </wishlist-container>
+  </div>
+{% endif %}

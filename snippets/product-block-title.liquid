@@ -1,0 +1,22 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+<div
+  id="product-block-{{ block.id }}"
+  class="product-block"
+  style="
+    --padding-top: {{ block.settings.padding_top | append: 'rem' }};
+    --padding-bottom: {{ block.settings.padding_bottom | append: 'rem' }};
+  "
+  data-type="{{ block.type }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="inner">
+    <h1 class="product-title heading {{ block.settings.heading_size }}">
+      {{ product.title }}
+    </h1>
+    {% render 'share-button', button_style: block.settings.share_button_style %}
+  </div>
+</div>

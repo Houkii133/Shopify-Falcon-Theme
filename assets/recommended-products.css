@@ -1,0 +1,24 @@
+/*
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+*/
+
+.recommended-products {
+  background-color: rgba(var(--color-background), 1);
+  background-image: var(--color-background-gradient, none);
+  color: rgba(var(--color-text), 1);
+}
+
+@media (max-width: 1199px) {
+  .recommended-products {
+    padding-top: calc(var(--padding-top) * 0.75);
+    padding-bottom: calc(var(--padding-bottom) * 0.75);
+  }
+}
+
+@media (min-width: 1200px) {
+  .recommended-products {
+    padding-top: calc(var(--padding-top) * 1);
+    padding-bottom: calc(var(--padding-bottom) * 1);
+  }
+}

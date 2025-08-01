@@ -1,0 +1,137 @@
+/*
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+*/
+
+/*
+  Newsletter section
+*/
+.newsletter-section {
+  background: rgba(var(--color-background));
+  color: rgba(var(--color-text));
+}
+
+@media (max-width: 599px) {
+  .newsletter-section {
+    padding-top: calc(var(--padding-top) * 0.75);
+    padding-bottom: calc(var(--padding-bottom) * 0.75);
+  }
+}
+
+@media (min-width: 600px) {
+  .newsletter-section {
+    padding-top: calc(var(--padding-top) * 1);
+    padding-bottom: calc(var(--padding-bottom) * 1);
+  }
+}
+
+/*
+  Newsletter popup
+*/
+#newsletter-popup-modal {
+  width: calc(100% - 2rem);
+  max-width: var(--max-width);
+  min-height: auto;
+}
+
+#newsletter-popup {
+  display: block;
+}
+
+#newsletter-popup .dialog-body {
+  padding: 1.5rem;
+}
+
+#newsletter-popup img {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+  opacity: 1;
+  height: var(--img-height);
+  transition: all 0.6s ease-out;
+  transition-delay: 0.4s;
+  @starting-style {
+    opacity: 0;
+    height: 0;
+  }
+}
+
+#newsletter-popup .dialog-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background-color: rgba(var(--color-background));
+  color: rgba(var(--color-text));
+  margin: 0;
+}
+
+/*
+  Newsletter form
+*/
+.newsletter-form {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.newsletter-form .input-wrapper {
+  --height: 3.2rem;
+  --offset: 0.25rem;
+  position: relative;
+}
+
+.newsletter-form input {
+  width: 100%;
+  height: var(--height);
+  font-size: 1rem;
+  padding-left: 1rem;
+  padding-right: calc(var(--height) + 0.75rem);
+}
+
+.newsletter-form button {
+  position: absolute;
+  top: 50%;
+  right: var(--offset);
+  transform: translateY(-50%);
+  background-color: transparent;
+  color: rgba(var(--color-text));
+  border: none;
+  border-radius: var(--border-radius);
+  padding: 0;
+  width: calc((var(--height) - var(--offset) * 2.4) * 1.1);
+  height: calc(var(--height) - var(--offset) * 2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.newsletter-form button[data-btn-style="text"] {
+  background-color: transparent;
+  color: rgba(var(--color-text));
+}
+.newsletter-form button[data-btn-style="accent"] {
+  background-color: transparent;
+  color: rgba(var(--color-accent));
+}
+.newsletter-form button[data-btn-style="text-inverted"] {
+  background-color: rgba(var(--color-text));
+  color: rgba(var(--color-background));
+}
+.newsletter-form button[data-btn-style="accent-inverted"] {
+  background-color: rgba(var(--color-accent));
+  color: rgba(var(--color-background));
+}
+
+.newsletter-form button svg {
+  transition: all 0.2s ease-out;
+}
+
+.newsletter-form button:hover svg {
+  transform: translateX(0.1rem);
+}
+
+.newsletter-notice {
+  opacity: 0.75;
+  margin: 0.75rem 0 0;
+}

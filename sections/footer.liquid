@@ -1,0 +1,511 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+<div
+  id="footer"
+  class="{{ section.settings.color_scheme | prepend: 'color-' }}"
+  style="
+    --border-top-opacity: {{ section.settings.border_top_opacity | append: '%' }};
+    --padding: {{ section.settings.padding | append: 'rem' }};
+  "
+  data-linear-gradient="{{ section.settings.linear_gradient }}"
+  data-fixed-desktop="{{ section.settings.fixed_footer_desktop }}"
+  data-collapsible-blocks-mobile="{{ section.settings.collapsible_blocks_mobile }}"
+  data-section-css="
+    {%- if section.settings.enable_newsletter -%}
+      {{- 'newsletter.css' | asset_url -}}
+    {%- endif -%}
+  "
+>
+  <div class="container {% if section.settings.full_width %}container-full{% endif %}">
+    {% if section.settings.enable_newsletter %}
+      <div
+        id="footer-newsletter"
+        class="scroll-animate-fade-in-up"
+        data-viewport-entered="false"
+      >
+        <div class="section-header text-center">
+          {% unless section.settings.newsletter_heading == blank %}
+            <h3 class="heading {{ section.settings.newsletter_heading_size }}">
+              {{ section.settings.newsletter_heading }}
+            </h3>
+          {% endunless %}
+          {% unless section.settings.newsletter_description == blank %}
+            <div class="description rte {{ section.settings.newsletter_description_font_size }}">
+              {{ section.settings.newsletter_description }}
+            </div>
+          {% endunless %}
+        </div>
+        {% render 'newsletter-form' %}
+        {% unless section.settings.notice == blank %}
+          <div class="newsletter-notice rte fs-xs text-center">
+            {{ section.settings.notice }}
+          </div>
+        {% endunless %}
+      </div>
+      <hr class="footer-separator">
+    {% endif %}
+    {% if section.blocks.size > 0 %}
+      <div
+        id="footer-blocks"
+        data-viewport-entered="false"
+      >
+        {% for block in section.blocks %}
+          <div
+            class="footer-block scroll-animate-fade-in-up"
+            style="animation-delay: {{ forloop.index0 | times: 0.1 }}s"
+            data-type="{{ block.type }}"
+          >
+            {% case block.type %}
+              {% when 'about' %}
+                {% render 'footer-block', block: block %}
+              {% when 'richtext' %}
+                {% if section.settings.collapsible_blocks_mobile %}
+                  <collapse-component>
+                    <details>
+                      <summary>
+                        <span>{{ block.settings.title }}</span>
+                        {% render 'svg-icons', icon: 'chevron-down', size: 16, stroke_width: 1.5 %}
+                      </summary>
+                      <div class="collapse-content">
+                        <div class="collapse-content-inner">
+                          {% render 'footer-block', block: block %}
+                        </div>
+                      </div>
+                    </details>
+                  </collapse-component>
+                {% endif %}
+                <div class="footer-block-inner">
+                  <h3 class="heading h5">
+                    {{ block.settings.title }}
+                  </h3>
+                  {% render 'footer-block', block: block %}
+                </div>
+              {% when 'menu' %}
+                {% if section.settings.collapsible_blocks_mobile %}
+                  <collapse-component>
+                    <details>
+                      <summary>
+                        <span>{{ block.settings.title }}</span>
+                        {% render 'svg-icons', icon: 'chevron-down', size: 16, stroke_width: 1.5 %}
+                      </summary>
+                      <div class="collapse-content">
+                        <div class="collapse-content-inner">
+                          {% render 'footer-block', block: block %}
+                        </div>
+                      </div>
+                    </details>
+                  </collapse-component>
+                {% endif %}
+                <div class="footer-block-inner">
+                  <h3 class="heading h5">
+                    {{ block.settings.title }}
+                  </h3>
+                  {% render 'footer-block', block: block %}
+                </div>
+            {% endcase %}
+          </div>
+        {% endfor %}
+      </div>
+      <hr class="footer-separator">
+    {% endif %}
+    <div
+      id="footer-bottom"
+      class="scroll-animate-fade-in-up"
+      data-viewport-entered="false"
+      data-viewport-small="true"
+    >
+      <div id="footer-copyright" class="fs-sm">
+        <p>
+          &copy; {{ 'now' | date: '%Y' }}
+          {{ shop.name | replace: ' (', '<span hidden>' | replace: ')', '</span>' }}. {{ 'general.all_rights_reserved' | t }}.
+        </p>
+        {% if section.settings.policy_links %}
+          <ul
+            id="footer-policy-links"
+            aria-label="{{ 'accessibility.policy_links' | t }}"
+          >
+            {% for policy in shop.policies %}
+              <li>
+                <a href="{{ policy.url }}">
+                  {{ policy.title }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+        {% if section.settings.powered_by %}
+          <p id="footer-copyright-powered"><span>Theme by </span> <a href="https://www.kondasoft.com" target="_blank" rel="sponsored">KondaSoft</a>. <span>Powered by </span><a href="https://www.shopify.com" target="_blank" rel="sponsored">Shopify</a>.</p>
+        {% endif %}
+      </div>
+      {% if section.settings.payment_icons %}
+        <div id="footer-payment-icons">
+          {% render 'payment-icons' %}
+        </div>
+      {% endif %}
+      {% if section.settings.scroll_top %}
+        <div id="footer-scroll-top">
+          <button
+            class="btn btn-outline btn-sm"
+            onclick="document.documentElement.scrollTo({ top: 0, behavior: 'smooth'});"
+            tabindex="-1"
+            aria-hidden="true"
+          >
+            {% render 'svg-icons', icon: 'arrow-top', size: 16, stroke_width: 1 %}
+            {{ 'general.scroll_top' | t }}
+          </button>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Footer",
+  "tag": "footer",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "header",
+      "content": "General"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-3"
+    },
+    {
+      "type": "checkbox",
+      "id": "linear_gradient",
+      "label": "Linear gradient",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "border_top_opacity",
+      "label": "Border top opacity",
+      "default": 0,
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "%"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "fixed_footer_desktop",
+      "label": "Fixed footer on desktop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "collapsible_blocks_mobile",
+      "label": "Collapsible blocks on mobile",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Newsletter"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_newsletter",
+      "label": "Enable newsletter",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "newsletter_heading",
+      "label": "Heading",
+      "default": "Newsletter Subscribe"
+    },
+    {
+      "type": "select",
+      "id": "newsletter_heading_size",
+      "label": "Heading size",
+      "default": "h4",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" },
+        { "value": "h5", "label": "H5" },
+        { "value": "h6", "label": "H6" }
+      ]
+    },
+    {
+      "type": "richtext",
+      "id": "newsletter_description",
+      "label": "Description (optional)",
+      "default": "<p>Be the first to know about our latest offers and get exclusive discounts.</p>"
+    },
+    {
+      "type": "select",
+      "id": "newsletter_description_font_size",
+      "label": "Description font-size",
+      "default": "fs-md",
+      "options": [
+        { "value": "fs-sm", "label": "sm" },
+        { "value": "fs-md", "label": "md" },
+        { "value": "fs-lg", "label": "lg" },
+        { "value": "fs-xl", "label": "xl" }
+      ]
+    },
+    {
+      "type": "richtext",
+      "id": "notice",
+      "label": "Notice text (optional)",
+      "default": "<p>By signing up for email, you agree to our <a href=\"/policies/terms-of-service\">Terms of Service</a> and <a href=\"/policies/privacy-policy\">Privacy Policy</a>.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Bottom"
+    },
+    {
+      "type": "checkbox",
+      "id": "payment_icons",
+      "label": "Payment icons",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "policy_links",
+      "label": "Policy links",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "powered_by",
+      "label": "\"Powered by\" links",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "scroll_top",
+      "label": "Show \"Scroll to top\" button",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "label": "Padding",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 2,
+      "unit": "rem"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "about",
+      "name": "About",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Styling"
+        },
+        {
+          "type": "range",
+          "id": "bg_opacity",
+          "label": "Background opacity",
+          "default": 5,
+          "min": 0,
+          "max": 40,
+          "step": 1,
+          "unit": "%"
+        },
+        {
+          "type": "range",
+          "id": "border_opacity",
+          "label": "Border opacity",
+          "default": 10,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%"
+        },
+        {
+          "type": "range",
+          "id": "padding",
+          "label": "Spacing",
+          "min": 0,
+          "max": 2,
+          "step": 0.2,
+          "default": 1.6,
+          "unit": "rem"
+        },
+        {
+          "type": "text_alignment",
+          "id": "text_align",
+          "label": "Text alignment",
+          "default": "center"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_social_icons",
+          "label": "Show social icons",
+          "info": "Set your social links in [theme settings](\/editor?context=theme&category=social%20links)",
+          "default": true
+        },
+        {
+          "type": "range",
+          "id": "social_icons_size",
+          "label": "Social icons size",
+          "default": 18,
+          "min": 16,
+          "max": 24,
+          "step": 1,
+          "unit": "px"
+        },
+        {
+          "type": "header",
+          "content": "Logo"
+        },
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo"
+        },
+        {
+          "type": "range",
+          "id": "logo_height",
+          "label": "Logo height",
+          "min": 10,
+          "max": 100,
+          "step": 2,
+          "default": 40
+        },
+        {
+          "type": "header",
+          "content": "Text"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Block Title"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>Some description for this block</p>"
+        }
+      ]
+    },
+    {
+      "type": "richtext",
+      "name": "Richtext",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Block Title"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>Some description for this block</p>"
+        },
+        {
+          "type": "header",
+          "content": "Primary button"
+        },
+        {
+          "type": "text",
+          "id": "btn_primary_text",
+          "label": "Button text",
+          "info": "Leave empty to disable"
+        },
+        {
+          "type": "select",
+          "id": "btn_primary_style",
+          "label": "Button style",
+          "default": "btn-primary",
+          "options": [
+            { "value": "btn-primary", "label": "Primary" },
+            { "value": "btn-outline", "label": "Outline" },
+            { "value": "btn-accent", "label": "Accent" },
+            { "value": "btn-link", "label": "Link" }
+          ]
+        },
+        {
+          "type": "url",
+          "id": "btn_primary_url",
+          "label": "Button URL"
+        },
+        {
+          "type": "header",
+          "content": "Secondary button"
+        },
+        {
+          "type": "text",
+          "id": "btn_secondary_text",
+          "label": "Button text",
+          "default": "Secondary button",
+          "info": "Leave empty to disable"
+        },
+        {
+          "type": "select",
+          "id": "btn_secondary_style",
+          "label": "Button style",
+          "default": "btn-outline",
+          "options": [
+            { "value": "btn-primary", "label": "Primary" },
+            { "value": "btn-outline", "label": "Outline" },
+            { "value": "btn-accent", "label": "Accent" },
+            { "value": "btn-link", "label": "Link" }
+          ]
+        },
+        {
+          "type": "url",
+          "id": "btn_secondary_url",
+          "label": "Button URL"
+        }
+      ]
+    },
+    {
+      "type": "menu",
+      "name": "Menu",
+      "settings": [
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Block Title"
+        }
+      ]
+    }
+  ],
+  "enabled_on": {
+    "groups": ["footer"]
+  },
+  "presets": [
+    {
+      "name": "Footer"
+    }
+  ]
+}
+{% endschema %}

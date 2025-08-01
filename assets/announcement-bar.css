@@ -1,0 +1,185 @@
+/*
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+*/
+
+.announcement-bar {
+  display: block;
+  background-color: rgba(var(--color-background), 1);
+  background-image: var(--color-background-gradient, none);
+  color: rgba(var(--color-text), 1);
+  text-align: center;
+  text-transform: var(--text-transform);
+  letter-spacing: var(--letter-spacing);
+}
+
+.announcement-bar .container {
+  max-width: var(--max-width);
+  padding-left: 0;
+  padding-right: 0;
+  /* animation: announcement-bar 0.5s ease-out both;
+  animation-delay: 0.25s;
+  opacity: 0; */
+}
+
+@keyframes announcement-bar {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.announcement-bar-content {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.announcement-bar-content a {
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease-out;
+}
+
+.announcement-bar-content a:hover {
+  opacity: 0.75;
+}
+
+.announcement-bar-content a:focus-visible {
+  outline-offset: -2px;
+}
+
+.announcement-bar-content a svg {
+  transition: all 0.2s ease-out;
+  margin-left: 0.375rem;
+  flex-shrink: 0;
+}
+
+.announcement-bar-content a:hover svg {
+  transform: translateX(0.125rem);
+}
+
+.announcement-bar-content p {
+  padding: 0.5rem 0;
+  margin: 0;
+}
+
+/* Slideshow */
+.announcement-bar .slideshow {
+  display: block;
+  position: relative;
+  overflow: hidden;
+}
+
+.announcement-bar .slideshow-control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: transparent;
+  border: none;
+  color: rgba(var(--color-text), 0.75);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border-radius: 50%;
+  transition: all 0.2s ease-in-out;
+  z-index: 2;
+  outline-offset: -2px;
+  opacity: 1;
+}
+
+.announcement-bar .slideshow-control:hover {
+  color: rgba(var(--color-text), 1);
+}
+
+.announcement-bar .slideshow-control svg {
+  transition: all 0.2s ease-out;
+}
+
+.announcement-bar .slideshow-control[name="previous"] {
+  left: 0;
+}
+
+.announcement-bar .slideshow-control[name="previous"]:hover svg {
+  transform: translateX(-1px);
+}
+
+.announcement-bar .slideshow-control[name="next"] {
+  right: 0;
+}
+
+.announcement-bar .slideshow-control[name="next"]:hover svg {
+  transform: translateX(1px);
+}
+
+.announcement-bar .slideshow-track-wrapper {
+  margin: 0 2.25rem;
+  overflow: hidden;
+}
+
+.announcement-bar .slideshow-track {
+  display: flex;
+  transition: transform var(--speed) ease-in-out;
+}
+
+.announcement-bar .slideshow-track {
+  display: flex;
+  transition: transform var(--speed) ease-in-out;
+}
+
+.announcement-bar .slideshow-slide {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+}
+
+/* Countdown */
+.announcement-bar .countdown {
+  display: block;
+  display: flex;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  width: auto;
+  text-transform: lowercase;
+}
+
+.announcement-bar .countdown > span {
+  display: flex;
+  background-color: rgba(var(--color-text), 1);
+  color: rgba(var(--color-background), 1);
+  border-radius: 0.125rem;
+  padding: 0 0.25rem;
+  margin: 0.125rem;
+  font-weight: 700;
+  font-size: 0.9em;
+  line-height: 1.25;
+}
+
+/* Responsive */
+@media (max-width: 1199px) {
+  .announcement-bar {
+    font-size: calc(var(--font-size) * 0.9);
+    padding-top: calc(var(--padding-top) * 0.75);
+    padding-bottom: calc(var(--padding-bottom) * 0.75);
+  }
+}
+
+@media (min-width: 1200px) {
+  .announcement-bar {
+    font-size: calc(var(--font-size) * 1);
+    padding-top: calc(var(--padding-top) * 1);
+    padding-bottom: calc(var(--padding-bottom) * 1);
+  }
+}

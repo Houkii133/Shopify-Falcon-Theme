@@ -1,0 +1,111 @@
+{
+  "type": "header",
+  "name": "Header Group",
+  "sections": {
+    "announcement": {
+      "type": "announcement-bar",
+      "blocks": {
+        "slide_bDyfCK": {
+          "type": "slide",
+          "settings": {
+            "announcement": "Last chance, Huge savings!",
+            "url": "shopify:\/\/collections\/all",
+            "countdown": "2026-01-01 00:00"
+          }
+        },
+        "slide_k8kF3w": {
+          "type": "slide",
+          "settings": {
+            "announcement": "Save up to 40% with Bundle Builder",
+            "url": "shopify:\/\/collections\/bundle-builder",
+            "countdown": ""
+          }
+        },
+        "slide_xqmLTh": {
+          "type": "slide",
+          "settings": {
+            "announcement": "Free Shipping For All Orders Over $100",
+            "url": "shopify:\/\/collections\/all",
+            "countdown": ""
+          }
+        }
+      },
+      "block_order": [
+        "slide_bDyfCK",
+        "slide_k8kF3w",
+        "slide_xqmLTh"
+      ],
+      "settings": {
+        "color_scheme": "scheme-3",
+        "font_size": 85,
+        "text_transform": "capitalize",
+        "letter_spacing": 5,
+        "max_width": 560,
+        "speed": 0.5,
+        "slider_autoplay": 5,
+        "label": "Announcement bar",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "navbar_XVYVne": {
+      "type": "header",
+      "blocks": {
+        "mobile_LTpecf": {
+          "type": "mobile",
+          "settings": {
+            "logo_height": 16,
+            "menu": "main-menu",
+            "menu_color_scheme": "scheme-1",
+            "font_size": 100,
+            "text_transform": "capitalize",
+            "letter_spacing": 2,
+            "border_opacity": 20,
+            "vertical_spacing": 0.8,
+            "show_social_icons": true,
+            "social_icons_size": 18,
+            "icons_left_icon": "search",
+            "icons_right_icon": "wishlist",
+            "icons_size": 20,
+            "icons_stroke_width": 1.6,
+            "icons_spacing": 0.6,
+            "padding_top": 0.3,
+            "padding_bottom": 0.3
+          }
+        },
+        "desktop_X8kJbr": {
+          "type": "desktop",
+          "settings": {
+            "logo_height": 16,
+            "logo_position": "center",
+            "menu": "main-menu",
+            "font_size": 90,
+            "text_transform": "capitalize",
+            "letter_spacing": 2,
+            "menu_dropdowns_color_scheme": "scheme-1",
+            "icons_size": 20,
+            "icons_stroke_width": 1.6,
+            "icons_spacing": 0.6,
+            "padding_top": 0.8,
+            "padding_bottom": 0.8
+          }
+        }
+      },
+      "block_order": [
+        "mobile_LTpecf",
+        "desktop_X8kJbr"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "border": true,
+        "shadow": false,
+        "sticky_header": "scroll-up",
+        "full_width": false
+      }
+    }
+  },
+  "order": [
+    "announcement",
+    "navbar_XVYVne"
+  ]
+}

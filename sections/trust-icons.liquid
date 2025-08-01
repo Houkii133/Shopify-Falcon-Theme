@@ -1,0 +1,294 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% if section.index <= 3 or request.design_mode %}
+  <link href="{{ 'trust-icons.css' | asset_url }}" rel="stylesheet" fetchpriority="high">
+{% endif %}
+
+<div
+  id="trust-icons-{{ section.id }}" 
+  class="trust-icons {{ section.settings.color_scheme | prepend: 'color-' }}"
+  style="
+    --padding-top: {{ section.settings.padding_top | append: 'rem' }};
+    --padding-bottom: {{ section.settings.padding_bottom | append: 'rem' }};
+  "
+  data-viewport-entered="false"
+  data-section-css="{{- 'trust-icons.css' | asset_url -}}"
+>
+  <div class="container {% if section.settings.full_width %}container-full{% endif %}">
+    {% unless section.settings.heading == blank %}
+      <header class="section-header scroll-animate-fade-in-up text-{{ section.settings.header_alignment }}">
+        {% unless section.settings.heading == blank %}
+          <h2
+            id="heading-{{ section.id }}"
+            class="heading {{ section.settings.heading_size }}"
+          >
+            {{ section.settings.heading }}
+          </h2>
+        {% endunless %}
+        {% unless section.settings.description == blank %}
+          <div class="description rte {{ section.settings.description_font_size }}">
+            {{ section.settings.description }}
+          </div>
+        {% endunless %}
+      </header>
+    {% endunless %}
+    <ul class="trust-icons-list">
+      {% for block in section.blocks %}
+        <li 
+          class="trust-icons-item scroll-animate-fade-in-up" 
+           style="animation-delay: {{ forloop.index0 | times: 0.1 }}s"
+          {{ block.shopify_attributes }}>
+          <div 
+            class="trust-icons-card {{ section.settings.item_color_scheme | prepend: 'color-' }}"
+            style="
+              --text-align: {{ section.settings.item_text_align }};
+            "
+            data-border="{{ section.settings.item_border }}"
+            data-shadow="{{ section.settings.item_shadow }}"
+          >
+            {% unless block.settings.img == blank %}
+              <div class="img-wrapper">
+                {% assign img_height_scaled = section.settings.item_img_height | times: 2 %}
+                <img
+                  src="{{ block.settings.img | image_url: height: img_height_scaled }}"
+                  class="img-fluid"
+                  alt="{{ block.settings.img.alt }}"
+                  width="{{ section.settings.item_img_height | times: block.settings.img.aspect_ratio | round }}"
+                  height="{{ section.settings.item_img_height }}"
+                  loading="lazy">
+              </div>
+            {% endunless %}
+            <div class="trust-icons-card-inner">
+              {% unless block.settings.heading == blank %}
+                <h3 class="heading {{ section.settings.item_heading_size }}">
+                  {{ block.settings.heading }}
+                </h3>
+              {% endunless %}
+              {% unless block.settings.description == blank %}
+                <div class="description rte {{ section.settings.item_description_font_size }}">
+                  {{ block.settings.description }}
+                </div>
+              {% endunless %}
+            </div>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Trust icons",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-2"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text_alignment",
+      "id": "header_alignment",
+      "label": "Alignment",
+      "default": "left"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Trust Icons"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "default": "h3",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" },
+        { "value": "h5", "label": "H5" },
+        { "value": "h6", "label": "H6" }
+      ]
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description (optional)",
+      "default": "<p>An optional description for this section</p>"
+    },
+    {
+      "type": "select",
+      "id": "description_font_size",
+      "label": "Description font-size",
+      "default": "fs-md",
+      "options": [
+        { "value": "fs-sm", "label": "sm" },
+        { "value": "fs-md", "label": "md" },
+        { "value": "fs-lg", "label": "lg" },
+        { "value": "fs-xl", "label": "xl" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Item"
+    },
+    {
+      "type": "color_scheme",
+      "id": "item_color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "item_border",
+      "label": "Border",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "item_shadow",
+      "label": "Shadow",
+      "default": false
+    },
+    {
+      "type": "text_alignment",
+      "id": "item_text_align",
+      "label": "Text align",
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "item_img_height",
+      "label": "Image height",
+      "min": 20,
+      "max": 100,
+      "default": 30,
+      "step": 2
+    },
+    {
+      "type": "select",
+      "id": "item_heading_size",
+      "label": "Heading size",
+      "default": "fs-xl",
+      "options": [
+        { "value": "fs-sm", "label": "sm" },
+        { "value": "fs-md", "label": "md" },
+        { "value": "fs-lg", "label": "lg" },
+        { "value": "fs-xl", "label": "xl" },
+      ]
+    },
+    {
+      "type": "select",
+      "id": "item_description_font_size",
+      "label": "Description font-size",
+      "default": "fs-md", 
+      "options": [
+        { "value": "fs-sm", "label": "sm" },
+        { "value": "fs-md", "label": "md" },
+        { "value": "fs-lg", "label": "lg" },
+        { "value": "fs-xl", "label": "xl" },
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 2,
+      "unit": "rem"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 2,
+      "unit": "rem"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "img",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust icons",
+      "category": "Content",
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "heading": "Outstanding Quality",
+            "description": "<p>We pride ourselves to offer only the best quality in class. No compromises.</p>"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "heading": "Free Shipping",
+            "description": "<p>Have a treat with free shipping for all orders over $100. Ready to shop?!</p>"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "heading": "Free Returns",
+            "description": "<p>Have peace of mind with our free return policy. Terms may apply.</p>"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "heading": "Secure payments",
+            "description": "<p>100% secure and protected payments. Shop with your preferred option.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

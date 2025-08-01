@@ -1,0 +1,78 @@
+/*
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+*/
+
+.table-compare {
+  display: block;
+  background-color: rgba(var(--color-background), 1);
+  background-image: var(--color-background-gradient);
+  color: rgba(var(--color-text), 1);
+}
+
+.table-compare .table {
+  text-align: center;
+  table-layout: fixed;
+  line-height: normal;
+  min-width: var(--table-min-width);
+  background-color: rgba(var(--color-background), 1);
+  color: rgba(var(--color-text), 1);
+}
+
+.table-compare .table thead th {
+  padding-top: calc(var(--table-spacing) * 1.25);
+  padding-bottom: calc(var(--table-spacing) * 1.25);
+  text-align: var(--table-text-align);
+}
+
+.table-compare .table thead th > span {
+  display: inline-flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.table-compare .table td {
+  padding-top: calc(var(--table-spacing) * 1);
+  padding-bottom: calc(var(--table-spacing) * 1);
+  text-align: var(--table-text-align);
+}
+
+.table-compare .table td > span  {
+  display: inline-flex;
+  flex-direction: column;
+  gap: .5rem;
+  text-wrap: auto;
+}
+
+.table-compare .table thead th:first-child {
+  width: var(--table-first-col-width);
+}
+
+.table-compare .svg-icon-checkbox-circle {
+  color: var(--icon-color-checked-circle);
+}
+
+.table-compare .svg-icon-check {
+  color: var(--icon-color-checked);
+}
+
+.table-compare .svg-icon-x {
+  color: var(--icon-color-unchecked);
+}
+
+@media (max-width: 1199px) {
+  .table-compare {
+    padding-top: calc(var(--padding-top) * 0.75);
+    padding-bottom: calc(var(--padding-bottom) * 0.75);
+  }
+  .table-compare .table thead th {
+    font-size: .875rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .table-compare {
+    padding-top: calc(var(--padding-top) * 1);
+    padding-bottom: calc(var(--padding-bottom) * 1);
+  }
+}

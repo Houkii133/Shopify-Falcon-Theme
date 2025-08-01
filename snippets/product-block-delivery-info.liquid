@@ -1,0 +1,34 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% liquid
+  assign start = block.settings.start
+  assign end = block.settings.end
+
+  assign start_in_seconds = start | times: 86400
+  assign end_in_seconds = end | times: 86400
+  assign start_timestamp = 'now' | date: '%s' | plus: start_in_seconds
+  assign end_timestamp = 'now' | date: '%s' | plus: end_in_seconds
+  assign start_formatted = start_timestamp | date: block.settings.date_format
+  assign end_formatted = end_timestamp | date: block.settings.date_format
+%}
+
+<div
+  id="product-block-{{ block.id }}"
+  class="product-block"
+  style="
+    --padding-top: {{ block.settings.padding_top | append: 'rem' }};
+    --padding-bottom: {{ block.settings.padding_bottom | append: 'rem' }};
+  "
+  data-type="{{ block.type }}"
+  {{ block.shopify_attributes }}
+>
+  {% if block.settings.show_icon %}
+    {% render 'svg-icons', icon: 'truck', size: block.settings.icon_size, stroke_width: 1.5 %}
+  {% endif %}
+  <div class="descripton rte lh-sm {{ block.settings.description_font_size }}">
+    {{ block.settings.description | replace: '[', '<b>' | replace: ']', '</b>' | replace: 'start', start_formatted | replace: 'end', end_formatted }}
+  </div>
+</div>

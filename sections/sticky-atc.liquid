@@ -1,0 +1,304 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% liquid
+  assign product = section.settings.product | default: product
+  assign current_variant = product.selected_or_first_available_variant
+  assign current_img = current_variant.image | default: product.featured_image
+
+  case section.settings.img_ratio
+    when 'adapt'
+      assign img_width = 480
+      assign img_height = 480 | divided_by: current_img.aspect_ratio | round
+    when 'square'
+      assign img_width = 480
+      assign img_height = 480
+    when 'portrait'
+      assign img_width = 480
+      assign img_height = 480 | times: 4 | divided_by: 3 | round
+  endcase
+%}
+
+{% if request.design_mode %}
+  <link href="{{ 'sticky-atc.css' | asset_url }}" rel="stylesheet" fetchpriority="high">
+  <script src="{{ 'sticky-atc.js' | asset_url }}" defer></script>
+{% endif %}
+
+<sticky-atc
+  id="sticky-atc-{{ section.id }}"
+  class="sticky-atc {{ section.settings.color_scheme | prepend: 'color-' }}"
+  style="
+    --max-width: {{ section.settings.max_width | append: 'px' }};
+    --padding: {{ section.settings.padding | append: 'rem' }};
+    transform: translateY(100%);
+  "
+  data-border="{{ section.settings.border }}"
+  data-shadow="{{ section.settings.shadow }}"
+  data-has-only-default-variant="{{ product.has_only_default_variant }}"
+  data-section-css="{{ 'sticky-atc.css' | asset_url }}"
+  data-section-js="{{ 'sticky-atc.js' | asset_url }}"
+>
+  {% unless section.settings.countdown == blank %}
+    {% liquid
+      assign countdown = section.settings.countdown | date: '%s'
+      assign now = 'now' | date: '%s'
+
+      if shop.permanent_domain contains 'ks-'
+        assign countdown = now | plus: 43200 | minus: 1
+      endif
+
+      assign now = 'now' | date: '%s'
+      assign diff = countdown | minus: now
+
+      assign days = diff | divided_by: 86400
+      assign hours = diff | modulo: 86400 | divided_by: 3600
+      assign minutes = diff | modulo: 3600 | divided_by: 60
+      assign seconds = diff | modulo: 60
+    %}
+    <div class="countdown-wrapper {{ section.settings.countdown_color_scheme | prepend: 'color-' }}">
+      <div class="container">
+        <div class="countdown-inner">
+          {% unless section.settings.countdown_text == blank %}
+            <div class="countdown-text">
+              {{ section.settings.countdown_text }}
+            </div>
+          {% endunless %}
+          <countdown-component
+            class="countdown"
+            data-countdown="{{ countdown | times: 1000 }}"
+            aria-label="{{ 'accessibility.countdown_label' | t: days: days, hours: hours, minutes: minutes  }}"
+            role="timer"
+          >
+            <span class="{% if days == 0 %}hidden{% endif %}">
+              <span data-countdown-days>{{- days -}}</span>
+              <span> {{- 'general.times.days_short' | t -}}</span>
+            </span>
+            <span class="{% if hours == 0 %} hidden{% endif %}">
+              <span data-countdown-hours>{{- hours -}}</span>
+              <span>{{- 'general.times.hours_short' | t -}}</span>
+            </span>
+            <span>
+              <span data-countdown-minutes>{{- minutes -}}</span>
+              <span>{{- 'general.times.minutes_short' | t -}}</span>
+            </span>
+            <span>
+              <span data-countdown-seconds>{{- seconds -}}</span>
+              <span>{{- 'general.times.seconds_short' | t -}}</span>
+            </span>
+          </countdown-component>
+        </div>
+      </div>
+    </div>
+  {% endunless %}
+  <div class="sticky-atc-inner">
+    <div class="container">
+      <div class="inner">
+        <div class="inner-left">
+          <img
+            src="{{ current_img | image_url: width: img_width, height: img_height, crop: 'center' }}"
+            alt="{{ current_img.alt | escape }}"
+            class="img-fluid"
+            width="{{ img_width }}"
+            height="{{ img_height }}"
+            loading="lazy"
+          >
+          <div class="block-left-inner">
+            <h3 class="heading fs-sm">
+              {{ product.title }}
+            </h3>
+            {% if section.settings.show_rating %}
+              {% render 'product-rating-badge', product: product %}
+            {% endif %}
+          </div>
+        </div>
+        <div class="inner-right">
+          <product-card-form class="product-card-form">
+            {% form 'product', product, data-productid: product.id %}
+              {% if product.has_only_default_variant %}
+                <input type="hidden" name="id" value="{{ product.first_available_variant.id }}">
+              {% else %}
+                <div class="select-wrapper">
+                  <select
+                    name="id"
+                    class="select fs-sm"
+                    aria-label="{{ 'product.select_variant' | t }}"
+                    {% unless product.available %}
+                      disabled
+                    {% endunless %}
+                  >
+                    {% if product.available == false %}
+                      <option value="">{{ 'product.sold_out' | t }}</option>
+                    {% else %}
+                      {% for variant in product.variants %}
+                        <option
+                          value="{{ variant.id }}"
+                          data-variant-image="
+                            {%- if variant.image -%}
+                            {{ variant.image | image_url: width: img_width, height: img_height, crop: 'center' }}
+                            {%- endif -%}
+                          "
+                          {% unless variant.available %}
+                            disabled
+                          {% endunless %}
+                          {% if variant.id == current_variant.id %}
+                            selected
+                          {% endif %}
+                        >
+                          {{ variant.title }}
+                          {% if product.price_varies %}
+                            - {{ variant.price | money_without_trailing_zeros }}
+                          {% endif %}
+                          {% unless variant.available %}({{ 'product.sold_out' | t }}){% endunless %}
+                        </option>
+                      {% endfor %}
+                    {% endif %}
+                  </select>
+                  {% render 'svg-icons', icon: 'chevron-down', size: 16, stroke_width: 1.5 %}
+                </div>
+              {% endif %}
+              <button
+                class="btn {{ section.settings.btn_style }}"
+                type="submit"
+                name="add"
+                {% unless product.available %}
+                  disabled
+                {% endunless %}
+              >
+                {% if product.available %}
+                  {{ 'product.add_to_cart' | t }} - {{ product.price | money_without_trailing_zeros }}
+                {% else %}
+                  {{ 'product.sold_out' | t }}
+                {% endif %}
+              </button>
+            {% endform %}
+          </product-card-form>
+        </div>
+      </div>
+    </div>
+  </div>
+</sticky-atc>
+
+{% schema %}
+{
+  "name": "Sticky ATC",
+  "limit": 1,
+  "tag": "section",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product",
+      "info": "NOTE: Select a product if you are using this section outside of a product page."
+    },
+    {
+      "type": "header",
+      "content": "Styling"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "border",
+      "label": "Border top",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "shadow",
+      "label": "Shadow",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Max-width",
+      "min": 600,
+      "max": 1200,
+      "default": 800,
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "General"
+    },
+    {
+      "type": "select",
+      "id": "img_ratio",
+      "label": "Image ratio",
+      "default": "square",
+      "options": [
+        { "value": "adapt", "label": "Adapt" },
+        { "value": "square", "label": "Square" },
+        { "value": "portrait", "label": "Portrait" }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show rating",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "btn_style",
+      "label": "Button style",
+      "default": "btn-primary",
+      "options": [
+        { "value": "btn-primary", "label": "Primary" },
+        { "value": "btn-outline", "label": "Outline" },
+        { "value": "btn-accent", "label": "Accent" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Countdown"
+    },
+    {
+      "type": "text",
+      "id": "countdown",
+      "label": "Countdown",
+      "default": "2025-12-31 23:59",
+      "info": "Format: yyyy-mm-dd hh:mm. Leave blank to disable"
+    },
+    {
+      "type": "text",
+      "id": "countdown_text",
+      "label": "Text",
+      "default": "This sale is ending soon!"
+    },
+    {
+      "type": "color_scheme",
+      "id": "countdown_color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-5"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "label": "Top/Bottom",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "default": 0.8,
+      "unit": "rem"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sticky ATC",
+      "category": "Product",
+    }
+  ]
+}
+{% endschema %}

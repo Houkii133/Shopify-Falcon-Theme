@@ -1,0 +1,526 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+ 
+{% if section.index <= 3 or request.design_mode %}
+  <link href="{{ 'testimonials.css' | asset_url }}" rel="stylesheet" fetchpriority="high">
+{% endif %}
+
+<div
+  id="testimonials-{{ section.id }}" 
+  class="testimonials {{ section.settings.color_scheme | prepend: 'color-' }} "
+  style="
+    --padding-top: {{ section.settings.padding_top | append: 'rem' }};
+    --padding-bottom: {{ section.settings.padding_bottom | append: 'rem' }};
+  "
+  data-viewport-entered="false"
+  data-section-css="{{- 'testimonials.css' | asset_url -}}"
+>
+  <div class="container {% if section.settings.full_width %}container-full{% endif %}">
+    {% unless section.settings.heading == blank %}
+      <header class="section-header scroll-animate-fade-in-up text-{{ section.settings.header_alignment }}">
+        {% unless section.settings.heading == blank %}
+          <h2
+            id="heading-{{ section.id }}"
+            class="heading {{ section.settings.heading_size }}"
+          >
+            {{ section.settings.heading }}
+          </h2>
+        {% endunless %}
+        {% unless section.settings.description == blank %}
+          <div class="description rte {{ section.settings.description_font_size }}">
+            {{ section.settings.description }}
+          </div>
+        {% endunless %}
+      </header>
+    {% endunless %}
+    <carousel-component
+      class="carousel"
+      style="
+        --mobile-cols: {{ section.settings.carousel_mobile_cols }};
+        --desktop-cols: {{ section.settings.carousel_desktop_cols }};
+      "
+      data-mobile-cols="{{ section.settings.carousel_mobile_cols }}"
+      data-desktop-cols="{{ section.settings.carousel_desktop_cols }}"
+      data-mobile-stack="{{ section.settings.carousel_mobile_stack }}"
+      data-desktop-stack="{{ section.settings.carousel_desktop_stack }}"
+      data-controls-style="{{ section.settings.carousel_controls_style }}"
+      data-controls-mobile="{{ section.settings.show_controls_on_mobile }}"
+    >
+      <div class="carousel-inner">
+        <button
+          class="carousel-control"
+          name="previous"
+          type="button"
+          aria-label="{{ 'accessibility.previous_slide' | t }}"
+        >
+          {% render 'svg-icons', icon: 'chevron-left', stroke_width: 1.5, size: 22 %}
+        </button>
+        <ul
+          class="carousel-track"
+          aria-labelledby="heading-{{ section.id }}"
+          aria-roledescription="{{ 'accessibility.carousel' | t | downcase }}"
+        >
+          {% for block in section.blocks %}
+            <li
+              class="carousel-slide testimonials-item scroll-animate-fade-in-up"
+              style="animation-delay: {{ forloop.index0 | times: 0.1 }}s"
+              {{ block.shopify_attributes }}
+            >
+              <div 
+                class="card {{ section.settings.item_color_scheme | prepend: 'color-' }}"
+                style="
+                  --text-align: {{ section.settings.item_text_align }};
+                "
+                data-border="{{ section.settings.item_border }}"
+                data-shadow="{{ section.settings.item_shadow }}"
+                data-has-stars="{{ section.settings.item_show_stars }}"
+                data-align="{{ section.settings.item_text_align }}"
+                data-img-circle="{{ section.settings.item_img_circle }}"
+              >
+                {% if section.settings.item_show_stars %}
+                  <div 
+                    class="testimonials-card-stars"
+                    aria-hidden="true">
+                    {% for n in (1..5) %}
+                      {% render 'svg-icons', icon: 'star', size: 16 %}
+                    {% endfor %}
+                  </div>
+                {% endif %}
+                <div class="card-body">
+                  {% unless block.settings.heading == blank %}
+                    <h3 class="heading {{ section.settings.item_heading_size }}">
+                      {{ block.settings.heading }}
+                    </h3>
+                  {% endunless %}
+                  {% unless block.settings.description == blank %}
+                    <div class="description rte {{ section.settings.item_description_font_size }}">
+                      {{ block.settings.description }}
+                    </div>
+                  {% endunless %}
+                  {% if block.settings.img != blank or block.settings.author != blank %}
+                    <div class="testimonials-card-bottom mt-4">
+                      {% unless block.settings.img == blank %}
+                        {% liquid
+                          assign img_width = section.settings.item_img_height | times: block.settings.img.aspect_ratio | round
+                          assign img_height = section.settings.item_img_height
+                          assign img_width_scaled = img_width | times: 2 
+                          assign img_height_scaled = img_height | times: 2 
+
+                          if section.settings.item_img_circle
+                            assign img_width = img_height
+                            assign img_width_scaled = img_height_scaled
+                          endif
+                        %}
+                        <div class="img-wrapper">
+                          <img
+                            src="{{ block.settings.img | image_url: width: img_width_scaled,  height: img_height_scaled }}"
+                            class="img-fluid"
+                            alt="{{ block.settings.img.alt }}"
+                            width="{{ img_width }}"
+                            height="{{ img_height }}"
+                            loading="lazy"
+                          >
+                        </div>
+                      {% endunless %}
+                      {% unless block.settings.author == blank %}
+                        <p class="testimonials-card-author">
+                          <span>
+                            {{ block.settings.author }} 
+                          </span>
+                          {% unless block.settings.author_subtitle == blank %}
+                            <span class="fs-sm">
+                              <svg width="16" height="16" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274.586.705 1.084 1.246 1.439.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z" fill="currentColor"></path>
+                              </svg>
+                              {{ block.settings.author_subtitle }}
+                            </span>
+                          {% endunless %}
+                        </p>
+                      {% endunless %}
+                    </div>
+                  {% endif %}
+                  {% unless block.settings.product == blank %}
+                    {% assign product = block.settings.product %}
+                    <div class="testimonials-card-product">
+                      <div class="product-card product-card-horizontal">
+                        <div class="img-wrapper">
+                          {% render 'product-card-img', image: product.featured_image %}
+                        </div>
+                        <div class="product-card-inner">
+                          <h3 class="heading {{ settings.product_card_heading_size }}">
+                            <a 
+                              href="{{ product.url }}"
+                              {% if section.settings.item_link_style == 'quick_view' %}
+                                name="quick-view"
+                                data-product-url="{{ product.url }}"
+                                aria-controls="quick-view-dialog"
+                                aria-haspopup="dialog"
+                                role="button"
+                              {% endif %}
+                            >
+                              <span>
+                                {{ block.settings.product.title }}
+                              </span>
+                            </a>
+                          </h3>
+                          {% render 'product-rating-badge', product: product %}
+                          {% render 'product-card-price', product: product %}
+                        </div>
+                      </div>
+                    </div>
+                  {% endunless %}
+                </div>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+        <button
+          class="carousel-control"
+          name="next"
+          type="button"
+          aria-label="{{ 'accessibility.next_slide' | t }}"
+        >
+          {% render 'svg-icons', icon: 'chevron-right', stroke_width: 1.5, size: 22 %}
+        </button>
+      </div>
+      {% if section.settings.show_pagination %}
+        <div
+          class="carousel-pagination"
+          aria-live="polite"
+          aria-atomic="true"
+          aria-label="{{ 'accessibility.pagination' | t }}"
+        >
+          <span>-</span>
+        </div>
+      {% endif %}
+    </carousel-component>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-2"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text_alignment",
+      "id": "header_alignment",
+      "label": "Alignment",
+      "default": "left"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Testimonials"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "default": "h3",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" },
+        { "value": "h5", "label": "H5" },
+        { "value": "h6", "label": "H6" }
+      ]
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description (optional)",
+      "default": "<p>An optional description for this section</p>"
+    },
+    {
+      "type": "select",
+      "id": "description_font_size",
+      "label": "Description font-size",
+      "default": "fs-md",
+      "options": [
+        { "value": "fs-sm", "label": "sm" },
+        { "value": "fs-md", "label": "md" },
+        { "value": "fs-lg", "label": "lg" },
+        { "value": "fs-xl", "label": "xl" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Carousel"
+    },
+    {
+      "type": "range",
+      "id": "carousel_mobile_cols",
+      "label": "Mobile columns",
+      "default": 1,
+      "min": 1,
+      "max": 3,
+      "step": 1
+    },
+    {
+      "type": "range",
+      "id": "carousel_desktop_cols",
+      "label": "Desktop columns",
+      "default": 3,
+      "min": 2,
+      "max": 6,
+      "step": 1
+    },
+    {
+      "type": "checkbox",
+      "id": "carousel_mobile_stack",
+      "label": "Stack on mobile",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "carousel_desktop_stack",
+      "label": "Stack on desktop",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "carousel_controls_style",
+      "label": "Controls style",
+      "options": [
+        { "value": "minimal", "label": "Minimal" },
+        { "value": "outline", "label": "Outline" },
+        { "value": "inverted", "label": "Inverted" },
+        { "value": "accent", "label": "Accent" }
+      ],
+      "default": "outline"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_controls_on_mobile",
+      "label": "Show controls on mobile",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pagination",
+      "label": "Show pagination counter",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Item"
+    },
+    {
+      "type": "color_scheme",
+      "id": "item_color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "item_border",
+      "label": "Border",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "item_shadow",
+      "label": "Shadow",
+      "default": false
+    },
+    {
+      "type": "text_alignment",
+      "id": "item_text_align",
+      "label": "Text align",
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "item_img_height",
+      "label": "Image height",
+      "min": 20,
+      "max": 100,
+      "default": 60,
+      "step": 2
+    },
+    {
+      "type": "checkbox",
+      "id": "item_img_circle",
+      "label": "Circle image",
+      "default": true,
+    },
+    {
+      "type": "select",
+      "id": "item_heading_size",
+      "label": "Heading size",
+      "default": "fs-xl",
+      "options": [
+        { "value": "fs-sm", "label": "sm" },
+        { "value": "fs-md", "label": "md" },
+        { "value": "fs-lg", "label": "lg" },
+        { "value": "fs-xl", "label": "xl" },
+      ],
+    },
+    {
+      "type": "select",
+      "id": "item_description_font_size",
+      "label": "Description font-size",
+      "default": "fs-md", 
+      "options": [
+        { "value": "fs-sm", "label": "sm" },
+        { "value": "fs-md", "label": "md" },
+        { "value": "fs-lg", "label": "lg" },
+        { "value": "fs-xl", "label": "xl" },
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "item_show_stars",
+      "label": "Show stars",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "item_link_style",
+      "label": "Product link style",
+      "default": "quick_view",
+      "options": [
+        { "value": "quick_view", "label": "Quick view" },
+        { "value": "product_page", "label": "Product page" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 2,
+      "unit": "rem"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 2,
+      "unit": "rem"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "image_picker",
+          "id": "img",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author",
+          "default": "Author's Name",
+          "info": "Leave empty to disable"
+        },
+        {
+          "type": "text",
+          "id": "author_subtitle",
+          "label": "Author's subtitle",
+          "default": "Verified Customer",
+          "info": "Leave empty to disable"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials",
+      "category": "Content",
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "heading": "First Testimonial",
+            "description": "<p>\"Shopping at [Store Name] has been an absolute delight! The carefully curated selection of products is a testament to the store's commitment to quality. From trendy fashion pieces to unique home decor items, every product exudes style and craftsmanship.\"</p>"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "heading": "Second Testimonial",
+            "description": "<p>\"Shopping at [Store Name] has been an absolute delight! The carefully curated selection of products is a testament to the store's commitment to quality. From trendy fashion pieces to unique home decor items, every product exudes style and craftsmanship.\"</p>"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "heading": "Third Testimonial",
+            "description": "<p>\"Shopping at [Store Name] has been an absolute delight! The carefully curated selection of products is a testament to the store's commitment to quality. From trendy fashion pieces to unique home decor items, every product exudes style and craftsmanship.\"</p>"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "heading": "Fourth Testimonial",
+            "description": "<p>\"Shopping at [Store Name] has been an absolute delight! The carefully curated selection of products is a testament to the store's commitment to quality. From trendy fashion pieces to unique home decor items, every product exudes style and craftsmanship.\"</p>"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "heading": "Fifth Testimonial",
+            "description": "<p>\"Shopping at [Store Name] has been an absolute delight! The carefully curated selection of products is a testament to the store's commitment to quality. From trendy fashion pieces to unique home decor items, every product exudes style and craftsmanship.\"</p>"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "heading": "Sixth Testimonial",
+            "description": "<p>\"Shopping at [Store Name] has been an absolute delight! The carefully curated selection of products is a testament to the store's commitment to quality. From trendy fashion pieces to unique home decor items, every product exudes style and craftsmanship.\"</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

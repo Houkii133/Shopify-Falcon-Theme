@@ -1,0 +1,96 @@
+/*
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+*/
+
+.media-with-text-inner {
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+.container-full .media-with-text-inner {
+  border-radius: 0;
+}
+
+.media-with-text-block {
+  background-color: rgba(var(--color-background), 1);
+  background-image: var(--color-background-gradient, none);
+  color: rgba(var(--color-text), 1);
+ 
+}
+
+.media-with-text-block .media-item {
+  display: block;
+}
+
+.media-with-text-block .subheading {
+  margin: 0 0 0.25rem;
+}
+
+.media-with-text-block .heading {
+  margin: 0;
+}
+
+.media-with-text-block .description {
+  margin-top: 0.5rem;
+}
+
+.media-with-text-block .btn-wrapper {
+  margin-top: 1.5rem;
+  display: inline-flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* Responsive */
+@media (max-width: 599px) {
+  .media-with-text .container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .media-with-text .btn-wrapper .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 1199px) {
+  .media-with-text {
+    padding-top: calc(var(--padding-top) * 0.75);
+    padding-bottom: calc(var(--padding-bottom) * 0.75);
+  }
+  .media-with-text-block {
+  }
+  .media-with-text-block .media-with-text-block-content { 
+    text-align: var(--text-align-mobile);
+    padding: 1rem 1rem 2.25rem;
+  }
+  .media-with-text-block .btn-wrapper {
+    justify-content: var(--text-align-mobile);
+  }
+}
+
+@media (min-width: 1200px) {
+  .media-with-text {
+    padding-top: calc(var(--padding-top) * 1);
+    padding-bottom: calc(var(--padding-bottom) * 1);
+  }
+  .media-with-text .container-full {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .media-with-text-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+  }
+  .media-with-text-block[data-media-align-desktop="right"] .media-wrapper {
+    order: 2;
+  }
+  .media-with-text-block[data-media-align-desktop="right"] .media-with-text-block-content {  
+    order: 1;
+  }
+  .media-with-text-block .media-with-text-block-content { 
+    text-align: var(--text-align-desktop);
+    padding: 2rem;
+  }
+}

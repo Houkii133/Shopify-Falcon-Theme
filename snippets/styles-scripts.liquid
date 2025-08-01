@@ -1,0 +1,91 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% style %}
+  :root {
+    {%- for scheme in settings.color_schemes -%}
+      {% if forloop.first %}
+        {%- assign bg_brightness = scheme.settings.background | color_brightness -%}
+        {%- if bg_brightness < 150 -%}
+          color-scheme: dark;
+        {%- endif -%}
+        --color-background: {{ scheme.settings.background | color_to_rgb | remove: 'rgb(' | remove: ')' }};
+        {% if scheme.settings.background_gradient != empty -%}
+          --color-background-gradient: {{ scheme.settings.background_gradient }};
+        {%- endif -%}
+        --color-text: {{ scheme.settings.text | color_to_rgb | remove: 'rgb(' | remove: ')' }};
+        --color-accent: {{ scheme.settings.accent | color_to_rgb | remove: 'rgb(' | remove: ')' }};
+        --color-btn-bg: {{ scheme.settings.btn_background | color_to_rgb | remove: 'rgb(' | remove: ')' }};
+        --color-btn-text: {{ scheme.settings.btn_text | color_to_rgb | remove: 'rgb(' | remove: ')' }};
+        --color-btn-border: {{ scheme.settings.btn_border | color_to_rgb | remove: 'rgb(' | remove: ')' }};
+
+      {%- endif %}
+    {%- endfor -%}
+  }
+  {% for scheme in settings.color_schemes %}
+    .color-{{ scheme.id }} {
+        --color-background: {{ scheme.settings.background | color_to_rgb | remove: 'rgb(' | remove: ')' }};
+      {% if scheme.settings.background_gradient != empty -%}
+        --color-background-gradient: {{ scheme.settings.background_gradient }};
+      {%- endif -%}
+      --color-text: {{ scheme.settings.text | color_to_rgb | remove: 'rgb(' | remove: ')' }};
+      --color-accent: {{ scheme.settings.accent | color_to_rgb | remove: 'rgb(' | remove: ')' }};
+      --color-btn-bg: {{ scheme.settings.btn_background | color_to_rgb | remove: 'rgb(' | remove: ')' }};
+      --color-btn-text: {{ scheme.settings.btn_text | color_to_rgb | remove: 'rgb(' | remove: ')' }};
+      --color-btn-border: {{ scheme.settings.btn_border | color_to_rgb | remove: 'rgb(' | remove: ')' }};
+    }
+  {% endfor %}
+{% endstyle %}
+
+{% comment %}
+  Styles/Scripts
+{% endcomment %}
+<script>
+  var Shopify = Shopify || {};
+  Shopify.money_format = '{{ shop.money_format }}';
+</script>
+
+<link href="{{ 'variables.css' | asset_url }}" rel="stylesheet">
+<link href="{{ 'critical.css' | asset_url }}" rel="stylesheet">
+
+<link href="{{ 'main.css' | asset_url }}" rel="stylesheet" media="print" onload="this.media='all'">
+<link href="{{ 'components.css' | asset_url }}" rel="stylesheet" media="print" onload="this.media='all'">
+<link href="{{ 'cart.css' | asset_url }}" rel="stylesheet" media="print" onload="this.media='all'">
+
+<script src="{{ 'main.js' | asset_url }}" defer></script>
+<script src="{{ 'components.js' | asset_url }}" defer></script>
+<script src="{{ 'cart.js' | asset_url }}" defer></script>
+
+{% if request.page_type == 'collection' %}
+  <link href="{{ 'collection.css' | asset_url }}" rel="stylesheet">
+  <link href="{{ 'collection-circles.css' | asset_url }}" rel="stylesheet">
+  <link href="{{ 'pagination.css' | asset_url }}" rel="stylesheet">
+  <script src="{{ 'collection.js' | asset_url }}" defer></script>
+{% elsif request.page_type == 'product' %}
+  <link href="{{ 'product.css' | asset_url }}" rel="stylesheet">
+  <script src="{{ 'product.js' | asset_url }}" defer></script>
+{% elsif request.page_type == 'blog' or request.page_type == 'article' %}
+  <link href="{{ 'blog.css' | asset_url }}" rel="stylesheet">
+  <link href="{{ 'pagination.css' | asset_url }}" rel="stylesheet">
+{% elsif request.page_type == 'search' %}
+  <link href="{{ 'search.css' | asset_url }}" rel="stylesheet">
+  <link href="{{ 'collection.css' | asset_url }}" rel="stylesheet">
+  <link href="{{ 'pagination.css' | asset_url }}" rel="stylesheet">
+{% endif %}
+
+{% if settings.search %}
+  <link href="{{ 'search.css' | asset_url }}" rel="stylesheet" media="print" onload="this.media='all'">
+  <script src="{{ 'search.js' | asset_url }}" defer></script>
+{% endif %}
+
+{% if localization.available_countries.size > 1 or localization.available_languages.size > 1 %}
+  <link href="{{ 'localization.css' | asset_url }}" rel="stylesheet" media="print" onload="this.media='all'">
+{% endif %}
+
+{% comment %}
+  Custom
+{% endcomment %}
+<link href="{{ 'custom.css' | asset_url }}" rel="stylesheet" media="print" onload="this.media='all'">
+<script src="{{ 'custom.js' | asset_url }}" defer></script>

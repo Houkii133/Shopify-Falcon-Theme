@@ -1,0 +1,117 @@
+{
+  "sections": {
+    "parallax_media_zLLnAm": {
+      "type": "parallax-media",
+      "name": "Parallax media",
+      "settings": {
+        "color_scheme": "",
+        "img_mobile": "shopify:\/\/shop_images\/tamara-bellis-HPvN6rs86F0-unsplash.jpg",
+        "img_desktop": "shopify:\/\/shop_images\/tamara-bellis-HPvN6rs86F0-unsplash.jpg",
+        "media_height_mobile": 200,
+        "media_height_desktop": 300,
+        "overlay_color": "#000000",
+        "overlay_opacity": 40,
+        "overlay_blur": 0,
+        "position_mobile": "center",
+        "position_desktop": "center",
+        "subheading": "",
+        "subheading_font_size": "fs-md",
+        "heading": "Bundle Builder",
+        "heading_size": "h1",
+        "description": "<p>Save up to <strong>30% <\/strong>with our custom bundles<\/p>",
+        "description_font_size": "fs-lg",
+        "btn_primary_text": "",
+        "btn_primary_url": "",
+        "btn_primary_style": "btn-primary",
+        "btn_secondary_text": "",
+        "btn_secondary_url": "",
+        "btn_secondary_style": "btn-outline",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "bundle_builder_9tbHdL": {
+      "type": "bundle-builder",
+      "name": "Bundle builder",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "full_width": false,
+        "collection": "bundle-builder",
+        "products": [],
+        "limit": 16,
+        "bundle_mode": "amount",
+        "bundle_amount_tiers": "100:10; 200:20; 300:30",
+        "bundle_quantity_tiers": "2:10; 3:20; 4:30",
+        "bundle_min": 0,
+        "bundle_max": 0,
+        "bundle_checkout_mode": "cart",
+        "header_alignment": "left",
+        "heading": "Men's Clothing",
+        "heading_size": "h3",
+        "description": "<p>Bundle is calculated on the total price<\/p>",
+        "description_from_collection": false,
+        "description_font_size": "fs-md",
+        "mobile_cols": 2,
+        "tablet_cols": 3,
+        "desktop_cols": 4,
+        "card_color_scheme": "scheme-1",
+        "card_heading": "My Bundle",
+        "card_heading_size": "h5",
+        "padding_top": 3,
+        "padding_bottom": 3
+      }
+    },
+    "separator_W7yAJf": {
+      "type": "separator",
+      "name": "Separator",
+      "settings": {
+        "color_scheme": "",
+        "line_height": 1,
+        "line_opacity": 25,
+        "line_style": "gradient",
+        "full_width": false,
+        "icon": "leaf-1",
+        "icon_size": 36,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "bundle_builder_WJWAbt": {
+      "type": "bundle-builder",
+      "name": "Bundle builder",
+      "settings": {
+        "color_scheme": "",
+        "full_width": false,
+        "collection": "bundle-builder",
+        "products": [],
+        "limit": 16,
+        "bundle_mode": "quantity",
+        "bundle_amount_tiers": "100:10; 200:20; 300:30",
+        "bundle_quantity_tiers": "2:10; 3:20; 4:30",
+        "bundle_min": 0,
+        "bundle_max": 0,
+        "bundle_checkout_mode": "checkout",
+        "header_alignment": "left",
+        "heading": "Women's Clothing",
+        "heading_size": "h3",
+        "description": "<p>Bundle is calculated on the quantity of items. <br\/>Also this example uses direct checkout instead of \"Add to cart\"<\/p>",
+        "description_from_collection": false,
+        "description_font_size": "fs-md",
+        "mobile_cols": 2,
+        "tablet_cols": 3,
+        "desktop_cols": 4,
+        "card_color_scheme": "",
+        "card_heading": "My Bundle",
+        "card_heading_size": "h5",
+        "padding_top": 3,
+        "padding_bottom": 3
+      }
+    }
+  },
+  "order": [
+    "parallax_media_zLLnAm",
+    "bundle_builder_9tbHdL",
+    "separator_W7yAJf",
+    "bundle_builder_WJWAbt"
+  ]
+}

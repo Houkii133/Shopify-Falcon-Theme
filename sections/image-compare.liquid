@@ -1,0 +1,284 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+ 
+{% if section.index <= 3 or request.design_mode %}
+  <link href="{{ 'image-compare.css' | asset_url }}" rel="stylesheet" fetchpriority="high">
+  <script src="{{ 'image-compare.js' | asset_url }}" defer></script>
+{% endif %}
+
+{% liquid
+  case section.settings.img_ratio
+    when 'adapt'
+      assign img_width = 1200
+      assign img_height = 1200 | divided_by: section.settings.img_before.aspect_ratio | round
+    when '1x1'
+      assign img_width = 1200
+      assign img_height = 1200
+    when '4x3'
+      assign img_width = 1200
+      assign img_height = 1200 | times: 3 | divided_by: 4 | round
+    when '16x9'
+      assign img_width = 1200
+      assign img_height = 1200 | times: 9 | divided_by: 16 | round
+  endcase
+
+  assign img_width_mobile = img_width | divided_by: 1.5 | round
+  assign img_height_mobile = img_height | divided_by: 1.5 | round
+%}
+
+<div 
+  id="image-compare-section-{{ section.id }}"
+  class="image-compare-section {{ section.settings.color_scheme | prepend: 'color-' }}"
+  style="
+    --padding-top: {{ section.settings.padding_top | append: 'rem' }};
+    --padding-bottom: {{ section.settings.padding_bottom | append: 'rem' }};
+  "
+  data-viewport-entered="false"
+  data-section-css="{{ 'image-compare.css' | asset_url }}"
+  data-section-js="{{ 'image-compare.js' | asset_url }}">
+  <div class="container {% if section.settings.full_width %}container-full{% endif %}">
+    {% unless section.settings.heading == blank %}
+      <header class="section-header scroll-animate-fade-in-up text-{{ section.settings.header_alignment }}">
+        {% unless section.settings.heading == blank %}
+          <h2
+            id="heading-{{ section.id }}"
+            class="heading {{ section.settings.heading_size }}"
+          >
+            {{ section.settings.heading }}
+          </h2>
+        {% endunless %}
+        {% unless section.settings.description == blank %}
+          <div class="description rte {{ section.settings.description_font_size }}">
+            {{ section.settings.description }}
+          </div>
+        {% endunless %}
+      </header>
+    {% endunless %}
+    <image-compare 
+      class="image-compare scroll-animate-fade-in-up {{ section.settings.color_scheme | prepend: 'color-' }}"
+      style="--slider-position: 50%;">
+      <div class="image-compare-before">
+        {% if section.settings.img_before == nil %}
+          {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        {% else %}
+          <picture>
+            <source
+              media="(max-width: 599px)"
+              srcset="{{ section.settings.img_before | image_url: width: img_width_mobile, height: img_height_mobile, crop: 'center' }}"
+            >
+            <img
+              src="{{ section.settings.img_before | image_url: width: img_width, height: img_height, crop: 'center' }}"
+              class="media-item img-fluid"
+              alt="{{ section.settings.img_before.alt }}"
+              width="{{ img_width }}"
+              height="{{ img_height }}"
+              loading="lazy"
+            >
+          </picture>
+        {% endif %}
+        {% if section.settings.show_labels %}
+          <span class="image-compare-label badge">
+            {{ section.settings.label_before }}
+          </span>
+        {% endif %}
+      </div>
+      <div class="image-compare-after">
+        {% if section.settings.img_after == nil %}
+          {{ 'hero-apparel-2' | placeholder_svg_tag: 'placeholder-svg' }}
+        {% else %}
+          <picture>
+            <source
+              media="(max-width: 599px)"
+              srcset="{{ section.settings.img_after | image_url: width: img_width_mobile, height: img_height_mobile, crop: 'center' }}"
+            >
+            <img
+              src="{{ section.settings.img_after | image_url: width: img_width, height: img_height, crop: 'center' }}"
+              class="media-item img-fluid"
+              alt="{{ section.settings.img_after.alt }}"
+              width="{{ img_width }}"
+              height="{{ img_height }}"
+              loading="lazy"
+            >
+          </picture>
+        {% endif %}
+        {% if section.settings.show_labels %}
+          <span class="image-compare-label badge">
+            {{ section.settings.label_after }}
+          </span>
+        {% endif %}
+      </div>
+      <div class="image-compare-line">
+        <div 
+          class="image-compare-handle" 
+          tabindex="0"
+          role="slider"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="50"
+          aria-label="{{ 'accessibility.image_compare_slider' | t }}">
+          {% render 'svg-icons', icon: 'chevron-left', size: 22, stroke_width: 2 %}
+          {% render 'svg-icons', icon: 'chevron-right', size: 22, stroke_width: 2 %}
+        </div>
+      </div>
+    </image-compare>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Image compare",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text_alignment",
+      "id": "header_alignment",
+      "label": "Alignment",
+      "default": "left"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Image Compare",
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "default": "h3",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" },
+        { "value": "h5", "label": "H5" },
+        { "value": "h6", "label": "H6" }
+      ] 
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description (optional)",
+      "default": "<p>An optional description for this section</p>"
+    },
+    {
+      "type": "select",
+      "id": "description_font_size",
+      "label": "Description font-size",
+      "default": "fs-md",
+      "options": [
+        { "value": "fs-sm", "label": "sm" },
+        { "value": "fs-md", "label": "md" },
+        { "value": "fs-lg", "label": "lg" },
+        { "value": "fs-xl", "label": "xl" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "img_before",
+      "label": "Before image"
+    },
+    {
+      "type": "image_picker",
+      "id": "img_after",
+      "label": "After image"
+    },
+    {
+      "type": "select",
+      "id": "img_ratio",
+      "label": "Image ratio",
+      "default": "adapt",
+      "options": [
+        { "group": "Adapt", "value": "adapt", "label": "Adapt" },
+        { "group": "Square", "value": "1x1", "label": "Square" },
+        { "group": "Horizontal", "value": "4x3", "label": "4x3" },
+        { "group": "Horizontal", "value": "16x9", "label": "16x9" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Controls"
+    },
+    {
+      "type": "color_scheme",
+      "id": "controls_color_scheme",
+      "label": "Controls color-scheme",
+      "default": "scheme-3",
+      "info": "This will change the color of the slider handle and labels.",
+    },
+    {
+      "type": "checkbox",
+      "id": "show_labels",
+      "label": "Show before/after labels",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "label_before",
+      "label": "Before label",
+      "default": "Before"
+    },
+    {
+      "type": "text",
+      "id": "label_after",
+      "label": "After label",
+      "default": "After"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 2,
+      "unit": "rem"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 2,
+      "unit": "rem"
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "presets": [
+    {
+      "name": "Image compare",
+      "category": "Image/Video",
+    }
+  ]
+}
+{% endschema %}

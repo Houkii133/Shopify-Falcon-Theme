@@ -1,0 +1,70 @@
+/*
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+*/
+.trust-icons {
+  background-color: rgba(var(--color-background), 1);
+  background-image: var(--color-background-gradient);
+  color: rgba(var(--color-text), 1);
+}
+
+.trust-icons-list {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 1rem;
+}
+
+.trust-icons-item {
+  flex: 1;
+  display: flex;
+}
+
+.trust-icons-card {
+  background-color: rgba(var(--color-background), 1);
+  color: rgba(var(--color-text), 1);
+  text-align: var(--text-align);
+  border-radius: var(--border-radius);
+  padding: .75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.trust-icons-card[data-border="true"] {
+  border: 1px solid rgba(var(--color-text), var(--border-opacity));
+}
+
+.trust-icons-card[data-shadow="true"] {
+  box-shadow: 0 0.25rem 0.25rem rgba(var(--color-text), 0.05);
+}
+
+.trust-icons-card .img-wrapper {
+  flex-shrink: 0;
+}
+
+.trust-icons-card .heading {
+  margin: 0 0 .125rem;
+}
+
+@media (max-width: 1199px) {
+  .trust-icons {
+    padding-top: calc(var(--padding-top) * 0.75);
+    padding-bottom: calc(var(--padding-bottom) * 0.75);
+  }
+  .trust-icons-list {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 1200px) {
+  .trust-icons {
+    padding-top: calc(var(--padding-top) * 1);
+    padding-bottom: calc(var(--padding-bottom) * 1);
+  }
+  .trust-icons-list {
+    flex-direction: row;
+  }
+}

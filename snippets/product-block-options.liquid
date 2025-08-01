@@ -1,0 +1,115 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% unless product.has_only_default_variant %}
+  <div
+    id="product-block-{{ block.id }}"
+    class="product-block"
+    style="
+      --padding-top: {{ block.settings.padding_top | append: 'rem' }};
+      --padding-bottom: {{ block.settings.padding_bottom | append: 'rem' }};
+    "
+    data-type="{{ block.type }}"
+    {{ block.shopify_attributes }}
+  >
+    <product-options>
+      {% for option in product.options_with_values %}
+        {% if option.values.first.swatch %}
+          <fieldset>
+            <legend>
+              {{ option.name -}}
+              :
+              <span class="colors-watches-selected-value">{{ option.selected_value }}</span>
+            </legend>
+            <div class="color-swatches">
+              {% for value in option.values %}
+                <input
+                  class="visually-hidden"
+                  type="radio"
+                  name="option-{{ option.name | handleize }}-{{ product.id }}"
+                  id="option-{{ option.name | handleize }}-{{ value | handleize }}-{{ product.id }}"
+                  value="{{ value | escape }}"
+                  data-option-position="{{ option.position }}"
+                  {% if option.selected_value == value %}
+                    checked
+                  {% endif %}
+                >
+                <label
+                  for="option-{{ option.name | handleize }}-{{ value | handleize }}-{{ product.id }}"
+                  title="{{ value }}"
+                >
+                  <span style="background-color: {{ value.swatch.color }};">
+                    {% if value.swatch.image %}
+                      <img
+                        class="img-fluid"
+                        src="{{ value.swatch.image | image_url: width: 64, height: 64, crop: 'center' }}"
+                        alt="{{ value }}"
+                        width="28"
+                        height="28"
+                        loading="lazy"
+                      >
+                    {% endif %}
+                  </span>
+                </label>
+              {% endfor %}
+            </div>
+          </fieldset>
+        {% elsif block.settings.options_style == 'buttons' %}
+          <fieldset>
+            <legend>
+              {{ option.name }}
+            </legend>
+            <div class="size-buttons">
+              {% for value in option.values %}
+                <input
+                  class="visually-hidden"
+                  type="radio"
+                  name="option-{{ option.name | handleize }}-{{ product.id }}"
+                  id="option-{{ option.name | handleize }}-{{ value | handleize }}-{{ product.id }}"
+                  value="{{ value | escape }}"
+                  data-option-position="{{ option.position }}"
+                  {% if option.selected_value == value %}
+                    checked
+                  {% endif %}
+                >
+                <label for="option-{{ option.name | handleize }}-{{ value | handleize }}-{{ product.id }}">
+                  {{ value }}
+                </label>
+              {% endfor %}
+            </div>
+          </fieldset>
+        {% else %}
+          <fieldset>
+            <label class="form-label" for="option-{{ option.name | handleize }}-{{ product.id }}">
+              {{ option.name }}
+            </label>
+            <div class="select-wrapper">
+              <select
+                id="option-{{ option.name | handleize }}-{{ product.id }}"
+                name="option-{{ option.name | handleize }}-{{ product.id }}"
+                class="select"
+              >
+                {% for value in option.values %}
+                  <option
+                    value="{{ value | escape }}"
+                    {% if value == option.selected_value %}
+                      selected
+                    {% endif %}
+                  >
+                    {{ value }}
+                  </option>
+                {% endfor %}
+              </select>
+              {% render 'svg-icons', icon: 'chevron-down', size: 16, stroke_width: 1.5 %}
+            </div>
+          </fieldset>
+        {% endif %}
+      {% endfor %}
+      <script data-product-variants-json type="application/json">
+        {{ product.variants | json }}
+      </script>
+    </product-options>
+  </div>
+{% endunless %}

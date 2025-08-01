@@ -1,0 +1,245 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% liquid
+  assign current_variant = product.selected_or_first_available_variant
+
+  if current_variant.featured_image
+    assign initial_index = current_variant.featured_media.position | minus: 1
+  else
+    assign initial_index = 0
+  endif
+
+  assign img_width_mobile = 600
+  assign img_width_desktop = 1200
+
+  case section.settings.gallery_img_ratio
+    when 'adapt'
+      assign img_height_mobile = null
+      assign img_height_desktop = null
+    when 'square'
+      assign img_height_mobile = 800
+      assign img_height_desktop = 1200
+  endcase
+%}
+
+<div class="product-media-gallery-wrapper">
+  <product-media-gallery
+    id="product-media-gallery-{{ product.id }}"
+    class="product-media-gallery"
+    style="--speed: {{ section.settings.speed | append: 'ms' }};"
+    data-initial-index="{{ initial_index }}"
+    data-controls-style="{{ section.settings.gallery_controls_style }}"
+    data-has-thumbs="{% if section.settings.gallery_show_thumbs %}true{% else %}false{% endif %}"
+    data-hide-thumbs-on-mobile="{% if section.settings.gallery_hide_thumbs_on_mobile %}true{% else %}false{% endif %}"
+    data-full-screen="{% if section.settings.gallery_full_screen %}true{% else %}false{% endif %}"
+    role="region"
+    aria-label="{{ 'accessibility.product_media_gallery' | t: count: product.media.size }}"
+  >
+    <a class="skip-to-content-link visually-hidden" href="#product-content-{{ product.id }}">
+      {{ 'accessibility.skip_to_product_info' | t }}
+    </a>
+    <div class="product-media-gallery-inner">
+      {% if section.settings.gallery_show_custom_badge and settings.product_card_custom_badge != blank %}
+        {% liquid
+          assign metafield_namespace = settings.product_card_custom_badge | split: '.' | first
+          assign metafield_key = settings.product_card_custom_badge | split: '.' | last
+          assign custom_badge = product.metafields[metafield_namespace][metafield_key].value
+        %}
+        {% if custom_badge %}
+          {% liquid
+            assign custom_badge_text = custom_badge | split: '|' | first
+            assign custom_badge_color = custom_badge | split: '|' | last
+          %}
+          <span
+            class="badge badge-custom"
+            {%- if custom_badge_color -%}
+              style="background-color: {{ custom_badge_color }}; color: white;"
+            {%- endif -%}
+          >
+            {{ custom_badge_text }}
+          </span>
+        {% endif %}
+      {% endif %}
+      {% if section.settings.gallery_show_controls and product.media.size > 1 %}
+        <button
+          class="product-media-gallery-control {{ section.settings.gallery_controls_color_scheme | prepend: 'color-' }}"
+          name="previous"
+          type="button"
+          aria-label="{{ 'accessibility.previous_slide' | t }}"
+        >
+          {% render 'svg-icons', icon: 'chevron-left', stroke_width: 1.5, size: 24 %}
+        </button>
+      {% endif %}
+      <div
+        id="product-media-gallery-track-{{ product.id }}"
+        class="product-media-gallery-track"
+        aria-live="polite"
+      >
+        {% for media in product.media %}
+          {% liquid
+            if media.media_type == 'image'
+              assign media_href = media | image_url: width: 2048
+              assign media_img = media
+            else
+              assign media_href = media.sources.last.url
+              assign media_img = media.preview_image
+            endif
+          %}
+          <div
+            class="product-media-gallery-slide {% if forloop.index0 == initial_index %}active{% endif %}"
+            data-media-type="{{ media.media_type }}"
+            aria-hidden="{% if forloop.index0 == initial_index %}false{% else %}true{% endif %}"
+          >
+            {% if section.settings.gallery_full_screen %}
+              <a
+                href="{{ media_href }}"
+                target="_blank"
+                data-open-dialog="product-media-gallery-dialog-{{ product.id }}"
+                data-index="{{ forloop.index0 }}"
+                aria-controls="product-media-gallery-dialog-{{ product.id }}"
+                aria-haspopup="dialog"
+                aria-label="{{ 'accessibility.product_media_gallery_modal_link' | t: media_type: media.media_type, index: forloop.index }}"
+                role="button"
+                tabindex="{% if forloop.index0 == initial_index %}0{% else %}-1{% endif %}"
+              >
+            {% endif %}
+            <picture>
+              <source
+                media="(max-width: 599px)"
+                srcset="{{ media_img | image_url: width: img_width_mobile, height: img_height_mobile }}"
+                sizes="100vw"
+              >
+              <img
+                src="{{ media_img | image_url: width: img_width_desktop, height: img_height_desktop }}"
+                alt="{{ media_img.alt | escape }}"
+                class="img-fluid"
+                width="{{ img_width_desktop }}"
+                height="{{ img_width_desktop | divided_by: media.aspect_ratio | round }}"
+                loading="{% if forloop.index0 == initial_index %}eager{% else %}lazy{% endif %}"
+              >
+            </picture>
+            {% if section.settings.gallery_full_screen %}
+              <span class="zoom-in-svg-wrapper">
+                {% render 'svg-icons', icon: 'zoom-in', size: 18, stroke_width: 1.5 %}
+              </span>
+            {% endif %}
+            {% if media.media_type == 'video' %}
+              <span class="video-svg-wrapper">
+                {% render 'svg-icons', icon: 'play', size: 20 %}
+              </span>
+            {% endif %}
+            {% if section.settings.gallery_full_screen %}
+              </a>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+      {% if section.settings.gallery_show_controls and product.media.size > 1 %}
+        <button
+          class="product-media-gallery-control {{ section.settings.gallery_controls_color_scheme | prepend: 'color-' }}"
+          name="next"
+          type="button"
+          aria-label="{{ 'accessibility.next_slide' | t }}"
+        >
+          {% render 'svg-icons', icon: 'chevron-right', stroke_width: 1.5, size: 24 %}
+        </button>
+      {% endif %}
+      {% if section.settings.gallery_show_pagination and product.media.size > 1 %}
+        <div
+          class="product-media-gallery-pagination fs-sm {{ section.settings.gallery_controls_color_scheme | prepend: 'color-' }}"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          <span>-</span>
+        </div>
+      {% endif %}
+    </div>
+    {% if section.settings.gallery_show_thumbs %}
+      <div
+        class="product-media-gallery-thumbs"
+        style="--thumbs-per-view: {{ section.settings.gallery_thumbs_per_view }};"
+        role="tablist"
+        aria-label="{{ 'accessibility.product_media_gallery_thumbnails' | t: count: product.media.size }}"
+      >
+        {% for media in product.media %}
+          <div
+            class="product-media-gallery-thumb"
+            role="tab"
+          >
+            <button
+              type="button"
+              class="{% if forloop.index0 == initial_index %}active{% endif %}"
+              data-media-type="{{ media.media_type }}"
+              aria-selected="{% if forloop.index0 == initial_index %}true{% else %}false{% endif %}"
+              aria-controls="product-media-gallery-track-{{ product.id }}"
+              aria-label="{{ 'accessibility.product_media_gallery_thumb' | t: media_type: media.media_type, index: forloop.index }}"
+            >
+              {% case media.media_type %}
+                {% when 'image' %}
+                  <img
+                    src="{{ media | image_url: width: 240, height: 240 }}"
+                    alt="{{ media.alt | escape }}"
+                    class="img-fluid"
+                    width="120"
+                    height="120"
+                    loading="lazy"
+                  >
+                {% when 'video' %}
+                  <img
+                    src="{{ media.preview_image | image_url: width: 240, height: 240 }}"
+                    alt=""
+                    class="img-fluid"
+                    width="120"
+                    height="120"
+                    loading="lazy"
+                  >
+                  <span class="video-svg-wrapper">
+                    {% render 'svg-icons', icon: 'play', size: 12 %}
+                  </span>
+              {% endcase %}
+            </button>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </product-media-gallery>
+
+  <dialog
+    id="product-media-gallery-dialog-{{ product.id }}"
+    class="dialog modal product-media-gallery-dialog"
+    aria-label="{{ 'accessibility.product_media_gallery_modal' | t: count: product.media.size }}"
+  >
+    <div class="dialog-close-wrapper">
+      <button
+        class="dialog-close"
+        data-dialog-close
+        aria-label="{{ 'accessibility.close' | t }}"
+      >
+        {% render 'svg-icons', icon: 'x', size: 20, stroke_width: 1.5 %}
+      </button>
+    </div>
+    <dialog-component class="dialog-inner">
+      <ul class="product-media-gallery-modal-list list-unstyled">
+        {% for media in product.media %}
+          <li class="product-media-gallery-modal-item">
+            {% if media.media_type == 'image' %}
+              <img
+                class="img-fluid"
+                src="{{ media | image_url: width: 2048 }}"
+                alt="{{ media.alt | escape }}"
+                width="2048"
+                height="{{ 2048 | divided_by: media.aspect_ratio | round }}"
+                loading="lazy"
+              >
+            {% elsif media.media_type == 'video' %}
+              {{ media | video_tag: controls: true, image_size: '1600x', loading: 'lazy', class: 'img-fluid' }}
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </dialog-component>
+  </dialog>
+</div>

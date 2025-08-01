@@ -1,0 +1,446 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% if section.index <= 3 or request.design_mode %}
+  <link href="{{ 'richtext.css' | asset_url }}" rel="stylesheet" fetchpriority="high">
+{% endif %}
+
+<div
+  id="richtext-{{ section.id }}"
+  class="richtext {{ section.settings.color_scheme | prepend: 'color-' }}"
+  style="
+    --text-align: {{ section.settings.text_align }};
+    --padding-top: {{ section.settings.padding_top | append: 'rem' }};
+    --padding-bottom: {{ section.settings.padding_bottom | append: 'rem' }};
+  "
+  data-viewport-entered="false"
+  data-section-css="{{ 'richtext.css' | asset_url }}"
+>
+  <div class="container {% if section.settings.container_narrow %}container-narrow{% endif %}">
+    {% for block in section.blocks %}
+      <div
+        class="scroll-animate-fade-in-up"
+        data-index="{{ forloop.index0 }}"
+        style="animation-delay: {{ forloop.index | times: 100 | append: 'ms' }}"
+        {{ block.shopify_attributes }}
+      >
+        {% case block.type %}
+          {% when 'subheading' %}
+            <div class="subheading {{ block.settings.font_size }}">
+              {{ block.settings.subheading }}
+            </div>
+          {% when 'heading' %}
+            <h2 class="heading {{ block.settings.heading_size }}">
+              {{ block.settings.heading }}
+            </h2>
+          {% when 'description' %}
+            <div class="description rte {{ block.settings.font_size }}">
+              {{ block.settings.description }}
+            </div>
+          {% when 'buttons' %}
+            <div class="btn-wrapper">
+              {% unless block.settings.primary_btn_text == blank %}
+                <a
+                  class="
+                    btn {{ block.settings.primary_btn_style }}
+                    {% if block.settings.primary_btn_url == nil %}disabled{% endif %}
+                  "
+                  href="{{ block.settings.primary_btn_url }}"
+                >
+                  {{ block.settings.primary_btn_text }}
+                </a>
+              {% endunless %}
+              {% unless block.settings.secondary_btn_text == blank %}
+                <a
+                  class="
+                    btn {{ block.settings.secondary_btn_style }}
+                    {% if block.settings.secondary_btn_url == nil %}disabled{% endif %}
+                  "
+                  href="{{ block.settings.secondary_btn_url }}"
+                >
+                  {{ block.settings.secondary_btn_text }}
+                </a>
+              {% endunless %}
+            </div>
+          {% when 'image' %}
+            <div
+              class="media-wrapper"
+              style="max-width: {{ block.settings.max_width | append: 'px' }};"
+            >
+              {% unless block.settings.url == blank %}
+                <a href="{{ block.settings.url }}">
+              {% endunless %}
+              {% if block.settings.img == null %}
+                {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              {% else %}
+                <picture>
+                  <source
+                    media="(max-width: 599px)"
+                    srcset="{{ block.settings.img | image_url: width: 600 }}"
+                  >
+                  <img
+                    src="{{ block.settings.img | image_url: width: 1200 }}"
+                    class="img-fluid"
+                    alt="{{ block.settings.img.alt }}"
+                    width="1200"
+                    height="{{ 1200 | divided_by: block.settings.img.aspect_ratio | round }}"
+                    loading="lazy"
+                  >
+                </picture>
+              {% endif %}
+              {% unless block.settings.url == blank %}
+                </a>
+              {% endunless %}
+            </div>
+          {% when 'video' %}
+            <div
+              class="media-wrapper"
+              style="max-width: {{ block.settings.max_width | append: 'px' }};"
+              data-viewport-entered="false"
+              data-video-autoplay="{{ block.settings.autoplay }}"
+            >
+              {% if block.settings.video == blank %}
+                {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              {% else %}
+                {{ block.settings.video | video_tag: controls: block.settings.controls, muted: block.settings.muted, loop: block.settings.loop, image_size: '1200x', loading: 'lazy' }}
+              {% endif %}
+            </div>
+          {% when 'external_video' %}
+            <div
+              class="media-wrapper"
+              style="max-width: {{ block.settings.max_width | append: 'px' }};"
+            >
+              {% if block.settings.video_url == blank %}
+                {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              {% else %}
+                {% liquid
+                  if block.settings.video_url.type == 'youtube'
+                    assign video_src = 'https://www.youtube.com/embed/' | append: block.settings.video_url.id
+                  else
+                    assign video_src = 'https://player.vimeo.com/video/' | append: block.settings.video_url.id
+                  endif
+                %}
+                <div class="responsive-embed">
+                  <iframe
+                    src="{{ video_src }}"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    frameborder="0"
+                    allowfullscreen
+                    loading="lazy"
+                  >
+                  </iframe>
+                </div>
+              {% endif %}
+            </div>
+        {% endcase %}
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Richtext",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "General"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "container_narrow",
+      "label": "Narrow container",
+      "default": true
+    },
+    {
+      "type": "text_alignment",
+      "id": "text_align",
+      "label": "Text alignment",
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 2,
+      "unit": "rem"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 2,
+      "unit": "rem"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "subheading",
+      "name": "Subheading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading",
+          "default": "Optional Subheading"
+        },
+        {
+          "type": "select",
+          "id": "font_size",
+          "label": "Font-size",
+          "default": "fs-sm",
+          "options": [
+            { "value": "fs-sm", "label": "sm" },
+            { "value": "fs-md", "label": "md" },
+            { "value": "fs-lg", "label": "lg" },
+            { "value": "fs-xl", "label": "xl" }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "Heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Richtext"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "label": "Heading size",
+          "default": "h2",
+          "options": [
+            { "value": "h1", "label": "H1" },
+            { "value": "h2", "label": "H2" },
+            { "value": "h3", "label": "H3" },
+            { "value": "h4", "label": "H4" },
+            { "value": "h5", "label": "H5" },
+            { "value": "h6", "label": "H6" }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "description",
+      "name": "Description",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>Add on optional description for this section</p>"
+        },
+        {
+          "type": "select",
+          "id": "font_size",
+          "label": "Font-size",
+          "default": "fs-md",
+          "options": [
+            { "value": "fs-sm", "label": "sm" },
+            { "value": "fs-md", "label": "md" },
+            { "value": "fs-lg", "label": "lg" },
+            { "value": "fs-xl", "label": "xl" }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "buttons",
+      "name": "Buttons",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Primary button"
+        },
+        {
+          "type": "text",
+          "id": "primary_btn_text",
+          "label": "Text",
+          "default": "Primary button"
+        },
+        {
+          "type": "url",
+          "id": "primary_btn_url",
+          "label": "URL"
+        },
+        {
+          "type": "select",
+          "id": "primary_btn_style",
+          "label": "Button style",
+          "default": "btn-primary",
+          "options": [
+            { "value": "btn-primary", "label": "Primary" },
+            { "value": "btn-outline", "label": "Outline" },
+            { "value": "btn-accent", "label": "Accent" },
+            { "value": "btn-link", "label": "Link" }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Secondary button"
+        },
+        {
+          "type": "text",
+          "id": "secondary_btn_text",
+          "label": "Text",
+          "default": "Secondary button",
+          "info": "Optional. Leave empty to hide the button"
+        },
+        {
+          "type": "url",
+          "id": "secondary_btn_url",
+          "label": "URL"
+        },
+        {
+          "type": "select",
+          "id": "secondary_btn_style",
+          "label": "Button style",
+          "default": "btn-outline",
+          "options": [
+            { "value": "btn-primary", "label": "Primary" },
+            { "value": "btn-outline", "label": "Outline" },
+            { "value": "btn-accent", "label": "Accent" },
+            { "value": "btn-link", "label": "Link" }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "Image",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "img",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "max_width",
+          "label": "Max width (px)",
+          "info": "Leave empty to use the global container width"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "URL (optional)"
+        }
+      ]
+    },
+    {
+      "type": "video",
+      "name": "Video",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video"
+        },
+        {
+          "type": "checkbox",
+          "id": "autoplay",
+          "label": "Autoplay",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "loop",
+          "label": "Loop",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "muted",
+          "label": "Muted",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "controls",
+          "label": "Controls",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "max_width",
+          "label": "Max width (px)",
+          "info": "Leave empty to use the global container width"
+        }
+      ]
+    },
+    {
+      "type": "external_video",
+      "name": "External video",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "video_url",
+          "id": "video_url",
+          "label": "Video URL",
+          "accept": ["youtube", "vimeo"],
+          "info": "YouTube or Vimeo URL",
+          "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
+        },
+        {
+          "type": "text",
+          "id": "max_width",
+          "label": "Max width (px)",
+          "info": "Leave empty to use the global container width"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Richtext",
+      "category": "Content",
+      "blocks": [
+        {
+          "type": "image"
+        },
+        {
+          "type": "subheading"
+        },
+        {
+          "type": "heading"
+        },
+        {
+          "type": "description"
+        },
+        {
+          "type": "buttons"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

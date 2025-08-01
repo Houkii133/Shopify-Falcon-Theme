@@ -1,0 +1,357 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% if section.index <= 3 or request.design_mode %}
+  <link href="{{ 'blog.css' | asset_url }}" rel="stylesheet" fetchpriority="high">
+{% endif %}
+
+<div
+  id="featured-articles-{{ section.id }}"
+  class="featured-articles {{ section.settings.color_scheme | prepend: 'color-' }}"
+  style="
+    --padding-top: {{ section.settings.padding_top | append: 'rem' }};
+    --padding-bottom: {{ section.settings.padding_bottom | append: 'rem' }};
+  "
+  data-viewport-entered="false"
+  data-section-css="{{- 'blog.css' | asset_url -}}"
+>
+  <div class="container {% if section.settings.full_width %}container-full{% endif %}">
+    {% unless section.settings.heading == blank %}
+      <header
+        class="section-header scroll-animate-fade-in-up text-{{ section.settings.header_alignment }}"
+        data-has-view-all="{% if section.settings.view_all_link == blank %}false{% else %}true{% endif %}"
+      >
+        <div class="section-header-inner">
+          {% unless section.settings.heading == blank %}
+            <h2
+              id="heading-{{ section.id }}"
+              class="heading {{ section.settings.heading_size }}"
+            >
+              {{ section.settings.heading }}
+            </h2>
+          {% endunless %}
+          {% unless section.settings.description == blank %}
+            <div class="description rte {{ section.settings.description_font_size }}">
+              {{ section.settings.description }}
+            </div>
+          {% endunless %}
+        </div>
+        {% unless section.settings.view_all_link == blank %}
+          <div class="featured-articles-view-all">
+            <a
+              href="{{ blogs[section.settings.blog].url }}"
+              class="fs-md link"
+            >
+              {{ section.settings.view_all_link }}
+            </a>
+          </div>
+        {% endunless %}
+      </header>
+    {% endunless %}
+    <carousel-component
+      class="carousel"
+      style="
+        --mobile-cols: {{ section.settings.carousel_mobile_cols }};
+        --desktop-cols: {{ section.settings.carousel_desktop_cols }};
+      "
+      data-mobile-cols="{{ section.settings.carousel_mobile_cols }}"
+      data-desktop-cols="{{ section.settings.carousel_desktop_cols }}"
+      data-mobile-stack="{{ section.settings.carousel_mobile_stack }}"
+      data-desktop-stack="{{ section.settings.carousel_desktop_stack }}"
+      data-controls-adapt-to-image="true"
+      data-controls-style="{{ section.settings.carousel_controls_style }}"
+      data-controls-mobile="{% if section.settings.disable_controls_on_mobile %}false{% else %}true{% endif %}"
+    >
+      <div class="carousel-inner">
+        <button
+          class="carousel-control"
+          name="previous"
+          type="button"
+          aria-label="{{ 'accessibility.previous_slide' | t }}"
+        >
+          {% render 'svg-icons', icon: 'chevron-left', stroke_width: 1.5, size: 22 %}
+        </button>
+        <ul
+          class="carousel-track"
+          aria-labelledby="heading-{{ section.id }}"
+          aria-roledescription="{{ 'accessibility.carousel' | t | downcase }}"
+        >
+          {% for article in section.settings.blog.articles limit: section.settings.limit %}
+            <li
+              class="carousel-slide article-item scroll-animate-fade-in-up"
+              style="animation-delay: {{ forloop.index0 | times: 100 }}ms"
+            >
+              {% render 'article-card', article: article %}
+            </li>
+          {% else %}
+            {% for index in (1..section.settings.limit) %}
+              <li
+                class="carousel-slide article-item scroll-animate-fade-in-up"
+                style="animation-delay: {{ forloop.index0 | times: 100 }}ms"
+              >
+                {% render 'article-card', index: index %}
+              </li>
+            {% endfor %}
+          {% endfor %}
+        </ul>
+        <button
+          class="carousel-control"
+          name="next"
+          type="button"
+          aria-label="{{ 'accessibility.next_slide' | t }}"
+        >
+          {% render 'svg-icons', icon: 'chevron-right', stroke_width: 1.5, size: 22 %}
+        </button>
+      </div>
+      {% if section.settings.show_pagination %}
+        <div
+          class="carousel-pagination"
+          aria-live="polite"
+          aria-atomic="true"
+          aria-label="{{ 'accessibility.pagination' | t }}"
+        >
+          <span>-</span>
+        </div>
+      {% endif %}
+    </carousel-component>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Featured articles",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Blog"
+    },
+    {
+      "type": "range",
+      "id": "limit",
+      "label": "Limit articles",
+      "min": 2,
+      "max": 24,
+      "default": 8,
+      "step": 1
+    },
+    {
+      "type": "header",
+      "content": "General"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "view_all_link",
+      "label": "\"View all\" link text",
+      "info": "Optional link to the blog page. Leave blank to hide.",
+      "default": "View all"
+    },
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text_alignment",
+      "id": "header_alignment",
+      "label": "Alignment",
+      "default": "left"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Latest posts"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "default": "h3",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" },
+        { "value": "h5", "label": "H5" },
+        { "value": "h6", "label": "H6" }
+      ]
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description (optional)",
+      "default": "<p>An optional description for this section</p>"
+    },
+    {
+      "type": "select",
+      "id": "description_font_size",
+      "label": "Description font-size",
+      "default": "fs-md",
+      "options": [
+        { "value": "fs-sm", "label": "sm" },
+        { "value": "fs-md", "label": "md" },
+        { "value": "fs-lg", "label": "lg" },
+        { "value": "fs-xl", "label": "xl" }
+      ]
+    },
+
+    {
+      "type": "header",
+      "content": "Article card"
+    },
+    {
+      "type": "text_alignment",
+      "id": "article_text_align",
+      "label": "Text align",
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "article_img_ratio",
+      "label": "Image ratio",
+      "default": "4x3",
+      "options": [
+        { "group": "Adapt", "value": "adapt", "label": "Adapt" },
+        { "group": "Square", "value": "square", "label": "Square" },
+        { "group": "Horizontal", "value": "4x3", "label": "4x3" },
+        { "group": "Horizontal", "value": "16x9", "label": "16x9" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "article_heading_size",
+      "label": "Heading size",
+      "default": "h5",
+      "options": [
+        { "value": "h4", "label": "H4" },
+        { "value": "h5", "label": "H5" },
+        { "value": "h6", "label": "H6" }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "article_meta",
+      "label": "Show author/date",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "article_tags",
+      "label": "Show tags",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "article_excerpt",
+      "label": "Show excerpt",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Carousel"
+    },
+    {
+      "type": "range",
+      "id": "carousel_mobile_cols",
+      "label": "Mobile columns",
+      "default": 1,
+      "min": 1,
+      "max": 3,
+      "step": 1
+    },
+    {
+      "type": "range",
+      "id": "carousel_desktop_cols",
+      "label": "Desktop columns",
+      "default": 3,
+      "min": 2,
+      "max": 6,
+      "step": 1
+    },
+    {
+      "type": "checkbox",
+      "id": "carousel_mobile_stack",
+      "label": "Stack on mobile",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "carousel_desktop_stack",
+      "label": "Stack on desktop",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "carousel_controls_style",
+      "label": "Controls style",
+      "options": [
+        { "value": "minimal", "label": "Minimal" },
+        { "value": "outline", "label": "Outline" },
+        { "value": "inverted", "label": "Inverted" },
+        { "value": "accent", "label": "Accent" }
+      ],
+      "default": "outline"
+    },
+    {
+      "type": "checkbox",
+      "id": "disable_controls_on_mobile",
+      "label": "Disable controls on mobile",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pagination",
+      "label": "Show pagination counter",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 2,
+      "unit": "rem"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 2,
+      "unit": "rem"
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "presets": [
+    {
+      "name": "Featured articles",
+      "category": "Blog",
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,857 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% if section.index <= 3 or request.design_mode %}
+  <link href="{{ 'contact-form-builder.css' | asset_url }}" rel="stylesheet" fetchpriority="high">
+{% endif %}
+
+<div
+  id="contact-form-builder-{{ section.id }}"
+  class="contact-form-builder {{ section.settings.color_scheme | prepend: 'color-' }}"
+  style="
+    --padding-top: {{ section.settings.padding_top | append: 'rem' }};
+    --padding-bottom: {{ section.settings.padding_bottom | append: 'rem' }};
+  "
+  data-section-css="{{ 'contact-form-builder.css' | asset_url }}"
+  data-viewport-entered="false"
+>
+  <div class="container {% if section.settings.container_narrow %}container-narrow{% endif %}">
+    <div class="scroll-animate-fade-in-up">
+      {% unless section.settings.heading == blank %}
+        <header class="section-header text-{{ section.settings.header_alignment }}">
+          {% unless section.settings.heading == blank %}
+            <h2
+              id="heading-{{ section.id }}"
+              class="heading {{ section.settings.heading_size }}"
+            >
+              {{ section.settings.heading }}
+            </h2>
+          {% endunless %}
+          {% unless section.settings.description == blank %}
+            <div class="description rte {{ section.settings.description_font_size }}">
+              {{ section.settings.description }}
+            </div>
+          {% endunless %}
+        </header>
+      {% endunless %}
+      {% form 'contact' %}
+        {% if form.posted_successfully? %}
+          <div class="alert" data-alert-type="success">
+            {{ section.settings.success_msg }}
+          </div>
+        {% endif %}
+        {{ form.errors | default_errors }}
+        {% for block in section.blocks %}
+          {% if block.type == 'text' %}
+            <div
+              id="contact-form-builder-block-{{ block.id }}"
+              class="contact-form-builder-block contact-form-builder-block-text text-{{ block.settings.text_align }} "
+              style="
+                --padding-top: {{ block.settings.padding_top | append: 'rem' }};
+                --padding-bottom: {{ block.settings.padding_bottom | append: 'rem' }};
+              "
+              {{ block.shopify_attributes }}
+            >
+              {% unless block.settings.heading == blank %}
+                <h3 class="heading {{ block.settings.heading_size }}">
+                  {{ block.settings.heading }}
+                </h3>
+              {% endunless %}
+              {% unless block.settings.description == blank %}
+                <div class="description rte {{ block.settings.description_font_size }}">
+                  {{ block.settings.description }}
+                </div>
+              {% endunless %}
+            </div>
+          {% elsif block.type == 'name' %}
+            <div
+              id="contact-form-builder-block-{{ block.id }}"
+              class="contact-form-builder-block contact-form-builder-block-name"
+              {{ block.shopify_attributes }}
+            >
+              <div class="form-group">
+                <label for="contact-form-builder-{{ block.id }}">
+                  {{ block.settings.label }}
+                  {% if block.settings.required %}
+                    <span class="form-asterisk" aria-hidden="true">*</span>
+                  {% endif %}
+                </label>
+                <input
+                  id="contact-form-builder-{{ block.id }}"
+                  class="input"
+                  type="text"
+                  name="contact[name]"
+                  value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+                  placeholder="{{ block.settings.placeholder }}"
+                  {% if block.settings.required %}
+                    required
+                  {% endif %}
+                >
+              </div>
+            </div>
+          {% elsif block.type == 'email' %}
+            <div
+              id="contact-form-builder-block-{{ block.id }}"
+              class="contact-form-builder-block contact-form-builder-block-email"
+              {{ block.shopify_attributes }}
+            >
+              <div class="form-group">
+                <label for="contact-form-builder-{{ block.id }}">
+                  {{ block.settings.label }}
+                  {% if block.settings.required %}
+                    <span class="form-asterisk" aria-hidden="true">*</span>
+                  {% endif %}
+                </label>
+                <input
+                  id="contact-form-builder-{{ block.id }}"
+                  class="input"
+                  type="email"
+                  name="contact[email]"
+                  value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                  placeholder="{{ block.settings.placeholder }}"
+                  spellcheck="false"
+                  autocapitalize="off"
+                  {% if block.settings.required %}
+                    required
+                  {% endif %}
+                >
+              </div>
+            </div>
+          {% elsif block.type == 'phone' %}
+            <div
+              id="contact-form-builder-block-{{ block.id }}"
+              class="contact-form-builder-block contact-form-builder-block-phone"
+              {{ block.shopify_attributes }}
+            >
+              <div class="form-group">
+                <label for="contact-form-builder-{{ block.id }}">
+                  {{ block.settings.label }}
+                  {% if block.settings.required %}
+                    <span class="form-asterisk" aria-hidden="true">*</span>
+                  {% endif %}
+                </label>
+                <input
+                  id="contact-form-builder-{{ block.id }}"
+                  class="input"
+                  type="tel"
+                  name="contact[phone]"
+                  value="{{ customer.phone }}"
+                  placeholder="{{ block.settings.placeholder }}"
+                  autocomplete="tel"
+                  {% if block.settings.required %}
+                    required
+                  {% endif %}
+                >
+              </div>
+            </div>
+          {% elsif block.type == 'input' %}
+            <div
+              id="contact-form-builder-block-{{ block.id }}"
+              class=" contact-form-builder-block contact-form-builder-block-input"
+              {{ block.shopify_attributes }}
+            >
+              <div class="form-group">
+                <label for="contact-form-builder-{{ block.id }}">
+                  {{ block.settings.label }}
+                  {% if block.settings.required %}
+                    <span class="form-asterisk" aria-hidden="true">*</span>
+                  {% endif %}
+                </label>
+                <input
+                  id="contact-form-builder-{{ block.id }}"
+                  class="input"
+                  type="text"
+                  placeholder="{{ block.settings.placeholder }}"
+                  name="contact[{{ block.settings.label | handleize }}]"
+                  {% if block.settings.required %}
+                    required
+                  {% endif %}
+                >
+              </div>
+            </div>
+          {% elsif block.type == 'message' %}
+            <div
+              id="contact-form-builder-block-{{ block.id }}"
+              class="contact-form-builder-block contact-form-builder-block-message"
+              {{ block.shopify_attributes }}
+            >
+              <div class="form-group">
+                <label for="contact-form-builder-{{ block.id }}">
+                  {{ block.settings.label }}
+                  {% if block.settings.required %}
+                    <span class="form-asterisk" aria-hidden="true">*</span>
+                  {% endif %}
+                </label>
+                <textarea
+                  id="contact-form-builder-{{ block.id }}"
+                  class="textarea"
+                  name="contact[message]"
+                  placeholder="{{ block.settings.placeholder }}"
+                  style="height: {{ block.settings.height | append: 'px' }}"
+                  {% if block.settings.required %}
+                    required
+                  {% endif -%}
+                >{{- form.body -}}</textarea>
+              </div>
+            </div>
+          {% elsif block.type == 'date' %}
+            <div
+              id="contact-form-builder-block-{{ block.id }}"
+              class="contact-form-builder-block contact-form-builder-block-date"
+              {{ block.shopify_attributes }}
+            >
+              <div class="form-group">
+                <label for="contact-form-builder-{{ block.id }}">
+                  {{ block.settings.label }}
+                  {% if block.settings.required %}
+                    <span class="form-asterisk" aria-hidden="true">*</span>
+                  {% endif %}
+                </label>
+                <input
+                  id="contact-form-builder-{{ block.id }}"
+                  class="input"
+                  type="date"
+                  name="contact[{{ block.settings.label | handleize }}]"
+                  placeholder="{{ block.settings.label }}"
+                  {% if block.settings.required %}
+                    required
+                  {% endif %}
+                >
+              </div>
+            </div>
+          {% elsif block.type == 'select' %}
+            {% assign options = block.settings.options | split: ',' %}
+            <div
+              id="contact-form-builder-block-{{ block.id }}"
+              class="contact-form-builder-block contact-form-builder-block-select"
+              {{ block.shopify_attributes }}
+            >
+              <div class="form-group">
+                <label for="contact-form-builder-{{ block.id }}">
+                  {{ block.settings.label }}
+                </label>
+                <div class="select-wrapper">
+                  <select
+                    id="contact-form-builder-{{ block.id }}"
+                    class="select"
+                    name="contact[{{ block.settings.label | handleize }}]"
+                    aria-label="{{ block.settings.label }}"
+                  >
+                    {% for option in options %}
+                      <option>{{ option }}</option>
+                    {% endfor %}
+                  </select>
+                  {% render 'svg-icons', icon: 'chevron-down', size: 16, stroke_width: 1.5 %}
+                </div>
+              </div>
+            </div>
+          {% elsif block.type == 'checkbox' %}
+            {% assign options = block.settings.options | split: ',' %}
+            <div
+              id="contact-form-builder-block-{{ block.id }}"
+              class="contact-form-builder-block contact-form-builder-block-checkbox"
+              {{ block.shopify_attributes }}
+            >
+              <div class="form-group">
+                <p class="subheading">
+                  {{ block.settings.label }}
+                </p>
+                <input
+                  id="contact-form-builder-{{ block.id }}-hidden"
+                  type="hidden"
+                  name="contact[{{ block.settings.label | handleize }}]"
+                  value=""
+                >
+                {% for option in options %}
+                  <label class="check-label">
+                    <input
+                      type="checkbox"
+                      name="contact-form-builder-{{ block.id }}"
+                      value="{{ option | strip }}"
+                    >
+                    {{ option | strip }}
+                  </label>
+                  <script>
+                    document.querySelectorAll('#contact-form-builder-block-{{ block.id }} input[type="checkbox"]').forEach((checkbox) => {
+                      checkbox.addEventListener('change', () => {
+                        const inputHidden = document.querySelector('#contact-form-builder-{{ block.id }}-hidden');
+                        const checkedValues = [...document.querySelectorAll('#contact-form-builder-block-{{ block.id }} input[type="checkbox"]:checked')].map((checkbox, index) => {
+                          if (index > 0) {
+                            return ' ' + checkbox.value;
+                          } else {
+                            return checkbox.value;
+                          }
+                        });
+                        inputHidden.value = checkedValues;
+                      });
+                    });
+                  </script>
+                {% endfor %}
+              </div>
+            </div>
+          {% elsif block.type == 'radio' %}
+            {% assign options = block.settings.options | split: ',' %}
+            <div
+              id="contact-form-builder-block-{{ block.id }}"
+              class="contact-form-builder-block contact-form-builder-block-radio"
+              {{ block.shopify_attributes }}
+            >
+              <div class="form-group">
+                <p class="subheading">
+                  {{ block.settings.label }}
+                </p>
+                {% for option in options %}
+                  <label class="check-label">
+                    <input
+                      type="radio"
+                      name="contact[{{ block.settings.label | handleize }}]"
+                      value="{{ option | strip }}"
+                    >
+                    {{ option | strip }}
+                  </label>
+                {% endfor %}
+              </div>
+            </div>
+          {% elsif block.type == 'separator' %}
+            <div
+              id="contact-form-builder-block-{{ block.id }}"
+              class="contact-form-builder-block contact-form-builder-block-separator"
+              style="
+                --padding-top: {{ block.settings.padding_top | append: 'rem' }};
+                --padding-bottom: {{ block.settings.padding_bottom | append: 'rem' }};
+              "
+              {{ block.shopify_attributes }}
+            >
+              <hr
+                style="
+                  --opacity: {{ block.settings.opacity | append: '%' }};
+                  height: {{ block.settings.height | append: 'px' }}
+                "
+              >
+            </div>
+          {% elsif block.type == 'button' %}
+            <div
+              id="contact-form-builder-block-{{ block.id }}"
+              class="contact-form-builder-block contact-form-builder-block-button"
+              {{ block.shopify_attributes }}
+            >
+              <button
+                type="submit"
+                class="
+                  btn {{ block.settings.btn_style }}
+                  {% if block.settings.full_width %}btn-full{% endif %}
+                "
+              >
+                {{ block.settings.text }}
+              </button>
+            </div>
+          {% endif %}
+        {% endfor %}
+      {% endform %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Contact form builder",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "General"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "container_narrow",
+      "label": "Narrow container",
+      "default": true
+    },
+    {
+      "type": "richtext",
+      "id": "success_msg",
+      "label": "Success message",
+      "default": "<p>Thanks for contacting us. We'll get back to you as soon as possible.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text_alignment",
+      "id": "header_alignment",
+      "label": "Alignment",
+      "default": "left"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Contact us"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "default": "h2",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" },
+        { "value": "h5", "label": "H5" },
+        { "value": "h6", "label": "H6" }
+      ]
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description (optional)",
+      "default": "<p>Complete the following form to send us a message.</p>"
+    },
+    {
+      "type": "select",
+      "id": "description_font_size",
+      "label": "Description font-size",
+      "default": "fs-md",
+      "options": [
+        { "value": "fs-sm", "label": "sm" },
+        { "value": "fs-md", "label": "md" },
+        { "value": "fs-lg", "label": "lg" },
+        { "value": "fs-xl", "label": "xl" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 2,
+      "unit": "rem"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 2,
+      "unit": "rem"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "text_alignment",
+          "id": "text_align",
+          "label": "Text align",
+          "default": "left"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Block Heading",
+          "info": "Leave empty to disable"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "label": "Heading size",
+          "default": "h4",
+          "options": [
+            { "value": "h1", "label": "H1" },
+            { "value": "h2", "label": "H2" },
+            { "value": "h3", "label": "H3" },
+            { "value": "h4", "label": "H4" },
+            { "value": "h5", "label": "H5" },
+            { "value": "h6", "label": "H6" }
+          ]
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description (optional)",
+          "default": "<p>Optional description for this block.</p>"
+        },
+        {
+          "type": "select",
+          "id": "description_font_size",
+          "label": "Description font-size",
+          "default": "fs-md",
+          "options": [
+            { "value": "fs-sm", "label": "sm" },
+            { "value": "fs-md", "label": "md" },
+            { "value": "fs-lg", "label": "lg" },
+            { "value": "fs-xl", "label": "xl" }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Spacing"
+        },
+        {
+          "type": "range",
+          "id": "padding_top",
+          "label": "Top",
+          "min": 0,
+          "max": 5,
+          "step": 0.2,
+          "default": 0,
+          "unit": "rem"
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom",
+          "label": "Bottom",
+          "min": 0,
+          "max": 5,
+          "step": 0.2,
+          "default": 1,
+          "unit": "rem"
+        }
+      ]
+    },
+    {
+      "type": "name",
+      "name": "Name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Your Name"
+        },
+        {
+          "type": "text",
+          "id": "placeholder",
+          "label": "Placeholder",
+          "default": "John Doe"
+        },
+        {
+          "type": "checkbox",
+          "id": "required",
+          "label": "Required field",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "email",
+      "name": "Email",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Your Email"
+        },
+        {
+          "type": "text",
+          "id": "placeholder",
+          "label": "Placeholder",
+          "default": "info@domain.com"
+        },
+        {
+          "type": "checkbox",
+          "id": "required",
+          "label": "Required field",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "phone",
+      "name": "Phone",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Your Phone (optional)"
+        },
+        {
+          "type": "text",
+          "id": "placeholder",
+          "label": "Placeholder",
+          "default": "+1 (555) 555-5555"
+        },
+        {
+          "type": "checkbox",
+          "id": "required",
+          "label": "Required field",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "input",
+      "name": "Input",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Input Label"
+        },
+        {
+          "type": "text",
+          "id": "placeholder",
+          "label": "Placeholder",
+          "default": "Input Placeholder"
+        },
+        {
+          "type": "checkbox",
+          "id": "required",
+          "label": "Required field",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "message",
+      "name": "Message",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Your Message"
+        },
+        {
+          "type": "text",
+          "id": "placeholder",
+          "label": "Placeholder",
+          "default": "Write your message here..."
+        },
+        {
+          "type": "range",
+          "id": "height",
+          "label": "Height",
+          "default": 200,
+          "min": 100,
+          "max": 400,
+          "step": 20,
+          "unit": "px"
+        },
+        {
+          "type": "checkbox",
+          "id": "required",
+          "label": "Required field",
+          "default": true
+        },
+        {
+          "type": "header",
+          "content": "Spacing"
+        },
+        {
+          "type": "range",
+          "id": "pt",
+          "label": "Top",
+          "min": 0,
+          "max": 20,
+          "step": 1,
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "pb",
+          "label": "Bottom",
+          "min": 0,
+          "max": 20,
+          "step": 1,
+          "default": 5
+        }
+      ]
+    },
+    {
+      "type": "date",
+      "name": "Date",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Date"
+        },
+        {
+          "type": "checkbox",
+          "id": "required",
+          "label": "Required field",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "name": "Select",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Planet"
+        },
+        {
+          "type": "html",
+          "id": "options",
+          "label": "Options",
+          "default": "Earth, Mars, Venus",
+          "info": "Comma separated list of options. E.g: Earth, Mars, Venus"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "name": "Checkbox",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Country"
+        },
+        {
+          "type": "html",
+          "id": "options",
+          "label": "Options",
+          "default": "United States, Canada, France",
+          "info": "Comma separated list of options. E.g: United States, Canada, France"
+        }
+      ]
+    },
+    {
+      "type": "radio",
+      "name": "Radio",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "City"
+        },
+        {
+          "type": "html",
+          "id": "options",
+          "label": "Options",
+          "default": "New York, Toronto, Paris",
+          "info": "Comma separated list of options. E.g: New York, Toronto, Paris"
+        }
+      ]
+    },
+    {
+      "type": "separator",
+      "name": "Separator",
+      "settings": [
+        {
+          "type": "range",
+          "id": "opacity",
+          "label": "Opacity",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "default": 15,
+          "unit": "%"
+        },
+        {
+          "type": "range",
+          "id": "height",
+          "label": "Height",
+          "min": 0,
+          "max": 16,
+          "default": 1,
+          "step": 1,
+          "unit": "px"
+        },
+        {
+          "type": "header",
+          "content": "Spacing"
+        },
+        {
+          "type": "range",
+          "id": "padding_top",
+          "label": "Top",
+          "min": 0,
+          "max": 5,
+          "step": 0.2,
+          "default": 0,
+          "unit": "rem"
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom",
+          "label": "Bottom",
+          "min": 0,
+          "max": 5,
+          "step": 0.2,
+          "default": 1,
+          "unit": "rem"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "Button",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Send"
+        },
+        {
+          "type": "select",
+          "id": "btn_style",
+          "label": "Button style",
+          "default": "btn-primary",
+          "options": [
+            { "value": "btn-primary", "label": "Primary" },
+            { "value": "btn-outline", "label": "Outline" },
+            { "value": "btn-accent", "label": "Accent" },
+            { "value": "btn-link", "label": "Link" }
+          ]
+        },
+        {
+          "type": "checkbox",
+          "id": "full_width",
+          "label": "Full width",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "presets": [
+    {
+      "name": "Contact form builder",
+      "category": "Miscellaneous",
+      "blocks": [{ "type": "email" }, { "type": "input" }, { "type": "phone" }, { "type": "message" }, { "type": "button" }]
+    }
+  ]
+}
+{% endschema %}

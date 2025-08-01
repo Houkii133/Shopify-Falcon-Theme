@@ -1,0 +1,61 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% liquid
+  assign prefers_dark_scheme = false
+
+  for scheme in settings.color_schemes
+    if forloop.first
+      assign bg_brightness = scheme.settings.background | color_brightness
+      if bg_brightness < 150
+        assign prefers_dark_scheme = true
+      endif
+    endif
+  endfor
+%}
+
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    {% render 'theme-head' %}
+    {{ content_for_header }}
+    {% render 'styles-scripts' %}
+  </head>
+
+  <body
+    class=""
+    data-page-type="{{ request.page_type }}"
+    data-prefers-dark-scheme="{{ prefers_dark_scheme }}"
+    data-scroll-animations="{{ settings.scroll_animations }}"
+    data-design-mode="{{ request.design_mode }}"
+  >
+    <a class="skip-to-content-link visually-hidden" href="#main">
+      {{ 'accessibility.skip_to_content' | t }}
+    </a>
+
+    <div id="header-group">
+      {% sections 'header-group' %}
+    </div>
+
+    <main id="main">
+      {{ content_for_layout }}
+    </main>
+
+    <div id="footer-group">
+      {% sections 'footer-group' %}
+    </div>
+
+    {% liquid
+      section 'cart-drawer'
+      section 'wishlist-drawer'
+      section 'newsletter-popup-modal'
+      render 'search-modal'
+      render 'quick-view-modal'
+      render 'localization-countries-modal'
+      render 'localization-languages-modal'
+      render 'rich-snippets'
+    %}
+  </body>
+</html>

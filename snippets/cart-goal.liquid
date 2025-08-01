@@ -1,0 +1,132 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% if block.settings.goal_one_value contains cart.currency.iso_code %}
+  {% liquid
+    if block.settings.goal_three_value != blank
+      assign no_of_tiers = 3
+    elsif block.settings.goal_two_value != blank
+      assign no_of_tiers = 2
+    else
+      assign no_of_tiers = 1
+    endif
+
+    assign goal_one_value_list = block.settings.goal_one_value | split: ','
+    assign goal_two_value_list = block.settings.goal_two_value | split: ','
+    assign goal_three_value_list = block.settings.goal_three_value | split: ','
+
+    for item in goal_one_value_list
+      if item contains cart.currency.iso_code
+        assign goal_one_value = item | split: ':' | last | strip
+      endif
+    endfor
+
+    for item in goal_two_value_list
+      if item contains cart.currency.iso_code
+        assign goal_two_value = item | split: ':' | last | strip
+        assign goal_two_diff = goal_two_value | minus: goal_one_value
+      endif
+    endfor
+
+    for item in goal_three_value_list
+      if item contains cart.currency.iso_code
+        assign goal_three_value = item | split: ':' | last | strip
+        assign goal_three_diff = goal_three_value | minus: goal_two_value
+      endif
+    endfor
+
+    assign goal_one_value_with_cents = goal_one_value | times: 100
+    assign goal_two_value_with_cents = goal_two_value | times: 100
+    assign goal_three_value_with_cents = goal_three_value | times: 100
+
+    if goal_three_value
+      assign divider = 33.33
+    elsif goal_two_value
+      assign divider = 50.00
+    else
+      assign divider = 100.00
+    endif
+
+    if cart.total_price < goal_one_value_with_cents
+      assign percentage = cart.total_price | divided_by: goal_one_value | times: divider | divided_by: 100 | round
+      assign goal_remaining_money = goal_one_value_with_cents | minus: cart.total_price | money
+      assign desc = block.settings.goal_one_desc | replace: '[amount]', goal_remaining_money
+    elsif cart.total_price < goal_two_value_with_cents
+      assign percentage = cart.total_price | minus: goal_one_value_with_cents | divided_by: goal_two_diff | times: divider | divided_by: 100 | plus: 33.33 | round
+      assign goal_remaining_money = goal_two_value_with_cents | minus: cart.total_price | money
+      assign desc = block.settings.goal_two_desc | replace: '[amount]', goal_remaining_money
+      assign goal_completed = 1
+    elsif cart.total_price < goal_three_value_with_cents
+      assign percentage = cart.total_price | minus: goal_two_value_with_cents | divided_by: goal_three_diff | times: divider | divided_by: 100 | plus: 66.66 | round
+      assign goal_remaining_money = goal_three_value_with_cents | minus: cart.total_price | money
+      assign desc = block.settings.goal_three_desc | replace: '[amount]', goal_remaining_money
+      assign goal_completed = 2
+    else
+      assign percentage = 100
+      assign desc = block.settings.desc_completed
+      assign goal_completed = 3
+    endif
+  %}
+
+  <div
+    id="cart-block-{{ block.id }}"
+    class="cart-block"
+    style="
+      --padding-top: {{ block.settings.padding_top | append: 'rem' }};
+      --padding-bottom: {{ block.settings.padding_bottom | append: 'rem' }};
+    "
+    data-type="{{ block.type }}"
+    {{ block.shopify_attributes }}
+  >
+    <cart-goal
+      class="cart-goal"
+      style="--color: {{ block.settings.color.red | append: ', ' | append: block.settings.color.green | append: ', ' | append: block.settings.color.blue }};"
+      data-no-of-tiers="{{ no_of_tiers }}"
+      data-goal-completed="{{ goal_completed | default: 0 }}"
+    >
+      <div class="description rte">
+        {{ desc }}
+      </div>
+      <div
+        class="progress"
+        style="--height: {{ block.settings.progress_height | append: 'px' }};"
+      >
+        <div
+          class="progress-bar progress-bar-animated progress-bar-striped"
+          role="progressbar"
+          aria-valuenow="{{ percentage }}"
+          aria-valuemin="0"
+          data-valuemax="100"
+          data-width="{{ percentage }}%"
+          style="width: 0%;"
+        ></div>
+        <ul 
+          class="cart-goal-icons" 
+          aria-label="{{ 'accessibility.cart_offerings' | t }}">
+          {% for n in (1..no_of_tiers) %}
+            {% liquid
+              case n
+                when 1
+                  assign icon = block.settings.goal_one_icon
+                  assign title = block.settings.goal_one_title
+                when 2
+                  assign icon = block.settings.goal_two_icon
+                  assign title = block.settings.goal_two_title
+                when 3
+                  assign icon = block.settings.goal_three_icon
+                  assign title = block.settings.goal_three_title
+              endcase
+            %}
+            <li aria-label="{{ title }}" class="{% if forloop.index <= goal_completed %}active{% endif %}">
+              <div title="{{ title }}">
+                {% render 'svg-icons', icon: icon, size: 16 %}
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </cart-goal>
+  </div>
+{% endif %}

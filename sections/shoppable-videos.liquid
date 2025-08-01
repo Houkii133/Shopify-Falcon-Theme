@@ -1,0 +1,408 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% if section.index <= 3 or request.design_mode %}
+  <link href="{{ 'shoppable-videos.css' | asset_url }}" rel="stylesheet" fetchpriority="high">
+  <script src="{{ 'shoppable-videos.js' | asset_url }}" defer></script>
+{% endif %}
+
+<shoppable-videos
+  id="shoppable-videos-{{ section.id }}" 
+  class="shoppable-videos {{ section.settings.color_scheme | prepend: 'color-' }}"
+  style="
+    --padding-top: {{ section.settings.padding_top | append: 'rem' }};
+    --padding-bottom: {{ section.settings.padding_bottom | append: 'rem' }};
+  "
+  data-viewport-entered="false"
+  data-section-css="{{ 'shoppable-videos.css' | asset_url }}"
+  data-section-js="{{ 'shoppable-videos.js' | asset_url }}">
+  <div class="container {% if section.settings.full_width %}container-full{% endif %}">
+    {% unless section.settings.heading == blank %}
+      <header class="section-header scroll-animate-fade-in-up text-{{ section.settings.header_alignment }}">
+        {% unless section.settings.heading == blank %}
+          <h2
+            id="heading-{{ section.id }}"
+            class="heading {{ section.settings.heading_size }}"
+          >
+            {{ section.settings.heading }}
+          </h2>
+        {% endunless %}
+        {% unless section.settings.description == blank %}
+          <div class="description rte {{ section.settings.description_font_size }}">
+            {{ section.settings.description }}
+          </div>
+        {% endunless %}
+      </header>
+    {% endunless %}
+    <carousel-component
+      class="carousel"
+      style="
+        --mobile-cols: {{ section.settings.carousel_mobile_cols }};
+        --desktop-cols: {{ section.settings.carousel_desktop_cols }};
+      "
+      data-mobile-cols="{{ section.settings.carousel_mobile_cols }}"
+      data-desktop-cols="{{ section.settings.carousel_desktop_cols }}"
+      data-mobile-stack="{{ section.settings.carousel_mobile_stack }}"
+      data-desktop-stack="{{ section.settings.carousel_desktop_stack }}"
+      data-controls-style="{{ section.settings.carousel_controls_style }}"
+      data-controls-mobile="{{ section.settings.show_controls_on_mobile }}"
+    >
+      <div class="carousel-inner">
+        <button
+          class="carousel-control"
+          name="previous"
+          type="button"
+          aria-label="{{ 'accessibility.previous_slide' | t }}"
+        >
+          {% render 'svg-icons', icon: 'chevron-left', stroke_width: 1.5, size: 22 %}
+        </button>
+        <ul
+          class="carousel-track"
+          aria-labelledby="heading-{{ section.id }}"
+          aria-roledescription="{{ 'accessibility.carousel' | t | downcase }}"
+        >
+          {% for block in section.blocks %}
+            <li
+              class="carousel-slide shoppable-videos-item scroll-animate-fade-in-up"
+              style="animation-delay: {{ forloop.index0 | times: 0.1 }}s"
+              {{ block.shopify_attributes }}
+            >
+              <div 
+                class="shoppable-videos-card {{ section.settings.item_color_scheme | prepend: 'color-' }}"
+                data-border="{{ section.settings.item_border }}"
+                data-shadow="{{ section.settings.item_shadow }}"
+                data-playing="false"
+              >
+                {% if block.settings.video != null %}
+                  <div 
+                    class="video-wrapper"
+                    data-viewport-entered="false"
+                    data-video-autoplay="true">
+                    {{-
+                      block.settings.video | video_tag:
+                        image_size: '800x', 
+                        autoplay: false, 
+                        loop: true, 
+                        muted: true, 
+                        controls: false,
+                        loading: 'lazy',
+                        preload: 'none',
+                        data-index: forloop.index0
+                    -}}
+                  </div>
+                {% endif %}
+                {% unless block.settings.custom_badge == blank %}
+                  <span 
+                    class="badge badge-custom"
+                    style="background-color: {{ block.settings.custom_badge_bg_color }}">
+                    {{ block.settings.custom_badge }}
+                  </span>
+                {% endunless %}
+                {% unless block.settings.product == blank %}
+                  {% assign product = block.settings.product %}
+                  <div class="shoppable-videos-card-product">
+                    <div class="product-card product-card-horizontal">
+                      <div class="img-wrapper">
+                        {% render 'product-card-img', image: product.featured_image %}
+                      </div>
+                      <div class="product-card-inner">
+                        <h3 class="heading {{ settings.product_card_heading_size }}">
+                          {% if section.settings.item_link_style %}
+                            <a 
+                              href="{{ product.url }}"
+                              name="quick-view"
+                              data-product-url="{{ product.url }}"
+                              aria-controls="quick-view-dialog"
+                              aria-haspopup="dialog"
+                              role="button">
+                              <span>
+                                {{ block.settings.product.title }}
+                              </span>
+                            </a>
+                          {% else %}
+                            <a href="{{ product.url }}">
+                              <span>
+                                {{ block.settings.product.title }}
+                              </span>
+                            </a>
+                          {% endif %}
+                        </h3>
+                        {% if section.settings.item_rating_stars %}
+                          {% render 'product-rating-badge', product: product %}
+                        {% endif %}
+                        {% render 'product-card-price', product: product %}
+                      </div>
+                    </div>
+                  </div>
+                {% endunless %}
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+        <button
+          class="carousel-control"
+          name="next"
+          type="button"
+          aria-label="{{ 'accessibility.next_slide' | t }}"
+        >
+          {% render 'svg-icons', icon: 'chevron-right', stroke_width: 1.5, size: 22 %}
+        </button>
+      </div>
+      {% if section.settings.show_pagination %}
+        <div
+          class="carousel-pagination"
+          aria-live="polite"
+          aria-atomic="true"
+          aria-label="{{ 'accessibility.pagination' | t }}"
+        >
+          <span>-</span>
+        </div>
+      {% endif %}
+    </carousel-component>
+  </div>
+</shoppable-videos>
+
+{% schema %}
+{
+  "name": "Shoppable videos",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-2"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text_alignment",
+      "id": "header_alignment",
+      "label": "Alignment",
+      "default": "left"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shoppable Videos",
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "default": "h3",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" },
+        { "value": "h5", "label": "H5" },
+        { "value": "h6", "label": "H6" }
+      ]
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description (optional)",
+      "default": "<p>An optional description for this section</p>"
+    },
+    {
+      "type": "select",
+      "id": "description_font_size",
+      "label": "Description font-size",
+      "default": "fs-md",
+      "options": [
+        { "value": "fs-sm", "label": "sm" },
+        { "value": "fs-md", "label": "md" },
+        { "value": "fs-lg", "label": "lg" },
+        { "value": "fs-xl", "label": "xl" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Carousel"
+    },
+    {
+      "type": "range",
+      "id": "carousel_mobile_cols",
+      "label": "Mobile columns",
+      "default": 1,
+      "min": 1,
+      "max": 3,
+      "step": 1
+    },
+    {
+      "type": "range",
+      "id": "carousel_desktop_cols",
+      "label": "Desktop columns",
+      "default": 5,
+      "min": 2,
+      "max": 6,
+      "step": 1
+    },
+    {
+      "type": "checkbox",
+      "id": "carousel_mobile_stack",
+      "label": "Stack on mobile",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "carousel_desktop_stack",
+      "label": "Stack on desktop",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "carousel_controls_style",
+      "label": "Controls style",
+      "options": [
+        { "value": "minimal", "label": "Minimal" },
+        { "value": "outline", "label": "Outline" },
+        { "value": "inverted", "label": "Inverted" },
+        { "value": "accent", "label": "Accent" }
+      ],
+      "default": "outline"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_controls_on_mobile",
+      "label": "Show controls on mobile",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pagination",
+      "label": "Show pagination counter",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Item"
+    },
+    {
+      "type": "color_scheme",
+      "id": "item_color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "item_border",
+      "label": "Border",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "item_shadow",
+      "label": "Shadow",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "item_rating_stars",
+      "label": "Show rating stars",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "item_link_style",
+      "label": "Link style",
+      "default": "quick_view",
+      "options": [
+        { "value": "quick_view", "label": "Quick view" },
+        { "value": "product_page", "label": "Product page" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 2,
+      "unit": "rem"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 2,
+      "unit": "rem"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "header",
+          "content": "Custom badge"
+        },
+        {
+          "type": "text",
+          "id": "custom_badge",
+          "label": "Text",
+          "info": "NOTE: Leave empty to disable",
+          "default": "NEW"
+        },
+        {
+          "type": "color",
+          "id": "custom_badge_bg_color",
+          "label": "Bg color",
+          "default": "#334FB4"
+        },
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "presets": [
+    {
+      "name": "Shoppable Videos",
+      "category": "Image/Video",
+      "blocks": [
+        { "type": "item" },
+        { "type": "item" },
+        { "type": "item" },
+        { "type": "item" },
+        { "type": "item" },
+        { "type": "item" },
+        { "type": "item" },
+        { "type": "item" }
+      ]
+    }
+  ]
+}
+{% endschema %}

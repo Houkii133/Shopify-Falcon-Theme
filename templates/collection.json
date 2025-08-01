@@ -1,0 +1,73 @@
+{
+  "sections": {
+    "collection_main_d9EBCD": {
+      "type": "collection-main",
+      "blocks": {
+        "header_38ijnm": {
+          "type": "header",
+          "settings": {
+            "color_scheme": "",
+            "show_img": true,
+            "heading_size": "h1",
+            "description_show": true,
+            "description_size": "fs-md",
+            "show_breadcrumb": true,
+            "full_width": false,
+            "mobile_text_alignment": "center",
+            "mobile_overlay_color": "#000000",
+            "mobile_overlay_opacity": 30,
+            "mobile_padding_top": 3,
+            "mobile_padding_bottom": 3,
+            "desktop_text_alignment": "left",
+            "desktop_overlay_color": "#000000",
+            "desktop_overlay_opacity": 30,
+            "desktop_padding_top": 3.6,
+            "desktop_padding_bottom": 3.6
+          }
+        },
+        "collection_circles_ie4phP": {
+          "type": "collection_circles",
+          "settings": {
+            "menu": "collections",
+            "color_scheme": "scheme-1",
+            "full_width": false,
+            "alignment": "center",
+            "img_size": 120,
+            "item_title_font_size": "fs-sm",
+            "item_show_product_count": true,
+            "label": "Shop by collection",
+            "padding_top": 2,
+            "padding_bottom": 0
+          }
+        },
+        "products_GCAmGA": {
+          "type": "products",
+          "settings": {
+            "color_scheme": "scheme-1",
+            "full_width": false,
+            "limit": 40,
+            "show_product_count": true,
+            "show_filters": true,
+            "show_sort_by": true,
+            "infinite_pagination": true,
+            "mobile_cols": 2,
+            "tablet_cols": 3,
+            "desktop_cols": 5,
+            "show_cols_selector": true,
+            "padding_top": 2,
+            "padding_bottom": 2
+          }
+        }
+      },
+      "block_order": [
+        "header_38ijnm",
+        "collection_circles_ie4phP",
+        "products_GCAmGA"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "collection_main_d9EBCD"
+  ]
+}

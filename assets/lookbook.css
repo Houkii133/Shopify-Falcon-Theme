@@ -1,0 +1,122 @@
+/*
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+*/
+
+.lookbook {
+  display: block;
+  background-color: rgba(var(--color-background), 1);
+  background-image: var(--color-background-gradient);
+  color: rgba(var(--color-text), 1);
+}
+
+.lookbook .img-wrapper {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--border-radius);
+}
+
+.lookbook .img-wrapper img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+
+.lookbook-points {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.lookbook-points-item {
+}
+
+.lookbook-points-item button {
+  position: absolute;
+  display: block;
+  padding: 1rem;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  opacity: .9;
+  transform: translate(-50%, -50%);
+  transition: all .2s ease-out;
+} 
+
+.lookbook-points-item button[name="quick-view"],
+.lookbook-points-item button[name="product-page"] {
+  cursor: pointer;
+}
+
+.lookbook-points-item button:hover,
+.lookbook-points-item button:focus {
+  opacity: 1;
+}
+
+.lookbook-points-item button.active {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.25);
+}
+
+.lookbook-points-item button > span {
+  display: block;
+  padding: calc(var(--point-diameter) / 4);
+  border-radius: 50%;
+  border: 1px solid rgba(var(--point-color), 1);
+  background-color: transparent;
+  transition: all .2s ease-out;
+  border-color: rgba(var(--point-color), 1);
+  animation: lookbook-point-animation 2s infinite;
+}
+
+.lookbook-points-item button.loading > span {
+  animation-duration: .5s;
+}
+
+.lookbook-points-item button:hover > span, 
+.lookbook-points-item button:focus > span {
+  background-color: rgba(var(--point-color), 0.5);
+}
+
+.lookbook-points-item button > span > span {
+  background: rgba(var(--point-color), 1);
+  display: block;
+  width: var(--point-diameter);
+  height: var(--point-diameter);
+  border-radius: 50%;
+}
+
+@keyframes lookbook-point-animation {
+  0% { box-shadow: 0 0 0 0px rgba(var(--point-color), 0.25); }
+  100% { box-shadow: 0 0 0 20px rgba(var(--point-color), 0); }
+}
+
+@media (max-width: 1199px) {
+  .lookbook{
+    padding-top: calc(var(--padding-top) * 0.75);
+    padding-bottom: calc(var(--padding-bottom) * 0.75);
+  }
+  .lookbook-points-item button {
+    left: var(--position-mobile-left);
+    top: var(--position-mobile-top); 
+  }
+}
+
+@media (min-width: 1200px) {
+  .lookbook {
+    padding-top: calc(var(--padding-top) * 1);
+    padding-bottom: calc(var(--padding-bottom) * 1);
+  }
+  .lookbook-points-item button {
+    left: var(--position-desktop-left);
+    top: var(--position-desktop-top);
+  }
+}

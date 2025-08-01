@@ -1,0 +1,19 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+ 
+{% unless shop.enabled_payment_types == empty %}
+  <div class="payment-icons">
+    <ul aria-label="{{ 'accessibility.payment_methods' | t }}">
+      {% for type in shop.enabled_payment_types %}
+        <li title="{{ type | replace: "_", " " | camelcase }}">
+          {{ type | payment_type_svg_tag: class: 'icon' }}
+        </li>
+      {% endfor %}
+    </ul>
+    <small class="payment-icons-text">
+      {{ 'general.payments_secure' | t }}
+    </small>
+  </div>
+{% endunless %}

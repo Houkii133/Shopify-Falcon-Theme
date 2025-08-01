@@ -1,0 +1,40 @@
+/*
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+*/
+
+.featured-collection {
+  background-color: rgba(var(--color-background), 1);
+  background-image: var(--color-background-gradient, none);
+  color: rgba(var(--color-text), 1);
+}
+
+.featured-collection .section-header.text-left[data-has-view-all="true"] {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.featured-collection .section-header.text-left[data-has-view-all="true"] .featured-collection-view-all {
+  margin-left: 1rem;
+  display: flex;
+}
+
+.featured-collection .section-header.text-center .featured-collection-view-all,
+.featured-collection .section-header.text-right .featured-collection-view-all {
+  margin-top: 0.25rem;
+}
+
+@media (max-width: 1199px) {
+  .featured-collection {
+    padding-top: calc(var(--padding-top) * 0.75);
+    padding-bottom: calc(var(--padding-bottom) * 0.75);
+  }
+}
+
+@media (min-width: 1200px) {
+  .featured-collection {
+    padding-top: calc(var(--padding-top) * 1);
+    padding-bottom: calc(var(--padding-bottom) * 1);
+  }
+}

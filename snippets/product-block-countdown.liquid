@@ -1,0 +1,72 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% liquid
+  assign countdown = block.settings.countdown | date: '%s'
+  assign now = 'now' | date: '%s'
+
+  if shop.permanent_domain contains 'ks-'
+    assign countdown = now | plus: 43200 | minus: 1
+  endif
+
+  assign now = 'now' | date: '%s'
+  assign diff = countdown | minus: now
+
+  assign days = diff | divided_by: 86400
+  assign hours = diff | modulo: 86400 | divided_by: 3600
+  assign minutes = diff | modulo: 3600 | divided_by: 60
+  assign seconds = diff | modulo: 60
+%}
+
+<div
+  id="product-block-{{ block.id }}"
+  class="product-block"
+  style="
+    --padding-top: {{ block.settings.padding_top | append: 'rem' }};
+    --padding-bottom: {{ block.settings.padding_bottom | append: 'rem' }};
+  "
+  data-type="{{ block.type }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="product-block-countdown {{ block.settings.color_scheme | prepend: 'color-' }}">
+    {% unless block.settings.heading == blank or block.settings.description == blank %}
+      <header class="block-header">
+        {% unless block.settings.heading == blank %}
+          <h3 class="heading {{ block.settings.heading_size }}">
+            {{ block.settings.heading }}
+          </h3>
+        {% endunless %}
+        {% unless block.settings.description == blank %}
+          <div class="description rte {{ block.settings.description_font_size }}">
+            {{ block.settings.description }}
+          </div>
+        {% endunless %}
+      </header>
+    {% endunless %}
+    <countdown-component
+      class="countdown"
+      data-countdown="{{ countdown | times: 1000 }}"
+      aria-label="{{ 'accessibility.countdown_label' | t: days: days, hours: hours, minutes: minutes  }}"
+      role="timer"
+    >
+      <span class="{% if days == 0 %}hidden{% endif %}">
+        <span data-countdown-days>{{- days -}}</span>
+        <span> {{- 'general.times.days_short' | t -}}</span>
+      </span>
+      <span class="{% if hours == 0 %} hidden{% endif %}">
+        <span data-countdown-hours>{{- hours -}}</span>
+        <span>{{- 'general.times.hours_short' | t -}}</span>
+      </span>
+      <span>
+        <span data-countdown-minutes>{{- minutes -}}</span>
+        <span>{{- 'general.times.minutes_short' | t -}}</span>
+      </span>
+      <span>
+        <span data-countdown-seconds>{{- seconds -}}</span>
+        <span>{{- 'general.times.seconds_short' | t -}}</span>
+      </span>
+    </countdown-component>
+  </div>
+</div>

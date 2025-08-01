@@ -1,0 +1,95 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% liquid 
+  assign image = block.settings.img | default: collection.image
+  assign title = block.settings.title | default: collection.title
+
+  assign placeholder_index = index | modulo: 4 | plus: 1
+
+  if section.settings.full_width
+    assign img_size = 1200
+  else
+    assign img_size = 800
+  endif
+
+  case section.settings.collection_card_img_ratio
+    when 'adapt'
+      assign img_width = img_size
+      assign img_height = img_size | divided_by: image.aspect_ratio | round
+    when 'square'
+      assign img_width = img_size
+      assign img_height = img_size
+    when '4x3'
+      assign img_width = img_size
+      assign img_height = img_size | times: 3 | divided_by: 4 | round
+    when '16x9'
+      assign img_width = img_size
+      assign img_height = img_size | times: 9 | divided_by: 16 | round
+    when '3x4'
+      assign img_width = img_size
+      assign img_height = img_size | times: 4 | divided_by: 3 | round
+    when '9x16'
+      assign img_width = img_size
+      assign img_height = img_size | times: 16 | divided_by: 9 | round
+  endcase
+%}
+
+{% if collection %}
+<div 
+  class="collection-card text-{{ section.settings.collection_card_alignment }}"
+  style="
+    --title-text-transform: {{ section.settings.collection_card_title_text_transform }};
+    --title-letter-spacing: {{ section.settings.collection_card_title_letter_spacing | divided_by: 100.0 | append: 'rem' }};
+  "
+  data-title-font="{{ section.settings.collection_card_title_font }}"
+  data-title-style="{{ section.settings.collection_card_title_style }}">
+  <a href="{{ collection.url }}">
+    <div class="img-wrapper">
+      {% if image %}
+        <img
+          src="{{ image | image_url: width: img_width, height: img_height, crop: 'center'}}"
+          alt="{{ image.alt }}"
+          class="img-fluid"
+          width="{{ img_width }}"
+          height="{{ img_height }}"
+          loading="lazy"
+        >
+      {% else %}
+        {{ 'collection-apparel-' | append: placeholder_index | placeholder_svg_tag: 'placeholder-svg' }}
+      {% endif %}
+    </div>
+    {% if section.settings.collection_card_show_title %}
+      <h3 class="heading {{ section.settings.collection_card_title_font_size }}">
+        {% if title %}
+          {{ title }} 
+          {% if section.settings.collection_card_show_product_count %}
+            ({{ collection.products_count }})
+          {% endif %}
+        {% else %}
+          Collection {{ index }}
+        {% endif %}
+      </h3>
+    {% endif %}
+  </a>
+</div>
+{% else %}
+  {% liquid
+    assign index = index | modulo: 4
+    if index == 0
+      assign index = 4
+    endif
+  %}
+  <div class="collection-card text-{{ section.settings.collection_card_alignment }}">
+    <a href="#">
+      <div class="img-wrapper">
+        {{ 'collection-apparel-' | append: index | placeholder_svg_tag: 'placeholder-svg' }}
+      </div>
+      <h3 class="heading {{ section.settings.collection_card_title_font_size }}">
+        Collection {{ index }}
+      </h3>
+    </a>
+  </div>
+{% endif %}

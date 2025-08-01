@@ -1,0 +1,409 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% liquid 
+  if section.index > 1
+    assign loading = 'lazy'
+    assign fetchpriority = 'low'
+  else
+    assign loading = 'eager'
+    assign fetchpriority = 'high'
+  endif
+%}
+
+{% if section.index <= 3 or request.design_mode %}
+  <link href="{{ 'parallax-media.css' | asset_url }}" rel="stylesheet" fetchpriority="high">
+  <script src="{{ 'parallax-media.js' | asset_url }}" defer></script>
+{% endif %}
+
+<parallax-media
+  id="parallax-media-{{ section.id }}" 
+  class="parallax-media {{ section.settings.color_scheme | prepend: 'color-' }}"
+  style="
+    --padding-top: {{ section.settings.padding_top | append: 'rem' }};
+    --padding-bottom: {{ section.settings.padding_bottom | append: 'rem' }};
+  "
+  data-section-css="{{ 'parallax-media.css' | asset_url }}"
+  data-section-js="{{ 'parallax-media.js' | asset_url }}"
+>
+  <div 
+    class="media-wrapper"
+    style="
+      --media-height-mobile: {{ section.settings.media_height_mobile | append: 'px' }};
+      --media-height-desktop: {{ section.settings.media_height_desktop | append: 'px' }};
+      --overlay-color: {{ section.settings.overlay_color | color_to_rgb | remove: 'rgb(' | remove: ')'  }};
+      --overlay-opacity: {{ section.settings.overlay_opacity | append: '%' }};
+      --overlay-blur: {{ section.settings.overlay_blur | append: 'px' }};
+    "
+    data-overlay-opacity="{{ section.settings.overlay_opacity }}"
+  >
+    <div 
+      class="media-inner"
+      data-viewport-entered="false"
+      data-video-autoplay="true">
+      {% if section.settings.video != null %}
+        {{-
+          section.settings.video | video_tag:
+            image_size: '1600x', 
+            autoplay: false, 
+            loop: true, 
+            muted: true, 
+            controls: false,
+            loading: loading,
+            preload: 'none',
+            fetchpriority: fetchpriority
+        -}}
+      {% elsif section.settings.img != blank %}
+        <picture>
+          {% if section.settings.img_mobile == blank %}
+            <source
+              media="(max-width: 599px)"
+              srcset="{{ section.settings.img | image_url: width: 800 }}"
+              sizes="100vw"
+            >
+            {% else %}
+              <source
+                media="(max-width: 599px)"
+                srcset="{{ section.settings.img_mobile | image_url: width: 800 }}"
+                sizes="100vw"
+              >
+            {% endif %}
+          <img
+            src="{{ section.settings.img | image_url: width: 1600 }}"
+            sizes="100vw"
+            alt="{{ section.settings.img.alt }}"
+            width="1600"
+            height="{{ 1600 | divided_by: section.settings.img.aspect_ratio | round }}"
+            loading="{{ loading }}"
+            fetchpriority="{{ fetchpriority }}"
+          >
+        </picture>
+      {% else %}
+        {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      {% endif %}
+    </div>
+  </div>
+  {% unless section.settings.heading == blank and section.settings.description == blank %}
+    <div
+      class="parallax-media-content"
+      data-position-mobile="{{ section.settings.position_mobile }}"
+      data-position-desktop="{{ section.settings.position_desktop }}"
+    >
+      <div class="container">
+        <div 
+          class="parallax-media-content-inner scroll-animate-fade-in-up"
+          data-viewport-entered="false">
+          {% unless section.settings.subheading == blank %}
+            <div class="subheading {{ section.settings.subheading_font_size }}">
+              {{ section.settings.subheading }}
+            </div>
+          {% endunless %}
+          {% unless section.settings.heading == blank %}
+            <h2 class="heading {{ section.settings.heading_size }}">
+              {{ section.settings.heading }}
+            </h2>
+          {% endunless %}
+          {% unless section.settings.description == blank %}
+            <div class="description rte {{ section.settings.description_font_size }}">
+              {{ section.settings.description }}
+            </div>
+          {% endunless %}
+          {% if section.settings.btn_primary_text != blank or section.settings.btn_secondary_text != blank %}
+            <div class="btn-wrapper">
+              {% unless section.settings.btn_primary_text == blank %}
+                <a
+                  class="btn {{ section.settings.btn_primary_style }}"
+                  href="{{ section.settings.btn_primary_url }}"
+                >
+                  {{ section.settings.btn_primary_text }}
+                </a>
+              {% endunless %}
+              {% unless section.settings.btn_secondary_text == blank %}
+                <a
+                  class="btn {{ section.settings.btn_secondary_style }}"
+                  href="{{ section.settings.btn_secondary_url }}"
+                >
+                  {{ section.settings.btn_secondary_text }}
+                </a>
+              {% endunless %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% endunless %}
+</parallax-media>
+
+{% schema %}
+{
+  "name": "Parallax media",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-3"
+    },
+    {
+      "type": "header",
+      "content": "Image",
+    },
+    {
+      "type": "image_picker",
+      "id": "img",
+      "label": "Image",
+    },
+    {
+      "type": "image_picker",
+      "id": "img_mobile",
+      "label": "Mobile image",
+      "info": "Optional, leave empty to use one image for all devices",
+    },
+    {
+      "type": "header",
+      "content": "Video",
+      "info": "NOTE: Either image or video can be used, not both."
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video" 
+    },
+    {
+      "type": "header",
+      "content": "Media height"
+    },
+    {
+      "type": "range",
+      "id": "media_height_mobile", 
+      "label": "Height - mobile",
+      "min": 200,
+      "max": 1000,
+      "step": 50,
+      "default": 500,
+      "unit": "px",
+    },
+    {
+      "type": "range",
+      "id": "media_height_desktop",
+      "label": "Height - desktop",
+      "min": 200,
+      "max": 1000,
+      "step": 50,
+      "default": 600,
+      "unit": "px",
+    },
+    {
+      "type": "header",
+      "content": "Media overlay"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Opacity",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "default": 30,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "overlay_blur",
+      "label": "Blur",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "select",
+      "id": "position_mobile",
+      "label": "Position - mobile",
+      "default": "center",
+      "options": [
+        { "value": "top", "label": "Top" },
+        { "value": "center", "label": "Center" },
+        { "value": "bottom", "label": "Bottom" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "position_desktop",
+      "label": "Position - desktop",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" },
+        { "value": "bottom", "label": "Bottom" }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Option subheading",
+    },
+    {
+      "type": "select",
+      "id": "subheading_font_size",
+      "label": "Suheading font-size",
+      "default": "fs-md",
+      "options": [
+        { "value": "fs-sm", "label": "sm" },
+        { "value": "fs-md", "label": "md" },
+        { "value": "fs-lg", "label": "lg" },
+        { "value": "fs-xl", "label": "xl" }
+      ],
+      "visible_if": "{{ section.settings.subheading != blank }}"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Parallax image/video"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "default": "h1",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" },
+        { "value": "h5", "label": "H5" },
+        { "value": "h6", "label": "H6" }
+      ],
+      "visible_if": "{{ section.settings.heading != blank }}",
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>An optional description for this slide</p>"
+    },
+    {
+      "type": "select",
+      "id": "description_font_size",
+      "label": "Description font-size",
+      "default": "fs-lg",
+      "options": [
+        { "value": "fs-sm", "label": "sm" },
+        { "value": "fs-md", "label": "md" },
+        { "value": "fs-lg", "label": "lg" },
+        { "value": "fs-xl", "label": "xl" }
+      ],
+      "visible_if": "{{ section.settings.description != blank }}"
+    },
+    {
+      "type": "header",
+      "content": "Primary button"
+    },
+    {
+      "type": "text",
+      "id": "btn_primary_text",
+      "label": "Button text",
+      "default": "Primary button",
+      "info": "Leave empty to disable"
+    },
+    {
+      "type": "url",
+      "id": "btn_primary_url",
+      "label": "Button URL",
+      "visible_if": "{{ section.settings.btn_primary_text != blank }}"
+    },
+    {
+      "type": "select",
+      "id": "btn_primary_style",
+      "label": "Button style",
+      "default": "btn-primary",
+      "options": [
+        { "value": "btn-primary", "label": "Primary" },
+        { "value": "btn-outline", "label": "Outline" },
+        { "value": "btn-accent", "label": "Accent" },
+        { "value": "btn-link", "label": "Link" }
+      ],
+      "visible_if": "{{ section.settings.btn_primary_text != blank }}"
+    },
+    {
+      "type": "header",
+      "content": "Secondary button"
+    },
+    {
+      "type": "text",
+      "id": "btn_secondary_text",
+      "label": "Button text",
+      "default": "Secondary button",
+      "info": "Leave empty to disable"
+    },
+    {
+      "type": "url",
+      "id": "btn_secondary_url",
+      "label": "Button URL",
+      "visible_if": "{{ section.settings.btn_secondary_text != blank }}"
+    },
+    {
+      "type": "select",
+      "id": "btn_secondary_style",
+      "label": "Button style",
+      "default": "btn-outline",
+      "options": [
+        { "value": "btn-primary", "label": "Primary" },
+        { "value": "btn-outline", "label": "Outline" },
+        { "value": "btn-accent", "label": "Accent" },
+        { "value": "btn-link", "label": "Link" }
+      ],
+      "visible_if": "{{ section.settings.btn_secondary_text != blank }}"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 0,
+      "unit": "rem"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 0,
+      "unit": "rem"
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "presets": [
+    {
+      "name": "Parallax media",
+      "category": "Image/Video",
+    }
+  ]
+}
+{% endschema %}

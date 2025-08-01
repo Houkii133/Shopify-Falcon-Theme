@@ -1,0 +1,154 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% if settings.product_card_show_form %}
+  {% case settings.product_card_atc_style %}
+    {% when 'quick_view' %}
+      {% if product.has_only_default_variant %}
+        <product-card-form class="product-card-form">
+          {% form 'product', product, data-productid: product.id %}
+            <input type="hidden" name="id" value="{{ product.first_available_variant.id }}">
+            <button
+              class="btn {{ settings.product_card_form_button_style }}"
+              type="submit"
+              name="add"
+              {% unless product.available %}
+                disabled
+              {% endunless %}
+            >
+              {% if product.available %}
+                {{ 'product.add_to_cart' | t }}
+              {% else %}
+                {{ 'product.sold_out' | t }}
+              {% endif %}
+            </button>
+          {% endform %}
+        </product-card-form>
+      {% else %}
+        <button 
+          class="btn btn-quick-view {{ settings.product_card_form_button_style }}"
+          name="quick-view"
+          data-product-url="{{ product.url }}"
+          aria-controls="quick-view-dialog"
+          aria-haspopup="dialog"
+          {% unless product.available %}
+            disabled
+          {% endunless %}
+        >
+          {% if product.available %}
+            {{ 'product.quick_view' | t }}
+          {% else %}
+            {{ 'product.sold_out' | t }}
+          {% endif %}
+        </button>
+      {% endif %}
+    {% when 'variant_selector' %}
+      <product-card-form 
+        class="product-card-form"
+        data-img-ratio="{{ settings.product_card_img_ratio }}">
+        {% form 'product', product, data-productid: product.id %}
+          {% if product.has_only_default_variant %}
+            <input type="hidden" name="id" value="{{ product.first_available_variant.id }}">
+          {% else %}
+            <div class="select-wrapper">
+              <select
+                name="id"
+                class="select fs-sm"
+                aria-label="{{ 'product.select_variant' | t }}"
+                {% unless product.available %}
+                  disabled
+                {% endunless %}
+              >
+                {% if product.available == false %}
+                  <option value="">{{ 'product.sold_out' | t }}</option>
+                {% else %}
+                  {% for variant in product.variants %}
+                    <option
+                      value="{{ variant.id }}"
+                      data-variant-image="
+                        {%- if variant.image -%}
+                        {%- render 'product-card-img', image: variant.image, only_src: true -%}
+                        {%- endif -%}
+                      "
+                      {% unless variant.available %}
+                        disabled
+                      {% endunless %}
+                    >
+                      {{ variant.title }}
+                      {% if product.price_varies %}
+                        - {{ variant.price | money_without_trailing_zeros }}
+                      {% endif %}
+                      {% unless variant.available %}({{ 'product.sold_out' | t }}){% endunless %}
+                    </option>
+                  {% endfor %}
+                {% endif %}
+              </select>
+              {% render 'svg-icons', icon: 'chevron-down', size: 16, stroke_width: 1.5 %}
+            </div>
+          {% endif %}
+          <button
+            class="btn {{ settings.product_card_form_button_style }}"
+            type="submit"
+            name="add"
+            {% unless product.available %}
+              disabled
+            {% endunless %}
+          >
+            {% if product.available %}
+              {{ 'product.add_to_cart' | t }}
+            {% else %}
+              {{ 'product.sold_out' | t }}
+            {% endif %}
+          </button>
+        {% endform %}
+      </product-card-form>
+    {% when 'options_selector' %}
+      <product-card-form 
+        class="product-card-form"
+        data-img-ratio="{{ settings.product_card_img_ratio }}">
+        {% form 'product', product, data-productid: product.id %}
+          <input type="hidden" name="id" value="{{ product.first_available_variant.id }}">
+          {% for option in product.options_with_values %}
+            <div class="select-wrapper">
+              <select
+                id="option-{{ option.name | handleize }}-{{ product.id }}-{{ section.id }}"
+                name="option-{{ option.name | handleize }}-{{ product.id }}-{{ section.id }}"
+                class="select fs-sm"
+                data-option-name="{{ option.name }}"
+                aria-label="{{ option.name }}"
+              >
+                {% for value in option.values %}
+                  <option value="{{ value | escape }}">
+                    {{ value }}
+                  </option>
+                {% endfor %}
+              </select>
+              {% render 'svg-icons', icon: 'chevron-down', size: 16, stroke_width: 1.5 %}
+            </div>
+          {% endfor %}
+          <button
+            class="btn {{ settings.product_card_form_button_style }}"
+            type="submit"
+            name="add"
+            data-text-add="{{ 'product.add_to_cart' | t }}"
+            data-text-sold-out="{{ 'product.sold_out' | t }}"
+            data-text-unavailable="{{ 'product.unavailable' | t }}"
+            {% unless product.available %}
+              disabled
+            {% endunless %}
+          >
+            {% if product.available %}
+              {{ 'product.add_to_cart' | t }}
+            {% else %}
+              {{ 'product.sold_out' | t }}
+            {% endif %}
+          </button>
+          <script data-product-variants-json type="application/json">
+            {{ product.variants | json }}
+          </script>
+        {% endform %}
+      </product-card-form>
+    {% endcase %}
+{% endif %}

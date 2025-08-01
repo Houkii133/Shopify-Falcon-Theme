@@ -1,0 +1,143 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+<style>
+  .page-content {
+    background-color: rgba(var(--color-background), 1);
+    background-image: var(--color-background-gradient);
+    color: rgba(var(--color-text), 1);
+  }
+
+  .page-content .heading {
+    margin: 0 0 .75rem;
+  }
+
+  .page-content .description {
+    margin: 0;
+  }
+
+  @media (max-width: 1199px) {
+    .page-content {
+      padding-top: calc(var(--padding-top) * 0.75);
+      padding-bottom: calc(var(--padding-bottom) * 0.75);
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .page-content {
+      padding-top: calc(var(--padding-top) * 1);
+      padding-bottom: calc(var(--padding-bottom) * 1);
+    }
+  }
+</style>
+ 
+<article
+  id="page-content-{{ section.id }}" 
+  class="page-content {{ section.settings.color_scheme | prepend: 'color-' }}"
+  style="
+    --padding-top: {{ section.settings.padding_top | append: 'rem' }};
+    --padding-bottom: {{ section.settings.padding_bottom | append: 'rem' }};
+  "
+  data-viewport-entered="false">
+  <div class="container {% if section.settings.container_narrow %}container-narrow{% endif %}">
+    {% if section.settings.show_heading %}
+      <h1 class="heading scroll-animate-fade-in-up {{ section.settings.heading_size }}">
+        {{ page.title }}
+      </h1>
+    {% endif %}
+    <div class="description rte scroll-animate-fade-in-up {{ section.settings.description_font_size }}">
+      {{ page.content }}
+    </div>
+  </div>
+</article>
+
+{% schema %}
+{
+  "name": "Page content",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "container_narrow",
+      "label": "Use narrow container",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "General"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_heading",
+      "label": "Show page heading",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "default": "h1",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" },
+        { "value": "h5", "label": "H5" },
+        { "value": "h6", "label": "H6" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "description_font_size",
+      "label": "Description font-size",
+      "default": "fs-md",
+      "options": [
+        { "value": "fs-sm", "label": "sm" },
+        { "value": "fs-md", "label": "md" },
+        { "value": "fs-lg", "label": "lg" },
+        { "value": "fs-xl", "label": "xl" },
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 2,
+      "unit": "rem"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 2,
+      "unit": "rem"
+    }
+  ],
+  "enabled_on": {
+    "templates": ["page"],
+  },
+  "presets": [
+    {
+      "name": "Page content",
+      "category": "Content",
+    }
+  ]
+}
+{% endschema %}

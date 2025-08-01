@@ -1,0 +1,100 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% if cart.item_count > 0 %}
+  {% liquid 
+    assign count_discounts = 0
+
+    for discount in cart.cart_level_discount_applications
+      if discount.type == 'discount_code'
+        assign count_discounts = count_discounts | plus: 1
+      endif
+    endfor
+  %}
+
+  <div
+    id="cart-block-{{ block.id }}"
+    class="cart-block"
+    data-type="{{ block.type }}"
+    data-is-collapse-block="true"
+    {{ block.shopify_attributes }}
+  >
+    <collapse-component>
+      <details>
+        <summary>
+          <span>
+            {% render 'svg-icons', icon: 'tag', size: 16, stroke_width: 1.5 %}
+            {{ block.settings.title }}
+            {% if count_discounts > 0 %}
+              ({{ count_discounts }})
+            {% endif %}
+          </span>
+          {% render 'svg-icons', icon: 'chevron-down', size: 16, stroke_width: 1.5 %}
+        </summary>
+        <div class="collapse-content">
+          <div class="collapse-content-inner">
+            <cart-discount class="cart-discount">
+              {% if cart.item_count == 0 %}
+                <div class="alert fs-sm" role="alert" data-alert-type="error">
+                  {{ 'cart.discount_form.empty_cart_message' | t }}
+                </div>
+              {% endif %}
+              <form method="post" action="{{ routes.cart_update_url }}">
+                <input
+                  type="text"
+                  name="discount"
+                  class="input fs-sm"
+                  placeholder="{{ 'cart.discount_form.label' | t }}"
+                  aria-label="{{ 'cart.discount_form.label' | t }}"
+                >
+                <button
+                  class="btn btn-sm {{ block.settings.btn_style }}"
+                  data-text-apply="{{ 'cart.discount_form.btn_apply' | t }}"
+                  data-text-applied="{{ 'cart.discount_form.btn_applied' | t }}"
+                  type="submit"
+                  {% if cart.item_count == 0 %}
+                    disabled
+                  {% endif %}
+                >
+                  {{ 'cart.discount_form.btn_apply' | t }}
+                </button>
+              </form>
+              <div
+                class="alert fs-sm"
+                role="alert"
+                aria-atomic="true"
+                data-alert-type="error"
+                hidden
+              >
+                {{ 'cart.discount_form.error_message' | t }}
+              </div>
+              {%- if cart.cart_level_discount_applications.size > 0 -%}
+                <ul
+                  class="cart-discount-list list-unstyled"
+                  aria-label="{{ 'cart.applied_discounts' | t }}"
+                >
+                  {%- for discount in cart.cart_level_discount_applications -%}
+                    {%- if discount.type == 'discount_code' -%}
+                      <li>
+                        <button 
+                          type="button" 
+                          class="btn btn-plain btn-sm btn-with-icon"
+                          aria-label="{{ 'cart.discount_form.remove_discount' | t: discount_code: discount.title }}">
+                          {% render 'svg-icons', icon: 'tag', size: 14 %}
+                          {{ discount.title | escape }}
+                          {% render 'svg-icons', icon: 'x', size: 20, stroke_width: 1.5 %}
+                        </button>
+                      </li>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </ul>
+              {%- endif -%}
+            </cart-discount>
+          </div>
+        </div>
+      </details>
+    </collapse-component>
+  </div>
+{% endif %}

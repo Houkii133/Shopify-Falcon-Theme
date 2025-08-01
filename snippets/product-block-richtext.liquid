@@ -1,0 +1,38 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+<div
+  id="product-block-{{ block.id }}"
+  class="product-block"
+  style="
+    --padding-top: {{ block.settings.padding_top | append: 'rem' }};
+    --padding-bottom: {{ block.settings.padding_bottom | append: 'rem' }};
+  "
+  data-type="{{ block.type }}"
+  {{ block.shopify_attributes }}
+>
+  <div
+    class="inner {{ block.settings.color_scheme | prepend: 'color-' }}"
+    style="
+      --border-width: {{ block.settings.border_width | append: 'px' }};
+      --border-opacity: {{ block.settings.border_opacity }};
+      --inner-padding: {{ block.settings.inner_padding | append: 'rem' }};
+      --text-align: {{ block.settings.text_align }};
+      --text-transform: {{ block.settings.text_transform }};
+      --letter-spacing: {{ block.settings.letter_spacing | divided_by: 100.0 | append: 'rem' }};
+    "
+  >
+    {% unless block.settings.heading == blank %}
+      <h3 class="heading {{ block.settings.heading_size }}">
+        {{ block.settings.heading }}
+      </h3>
+    {% endunless %}
+    {% unless block.settings.description == blank %}
+      <div class="description rte {{ block.settings.description_font_size }}">
+        {{ block.settings.description }}
+      </div>
+    {% endunless %}
+  </div>
+</div>

@@ -1,0 +1,75 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% liquid
+  assign product = block.settings.product
+  assign is_in_cart = false
+
+  for line_item in cart.items
+    if line_item.product.handle == product.handle
+      assign is_in_cart = true
+    endif
+  endfor
+
+  assign price = product.price | money
+  assign desription = block.settings.description | replace: '[price]', price
+%}
+
+{% if product != null and is_in_cart == false %}
+  <div
+    id="cart-block-{{ block.id }}"
+    class="cart-block"
+    data-type="{{ block.type }}"
+    data-is-collapse-block="true"
+    {{ block.shopify_attributes }}
+  >
+    <collapse-component>
+      <details>
+        <summary>
+          <span>
+            {% render 'svg-icons', icon: 'gift', size: 16, stroke_width: 1.5 %}
+            {{ block.settings.title }}
+          </span>
+          {% render 'svg-icons', icon: 'chevron-down', size: 16, stroke_width: 1.5 %}
+        </summary>
+        <div class="collapse-content">
+          <div class="collapse-content-inner">
+            <cart-gift-upsell class="cart-gift-upsell">
+              <a href="{{ product.url }}" tabindex="-1">
+                <div class="img-wrapper">
+                  {% render 'product-card-img', image: product.featured_image %}
+                </div>
+              </a>
+              <div class="cart-gift-upsell-inner">
+                <div class="description rte">
+                  {{ desription }}
+                </div>
+                <product-card-form class="product-card-form">
+                  {% form 'product', product %}
+                    <input type="hidden" name="id" value="{{ product.first_available_variant.id }}">
+                    <button
+                      class="btn btn-sm btn-full {{ block.settings.btn_style }}"
+                      type="submit"
+                      name="add"
+                      {% unless product.available %}
+                        disabled
+                      {% endunless %}
+                    >
+                      {% if product.available %}
+                        {{ 'product.add_to_cart' | t }}
+                      {% else %}
+                        {{ 'product.sold_out' | t }}
+                      {% endif %}
+                    </button>
+                  {% endform %}
+                </product-card-form>
+              </div>
+            </cart-gift-upsell>
+          </div>
+        </div>
+      </details>
+    </collapse-component>
+  </div>
+{% endif %}

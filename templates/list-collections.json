@@ -1,0 +1,177 @@
+{
+  "sections": {
+    "collection_list_x3neh4": {
+      "type": "collection-list",
+      "blocks": {
+        "collection_Yx3aXY": {
+          "type": "collection",
+          "settings": {
+            "collection": "men",
+            "title": ""
+          }
+        },
+        "collection_kEPMBG": {
+          "type": "collection",
+          "settings": {
+            "collection": "women",
+            "title": ""
+          }
+        },
+        "collection_zLAaxJ": {
+          "type": "collection",
+          "settings": {
+            "collection": "children",
+            "title": ""
+          }
+        },
+        "collection_77TdDm": {
+          "type": "collection",
+          "settings": {
+            "collection": "children",
+            "title": ""
+          }
+        },
+        "collection_UaeYbJ": {
+          "type": "collection",
+          "settings": {
+            "collection": "latest-arrivals",
+            "title": ""
+          }
+        },
+        "collection_fBKC33": {
+          "type": "collection",
+          "settings": {
+            "collection": "best-selling",
+            "title": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_Yx3aXY",
+        "collection_kEPMBG",
+        "collection_zLAaxJ",
+        "collection_77TdDm",
+        "collection_UaeYbJ",
+        "collection_fBKC33"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "full_width": false,
+        "view_all_link": "",
+        "header_alignment": "left",
+        "heading": "Popular collections",
+        "heading_size": "h3",
+        "description": "",
+        "description_font_size": "fs-md",
+        "carousel_mobile_cols": 1,
+        "carousel_desktop_cols": 3,
+        "carousel_mobile_stack": true,
+        "carousel_desktop_stack": true,
+        "carousel_controls_style": "outline",
+        "show_controls_on_mobile": false,
+        "show_pagination": true,
+        "collection_card_alignment": "left",
+        "collection_card_img_ratio": "adapt",
+        "collection_card_show_title": true,
+        "collection_card_title_style": "overlay",
+        "collection_card_title_font_size": "fs-md",
+        "collection_card_title_font": "headings",
+        "collection_card_title_text_transform": "none",
+        "collection_card_title_letter_spacing": 5,
+        "collection_card_show_product_count": true,
+        "padding_top": 2,
+        "padding_bottom": 2
+      }
+    },
+    "separator_JCCbVY": {
+      "type": "separator",
+      "settings": {
+        "color_scheme": "",
+        "line_height": 1,
+        "line_opacity": 20,
+        "line_style": "gradient",
+        "full_width": false,
+        "icon": "leaf-1",
+        "icon_size": 36,
+        "padding_top": 2,
+        "padding_bottom": 0.6
+      }
+    },
+    "collection_circles_6nBVi9": {
+      "type": "collection-circles",
+      "blocks": {
+        "collection_nTzaEJ": {
+          "type": "collection",
+          "settings": {
+            "collection": "men",
+            "title": ""
+          }
+        },
+        "collection_tPnpf9": {
+          "type": "collection",
+          "settings": {
+            "collection": "women",
+            "title": ""
+          }
+        },
+        "collection_JjUHMP": {
+          "type": "collection",
+          "settings": {
+            "collection": "children",
+            "title": ""
+          }
+        },
+        "collection_iYDQqG": {
+          "type": "collection",
+          "settings": {
+            "collection": "babies",
+            "title": ""
+          }
+        },
+        "collection_xKR4jV": {
+          "type": "collection",
+          "settings": {
+            "collection": "latest-arrivals",
+            "title": ""
+          }
+        },
+        "collection_bcLVBx": {
+          "type": "collection",
+          "settings": {
+            "collection": "best-selling",
+            "title": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_nTzaEJ",
+        "collection_tPnpf9",
+        "collection_JjUHMP",
+        "collection_iYDQqG",
+        "collection_xKR4jV",
+        "collection_bcLVBx"
+      ],
+      "name": "Collection circles",
+      "settings": {
+        "menu": "",
+        "color_scheme": "",
+        "full_width": false,
+        "header_alignment": "center",
+        "heading": "Trending Collections",
+        "heading_size": "h3",
+        "description": "<p>An optional description for this section<\/p>",
+        "description_font_size": "fs-md",
+        "img_size": 120,
+        "item_title_font_size": "fs-sm",
+        "item_show_product_count": true,
+        "padding_top": 2,
+        "padding_bottom": 2.4
+      }
+    }
+  },
+  "order": [
+    "collection_list_x3neh4",
+    "separator_JCCbVY",
+    "collection_circles_6nBVi9"
+  ]
+}

@@ -1,0 +1,92 @@
+/*
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+*/
+
+.richtext {
+  background-color: rgba(var(--color-background), 1);
+  background-image: var(--color-background-gradient, none);
+  color: rgba(var(--color-text), 1);
+  text-align: var(--text-align);
+}
+
+.richtext .subheading {
+  margin: 0.25rem 0;
+}
+
+.richtext .heading {
+  margin: 0;
+}
+
+.richtext .description {
+  margin-top: 0.6rem;
+}
+
+.richtext .btn-wrapper {
+  margin-top: 1.5rem;
+  display: inline-flex;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.richtext .media-wrapper {
+  display: inline-flex;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.richtext [data-index="0"] .media-wrapper {
+  margin-top: 0;
+}
+
+.richtext .media-wrapper a {
+  display: block;
+  border-radius: var(--border-radius);
+}
+
+.richtext .media-wrapper img {
+  display: block;
+  border-radius: var(--border-radius);
+  transition: all 0.2s ease-out;
+}
+
+.richtext .media-wrapper a:hover img:hover {
+  opacity: 0.9;
+}
+
+.richtext .media-wrapper video {
+  display: block;
+  border-radius: var(--border-radius);
+  max-width: 100%;
+  height: auto;
+}
+
+.richtext .media-wrapper iframe {
+  display: block;
+  border-radius: var(--border-radius);
+}
+
+.richtext .media-wrapper .placeholder-svg {
+  display: block;
+  width: 2400px;
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--border-radius);
+}
+
+/* Responsive */
+@media (max-width: 1199px) {
+  .richtext {
+    padding-top: calc(var(--padding-top) * 0.75);
+    padding-bottom: calc(var(--padding-bottom) * 0.75);
+  }
+}
+
+@media (min-width: 1200px) {
+  .richtext {
+    padding-top: calc(var(--padding-top) * 1);
+    padding-bottom: calc(var(--padding-bottom) * 1);
+  }
+}

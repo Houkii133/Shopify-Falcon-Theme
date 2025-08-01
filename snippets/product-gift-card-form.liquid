@@ -1,0 +1,102 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+  document.querySelector('#product-gift-card-form-collapse').addEventListener('show.bs.collapse', () => {
+    document.querySelectorAll('#product-gift-card-form [data-required]').forEach(elem => {
+      elem.required = true
+    })
+    document.querySelectorAll('#product-gift-card-form [data-name]').forEach(elem => {
+      elem.setAttribute('name', elem.dataset.name)
+    })
+    document.querySelector('input[name="properties[__shopify_send_gift_card_to_recipient]"]').value = 'true'
+  })
+  document.querySelector('#product-gift-card-form-collapse').addEventListener('hide.bs.collapse', () => {
+    document.querySelectorAll('#product-gift-card-form [data-required]').forEach(elem => {
+      elem.required = false
+    })
+    document.querySelectorAll('#product-gift-card-form [data-name]').forEach(elem => {
+      if (!elem.value.length) {
+        elem.removeAttribute('name')
+      }
+    })
+    document.querySelector('input[name="properties[__shopify_send_gift_card_to_recipient]"]').value = ''
+    })
+  })
+</script>
+  
+<input type="hidden" name="properties[__shopify_send_gift_card_to_recipient]" value="true">
+  
+<div
+  id="product-gift-card-form"
+  class="mb-6">
+  <button 
+    class="btn btn-outline-primary w-100 d-inline-flex align-items-center justify-content-center" 
+    type="button" 
+    data-bs-toggle="collapse" 
+    data-bs-target="#product-gift-card-form-collapse" 
+    aria-expanded="false" 
+    aria-controls="product-gift-card-form-collapse">
+    {% render 'svg-icons', icon: 'gift', size: 20, stroke_width: 1.5, class: 'me-4' %}
+    {{ 'product.gift_card.btn_label' | t }}
+  </button>
+  <div id="product-gift-card-form-collapse" class="collapse">
+    <div 
+      class="card card-body bg-primary mt-6"
+      style="--bs-bg-opacity: 10%;">
+      <div class="form-floating mb-5">
+        <input 
+          id="gift-card-form-email"
+          type="email" 
+          class="form-control" 
+          data-name="properties[Recipient email]"
+          value="{{- form.email -}}"
+          placeholder=" {{ 'product.gift_card.email_label' | t }}"
+          data-required>
+        <label for="gift-card-form-email" class="form-label">
+          {{ 'product.gift_card.email_label' | t }}
+        </label>
+      </div>
+      <div class="form-floating mb-5">
+        <input 
+          id="gift-card-form-name"
+          type="text" 
+          data-name="properties[Recipient name]"
+          value="{{- form.name -}}"
+          class="form-control" 
+          placeholder="{{ 'product.gift_card.name_label' | t }}">
+          <label for="gift-card-form-name" class="form-label">
+            {{ 'product.gift_card.name_label' | t }}
+          </label>
+      </div>
+      <div class="form-floating mb-5">
+        <textarea 
+          id="gift-card-form-message"
+          rows="6"
+          data-name="properties[Message]"
+          class="form-control" 
+          placeholder="{{ 'product.gift_card.message_label' | t }}"
+          style="height: 140px">{{- form.message -}}</textarea>
+          <label for="gift-card-form-message" class="form-label">
+            {{ 'product.gift_card.message_label' | t }}
+          </label>
+      </div>
+      <div class="form-floating mb-0">
+        <input 
+          id="gift-card-form-date"
+          type="date" 
+          pattern="\d{4}-\d{2}-\d{2}"
+          data-name="properties[Send on]"
+          value="{{- form.send_on -}}"
+          class="form-control" 
+          placeholder="{{ 'product.gift_card.date_placeholder' | t }}">
+        <label for="gift-card-form-date" class="form-label">
+          {{ 'product.gift_card.date_label' | t }}
+        </label>
+      </div>
+    </div>
+  </div>
+</div>

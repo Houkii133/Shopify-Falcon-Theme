@@ -1,0 +1,72 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% liquid
+  assign current_variant = product.selected_or_first_available_variant
+
+  if current_variant.available == false
+    assign text = 'product.inventory_bar.no_stock' | t
+    assign color = block.settings.color_sold_out
+    assign percentage = 0
+  elsif current_variant.inventory_management == null or current_variant.inventory_policy == 'continue'
+    assign text = 'product.inventory_bar.untracked_stock' | t
+    assign color = block.settings.color_has_stock
+    assign percentage = 50
+  elsif current_variant.inventory_quantity <= block.settings.low_stock_threshold
+    assign text = 'product.inventory_bar.low_stock_count' | t: count: current_variant.inventory_quantity
+    assign color = block.settings.color_low_stock
+    assign percentage = current_variant.inventory_quantity | times: 1.0 | divided_by: block.settings.max_stock | times: 100 | round
+  else
+    assign text = 'product.inventory_bar.normal_stock_count' | t: count: current_variant.inventory_quantity
+    assign color = block.settings.color_has_stock
+    if current_variant.inventory_quantity > block.settings.max_stock
+      assign percentage = 100
+    else
+      assign percentage = current_variant.inventory_quantity | times: 1.0 | divided_by: block.settings.max_stock | times: 100 | round
+    endif
+  endif
+
+  assign color = color.red | append: ', ' | append: color.green | append: ', ' | append: color.blue
+%}
+
+<div
+  id="product-block-{{ block.id }}"
+  class="product-block"
+  style="
+    --padding-top: {{ block.settings.padding_top | append: 'rem' }};
+    --padding-bottom: {{ block.settings.padding_bottom | append: 'rem' }};
+  "
+  data-type="{{ block.type }}"
+  {{ block.shopify_attributes }}
+>
+  <inventory-bar
+    id="inventory-bar-{{ block.id }}"
+    class="inventory-bar"
+    style="--color: {{ color }};"
+    data-colored-text="{% if block.settings.colored_text %}true{% else %}false{% endif %}"
+    data-block-id="{{ block.id }}"
+  >
+    <p
+      id="ks-inventory-bar-text-{{ block.id }}"
+      class="inventory-bar-text"
+    >
+      {{ text | replace: '[', '<b>' | replace: ']', '</b>' }}
+    </p>
+    <div
+      class="progress"
+      style="--height: {{ block.settings.progress_height | append: 'px' }}"
+      role="progressbar"
+      aria-valuemin="0"
+      aria-valuemax="{{ block.settings.max_stock }}"
+      aria-valuenow="{{ percentage }}"
+    >
+      <div
+        class="progress-bar progress-bar-animated progress-bar-striped"
+        data-width="{{ percentage | append: '%' }}"
+        style="width: {% if block.settings.animate_progress_width %}100%{% else %}{{ percentage | append: '%' }}{% endif %};"
+      ></div>
+    </div>
+  </inventory-bar>
+</div>

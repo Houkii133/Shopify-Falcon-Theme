@@ -1,0 +1,215 @@
+{
+  "sections": {
+    "ba94d905-ea2f-4198-8472-5296b1853fb5": {
+      "type": "contact-form-builder",
+      "blocks": {
+        "name_MMqek8": {
+          "type": "name",
+          "settings": {
+            "label": "Your Name",
+            "placeholder": "John Doe",
+            "required": true
+          }
+        },
+        "email_KhRkDA": {
+          "type": "email",
+          "settings": {
+            "label": "Your Email",
+            "placeholder": "info@domain.com",
+            "required": true
+          }
+        },
+        "phone_xK3gAh": {
+          "type": "phone",
+          "settings": {
+            "label": "Your Phone (optional)",
+            "placeholder": "+1 (555) 555-5555",
+            "required": false
+          }
+        },
+        "separator_nW9xEn": {
+          "type": "separator",
+          "disabled": true,
+          "settings": {
+            "opacity": 15,
+            "height": 1,
+            "padding_top": 0,
+            "padding_bottom": 1
+          }
+        },
+        "text_dGXRKe": {
+          "type": "text",
+          "settings": {
+            "text_align": "left",
+            "heading": "Build Powerful Forms",
+            "heading_size": "h4",
+            "description": "<p>With our powerful form builder section you can build custom advanced forms and adjust their fields exactly as you need<\/p>",
+            "description_font_size": "fs-md",
+            "padding_top": 0,
+            "padding_bottom": 1
+          }
+        },
+        "input_6iXJGp": {
+          "type": "input",
+          "settings": {
+            "label": "Your Subject",
+            "placeholder": "Input Placeholder",
+            "required": true
+          }
+        },
+        "message_cVB39N": {
+          "type": "message",
+          "settings": {
+            "label": "Your Message",
+            "placeholder": "Write your message here...",
+            "height": 200,
+            "required": true,
+            "pt": 0,
+            "pb": 5
+          }
+        },
+        "date_VMQYLj": {
+          "type": "date",
+          "settings": {
+            "label": "Date",
+            "required": true
+          }
+        },
+        "select_8HheLQ": {
+          "type": "select",
+          "settings": {
+            "label": "Planet",
+            "options": "Earth, Mars, Venus"
+          }
+        },
+        "checkbox_HrT3hm": {
+          "type": "checkbox",
+          "settings": {
+            "label": "Country",
+            "options": "United States, Canada, France"
+          }
+        },
+        "separator_mQhPaj": {
+          "type": "separator",
+          "settings": {
+            "opacity": 15,
+            "height": 1,
+            "padding_top": 0.2,
+            "padding_bottom": 0.8
+          }
+        },
+        "radio_xiMUgB": {
+          "type": "radio",
+          "settings": {
+            "label": "City",
+            "options": "New York, Toronto, Paris"
+          }
+        },
+        "button_JTgfjB": {
+          "type": "button",
+          "settings": {
+            "text": "Send",
+            "btn_style": "btn-primary",
+            "full_width": true
+          }
+        }
+      },
+      "block_order": [
+        "name_MMqek8",
+        "email_KhRkDA",
+        "phone_xK3gAh",
+        "separator_nW9xEn",
+        "text_dGXRKe",
+        "input_6iXJGp",
+        "message_cVB39N",
+        "date_VMQYLj",
+        "select_8HheLQ",
+        "checkbox_HrT3hm",
+        "separator_mQhPaj",
+        "radio_xiMUgB",
+        "button_JTgfjB"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "container_narrow": true,
+        "success_msg": "<p>Thanks for contacting us. We'll get back to you as soon as possible.<\/p>",
+        "header_alignment": "left",
+        "heading": "Contact us",
+        "heading_size": "h1",
+        "description": "<p>Complete the following form to send us a message.<\/p>",
+        "description_font_size": "fs-md",
+        "padding_top": 2,
+        "padding_bottom": 2
+      }
+    },
+    "5d7e9d3e-ba1d-498d-a3fd-144ce2e406e5": {
+      "type": "separator",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "line_height": 1,
+        "line_opacity": 25,
+        "line_style": "gradient",
+        "full_width": false,
+        "icon": "leaf-1",
+        "icon_size": 36,
+        "padding_top": 2,
+        "padding_bottom": 1
+      }
+    },
+    "9b5ef318-8d23-40cd-a163-d1f62c2d0834": {
+      "type": "richtext",
+      "blocks": {
+        "subheading_CJTc7V": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "Optional Subheading",
+            "font_size": "fs-sm"
+          }
+        },
+        "heading_LtKQiT": {
+          "type": "heading",
+          "settings": {
+            "heading": "More Ways To Connect!",
+            "heading_size": "h2"
+          }
+        },
+        "description_NYY4Lm": {
+          "type": "description",
+          "settings": {
+            "description": "<p>Take the time to read our Frequently Asked Questions (FAQ) or visit our about us page.<\/p>",
+            "font_size": "fs-lg"
+          }
+        },
+        "buttons_VWzLYa": {
+          "type": "buttons",
+          "settings": {
+            "primary_btn_text": "Read FAQs",
+            "primary_btn_url": "shopify:\/\/pages\/faqs",
+            "primary_btn_style": "btn-primary",
+            "secondary_btn_text": "About us",
+            "secondary_btn_url": "shopify:\/\/pages\/about-us",
+            "secondary_btn_style": "btn-outline"
+          }
+        }
+      },
+      "block_order": [
+        "subheading_CJTc7V",
+        "heading_LtKQiT",
+        "description_NYY4Lm",
+        "buttons_VWzLYa"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "container_narrow": true,
+        "text_align": "center",
+        "padding_top": 1.6,
+        "padding_bottom": 3.2
+      }
+    }
+  },
+  "order": [
+    "ba94d905-ea2f-4198-8472-5296b1853fb5",
+    "5d7e9d3e-ba1d-498d-a3fd-144ce2e406e5",
+    "9b5ef318-8d23-40cd-a163-d1f62c2d0834"
+  ]
+}

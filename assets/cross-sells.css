@@ -1,0 +1,222 @@
+/*
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+*/
+
+.cross-sells {
+  display: block;
+  background-color: rgba(var(--color-background), 1);
+  background-image: var(--color-background-gradient, none);
+  color: rgba(var(--color-text), 1);
+}
+
+.cross-sells-list-images {
+}
+
+.cross-sells-list-images-item-inner {
+  position: relative;
+  transition: all 0.2s ease-out;
+}
+
+.cross-sells-list-images-item-inner:not(.active) {
+  opacity: 0.2 !important;
+}
+
+.cross-sells-list-images-item-inner .img-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--border-radius);
+}
+
+.cross-sells-list-images-item-inner .img-wrapper img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.2s ease-out;
+}
+
+.cross-sells-list-images-item-inner a:hover .img-wrapper img {
+  transform: scale(1.05);
+}
+
+.cross-sells-list-images-item-inner .badge-custom {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  white-space: nowrap;
+  border-radius: 0;
+  border-bottom-left-radius: var(--border-radius-safe);
+  border-bottom-right-radius: var(--border-radius-safe);
+  z-index: 1;
+}
+
+.cross-sells-list-images-item-inner .badge-sale {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  border-radius: 0;
+  background-color: rgba(var(--color-accent), 0.75);
+  backdrop-filter: blur(5px);
+  border-top-right-radius: var(--border-radius-safe);
+  z-index: 1;
+}
+
+.cross-sells-secondary-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 800px;
+}
+
+.cross-sells-secondary-list-item {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.cross-sells-list-images-item:not(:last-child)::after {
+  content: "+";
+  position: absolute;
+  top: 50%;
+  right: -2rem;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(var(--color-text), 0.75);
+}
+
+.cross-sells-secondary-list-item:first-child {
+  font-weight: 600;
+}
+
+.cross-sells-secondary-list-item .check-label {
+  padding: 0;
+}
+
+.cross-sells-secondary-list-item-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.cross-sells-secondary-list-item-inner .select-wrapper {
+  width: auto;
+  flex-shrink: 0;
+}
+
+.cross-sells-secondary-list-item-inner .select {
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+}
+
+.cross-sells-secondary-list-item-inner .product-card-price {
+  flex-shrink: 0;
+}
+
+.cross-sells-secondary-list-item-inner .product-card-price .price-compare {
+  margin: 0 0 0 0.125rem;
+}
+
+.cross-sells-footer {
+  text-align: center;
+}
+
+.cross-sells-footer .alert {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.cross-sells-footer-price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cross-sells-footer-price s {
+  opacity: 0.5;
+  margin-right: 0.25rem;
+}
+
+.cross-sells-footer-savings {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: -0.5rem;
+}
+
+.cross-sells-footer button {
+  width: 100%;
+}
+
+@media (max-width: 599px) {
+  .cross-sells {
+    padding-top: calc(var(--padding-top) * 0.75);
+    padding-bottom: calc(var(--padding-bottom) * 0.75);
+  }
+  .cross-sells-list-images {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 2rem;
+    list-style: none;
+    padding: 0 1rem 0.5rem;
+    margin: 0 -1rem 1rem;
+    overflow: auto;
+  }
+  .cross-sells-list-images-item {
+    width: 34vw;
+    flex-shrink: 0;
+  }
+  .cross-sells-footer {
+    margin-top: 1.25rem;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 1199px) {
+  .cross-sells {
+    padding-top: calc(var(--padding-top) * 0.75);
+    padding-bottom: calc(var(--padding-bottom) * 0.75);
+  }
+  .cross-sells-list-images {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 2rem;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem;
+  }
+  .cross-sells-footer {
+    margin-top: 1.25rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .cross-sells {
+    padding-top: calc(var(--padding-top) * 1);
+    padding-bottom: calc(var(--padding-bottom) * 1);
+  }
+  .cross-sells .inner {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    align-items: center;
+    margin: 0 0 1.75rem;
+  }
+  .cross-sells-list-images {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 2rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+}

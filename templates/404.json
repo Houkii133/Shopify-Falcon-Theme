@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "richtext": {
+      "type": "richtext",
+      "settings": {
+        "color_scheme": "",
+        "container_narrow": true,
+        "text_align": "center",
+        "padding_top": 4,
+        "padding_bottom": 4
+      }
+    }
+  },
+  "order": [
+    "richtext"
+  ]
+}

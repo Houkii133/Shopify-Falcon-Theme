@@ -1,0 +1,212 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+ 
+<div
+  id="cart-block-{{ block.id }}"
+  class="cart-block"
+  style="
+    --padding-top: {{ block.settings.padding_top | append: 'rem' }};
+    --padding-bottom: {{ block.settings.padding_bottom | append: 'rem' }};
+  "
+  data-type="{{ block.type }}"
+  {{ block.shopify_attributes }}
+>
+  {% if cart.item_count == 0 %}
+    <div class="cart-empty">
+      <div class="svg-wrapper">
+        {% render 'svg-icons', icon: 'cart', size: 20, stroke_width: 1.6 %}
+      </div>
+      <div class="description rte fs-md">
+        {{ 'cart.empty_html' | t }}
+      </div>
+      <button class="btn btn-outline" type="button" data-dialog-close>
+        {{ 'cart.continue_shopping' | t }}
+      </button>
+    </div>
+  {% else %}
+    <ul
+      class="cart-items"
+      aria-label="{{ 'accessibility.cart_items' | t }}"
+    >
+      {% for line_item in cart.items %}
+        <li class="cart-item">
+          <div class="cart-item-inner">
+            <a href="{{ line_item.url }}" tabindex="-1">
+              <div class="img-wrapper">
+                {% render 'product-card-img', image: line_item.image %}
+              </div>
+            </a>
+            <div class="cart-item-right">
+              <div class="cart-item-title-wrapper">
+                <h3 class="cart-item-title heading h6">
+                  <a href="{{ line_item.url }}">
+                    {{ line_item.product.title }}
+                  </a>
+                </h3>
+                {% unless line_item.product.has_only_default_variant %}
+                  <p class="cart-item-variant-title fs-sm">
+                    <span>
+                      {{ line_item.variant.title }}
+                    </span>
+                    {% if block.settings.variant_switcher and line_item.product.has_only_default_variant == false %}
+                      -
+                      <a
+                        class="cart-item-variant-change-btn link"
+                        data-open-dialog="cart-items-variant-switcher-modal-{{ forloop.index0 }}"
+                        aria-controls="cart-items-variant-switcher-modal-{{ forloop.index0 }}"
+                        role="button"
+                        href="#"
+                        role="button"
+                        aria-haspopup="true"
+                        aria-controls="dialog"
+                      >
+                        {{ 'cart.variant_switcher.button_label' | t }}
+                      </a>
+                    {% endif %}
+                  </p>
+                {% endunless %}
+                {% unless line_item.selling_plan_allocation == null %}
+                  <p class="cart-item-selling-plan fs-sm">
+                    {{ line_item.selling_plan_allocation.selling_plan.name }}
+                  </p>
+                {% endunless %}
+                {% unless line_item.properties == empty %}
+                  <ul class="cart-item-properties fs-sm">
+                    {% for property in line_item.properties %}
+                      {% assign first_character_in_key = property.first | slice: 0 %}
+                      {% unless first_character_in_key == '_' %}
+                        <li>
+                          {% if property.last contains 'https' %}
+                            {{ property.first }}:
+                            <a href="{{ property.last }}" target="_blank" class="link">
+                              {{ 'cart.property_view_file' | t }}
+                            </a>
+                          {% else %}
+                            {{ property.first }}: {{ property.last }}
+                          {% endif %}
+                        </li>
+                      {% endunless %}
+                    {% endfor %}
+                  </ul>
+                {% endunless %}
+                <button
+                  class="btn btn-icon cart-item-remove-btn"
+                  type="button"
+                  data-line-item-key="{{ line_item.key }}"
+                  aria-label="{{ 'general.remove' | t }}"
+                >
+                  <div class="animated-bin-icon">
+                    <span> </span>
+                    <span> </span>
+                  </div>
+                </button>
+              </div>
+              {% if block.settings.low_stock_threshold > 0 %}
+                {% if line_item.variant.inventory_policy == 'deny' and line_item.variant.inventory_quantity <= block.settings.low_stock_threshold %}
+                  <p class="cart-item-stock-info fs-sm alert-text" data-alert-type="warning">
+                    {% render 'svg-icons', icon: 'alert-circle', size: 14 %}
+                    <span>
+                      {{ 'product.inventory_bar.low_stock_count' | t: count: line_item.variant.inventory_quantity | replace: '[', '<b>' | replace: ']', '</b>' }}
+                    </span>
+                  </p>
+                {% endif %}
+              {% endif %}
+              {% if line_item.line_level_discount_allocations.size > 0 %}
+                <ul
+                  class="cart-item-discounts alert list-unstyled fs-sm"
+                  data-alert-type="success"
+                  aria-label="{{ 'cart.applied_discounts' | t }}"
+                >
+                  {%- for discount in line_item.line_level_discount_allocations -%}
+                    <li class="">
+                      {% render 'svg-icons', icon: 'tag', size: 12, class: 'me-1' %}
+                      {{ discount.discount_application.title }}
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              {% endif %}
+              <div class="cart-item-qty-switcher-wrapper">
+                <line-item-qty-switcher
+                  class="qty-switcher"
+                  role="group"
+                  aria-label="{{ 'product.quantity.label' | t }}"
+                >
+                  <button
+                    class="btn btn-outline"
+                    type="button"
+                    name="decrease"
+                    aria-label="{{ 'product.quantity.decrease' | t }}"
+                  >
+                    {% render 'svg-icons', icon: 'minus', size: 14 %}
+                  </button>
+                  <input
+                    class="input"
+                    name="updates[]"
+                    type="number"
+                    value="{{ line_item.quantity }}"
+                    min="0"
+                    aria-label="{{ 'product.quantity.label' | t }}"
+                    data-line-item-key="{{ line_item.key }}"
+                    data-focus-element-id="qty-input-{{ line_item.variant_id }}"
+                  >
+                  <button
+                    class="btn btn-outline"
+                    type="button"
+                    name="increase"
+                    aria-label="{{ 'product.quantity.increase' | t }}"
+                  >
+                    {% render 'svg-icons', icon: 'plus', size: 14 %}
+                  </button>
+                </line-item-qty-switcher>
+                <p class="cart-item-price price">
+                  {% if line_item.original_line_price > line_item.final_line_price %}
+                    <s class="price-compare">
+                      <span class="visually-hidden"> {{ 'cart.regular_price' | t }} &nbsp; </span>
+                      <span>{{ line_item.original_line_price | money }}</span>
+                    </s>
+                    <span class="price-sale">
+                      <span class="visually-hidden"> {{ 'cart.sale_price' | t }} &nbsp; </span>
+                      <span>{{ line_item.final_line_price | money }}</span>
+                    </span>
+                  {% else %}
+                    <span class="price-regular">
+                      {{ line_item.final_line_price | money }}
+                    </span>
+                  {% endif %}
+                </p>
+              </div>
+            </div>
+          </div>
+          {% if block.settings.upgrade_to_sub %}
+            {% unless line_item.selling_plan_allocation == empty or line_item.variant.selling_plan_allocations == null or line_item.variant.selling_plan_allocations == empty %}
+              {% if line_item.selling_plan_allocation == null and line_item.variant.selling_plan_allocations != null %}
+                <div class="cart-item-upgrade-to-sub">
+                  {% render 'svg-icons', icon: 'corner-left-up', size: 18 %}
+                  <div class="select-wrapper">
+                    <select
+                      class="select fs-sm"
+                      aria-label="{{ 'cart.subscribe_and_save' | t }}"
+                      data-line-item-key="{{ line_item.key }}"
+                      data-variant-id="{{ line_item.variant.id }}"
+                      data-quantity="{{ line_item.quantity }}"
+                    >
+                      <option>
+                        {{ 'cart.subscribe_and_save' | t }}
+                      </option>
+                      {% for selling_plan_allocation in line_item.variant.selling_plan_allocations %}
+                        <option value="{{ selling_plan_allocation.selling_plan.id }}">{{ selling_plan_allocation.selling_plan.name }} - {{ selling_plan_allocation.price | money }}</option>
+                      {% endfor %}
+                    </select>
+                    {% render 'svg-icons', icon: 'chevron-down', size: 16, stroke_width: 1.5 %}
+                  </div>
+                </div>
+              {% endif %}
+            {% endunless %}
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</div>

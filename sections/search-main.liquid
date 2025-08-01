@@ -1,0 +1,236 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+ 
+<div 
+  id="search-main" 
+  class="search-main">
+  <header class="section-header {{ section.settings.header_color_scheme | prepend: 'color-' }}"
+    style="
+      padding-top: {{ section.settings.header_padding_top | append: 'rem'}};
+      padding-bottom: {{ section.settings.header_padding_bottom | append: 'rem' }};
+    ">
+    <div class="container container-narrow">
+      <h1 class="heading {{ section.settings.header_heading_size }}">
+        {% if search.performed %}
+          {{ 'search.search_page.title_search_performed' | t }}
+        {% else %}
+          {{ 'search.search_page.title' | t }}
+        {% endif %}
+      </h1>
+      <form action="{{ routes.search_url }}" class="search-form" method="get" role="search">
+        <input name="options[prefix]" type="hidden" value="last">
+        <input type="hidden" name="type" value="product">
+        <input 
+          id="search-input"
+          class="input"
+          type="search"
+          placeholder="{{ 'search.form.input_label' | t }}"
+          aria-label="{{ 'search.form.input_label' | t }}"
+          name="q"
+          value="{{ search.terms | escape }}"
+          autocorrect="off" 
+          autocomplete="off" 
+          autocapitalize="off"
+          spellcheck="false">
+        <button 
+          type="submit"
+          aria-label="{{ 'search.form.button_label' | t }}">
+          {% render 'svg-icons', icon: 'search', size: 20, stroke_width: 1.5 %}
+        </button>
+      </form>
+    </div>
+  </header>
+  
+  {% if search.performed %}
+    {% paginate search.results by section.settings.limit %}
+      <div 
+        class="search-inner {{ section.settings.color_scheme | prepend: 'color-' }}"
+        style="
+          padding-top: {{ section.settings.padding_top | append: 'rem' }};
+          padding-bottom: {{ section.settings.padding_bottom | append: 'rem' }};
+        "
+        data-viewport-entered="false">
+        <div class="container">
+          {% if search.results_count > 0 %}
+            <div class="search-utilities scroll-animate-fade-in-up">
+              <p class="search-product-count fs-sm">
+                {{ 'search.search_page.count_products' | t: count: search.results_count }}
+              </p>
+            </div>
+          {% endif %}
+          {% if search.results_count == 0 %}
+            <p class="alert" data-alert-type="warning">
+              {{ 'search.search_page.no_results' | t: terms: search.terms }}
+            </p>
+          {% else %}
+            {% if search.results.first.object_type == 'product' %}
+              <ul
+                class="product-grid {{  settings.product_card_color_scheme | prepend: 'color-' }}"
+                style="
+                  --mobile-cols: {{ section.settings.mobile_cols }};
+                  --tablet-cols: {{ section.settings.tablet_cols }};
+                  --desktop-cols: {{ section.settings.desktop_cols }};
+                "
+                data-product-card-style="{{ settings.product_card_style }}"
+                data-product-card-alignment="{{ settings.product_card_alignment }}"
+                data-product-card-heading-font="{{ settings.product_card_heading_font }}"
+                aria-labelledby="collection-heading-{{ collection.id }}"
+              >
+                {% for product in search.results %}
+                  <li
+                    class="product-item scroll-animate-fade-in-up"
+                    style="animation-delay: {{ forloop.index0 | times: 100 }}ms"
+                  >
+                    {% render 'product-card', product: product %}
+                  </li>
+                {% endfor %}
+              </ul>
+              {% render 'pagination', paginate: paginate, infinite: false %}
+            {% endif %}
+          {% endif %}
+        </div>
+      </div>
+    {% endpaginate %}
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Search",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "color_scheme",
+      "id": "header_color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-2",
+    },
+    {
+      "type": "range",
+      "id": "header_padding_top",
+      "label": "Top",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 2,
+      "unit": "rem"
+    },
+    {
+      "type": "range",
+      "id": "header_padding_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 2.4,
+      "unit": "rem"
+    },
+    {
+      "type": "select",
+      "id": "header_heading_size",
+      "label": "Heading size",
+      "default": "h2",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" },
+        { "value": "h5", "label": "H5" },
+        { "value": "h6", "label": "H6" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Products"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1",
+    },
+    {
+      "type": "range",
+      "id": "limit",
+      "label": "Limit products",
+      "min": 2,
+      "max": 50,
+      "default": 48,
+      "step": 1
+    },
+    {
+      "type": "header",
+      "content": "Columns"
+    },
+    {
+      "type": "range",
+      "id": "mobile_cols",
+      "label": "Mobile",
+      "info": "< 600px",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "tablet_cols",
+      "label": "Tablet",
+      "info": "600px - 1199px",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "desktop_cols",
+      "label": "Desktop columns",
+      "info": ">= 1200px",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 2.4,
+      "unit": "rem"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 2.4,
+      "unit": "rem"
+    }
+  ],
+  "enabled_on": {
+    "templates": ["search"],
+  },
+  "presets": [
+    {
+      "name": "Search",
+      "category": "Search"
+    }
+  ]
+}
+{% endschema %}

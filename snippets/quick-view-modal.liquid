@@ -1,0 +1,41 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+<dialog
+  id="quick-view-dialog"
+  class="dialog modal"
+  aria-label="{{ 'product.quick_view' | t }}"
+>
+  <dialog-component class="dialog-inner">
+    <quick-view-modal 
+      class="quick-view-modal"
+      data-img-ratio="{{ settings.product_card_img_ratio }}"
+      data-text-regular-price="{{ 'product.regular_price' | t }}"
+      data-text-sale-price="{{ 'product.sale_price' | t }}"
+      data-text-price-from="{{ 'product.price_from' | t }}"
+      data-text-sold-out="{{ 'product.sold_out' | t }}"
+      data-text-add-to-cart="{{ 'product.add_to_cart' | t }}"
+      data-text-sold-out="{{ 'product.sold_out' | t }}"
+      data-text-unavailable="{{ 'product.unavailable' | t }}"
+      data-text-product-details="{{ 'product.product_details' | t }}"
+    >
+      <button
+        class="dialog-close"
+        data-dialog-close
+        aria-label="{{ 'accessibility.close' | t }}"
+      >
+        {% render 'svg-icons', icon: 'x', size: 20, stroke_width: 1.5 %}
+      </button>
+      <div class="dialog-body">
+        <div class="quick-view-content">
+          {% comment %}
+            The content for the quick view modal will be dynamically loaded
+            based on the product selected.
+          {% endcomment %}
+        </div>
+      </div>
+    </quick-view-modal>
+  </dialog-component>
+</dialog>

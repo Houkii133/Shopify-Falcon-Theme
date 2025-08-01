@@ -1,0 +1,640 @@
+{
+  "sections": {
+    "product-main": {
+      "type": "product-main",
+      "blocks": {
+        "richtext_nigzke": {
+          "type": "richtext",
+          "settings": {
+            "color_scheme": "scheme-1",
+            "border_width": 0,
+            "border_opacity": 100,
+            "inner_padding": 0,
+            "text_align": "left",
+            "text_transform": "uppercase",
+            "letter_spacing": 8,
+            "heading": "",
+            "heading_size": "h3",
+            "description": "<p>{{ product.vendor }}<\/p>",
+            "description_font_size": "fs-sm",
+            "padding_top": 0,
+            "padding_bottom": 0.2
+          }
+        },
+        "title_URehAd": {
+          "type": "title",
+          "settings": {
+            "heading_size": "h2",
+            "share": true,
+            "share_button_style": "btn-outline",
+            "padding_top": 0,
+            "padding_bottom": 0.2
+          }
+        },
+        "rating_badge_H8V3pV": {
+          "type": "rating_badge",
+          "settings": {
+            "font_size": "fs-lg",
+            "padding_top": 0,
+            "padding_bottom": 0.6
+          }
+        },
+        "richtext_QAYJVA": {
+          "type": "richtext",
+          "settings": {
+            "color_scheme": "scheme-1",
+            "border_width": 0,
+            "border_opacity": 100,
+            "inner_padding": 0,
+            "text_align": "left",
+            "text_transform": "none",
+            "letter_spacing": 0,
+            "heading": "",
+            "heading_size": "h3",
+            "description": "<p>{{ product.metafields.descriptors.subtitle.value }}<\/p>",
+            "description_font_size": "fs-md",
+            "padding_top": 0,
+            "padding_bottom": 0.8
+          }
+        },
+        "price_6MwVbY": {
+          "type": "price",
+          "settings": {
+            "font_size": "fs-xl",
+            "badge_discount_type": "percentage",
+            "padding_top": 0,
+            "padding_bottom": 1
+          }
+        },
+        "options_JeEQz3": {
+          "type": "options",
+          "settings": {
+            "options_style": "buttons",
+            "padding_top": 0,
+            "padding_bottom": 0.4
+          }
+        },
+        "inventory_bar_pBi9f9": {
+          "type": "inventory_bar",
+          "settings": {
+            "low_stock_threshold": 10,
+            "max_stock": 100,
+            "progress_height": 8,
+            "color_low_stock": "#a16207",
+            "color_has_stock": "#15803d",
+            "color_sold_out": "#b91c1c",
+            "animate_progress_width": true,
+            "colored_text": true,
+            "padding_top": 0,
+            "padding_bottom": 1.2
+          }
+        },
+        "personalization_field_XntEjH": {
+          "type": "personalization_field",
+          "settings": {
+            "type": "text",
+            "label": "Your Name",
+            "placeholder": "E.g. John Doe",
+            "options": "United States, Canada, France",
+            "info_text": "<p>Optional helper text to describe this field. NOTE: Besides inputs like this or file uploads like in the example below, you can add also other field types like selects, checkboxes, radio, etc. <\/p>",
+            "required": false,
+            "textarea_height": 100,
+            "padding_top": 0,
+            "padding_bottom": 0
+          }
+        },
+        "personalization_field_7HqDpD": {
+          "type": "personalization_field",
+          "settings": {
+            "type": "file",
+            "label": "File upload",
+            "placeholder": "E.g. John Doe",
+            "options": "United States, Canada, France",
+            "info_text": "",
+            "required": false,
+            "textarea_height": 100,
+            "padding_top": 0,
+            "padding_bottom": 0
+          }
+        },
+        "subscriptions_app_block_PLReqm": {
+          "type": "shopify:\/\/apps\/subscriptions\/blocks\/app-block\/a3bfe9ec-96f8-4508-a003-df608a36d2ad",
+          "settings": {
+            "color_text_body": "#020617",
+            "dividers_color": "#020617",
+            "bacgkround_color": "#ffffff",
+            "border_thickness": 1,
+            "border_radius": 0,
+            "subscription_policy_url": "shopify:\/\/policies\/privacy-policy",
+            "product": "{{product}}"
+          }
+        },
+        "countdown_AHBnzD": {
+          "type": "countdown",
+          "settings": {
+            "countdown": "",
+            "color_scheme": "scheme-5",
+            "heading": "Hurry up!",
+            "heading_size": "h5",
+            "description": "<p>This sale is going to end soon!<\/p>",
+            "description_font_size": "fs-sm",
+            "padding_top": 0,
+            "padding_bottom": 1
+          }
+        },
+        "qty_breaks_Xbbc3J": {
+          "type": "qty_breaks",
+          "settings": {
+            "header_alignment": "center",
+            "heading": "Buy more, save more!",
+            "heading_size": "h5",
+            "description": "<p>Save up to 50% with bundled option<\/p>",
+            "description_font_size": "fs-sm",
+            "qty_break_1_qty": 1,
+            "qty_break_1_discount": 0,
+            "qty_break_1_title": "Buy 1 | No savings",
+            "qty_break_1_badge": "",
+            "qty_break_1_selected": false,
+            "qty_break_2_qty": 2,
+            "qty_break_2_discount": 10,
+            "qty_break_2_title": "Buy 2 | You save 10%",
+            "qty_break_2_badge": "Most popular",
+            "qty_break_2_selected": true,
+            "qty_break_3_qty": 3,
+            "qty_break_3_discount": 20,
+            "qty_break_3_title": "Buy 3 | You save 20%",
+            "qty_break_3_badge": "+ Free Shipping | #B38970",
+            "qty_break_3_selected": false,
+            "padding_top": 0,
+            "padding_bottom": 0.6
+          }
+        },
+        "upsell_checkbox_7tiWXf": {
+          "type": "upsell_checkbox",
+          "settings": {
+            "product": "lamp-series-1",
+            "label": "Add an amazing lamp for just <strong>[price]<\/strong>",
+            "checked": false,
+            "padding_top": 0,
+            "padding_bottom": 0
+          }
+        },
+        "upsell_checkbox_GHCeAz": {
+          "type": "upsell_checkbox",
+          "settings": {
+            "product": "gift-wrap",
+            "label": "Add gift wrapping for just <strong>[price]<\/strong>",
+            "checked": false,
+            "padding_top": 0,
+            "padding_bottom": 1
+          }
+        },
+        "separator_rzL9ct": {
+          "type": "separator",
+          "settings": {
+            "line_height": 1,
+            "line_opacity": 10,
+            "line_style": "solid",
+            "padding_top": 0,
+            "padding_bottom": 1
+          }
+        },
+        "delivery_info_WHwB7m": {
+          "type": "delivery_info",
+          "settings": {
+            "description": "<p>Buy it now and receive it between [start] and [end]<\/p>",
+            "start": 7,
+            "end": 10,
+            "date_format": "%A, %e %b",
+            "show_icon": true,
+            "icon_size": 20,
+            "description_font_size": "fs-md",
+            "padding_top": 0,
+            "padding_bottom": 1
+          }
+        },
+        "atc_button_r4cwcJ": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_qty_field": true,
+            "atc_btn_style": "btn-primary",
+            "show_buy_btn": true,
+            "buy_btn_style": "btn-outline",
+            "show_dynamic_buttons": false,
+            "show_wishlist_btn": true,
+            "padding_top": 0,
+            "padding_bottom": 1
+          }
+        },
+        "trust_icons_XrFegm": {
+          "type": "trust_icons",
+          "settings": {
+            "style": "horizontal",
+            "max_width": "500",
+            "description_font_size": "fs-sm",
+            "img_size": 24,
+            "label": "What we promise",
+            "img_1": "shopify:\/\/shop_images\/icon-trophy.svg",
+            "text_1": "<p>Commitment to<br\/>Excellence<\/p>",
+            "img_2": "shopify:\/\/shop_images\/icon-rocket-takeoff.svg",
+            "text_2": "<p>100% Satisfaction<br\/>Guarantee<\/p>",
+            "img_3": "shopify:\/\/shop_images\/icon-truck.svg",
+            "text_3": "<p>Free Shipping <br\/>Over $90<\/p>",
+            "text_4": "",
+            "text_5": "",
+            "padding_top": 0,
+            "padding_bottom": 1.4
+          }
+        },
+        "collapse_heYN7L": {
+          "type": "collapse",
+          "settings": {
+            "title": "Product Details",
+            "title_font_size": 100,
+            "title_text_transform": "capitalize",
+            "title_letter_spacing": 0,
+            "icon": "shopify:\/\/shop_images\/icon-card-text.svg",
+            "icon_size": 20,
+            "description": "{{ product.description }}",
+            "page": "",
+            "open_by_default": true,
+            "btn_primary_text": "",
+            "btn_primary_url": "",
+            "btn_primary_style": "btn-outline",
+            "padding_top": 0,
+            "padding_bottom": 0
+          }
+        },
+        "collapse_qkxF4P": {
+          "type": "collapse",
+          "settings": {
+            "title": "Ingredients",
+            "title_font_size": 100,
+            "title_text_transform": "capitalize",
+            "title_letter_spacing": 0,
+            "icon": "shopify:\/\/shop_images\/icon-list-check.svg",
+            "icon_size": 20,
+            "description": "<p><strong>Milk Chocolate<\/strong>: sugar; cocoa butter; whole milk powder; unsweetened chocolate; soy lecithin; natural vanilla extract. <\/p><p><strong>White Chocolate<\/strong>: Sugar, Cocoa Butter, Whole Milk Powder, Nonfat Dry Milk, Butterfat, Soy Lecithin (an emulsifier), and Vanilla Extract. <\/p><p><strong>Dark Chocolate:<\/strong> (Sugar, Chocolate Liquor, Cocoa Butter, Whole & Nonfat Milk Solids, Lecithin (an Emulsifier), Pure Vanilla Extract & Other Natural Flavors),<\/p>",
+            "page": "",
+            "open_by_default": false,
+            "btn_primary_text": "",
+            "btn_primary_url": "",
+            "btn_primary_style": "btn-link",
+            "padding_top": 0,
+            "padding_bottom": 0
+          }
+        },
+        "collapse_XR7UCP": {
+          "type": "collapse",
+          "settings": {
+            "title": "Size Chart",
+            "title_font_size": 100,
+            "title_text_transform": "capitalize",
+            "title_letter_spacing": 0,
+            "icon": "shopify:\/\/shop_images\/icon-ruler.svg",
+            "icon_size": 20,
+            "description": "",
+            "page": "size-chart",
+            "open_by_default": false,
+            "btn_primary_text": "",
+            "btn_primary_url": "",
+            "btn_primary_style": "link",
+            "padding_top": 0,
+            "padding_bottom": 0
+          }
+        },
+        "collapse_HT8hND": {
+          "type": "collapse",
+          "settings": {
+            "title": "Shipping Information",
+            "title_font_size": 100,
+            "title_text_transform": "capitalize",
+            "title_letter_spacing": 0,
+            "icon": "shopify:\/\/shop_images\/icon-truck.svg",
+            "icon_size": 20,
+            "description": "<p>Feel free to create additional blocks like this for <strong>Shipping, Payments, etc <\/strong>through the Shopify Theme editor. Also, you may easily adjust their order by dragging and dropping.<\/p>",
+            "page": "",
+            "open_by_default": false,
+            "btn_primary_text": "Learn more",
+            "btn_primary_url": "shopify:\/\/policies\/shipping-policy",
+            "btn_primary_style": "link",
+            "padding_top": 0,
+            "padding_bottom": 0
+          }
+        },
+        "collapse_6f6jnt": {
+          "type": "collapse",
+          "settings": {
+            "title": "Returns & Warranty",
+            "title_font_size": 100,
+            "title_text_transform": "capitalize",
+            "title_letter_spacing": 0,
+            "icon": "shopify:\/\/shop_images\/icon-sign-turn-left.svg",
+            "icon_size": 20,
+            "description": "<p>To return an item to us, follow the directions listed on the return exchange form included with your order. If you don’t have this form available, you can download one by clicking here<\/p>",
+            "page": "",
+            "open_by_default": false,
+            "btn_primary_text": "Learn more",
+            "btn_primary_url": "shopify:\/\/policies\/refund-policy",
+            "btn_primary_style": "link",
+            "padding_top": 0,
+            "padding_bottom": 0
+          }
+        },
+        "breadcrumb_3XtBCU": {
+          "type": "breadcrumb",
+          "settings": {
+            "padding_top": 1,
+            "padding_bottom": 0
+          }
+        },
+        "local_delivery_JALWfa": {
+          "type": "local_delivery",
+          "settings": {
+            "header_alignment": "center",
+            "heading": "Store Availability",
+            "heading_size": "h5",
+            "description": "<p>This product is available for local pickup<\/p>",
+            "description_font_size": "fs-sm",
+            "padding_top": 1,
+            "padding_bottom": 0
+          }
+        },
+        "prev_next_QAWaKa": {
+          "type": "prev_next",
+          "settings": {
+            "title": "Prev\/Next products"
+          }
+        }
+      },
+      "block_order": [
+        "richtext_nigzke",
+        "title_URehAd",
+        "rating_badge_H8V3pV",
+        "richtext_QAYJVA",
+        "price_6MwVbY",
+        "options_JeEQz3",
+        "inventory_bar_pBi9f9",
+        "personalization_field_XntEjH",
+        "personalization_field_7HqDpD",
+        "subscriptions_app_block_PLReqm",
+        "countdown_AHBnzD",
+        "qty_breaks_Xbbc3J",
+        "upsell_checkbox_7tiWXf",
+        "upsell_checkbox_GHCeAz",
+        "separator_rzL9ct",
+        "delivery_info_WHwB7m",
+        "atc_button_r4cwcJ",
+        "trust_icons_XrFegm",
+        "collapse_heYN7L",
+        "collapse_qkxF4P",
+        "collapse_XR7UCP",
+        "collapse_HT8hND",
+        "collapse_6f6jnt",
+        "breadcrumb_3XtBCU",
+        "local_delivery_JALWfa",
+        "prev_next_QAWaKa"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "gallery_img_ratio": "adapt",
+        "speed": 300,
+        "gallery_show_controls": true,
+        "gallery_show_pagination": true,
+        "gallery_controls_color_scheme": "scheme-3",
+        "gallery_controls_style": "minimal",
+        "gallery_show_thumbs": true,
+        "gallery_thumbs_per_view": 5,
+        "gallery_hide_thumbs_on_mobile": false,
+        "gallery_show_custom_badge": true,
+        "gallery_full_screen": true,
+        "padding_top": 2,
+        "padding_bottom": 2
+      }
+    },
+    "separator_ydXXWq": {
+      "type": "separator",
+      "name": "Separator",
+      "settings": {
+        "color_scheme": "",
+        "line_height": 1,
+        "line_opacity": 25,
+        "line_style": "gradient",
+        "full_width": false,
+        "icon": "leaf-1",
+        "icon_size": 36,
+        "padding_top": 1,
+        "padding_bottom": 0.2
+      }
+    },
+    "cross_sells_gxTMXt": {
+      "type": "cross-sells",
+      "name": "Cross sells",
+      "settings": {
+        "product": "",
+        "metafield": "custom.cross_sells",
+        "discount": 20,
+        "discount_min_items": 2,
+        "color_scheme": "",
+        "container_max_width": 1200,
+        "header_alignment": "center",
+        "heading": "Frequently Bought Together",
+        "heading_size": "h3",
+        "description": "<p><strong>Get 20% off<\/strong> when buying these products together<\/p>",
+        "description_font_size": "fs-md",
+        "show_custom_badge": true,
+        "show_sale_badge": true,
+        "btn_style": "btn-primary",
+        "padding_top": 2,
+        "padding_bottom": 1
+      }
+    },
+    "media_with_text_RfUQg6": {
+      "type": "media-with-text",
+      "blocks": {
+        "block_jDht4E": {
+          "type": "block",
+          "settings": {
+            "color_scheme": "scheme-2",
+            "media_align_desktop": "left",
+            "text_align_mobile": "left",
+            "text_align_desktop": "left",
+            "img": "shopify:\/\/shop_images\/tamara-bellis-HPvN6rs86F0-unsplash.jpg",
+            "img_ratio": "adapt",
+            "video_autoplay": false,
+            "video_loop": true,
+            "video_muted": true,
+            "video_controls": true,
+            "video_url": "",
+            "subheading": "Developed by KondaSoft",
+            "subheading_font_size": "fs-sm",
+            "heading": "The Most Versatile Shopify Themes",
+            "heading_size": "h2",
+            "description": "<p>Suitable only for Shopify stores that are aspiring for greatness<\/p>",
+            "description_font_size": "fs-md",
+            "primary_btn_text": "Buy Theme",
+            "primary_btn_url": "https:\/\/www.kondasoft.com\/collections\/shopify-themes\/products\/falcon-pro",
+            "primary_btn_style": "btn-primary",
+            "secondary_btn_text": "Learn more",
+            "secondary_btn_url": "https:\/\/www.kondasoft.com\/collections\/shopify-themes\/products\/falcon-pro",
+            "secondary_btn_style": "btn-outline",
+            "padding_top": 2,
+            "padding_bottom": 2
+          }
+        },
+        "block_VQxcBg": {
+          "type": "block",
+          "settings": {
+            "color_scheme": "scheme-3",
+            "media_align_desktop": "right",
+            "text_align_mobile": "left",
+            "text_align_desktop": "right",
+            "img": "shopify:\/\/shop_images\/nassim-boughazi-4frKet-PJss-unsplash_63437267-2de0-41b9-876e-9b413ac799b7.jpg",
+            "img_ratio": "adapt",
+            "video_autoplay": true,
+            "video_loop": true,
+            "video_muted": true,
+            "video_controls": true,
+            "video_url": "",
+            "subheading": "Developed by KondaSoft",
+            "subheading_font_size": "fs-sm",
+            "heading": "The Most Dynamic Shopify Themes",
+            "heading_size": "h2",
+            "description": "<p>Suitable only for Shopify stores that are aspiring for greatness<\/p>",
+            "description_font_size": "fs-md",
+            "primary_btn_text": "Buy Theme",
+            "primary_btn_url": "https:\/\/www.kondasoft.com\/collections\/shopify-themes\/products\/falcon-pro",
+            "primary_btn_style": "btn-primary",
+            "secondary_btn_text": "Learn more",
+            "secondary_btn_url": "https:\/\/www.kondasoft.com\/collections\/shopify-themes\/products\/falcon-pro",
+            "secondary_btn_style": "btn-outline",
+            "padding_top": 3.4,
+            "padding_bottom": 2
+          }
+        },
+        "block_FBCP4a": {
+          "type": "block",
+          "settings": {
+            "color_scheme": "scheme-5",
+            "media_align_desktop": "left",
+            "text_align_mobile": "left",
+            "text_align_desktop": "left",
+            "img": "shopify:\/\/shop_images\/tamara-bellis-IwVRO3TLjLc-unsplash.jpg",
+            "img_ratio": "adapt",
+            "video_autoplay": true,
+            "video_loop": true,
+            "video_muted": true,
+            "video_controls": true,
+            "video_url": "",
+            "subheading": "Developed by KondaSoft",
+            "subheading_font_size": "fs-sm",
+            "heading": "The Most Influential Shopify Themes",
+            "heading_size": "h2",
+            "description": "<p>Suitable only for Shopify stores that are aspiring for greatness<\/p>",
+            "description_font_size": "fs-md",
+            "primary_btn_text": "Buy theme",
+            "primary_btn_url": "https:\/\/www.kondasoft.com\/collections\/shopify-themes\/products\/falcon-pro",
+            "primary_btn_style": "btn-primary",
+            "secondary_btn_text": "Learn more",
+            "secondary_btn_url": "https:\/\/www.kondasoft.com\/collections\/shopify-themes\/products\/falcon-pro",
+            "secondary_btn_style": "btn-outline",
+            "padding_top": 2,
+            "padding_bottom": 2
+          }
+        }
+      },
+      "block_order": [
+        "block_jDht4E",
+        "block_VQxcBg",
+        "block_FBCP4a"
+      ],
+      "name": "Media with text",
+      "settings": {
+        "full_width": false,
+        "padding_top": 2,
+        "padding_bottom": 2
+      }
+    },
+    "1749297805421677cc": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_yTCg9G": {
+          "type": "shopify:\/\/apps\/judge-me-reviews\/blocks\/review_widget\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_yTCg9G"
+      ],
+      "settings": {}
+    },
+    "separator_DJRte4": {
+      "type": "separator",
+      "name": "Separator",
+      "settings": {
+        "color_scheme": "",
+        "line_height": 1,
+        "line_opacity": 25,
+        "line_style": "gradient",
+        "full_width": false,
+        "icon": "leaf-1",
+        "icon_size": 36,
+        "padding_top": 0.8,
+        "padding_bottom": 0.8
+      }
+    },
+    "recommended_products_Bft8d3": {
+      "type": "recommended-products",
+      "name": "Recommended products",
+      "settings": {
+        "recommended_mode_intent": "related",
+        "limit": 8,
+        "color_scheme": "",
+        "full_width": false,
+        "header_alignment": "left",
+        "heading": "Recommended for you",
+        "heading_size": "h3",
+        "description": "<p>An optional description for this section<\/p>",
+        "description_from_collection": false,
+        "description_font_size": "fs-md",
+        "carousel_mobile_cols": 2,
+        "carousel_desktop_cols": 5,
+        "carousel_mobile_stack": false,
+        "carousel_desktop_stack": false,
+        "carousel_controls_style": "outline",
+        "disable_controls_on_mobile": true,
+        "show_pagination": true,
+        "padding_top": 2,
+        "padding_bottom": 2
+      }
+    },
+    "sticky_atc_3Cq6zy": {
+      "type": "sticky-atc",
+      "name": "Sticky ATC",
+      "settings": {
+        "product": "",
+        "color_scheme": "scheme-1",
+        "border": true,
+        "shadow": false,
+        "max_width": 800,
+        "img_ratio": "square",
+        "show_rating": true,
+        "btn_style": "btn-primary",
+        "countdown": "2025-12-31 23:59",
+        "countdown_text": "This sale is ending soon!",
+        "countdown_color_scheme": "scheme-5",
+        "padding": 0.8
+      }
+    }
+  },
+  "order": [
+    "product-main",
+    "separator_ydXXWq",
+    "cross_sells_gxTMXt",
+    "media_with_text_RfUQg6",
+    "1749297805421677cc",
+    "separator_DJRte4",
+    "recommended_products_Bft8d3",
+    "sticky_atc_3Cq6zy"
+  ]
+}

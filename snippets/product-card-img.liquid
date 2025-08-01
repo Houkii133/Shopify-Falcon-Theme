@@ -1,0 +1,31 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% liquid
+  case settings.product_card_img_ratio
+    when 'adapt'
+      assign img_width = 480
+      assign img_height = 480 | divided_by: image.aspect_ratio | round
+    when 'square'
+      assign img_width = 480
+      assign img_height = 480
+    when 'portrait'
+      assign img_width = 480
+      assign img_height = 480 | times: 4 | divided_by: 3 | round
+  endcase
+%}
+
+{% if only_src == true %}
+  {{- image | image_url: width: img_width, height: img_height, crop: 'center' -}}
+{% else %}
+  <img
+    src="{{ image | image_url: width: img_width, height: img_height, crop: 'center'}}"
+    alt="{{ image.alt }}"
+    class="img-fluid"
+    width="{{ img_width }}"
+    height="{{ img_height }}"
+    loading="lazy"
+  >
+{% endif %}

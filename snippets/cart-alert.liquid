@@ -1,0 +1,15 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+<div id="cart-status" class="visually-hidden" role="alert" aria-atomic="true">
+  {% assign cart_total_price = cart.total_price | money %}
+  {{ 'accessibility.cart_status' | t: count: cart.item_count, total: cart_total_price }}
+</div>
+<div id="cart-alert" class="alert visually-hidden fs-sm" role="alert" aria-atomic="true">
+  <div class="svg-wrapper">
+    {% render 'svg-icons', icon: 'alert-circle', size: 18 %}
+  </div>
+  <p data-text></p>
+</div>

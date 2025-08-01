@@ -1,0 +1,91 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% if collection.previous_product or collection.next_product %}
+  {% liquid
+    case settings.product_card_img_ratio
+      when 'adapt'
+        assign img_width = 480
+        assign img_height = 480 | divided_by: product.featured_image.aspect_ratio | round
+      when 'square'
+        assign img_width = 480
+        assign img_height = 480
+      when 'portrait'
+        assign img_width = 480
+        assign img_height = 480 | times: 4 | divided_by: 3 | round
+    endcase
+  %}
+  <div
+    id="product-block-{{ block.id }}"
+    class="product-block"
+    data-type="{{ block.type }}"
+    {{ block.shopify_attributes }}
+  >
+    <h3 class="heading h6">
+      {{ block.settings.title }}
+    </h3>
+    <div class="">
+      {% if collection.previous_product %}
+        <a
+          href="{{ collection.previous_product.url }}"
+          title="{{ collection.previous_product.title }} <br> {{ collection.previous_product.price | money }}"
+          data-prev
+        >
+          <span class="visually-hidden">
+            {{ 'accessibility.previous_product' | t }}
+          </span>
+          <div class="img-wrapper">
+            <span class="svg-wrapper">
+              {% render 'svg-icons', icon: 'arrow-left', size: 16 %}
+            </span>
+            <img
+              src="{{ collection.previous_product.featured_image | image_url: width: img_width, height: img_height, crop: 'center' }}"
+              alt="{{ collection.previous_product.featured_image.alt | escape }}"
+              class="img-fluid"
+              width="{{ img_width }}"
+              height="{{ img_height }}"
+              loading="lazy"
+            >
+          </div>
+          <span class="prev-next-product-title">
+            {{ collection.previous_product.title }}
+            <br>
+            {{ collection.previous_product.price | money }}
+          </span>
+        </a>
+      {% endif %}
+    </div>
+    <div class="">
+      {% if collection.next_product %}
+        <a
+          href="{{ collection.next_product.url }}"
+          data-next
+        >
+          <span class="visually-hidden">
+            {{ 'accessibility.next_product' | t }}
+          </span>
+          <div class="img-wrapper">
+            <span class="svg-wrapper">
+              {% render 'svg-icons', icon: 'arrow-right', size: 16 %}
+            </span>
+            <img
+              src="{{ collection.next_product.featured_image | image_url: width: img_width, height: img_height, crop: 'center' }}"
+              alt="{{ collection.next_product.featured_image.alt | escape }}"
+              class="img-fluid"
+              width="{{ img_width }}"
+              height="{{ img_height }}"
+              loading="lazy"
+            >
+          </div>
+          <span class="prev-next-product-title">
+            {{ collection.next_product.title }}
+            <br>
+            {{ collection.next_product.price | money }}
+          </span>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}

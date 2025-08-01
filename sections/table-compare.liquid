@@ -1,0 +1,623 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+ 
+{% if section.index <= 3 or request.design_mode %}
+  <link href="{{ 'table-compare.css' | asset_url }}" rel="stylesheet" fetchpriority="high">
+{% endif %}
+
+{% liquid 
+  assign header_block = section.blocks | where: 'type', 'header' | first
+
+  if header_block.settings.cell_7_text != blank or header_block.settings.cell_7_img != nil
+    assign cols_count = 7
+  elsif header_block.settings.cell_6_text != blank or header_block.settings.cell_6_img != nil
+    assign cols_count = 6
+  elsif header_block.settings.cell_5_text != blank or header_block.settings.cell_5_img != nil
+    assign cols_count = 5
+  elsif header_block.settings.cell_4_text != blank or header_block.settings.cell_4_img != nil
+    assign cols_count = 4
+  elsif header_block.settings.cell_3_text != blank or header_block.settings.cell_3_img != nil
+    assign cols_count = 3
+  elsif header_block.settings.cell_2_text != blank or header_block.settings.cell_2_img != nil
+    assign cols_count = 2
+  else
+    assign cols_count = 1
+  endif
+%}
+
+<div
+  id="table-compare-{{ section.id }}" 
+  class="table-compare {{ section.settings.color_scheme | prepend: 'color-' }}"
+  style="
+    --padding-top: {{ section.settings.padding_top | append: 'rem' }};
+    --padding-bottom: {{ section.settings.padding_bottom | append: 'rem' }};
+  "
+  data-viewport-entered="false"
+  data-section-css="{{ 'table-compare.css' | asset_url }}">
+  <div class="container {% if section.settings.container_narrow %}container-narrow{% endif %}">
+    {% unless section.settings.heading == blank %}
+      <header class="section-header scroll-animate-fade-in-up text-{{ section.settings.header_alignment }}">
+        {% unless section.settings.heading == blank %}
+          <h2
+            id="heading-{{ section.id }}"
+            class="heading {{ section.settings.heading_size }}"
+          >
+            {{ section.settings.heading }}
+          </h2>
+        {% endunless %}
+        {% unless section.settings.description == blank %}
+          <div class="description rte {{ section.settings.description_font_size }}">
+            {{ section.settings.description }}
+          </div>
+        {% endunless %}
+      </header>
+    {% endunless %}
+    <div class="table-responsive scroll-animate-fade-in-up">
+      <table class="table {{ section.settings.table_color_scheme | prepend: 'color-' }}"
+        style="
+          --border-opacity: {{ section.settings.table_border_opacity | append: '%' }};
+          --table-text-align: {{ section.settings.table_text_alignment }};
+          --table-min-width: {{ section.settings.table_min_width | append: 'px' }};
+          --table-first-col-width: {{ section.settings.table_first_col_width | append: '%' }};
+          --table-spacing: {{ section.settings.table_spacing | append: 'rem' }};
+          --icon-color-checked-circle: {{ section.settings.icon_color_checked_circle }};
+          --icon-color-checked: {{ section.settings.icon_color_checked }};
+          --icon-color-unchecked: {{ section.settings.icon_color_unchecked }};
+        ">
+        {% unless section.settings.table_caption == blank %}
+          <caption class="">
+            {{ section.settings.table_caption }}
+          </caption>
+        {% endunless %}
+        <thead>
+          <tr>
+            {% for count in (1..cols_count) %}
+              {% liquid
+                case count
+                  when 1
+                    assign img = header_block.settings.cell_1_img
+                    assign text = header_block.settings.cell_1_text
+                  when 2
+                    assign img = header_block.settings.cell_2_img
+                    assign text = header_block.settings.cell_2_text
+                  when 3
+                    assign img = header_block.settings.cell_3_img
+                    assign text = header_block.settings.cell_3_text
+                  when 4
+                    assign img = header_block.settings.cell_4_img
+                    assign text = header_block.settings.cell_4_text
+                  when 5
+                    assign img = header_block.settings.cell_5_img
+                    assign text = header_block.settings.cell_5_text
+                  when 6
+                    assign img = header_block.settings.cell_6_img
+                    assign text = header_block.settings.cell_6_text
+                  when 7
+                    assign img = header_block.settings.cell_7_img
+                    assign text = header_block.settings.cell_7_text
+                endcase
+              %}
+              <th scope="col">
+                {% unless img == nil  %}
+                  <img 
+                    src="{{ img | image_url: width: 360 }}"
+                    alt=""
+                    class="img-fluid"
+                    width="180"
+                    height=""
+                    loading="lazy"
+                    style="display: block;">
+                {% endunless %}
+                {% unless text == blank or text == '#'  %}
+                  <span class="d-block">
+                    {{ text }}
+                  </span>
+                {% endunless %}
+              </th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for block in section.blocks %}
+            {% if block.type == 'row' %}
+              <tr> 
+                <th scope="row" class="{{ section.settings.first_col_text_align }}">
+                  {{ block.settings.title }}
+                </th>
+                {% for count in (2..cols_count) %}
+                  {% liquid
+                    case count
+                      when 2
+                        assign checkbox = block.settings.cell_2_checkbox
+                        assign text = block.settings.cell_2_text
+                      when 3
+                        assign checkbox = block.settings.cell_3_checkbox
+                        assign text = block.settings.cell_3_text
+                      when 4
+                        assign checkbox = block.settings.cell_4_checkbox
+                        assign text = block.settings.cell_4_text
+                      when 5
+                        assign checkbox = block.settings.cell_5_checkbox
+                        assign text = block.settings.cell_5_text
+                      when 6
+                        assign checkbox = block.settings.cell_6_checkbox
+                        assign text = block.settings.cell_6_text
+                      when 7
+                        assign checkbox = block.settings.cell_7_checkbox
+                        assign text = block.settings.cell_7_text
+                    endcase
+                  %}
+                  <td>
+                    <span>
+                      {% liquid
+                        case checkbox
+                          when 'checked-circle'
+                            render 'svg-icons', icon: 'checkbox-circle', size: 20
+                          when 'checked'
+                            render 'svg-icons', icon: 'check', size: 20
+                          when 'unchecked'
+                            render 'svg-icons', icon: 'x', size: 20
+                        endcase
+                      %}
+                      {% unless text == blank  %}
+                        <span>
+                          {{ text }}
+                        </span>
+                      {% endunless %}
+                    </span>
+                  </td>
+                {% endfor %}
+              </tr>
+            {% endif %}
+          {% endfor %}
+        </tbody>
+      </table> 
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Table compare",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-2"
+    },
+    {
+      "type": "checkbox",
+      "id": "container_narrow",
+      "label": "Narrow container",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text_alignment",
+      "id": "header_alignment",
+      "label": "Alignment",
+      "default": "left"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Table Compare",
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "default": "h3",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" },
+        { "value": "h5", "label": "H5" },
+        { "value": "h6", "label": "H6" }
+      ] 
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description (optional)",
+      "default": "<p>An optional description for this section</p>"
+    },
+    {
+      "type": "select",
+      "id": "description_font_size",
+      "label": "Description font-size",
+      "default": "fs-md",
+      "options": [
+        { "value": "fs-sm", "label": "sm" },
+        { "value": "fs-md", "label": "md" },
+        { "value": "fs-lg", "label": "lg" },
+        { "value": "fs-xl", "label": "xl" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Table"
+    },
+    {
+      "type": "color_scheme",
+      "id": "table_color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "table_border_opacity",
+      "label": "Border opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 100,
+      "unit": "%"
+    },
+    {
+      "type": "text_alignment",
+      "id": "table_text_alignment",
+      "label": "Text alignment",
+      "default": "center"
+    },
+    {
+      "type": "text",
+      "id": "table_min_width",
+      "label": "Min-width (px)",
+      "info": "Set the minimum width of the table. This is useful for smaller screens.",
+      "default": "700"
+    },
+    {
+      "type": "range",
+      "id": "table_first_col_width",
+      "label": "First column width",
+      "info": "Set the width of the first column. This is useful for larger tables.",
+      "min": 10,
+      "max": 50,
+      "step": 1,
+      "default": 30,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "table_spacing",
+      "label": "Table spacing",
+      "min": 0,
+      "max": 2,
+      "step": 0.1,
+      "default": 0.7,
+      "unit": "rem"
+    },
+    {
+      "type": "textarea",
+      "id": "table_caption",
+      "label": "Caption",
+      "default": "Add on optional caption explaining the table comparison. Leave empty to disable."
+    },
+    {
+      "type": "header",
+      "content": "Icon colors"
+    },
+    {
+      "type": "color",
+      "id": "icon_color_checked_circle",
+      "label": "Checked circle",
+      "default": "#008236"
+    },
+    {
+      "type": "color",
+      "id": "icon_color_checked",
+      "label": "Checked",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "icon_color_unchecked",
+      "label": "Unchecked",
+      "default": "#C10008"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 2,
+      "unit": "rem"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 2,
+      "unit": "rem"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "header",
+      "name": "Header",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Cell 1"
+        },
+        {
+          "type": "text",
+          "id": "cell_1_text",
+          "label": "Text",
+          "default": "#"
+        },
+        {
+          "type": "image_picker",
+          "id": "cell_1_img",
+          "label": "Image"
+        },
+        {
+          "type": "header",
+          "content": "Cell 2"
+        },
+        {
+          "type": "text",
+          "id": "cell_2_text",
+          "label": "Text",
+          "default": "Our Product"
+        },
+        {
+          "type": "image_picker",
+          "id": "cell_2_img",
+          "label": "Image"
+        },
+        {
+          "type": "header",
+          "content": "Cell 3"
+        },
+        {
+          "type": "text",
+          "id": "cell_3_text",
+          "label": "Text",
+          "default": "Competitor 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "cell_3_img",
+          "label": "Image"
+        },
+        {
+          "type": "header",
+          "content": "Cell 4"
+        },
+        {
+          "type": "text",
+          "id": "cell_4_text",
+          "label": "Text",
+          "default": "Competitor 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "cell_4_img",
+          "label": "Image"
+        },
+        {
+          "type": "header",
+          "content": "Cell 5"
+        },
+        {
+          "type": "text",
+          "id": "cell_5_text",
+          "label": "Text",
+          "default": "Competitor 3"
+        },
+        {
+          "type": "image_picker",
+          "id": "cell_5_img",
+          "label": "Image"
+        },
+        {
+          "type": "header",
+          "content": "Cell 6"
+        },
+        {
+          "type": "text",
+          "id": "cell_6_text",
+          "label": "Text",
+          "default": "Competitor 4"
+        },
+        {
+          "type": "image_picker",
+          "id": "cell_6_img",
+          "label": "Image"
+        },
+        {
+          "type": "header",
+          "content": "Cell 7"
+        },
+        {
+          "type": "text",
+          "id": "cell_7_text",
+          "label": "Text",
+          "default": "Competitor 5"
+        },
+        {
+          "type": "image_picker",
+          "id": "cell_7_img",
+          "label": "Image"
+        }
+      ]
+    },
+    {
+      "type": "row",
+      "name": "Row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Feature name"
+        },
+        {
+          "type": "header",
+          "content": "Cell 2"
+        },
+        {
+          "type": "select",
+          "id": "cell_2_checkbox",
+          "label": "Checkbox",
+          "options": [
+            { "value": "", "label": "None" },
+            { "value": "checked-circle", "label": "Checked circle" },
+            { "value": "checked", "label": "Checked" },
+            { "value": "unchecked", "label": "Unchecked" },
+          ],
+          "default": "checked-circle"
+        },
+        {
+          "type": "text",
+          "id": "cell_2_text",
+          "label": "Text"
+        },
+        {
+          "type": "header",
+          "content": "Cell 3"
+        },
+        {
+          "type": "select",
+          "id": "cell_3_checkbox",
+          "label": "Checkbox",
+          "options": [
+            { "value": "", "label": "None" },
+            { "value": "checked-circle", "label": "Checked circle" },
+            { "value": "checked", "label": "Checked" },
+            { "value": "unchecked", "label": "Unchecked" }
+          ],
+           "default": "unchecked"
+        },
+        {
+          "type": "text",
+          "id": "cell_3_text",
+          "label": "Text"
+        },
+        {
+          "type": "header",
+          "content": "Cell 4"
+        },
+        {
+          "type": "select",
+          "id": "cell_4_checkbox",
+          "label": "Checkbox",
+          "options": [
+            { "value": "", "label": "None" },
+            { "value": "checked-circle", "label": "Checked circle" },
+            { "value": "checked", "label": "Checked" },
+            { "value": "unchecked", "label": "Unchecked" }
+          ],
+           "default": "unchecked"
+        },
+        {
+          "type": "text",
+          "id": "cell_4_text",
+          "label": "Text"
+        },
+        {
+          "type": "header",
+          "content": "Cell 5"
+        },
+        {
+          "type": "select",
+          "id": "cell_5_checkbox",
+          "label": "Checkbox",
+          "options": [
+            { "value": "", "label": "None" },
+            { "value": "checked-circle", "label": "Checked circle" },
+            { "value": "checked", "label": "Checked" },
+            { "value": "unchecked", "label": "Unchecked" }
+          ],
+           "default": "unchecked"
+        },
+        {
+          "type": "text",
+          "id": "cell_5_text",
+          "label": "Text"
+        },
+        {
+          "type": "header",
+          "content": "Cell 6"
+        },
+        {
+          "type": "select",
+          "id": "cell_6_checkbox",
+          "label": "Checkbox",
+          "options": [
+            { "value": "", "label": "None" },
+            { "value": "checked-circle", "label": "Checked circle" },
+            { "value": "checked", "label": "Checked" },
+            { "value": "unchecked", "label": "Unchecked" }
+          ],
+           "default": "unchecked"
+        },
+        {
+          "type": "text",
+          "id": "cell_6_text",
+          "label": "Text"
+        },
+        {
+          "type": "header",
+          "content": "Cell 7"
+        },
+        {
+          "type": "select",
+          "id": "cell_7_checkbox",
+          "label": "Checkbox",
+          "options": [
+            { "value": "", "label": "None" },
+            { "value": "checked-circle", "label": "Checked circle" },
+            { "value": "checked", "label": "Checked" },
+            { "value": "unchecked", "label": "Unchecked" }
+          ],
+           "default": "unchecked"
+        },
+        {
+          "type": "text",
+          "id": "cell_7_text",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "presets": [
+    {
+      "name": "Table compare",
+      "category": "Content",
+      "blocks": [
+        { "type": "header" },
+        { "type": "row" },
+        { "type": "row" },
+        { "type": "row" },
+        { "type": "row" },
+        { "type": "row" }
+      ]
+    }
+  ]
+}
+{% endschema %}

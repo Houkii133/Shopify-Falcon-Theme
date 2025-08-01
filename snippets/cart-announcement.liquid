@@ -1,0 +1,21 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+<div
+  id="cart-block-{{ block.id }}"
+  class="cart-block"
+  style="
+    --padding-top: {{ block.settings.padding_top | append: 'rem' }};
+    --padding-bottom: {{ block.settings.padding_bottom | append: 'rem' }};
+  "
+  data-type="{{ block.type }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="cart-announcement {{ block.settings.font_size }} {{ block.settings.color_scheme | prepend: 'color-' }}">
+    <div class="description rte">
+      {{ block.settings.announcement }}
+    </div>
+  </div>
+</div>

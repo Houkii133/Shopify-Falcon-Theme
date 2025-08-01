@@ -1,0 +1,178 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% liquid
+  assign current_variant = product.selected_or_first_available_variant
+%}
+
+<div
+  id="product-block-{{ block.id }}"
+  class="product-block"
+  style="
+    --padding-top: {{ block.settings.padding_top | append: 'rem' }};
+    --padding-bottom: {{ block.settings.padding_bottom | append: 'rem' }};
+  "
+  data-type="{{ block.type }}"
+  {{ block.shopify_attributes }}
+>
+  {% unless block.settings.heading == blank or block.settings.description == blank %}
+    <header class="block-header {{ block.settings.header_alignment | prepend: 'text-' }}">
+      {% unless block.settings.heading == blank %}
+        <h3 class="heading {{ block.settings.heading_size }}">
+          {{ block.settings.heading }}
+        </h3>
+      {% endunless %}
+      {% unless block.settings.description == blank %}
+        <div class="description rte {{ block.settings.description_font_size }}">
+          {{ block.settings.description }}
+        </div>
+      {% endunless %}
+    </header>
+  {% endunless %}
+
+  <product-qty-breaks
+    id="product-qty-breaks-{{ block.id }}"
+    class="product-qty-breaks"
+    data-block-id="{{ block.id }}"
+  >
+    {% for count in (1..3) %}
+      {% liquid
+        case count
+          when 1
+            assign qty = block.settings.qty_break_1_qty
+            assign discount = block.settings.qty_break_1_discount
+            assign title = block.settings.qty_break_1_title | split: '|' | first
+            assign subtitle = block.settings.qty_break_1_title | split: '|' | last
+            assign badge = block.settings.qty_break_1_badge | split: '|' | first
+            assign badge_color = block.settings.qty_break_1_badge | split: '|' | last
+            assign selected = block.settings.qty_break_1_selected
+          when 2
+            assign qty = block.settings.qty_break_2_qty
+            assign discount = block.settings.qty_break_2_discount
+            assign title = block.settings.qty_break_2_title | split: '|' | first
+            assign subtitle = block.settings.qty_break_2_title | split: '|' | last
+            assign badge = block.settings.qty_break_2_badge | split: '|' | first
+            assign badge_color = block.settings.qty_break_2_badge | split: '|' | last
+            assign selected = block.settings.qty_break_2_selected
+          when 3
+            assign qty = block.settings.qty_break_3_qty
+            assign discount = block.settings.qty_break_3_discount
+            assign title = block.settings.qty_break_3_title | split: '|' | first
+            assign subtitle = block.settings.qty_break_3_title | split: '|' | last
+            assign badge = block.settings.qty_break_3_badge | split: '|' | first
+            assign badge_color = block.settings.qty_break_3_badge | split: '|' | last
+            assign selected = block.settings.qty_break_3_selected
+        endcase
+
+        assign compare_total = current_variant.price | times: qty | money_without_trailing_zeros
+        assign total = 100 | minus: discount | divided_by: 100.0 | times: current_variant.price | times: qty | money_without_trailing_zeros
+
+        assign current_variant_ids = ''
+
+        for count in (1..qty)
+          unless forloop.last
+            assign current_variant_ids = current_variant_ids | append: current_variant.id | append: ','
+          else
+            assign current_variant_ids = current_variant_ids | append: current_variant.id
+          endunless
+        endfor
+      %}
+      <div
+        class="product-qty-break"
+        data-discount="{{ discount }}"
+        role="group"
+      >
+        <input
+          id="qty-breaks-{{ product.id }}-{{ count }}"
+          type="radio"
+          name="qty-breaks-{{ product.id }}"
+          value="{{ current_variant_ids }}"
+          {% unless current_variant.available %}
+            disabled
+          {% endunless %}
+          {% if selected %}
+            checked
+          {% endif %}
+        >
+        <label
+          for="qty-breaks-{{ product.id }}-{{ count }}"
+          class="check-label"
+        >
+          {% unless badge == blank %}
+            <span
+              class="product-qty-break-badge badge"
+              {% unless badge_color == null %}
+                style="background: {{ badge_color }}"
+              {% endunless %}
+            >
+              {{ badge }}
+            </span>
+          {% endunless %}
+          <div class="product-qty-break-inner">
+            <span class="product-qty-break-title-wrapper">
+              <span class="product-qty-break-title">
+                {{ title }}
+              </span>
+              {% unless subtitle == null %}
+                <span class="product-qty-break-subtitle">
+                  {{ subtitle }}
+                </span>
+              {% endunless %}
+            </span>
+            <span class="product-qty-break-total">
+              {% if discount > 0 %}
+                <span class="visually-hidden"> {{ 'product.sale_price' | t }} &nbsp; </span>
+                <span data-total>{{ total }}</span>
+                <s>
+                  <span class="visually-hidden"> {{ 'product.regular_price' | t }} &nbsp; </span>
+                  <span data-compare-total>{{ compare_total -}}</span>
+                </s>
+              {% else %}
+                {{ total }}
+              {% endif %}
+            </span>
+          </div>
+          {% unless product.has_only_default_variant %}
+            <div
+              class="product-qty-break-variants"
+              aria-label="{{ 'accessibility.select_variants' | t: count: qty }}"
+              role="group"
+            >
+              {% for count in (1..qty) %}
+                <div class="product-qty-break-variant">
+                  <div class="product-qty-break-variant-title">#{{ count }}</div>
+                  <div class="product-qty-break-variant-options">
+                    {% for option in product.options_with_values %}
+                      <div class="product-qty-break-variant-option">
+                        <div class="select-wrapper">
+                          <select
+                            class="select fs-sm"
+                            aria-label="{{ option.name }}"
+                          >
+                            {% for value in option.values %}
+                              <option
+                                value="{{ value | escape }}"
+                                {% if value == option.selected_value %}
+                                  selected
+                                {% endif %}
+                              >
+                                {{ value }}
+                              </option>
+                            {% endfor %}
+                          </select>
+                          {% render 'svg-icons', icon: 'chevron-down', size: 16, stroke_width: 1.5 %}
+                        </div>
+                      </div>
+                    {% endfor %}
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          {% endunless %}
+        </label>
+      </div>
+    {% endfor %}
+  </product-qty-breaks>
+</div>

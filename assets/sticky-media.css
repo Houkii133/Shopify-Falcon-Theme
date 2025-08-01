@@ -1,0 +1,124 @@
+/*
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+*/
+
+.sticky-media {
+  display: block;
+  position: relative;
+  color: rgba(var(--color-text));
+}
+
+.sticky-media .media-outter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.sticky-media .media-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: var(--opacity, 1);
+  transition: opacity 0.7s ease-out;
+}
+
+.sticky-media .media-wrapper::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(var(--overlay-color), var(--overlay-opacity));
+  -webkit-backdrop-filter: blur(var(--overlay-blur));
+  backdrop-filter: blur(var(--overlay-blur));
+}
+
+.sticky-media .media-wrapper picture {
+  width: 100%;
+  display: block;
+}
+
+.sticky-media .media-wrapper img,
+.sticky-media .media-wrapper video,
+.sticky-media .media-wrapper .placeholder-svg {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  display: block;
+}
+
+.sticky-media-content {
+  position: relative;
+  margin-top: -100vh;
+}
+
+.sticky-media-content-inner {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  padding: 1rem;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sticky-media-content-inner-inner {
+}
+
+.sticky-media-content .subheading {
+  margin-bottom: 0.25rem;
+}
+
+.sticky-media-content .heading {
+  margin: 0;
+}
+
+.sticky-media-content .description {
+  margin-top: 0.6rem;
+}
+
+.sticky-media-content .description p {
+  margin-top: 0;
+}
+
+.sticky-media-content .btn-wrapper {
+  margin-top: 1.75rem;
+  display: inline-flex;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+
+@media (max-width: 599px) {
+  .sticky-media {
+    padding-top: calc(var(--padding-top) * 0.75);
+    padding-bottom: calc(var(--padding-bottom) * 0.75);
+  }
+  .sticky-media-content .btn-wrapper .btn {
+    width: 100%;
+  }
+}
+
+@media (min-width: 600px) {
+  .sticky-media {
+    padding-top: calc(var(--padding-top) * 1);
+    padding-bottom: calc(var(--padding-bottom) * 1);
+  }
+  .sticky-media-content-inner {
+    justify-content: var(--position);
+    text-align: var(--text-align);
+  }
+}

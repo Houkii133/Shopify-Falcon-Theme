@@ -1,0 +1,98 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% case block.type %}
+  {% when 'about' %}
+    <div
+      class="
+        footer-block-about
+        {{ block.settings.color_scheme | prepend: 'color-' }}
+        text-{{block.settings.text_align }}
+      "
+      style="
+        --bg-opacity: {{ block.settings.bg_opacity | append: '%' }};
+        --border-opacity: {{ block.settings.border_opacity | append: '%' }};
+        --padding: {{ block.settings.padding | append: 'rem' }};
+      "
+    >
+      {% unless block.settings.logo == blank %}
+        <a href="{{ routes.root_url }}" class="img-wrapper">
+          {% liquid
+            assign logo_height = block.settings.logo_height
+            assign logo_height_scaled = logo_height | times: 2
+          %}
+          <img
+            class="img-fluid"
+            src="{{ block.settings.logo | image_url: height: logo_height_scaled }}"
+            alt="{{ shop.name }}"
+            width="{{ logo_height | times: block.settings.logo.aspect_ratio | round }}"
+            height="{{ logo_height }}"
+            loading="lazy"
+          >
+        </a>
+      {% endunless %}
+      {% unless block.settings.title == blank %}
+        <h3 class="heading h5">
+          {{ block.settings.title }}
+        </h3>
+      {% endunless %}
+      <div class="description rte fs-sm">
+        {{ block.settings.description }}
+      </div>
+      {% if block.settings.show_social_icons %}
+        {% render 'social-icons', icon_size: block.settings.social_icons_size %}
+      {% endif %}
+    </div>
+  {% when 'richtext' %}
+    <div class="footer-block-richtext">
+      <div class="descripton rte">
+        {{ block.settings.description }}
+      </div>
+      {% if block.settings.btn_primary_text != blank or block.settings.btn_secondary_text != blank %}
+        <div class="btn-wrapper">
+          {% unless block.settings.btn_primary_text == blank %}
+            <a
+              class="
+                btn btn-sm
+                {{ block.settings.btn_primary_style }}
+                  {% unless block.settings.btn_primary_url %}
+                  disabled
+                {% endunless %}
+              "
+              href="{{ block.settings.btn_primary_url }}"
+            >
+              {{ block.settings.btn_primary_text }}
+            </a>
+          {% endunless %}
+          {% unless block.settings.btn_secondary_text == blank %}
+            <a
+              class="
+                btn btn-sm
+                {{ block.settings.btn_secondary_style }}
+                {% unless block.settings.btn_secondary_url %}
+                  disabled
+                {% endunless %}
+              "
+              href="{{ block.settings.btn_secondary_url }}"
+            >
+              {{ block.settings.btn_secondary_text }}
+            </a>
+          {% endunless %}
+        </div>
+      {% endif %}
+    </div>
+  {% when 'menu' %}
+    <div class="footer-block-menu">
+      <ul>
+        {% for link in linklists[block.settings.menu].links %}
+          <li>
+            <a href="{{ link.url }}">
+              {{ link.title }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+{% endcase %}

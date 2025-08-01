@@ -1,0 +1,333 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% if section.index <= 3 or request.design_mode %}
+  <link href="{{ 'countdown.css' | asset_url }}" rel="stylesheet" fetchpriority="high">
+{% endif %}
+
+{% liquid
+  assign countdown = section.settings.countdown | date: '%s'
+  assign now = 'now' | date: '%s'
+
+  if shop.permanent_domain contains 'ks-'
+    assign countdown = now | plus: 43200 | minus: 1
+  endif
+
+  assign now = 'now' | date: '%s'
+  assign diff = countdown | minus: now
+
+  assign days = diff | divided_by: 86400
+  assign hours = diff | modulo: 86400 | divided_by: 3600
+  assign minutes = diff | modulo: 3600 | divided_by: 60
+  assign seconds = diff | modulo: 60
+%}
+ 
+<div
+  id="countdown-section-{{ section.id }}" 
+  class="countdown-section {{ section.settings.color_scheme_outer | prepend: 'color-' }}"
+  style="
+    --circle-size-mobile: {{ section.settings.circle_size_mobile | append: 'px' }};
+    --circle-size-desktop: {{ section.settings.circle_size_desktop | append: 'px' }};
+    --padding-top: {{ section.settings.padding_top | append: 'rem' }};
+    --padding-bottom: {{ section.settings.padding_bottom | append: 'rem' }};
+  "
+  data-viewport-entered="false"
+  data-section-css="{{- 'countdown.css' | asset_url -}}"
+  >
+  <div class="container {% if section.settings.container_narrow %}container-narrow{% endif %}">
+    <div 
+      class="countdown-section-inner scroll-animate-fade-in-up {{ section.settings.color_scheme_inner | prepend: 'color-' }}"
+      style="--border-opacity: {{ section.settings.border_opacity | append: '%' }};">
+      <countdown-component
+        class="countdown {{ section.settings.color_scheme_countdown | prepend: 'color-' }}"
+        data-countdown="{{ countdown | times: 1000 }}"
+        aria-label="{{ 'accessibility.countdown_label' | t: days: days, hours: hours, minutes: minutes  }}"
+        role="timer"
+      >
+        <span class="{% if days == 0 %}hidden{% endif %}">
+          <span data-countdown-days>{{- days -}}</span>
+          <span> {{- 'general.times.days' | t -}}</span>
+        </span>
+        <span class="{% if hours == 0 %} hidden{% endif %}">
+          <span data-countdown-hours>{{- hours -}}</span>
+          <span>{{- 'general.times.hours' | t -}}</span>
+        </span>
+        <span>
+          <span data-countdown-minutes>{{- minutes -}}</span>
+          <span>{{- 'general.times.minutes' | t -}}</span>
+        </span>
+        <span>
+          <span data-countdown-seconds>{{- seconds -}}</span>
+          <span>{{- 'general.times.seconds' | t -}}</span>
+        </span>
+      </countdown-component>
+      <div class="countdown-section-content">
+        {% unless section.settings.subheading == blank %}
+          <div class="subheading {{ section.settings.subheading_font_size }}">
+            {{ section.settings.subheading }}
+          </div>
+        {% endunless %}
+        {% unless section.settings.heading == blank %}
+          <h2 class="heading {{ section.settings.heading_size }}">
+            {{ section.settings.heading }}
+          </h2>
+        {% endunless %}
+        {% unless section.settings.description == blank %}
+          <div class="description rte {{ section.settings.description_font_size }}">
+            {{ section.settings.description }}
+          </div>
+        {% endunless %}
+        {% if section.settings.btn_primary_text != blank or section.settings.btn_secondary_text != blank %}
+          <div class="btn-wrapper">
+            {% unless section.settings.btn_primary_text == blank %}
+              <a
+                class="btn {{ section.settings.btn_primary_style }}"
+                href="{{ section.settings.btn_primary_url }}"
+              >
+                {{ section.settings.btn_primary_text }}
+              </a>
+            {% endunless %}
+            {% unless section.settings.btn_secondary_text == blank %}
+              <a
+                class="btn {{ section.settings.btn_secondary_style }}"
+                href="{{ section.settings.btn_secondary_url }}"
+              >
+                {{ section.settings.btn_secondary_text }}
+              </a>
+            {% endunless %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Countdown",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "countdown",
+      "label": "Countdown",
+      "default": "2025-12-31 23:59",
+      "info": "Format: yyyy-mm-dd hh:mm. Leave blank to disable"
+    },
+    {
+      "type": "header",
+      "content": "Styling"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme_outer",
+      "label": "Outer color scheme",
+      "default": "scheme-2",
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme_inner",
+      "label": "Inner color scheme",
+      "default": "scheme-1",
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme_countdown",
+      "label": "Countdown color scheme",
+      "default": "scheme-3",
+    },
+    {
+      "type": "range",
+      "id": "border_opacity",
+      "label": "Border opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 100,
+      "unit": "%",
+    },
+    {
+      "type": "checkbox",
+      "id": "container_narrow",
+      "label": "Use narrow container",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "circle_size_mobile",
+      "label": "Circle size - mobile",
+      "min": 50,
+      "max": 150,
+      "step": 10,
+      "default": 70,
+      "unit": "px",
+    },
+    {
+      "type": "range",
+      "id": "circle_size_desktop",
+      "label": "Circle size - desktop",
+      "min": 50,
+      "max": 150,
+      "step": 10,
+      "default": 100,
+      "unit": "px",
+    },
+    
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Option subheading",
+    },
+    {
+      "type": "select",
+      "id": "subheading_font_size",
+      "label": "Suheading font-size",
+      "default": "fs-sm",
+      "options": [
+        { "value": "fs-sm", "label": "sm" },
+        { "value": "fs-md", "label": "md" },
+        { "value": "fs-lg", "label": "lg" },
+        { "value": "fs-xl", "label": "xl" }
+      ],
+      "visible_if": "{{ section.settings.subheading != blank }}"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Animated countdown",
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "default": "h2",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" },
+        { "value": "h5", "label": "H5" },
+        { "value": "h6", "label": "H6" }
+      ],
+      "visible_if": "{{ section.settings.heading != blank }}",
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>An optional description for this slide</p>"
+    },
+    {
+      "type": "select",
+      "id": "description_font_size",
+      "label": "Description font-size",
+      "default": "fs-lg",
+      "options": [
+        { "value": "fs-sm", "label": "sm" },
+        { "value": "fs-md", "label": "md" },
+        { "value": "fs-lg", "label": "lg" },
+        { "value": "fs-xl", "label": "xl" }
+      ],
+      "visible_if": "{{ section.settings.description != blank }}"
+    },
+    {
+      "type": "header",
+      "content": "Primary button"
+    },
+    {
+      "type": "text",
+      "id": "btn_primary_text",
+      "label": "Button text",
+      "default": "Primary button",
+      "info": "Leave empty to disable"
+    },
+    {
+      "type": "url",
+      "id": "btn_primary_url",
+      "label": "Button URL",
+      "visible_if": "{{ section.settings.btn_primary_text != blank }}"
+    },
+    {
+      "type": "select",
+      "id": "btn_primary_style",
+      "label": "Button style",
+      "default": "btn-primary",
+      "options": [
+        { "value": "btn-primary", "label": "Primary" },
+        { "value": "btn-outline", "label": "Outline" },
+        { "value": "btn-accent", "label": "Accent" },
+        { "value": "btn-link", "label": "Link" }
+      ],
+      "visible_if": "{{ section.settings.btn_primary_text != blank }}"
+    },
+    {
+      "type": "header",
+      "content": "Secondary button"
+    },
+    {
+      "type": "text",
+      "id": "btn_secondary_text",
+      "label": "Button text",
+      "default": "Secondary button",
+      "info": "Leave empty to disable"
+    },
+    {
+      "type": "url",
+      "id": "btn_secondary_url",
+      "label": "Button URL",
+      "visible_if": "{{ section.settings.btn_secondary_text != blank }}"
+    },
+    {
+      "type": "select",
+      "id": "btn_secondary_style",
+      "label": "Button style",
+      "default": "btn-outline",
+      "options": [
+        { "value": "btn-primary", "label": "Primary" },
+        { "value": "btn-outline", "label": "Outline" },
+        { "value": "btn-accent", "label": "Accent" },
+        { "value": "btn-link", "label": "Link" }
+      ],
+      "visible_if": "{{ section.settings.btn_secondary_text != blank }}"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 2,
+      "unit": "rem"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 5,
+      "step": 0.2,
+      "default": 2,
+      "unit": "rem"
+    },
+  ],
+  "presets": [
+    {
+      "name": "Countdown",
+      "category": "Promotional",
+    }
+  ]
+}
+{% endschema %}

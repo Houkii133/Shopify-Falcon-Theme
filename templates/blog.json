@@ -1,0 +1,53 @@
+{
+  "sections": {
+    "template-blog": {
+      "type": "blog-main",
+      "blocks": {
+        "header_EJYUay": {
+          "type": "header",
+          "settings": {
+            "color_scheme": "scheme-2",
+            "full_width": false,
+            "show_breadcrumb": true,
+            "img": "shopify:\/\/shop_images\/tamara-bellis-HPvN6rs86F0-unsplash.jpg",
+            "overlay_color": "#000000",
+            "overlay_opacity": 40,
+            "overlay_blur": 0,
+            "text_alignment": "center",
+            "heading": "",
+            "heading_size": "h1",
+            "description": "<p>Add an optional description for this blog<\/p>",
+            "description_size": "fs-md",
+            "padding_top": 6,
+            "padding_bottom": 6
+          }
+        },
+        "posts_MirVEk": {
+          "type": "posts",
+          "settings": {
+            "color_scheme": "scheme-1",
+            "full_width": false,
+            "mobile_cols": 1,
+            "tablet_cols": 2,
+            "desktop_cols": 3,
+            "article_img_ratio": "4x3",
+            "article_heading_size": "h5",
+            "article_meta": true,
+            "article_tags": true,
+            "article_excerpt": false,
+            "padding_top": 2,
+            "padding_bottom": 2
+          }
+        }
+      },
+      "block_order": [
+        "header_EJYUay",
+        "posts_MirVEk"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "template-blog"
+  ]
+}

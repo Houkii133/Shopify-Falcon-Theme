@@ -1,0 +1,85 @@
+{% comment %}
+  © 2025 KondaSoft
+  https://www.kondasoft.com
+{% endcomment %}
+
+{% if settings.wishlist %}
+  <dialog
+    id="wishlist-drawer"
+    class="dialog drawer drawer-right drawer-wide"
+    aria-labelledby="wishlist-drawer-title"
+    data-section-css="{{ 'wishlist.css' | asset_url }}"
+    data-section-js="{{ 'wishlist.js' | asset_url }}"
+    data-wishlist-count="0"
+  >
+    <dialog-component class="dialog-inner">
+      <div class="dialog-header">
+        <h2 id="wishlist-drawer-title" class="dialog-title" aria-atomic="true" aria-live="polite">
+          {{ 'general.wishlist.wishlist' | t }}
+          (<span data-badge="wishlist">0</span>)
+        </h2>
+        <button
+          class="dialog-close"
+          data-dialog-close
+          aria-label="{{ 'accessibility.close' | t }}"
+        >
+          {% render 'svg-icons', icon: 'x', size: 20, stroke_width: 1.5 %}
+        </button>
+      </div>
+      <div class="dialog-body">
+        <wishlist-component
+          class="wishlist-component"
+          data-img-ratio="{{ settings.product_card_img_ratio }}"
+          data-text-add="{{ 'general.wishlist.add' | t }}"
+          data-text-remove="{{ 'general.wishlist.remove' | t }}"
+          data-text-price-regular="{{ 'product.regular_price' | t }}"
+          data-text-price-sale="{{ 'product.sale_price' | t }}"
+          data-text-price-from="{{ 'product.price_from' | t }}"
+          data-text-minute="{{ 'general.times.minute' | t }}"
+          data-text-minutes="{{ 'general.times.minutes' | t }}"
+          data-text-hour="{{ 'general.times.hour' | t }}"
+          data-text-hours="{{ 'general.times.hours' | t }}"
+          data-text-day="{{ 'general.times.day' | t }}"
+          data-text-days="{{ 'general.times.days' | t }}"
+          data-text-moments="{{ 'general.times.moments' | t }}"
+          data-text-ago="{{ 'general.times.ago' | t }}">
+          <div class="wishlist-empty" hidden>
+            <div class="svg-wrapper">
+              {% render 'svg-icons', icon: 'heart', size: 20, stroke_width: 1.6 %}
+            </div>
+            <div class="description rte">
+              {{ 'general.wishlist.empty_html' | t }}
+            </div>
+            <button class="btn btn-outline" type="button" data-dialog-close="">
+              {{ 'cart.continue_shopping' | t }}
+            </button>
+          </div>
+          <ul class="product-list" hidden>
+            {% comment %} Injected dynamically {% endcomment %}
+          </ul>
+        </wishlist-component>
+      </div>
+      <div class="dialog-footer">
+        <button
+          class="btn btn-outline btn-full"
+          type="button"
+          name="wishlist-remove-all"
+        >
+          {{ 'general.wishlist.remove_all' | t }}
+        </button>
+      </div>
+    </dialog-component>
+  </dialog>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Wishlist drawer",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "NOTE: You can enable/disable the wishlist feature in the [theme settings](\/editor?context=theme&category=general)"
+    },
+  ]
+}
+{% endschema %}
