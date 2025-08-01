@@ -322,60 +322,70 @@
         "item_kN4PT7": {
           "type": "item",
           "settings": {
-            "heading": "First Testimonial",
-            "description": "<p>\"Shopping at [Store Name] has been an absolute delight! The carefully curated selection of products is a testament to the store's commitment to quality. From trendy fashion pieces to unique home decor items, every product exudes style and craftsmanship.\"</p>",
-            "author": "Author's Name",
-            "author_subtitle": "Verified Customer",
+            "heading": "Eindelijk een webshop die écht met kippenliefhebbers meedenkt",
+            "description": "<p>\"Ik bestel inmiddels alles voor mijn kippen via Kippenpakket.nl. Niet alleen hebben ze topkwaliteit voer en handige producten, maar ook het persoonlijke contact is uniek. Toen ik vragen had over bloedluizen, kreeg ik zelfs laat in de avond nog een reactie via de chat – super behulpzaam! Mijn kippen zijn gezonder en blijer dan ooit. Aanrader voor elke kippenhouder!\"</p>",
+            "author": "– Monique uit Apeldoorn",
+            "author_subtitle": "Geverifieerde klant",
             "product": "glasses-series-1"
           }
         },
         "item_ex6Jny": {
           "type": "item",
           "settings": {
-            "heading": "Second Testimonial",
-            "description": "<p>\"Shopping at [Store Name] has been an absolute delight! The carefully curated selection of products is a testament to the store's commitment to quality. From trendy fashion pieces to unique home decor items, every product exudes style and craftsmanship.\"</p>",
-            "author": "Author's Name",
-            "author_subtitle": "Verified Customer",
+            "heading": "Supersnelle levering en alles keurig verpakt",
+            "description": "<p></p><p></p><p>\"Ik had snel kippenvoer en een nieuwe drinkbak nodig, en Kippenpakket.nl heeft me echt gered. De bestelling was de volgende dag al binnen, netjes verpakt en voorzien van een handgeschreven kaartje. Die persoonlijke touch maakt het verschil!</p>",
+            "author": "– Erik uit Tilburg",
+            "author_subtitle": "Geverifieerde klant",
             "product": "bag-series-2"
+          }
+        },
+        "item_V6gRDw": {
+          "type": "item",
+          "settings": {
+            "heading": "Breed assortiment, fijne prijzen",
+            "description": "<p>\"Van snacks tot natuurlijke gezondheidsproducten – alles wat ik nodig heb voor mijn kippen vind ik hier. Het assortiment groeit ook steeds, en ik merk dat er goed wordt geluisterd naar klanten. En dat voor eerlijke prijzen!\"</p>",
+            "author": "– Sanne uit Groningen",
+            "author_subtitle": "Geverifieerde klant",
+            "product": ""
           }
         },
         "item_JihtVf": {
           "type": "item",
           "settings": {
-            "heading": "Third Testimonial",
-            "description": "<p>\"Shopping at [Store Name] has been an absolute delight! The carefully curated selection of products is a testament to the store's commitment to quality. From trendy fashion pieces to unique home decor items, every product exudes style and craftsmanship.\"</p>",
-            "author": "Author's Name",
-            "author_subtitle": "Verified Customer",
+            "heading": "Gebruiksvriendelijke webshop, snel besteld",
+            "description": "<p>\"De site werkt super makkelijk, ook op mijn mobiel. Binnen een paar klikken heb ik precies wat ik nodig heb. Betalen gaat vlot en ik krijg meteen een duidelijke bevestiging. Zo moet online winkelen zijn.\"</p>",
+            "author": "– Jan-Willem uit Roermond",
+            "author_subtitle": "Geverifieerde klant",
             "product": "heat-series-1"
           }
         },
         "item_rKhdAp": {
           "type": "item",
           "settings": {
-            "heading": "Fourth Testimonial",
-            "description": "<p>\"Shopping at [Store Name] has been an absolute delight! The carefully curated selection of products is a testament to the store's commitment to quality. From trendy fashion pieces to unique home decor items, every product exudes style and craftsmanship.\"</p>",
-            "author": "Author's Name",
-            "author_subtitle": "Verified Customer",
+            "heading": "Klantvriendelijkheid zoals je het nergens meer ziet",
+            "description": "<p>\"Ik had twijfels over welk supplement geschikt was voor mijn kippen. Binnen een uur kreeg ik via e-mail uitgebreid advies, afgestemd op mijn situatie. Je merkt gewoon dat hier echte kippenliefhebbers achter zitten.\"</p>",
+            "author": "– Els uit Den Haag",
+            "author_subtitle": "Geverifieerde klant",
             "product": "lamp-series-1"
           }
         },
         "item_efDVRA": {
           "type": "item",
           "settings": {
-            "heading": "Fifth Testimonial",
-            "description": "<p>\"Shopping at [Store Name] has been an absolute delight! The carefully curated selection of products is a testament to the store's commitment to quality. From trendy fashion pieces to unique home decor items, every product exudes style and craftsmanship.\"</p>",
-            "author": "Author's Name",
-            "author_subtitle": "Verified Customer",
+            "heading": "Perfect voor beginnende kippenhouders",
+            "description": "<p>\"Als absolute beginner voelde ik me meteen geholpen. De informatie op de site is duidelijk en de producten zijn écht afgestemd op mensen zoals ik. Dankzij Kippenpakket.nl durfde ik eindelijk te starten met kippen houden in mijn achtertuin!\"</p>",
+            "author": "– Iris uit Utrecht",
+            "author_subtitle": "Geverifieerde klant",
             "product": "watch-series-14"
           }
         },
         "item_B6yDGt": {
           "type": "item",
           "settings": {
-            "heading": "Six Testimonial",
-            "description": "<p>\"Shopping at [Store Name] has been an absolute delight! The carefully curated selection of products is a testament to the store's commitment to quality. From trendy fashion pieces to unique home decor items, every product exudes style and craftsmanship.\"</p>",
-            "author": "Author's Name",
-            "author_subtitle": "Verified Customer",
+            "heading": "Je voelt je onderdeel van een kippencommunity",
+            "description": "<p>\"Naast het bestellen van producten krijg ik hier altijd advies, tips en zelfs een hart onder de riem als er iets met m’n kippen is. Alsof je lid bent van een clubje met gelijkgestemden. Dat maakt dit zo bijzonder.\"</p>",
+            "author": "– Martijn uit Breda",
+            "author_subtitle": "Geverifieerde klant",
             "product": "watch-series-1"
           }
         }
@@ -383,6 +393,7 @@
       "block_order": [
         "item_kN4PT7",
         "item_ex6Jny",
+        "item_V6gRDw",
         "item_JihtVf",
         "item_rKhdAp",
         "item_efDVRA",
@@ -393,7 +404,7 @@
         "color_scheme": "",
         "full_width": false,
         "header_alignment": "left",
-        "heading": "Testimonials",
+        "heading": "Klantbeoordelingen waar we kippenvel van krijgen!",
         "heading_size": "h3",
         "description": "<p>Rated <strong>5/5</strong> from <strong>1,000+</strong> satisfied customes.</p>",
         "description_font_size": "fs-md",
