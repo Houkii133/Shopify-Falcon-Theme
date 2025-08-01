@@ -57,8 +57,9 @@
         "image_WFmphb": {
           "type": "slide",
           "settings": {
+            "video": "shopify://files/videos/Video_Klaar_Meelwormen_Eten_POV.mp4",
             "overlay_color": "#000000",
-            "overlay_opacity": 30,
+            "overlay_opacity": 20,
             "overlay_blur": 0,
             "position_mobile": "center",
             "position_desktop": "right",
