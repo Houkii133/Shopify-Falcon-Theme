@@ -115,7 +115,7 @@
       "subtotal": "Totaal",
       "savings": "Je bespaart",
       "btn_view_contents": "Inhoud bekijken",
-      "btn_add_to_cart": "Toevoegen in winkelwagen",
+      "btn_add_to_cart": "+",
       "btn_checkout": "Afrekenen",
       "text_min_items_html": "Minimale items vereist: <b>{{ count }}</b>",
       "text_max_items_html": "Maximale items toegestaan: <b>{{ count }}</b>",
@@ -159,7 +159,7 @@
     "sale_price": "Aanbiedingsprijs",
     "price_from": "Van",
     "sold_out": "Uitverkocht",
-    "add_to_cart": "Toevoegen in winkelwagen",
+    "add_to_cart": "+",
     "buy_it_now": "Koop nu",
     "unavailable": "Niet beschikbaar",
     "quick_view": "Snel bekijken",
@@ -289,5 +289,28 @@
     "tags_title": "",
     "tags_show_all": "",
     "posted_in": ""
+  },
+  "shopify": {
+    "checkout": {
+      "general": {
+        "cart": "Winkelwagen",
+        "back_to_cart": "Terug naar winkelwagen"
+      }
+    },
+    "notices": {
+      "cart": {
+        "empty_update": "Kan lege winkelwagen niet bijwerken.",
+        "generic_error": "Fout winkelwagen",
+        "changed": "Winkelwagen gewijzigd.",
+        "shipping_address_not_required": "Bij deze winkelwagen is geen verzending nodig.",
+        "merchandise_line_transformers": {
+          "run_error": "Er is een fout opgetreden in je winkelwagen."
+        },
+        "cart_too_large": "Winkelwagen is te groot"
+      }
+    },
+    "page_titles": {
+      "shopping_cart": "Je winkelwagen"
+    }
   }
 }
