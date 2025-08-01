@@ -15,6 +15,7 @@
         "image_nQCYNC": {
           "type": "slide",
           "settings": {
+            "video": "shopify://files/videos/Kip_Vriendelijke_Tuin_Ontwerp_Concept.mp4",
             "overlay_color": "#000000",
             "overlay_opacity": 30,
             "overlay_blur": 0,
