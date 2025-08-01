@@ -121,13 +121,13 @@
       "text_max_items_html": "Maximale items toegestaan: <b>{{ count }}</b>",
       "promo_amount_html": "Voeg <b>{{ amount }}</b> of meer toe en <b>bespaar{{ discount}}</b>",
       "promo_quantity_html": "Koop <b>{{ amount }}</b> of meer items om <b>te besparen{{ discount}}</b>",
-      "promo_final_html": "",
-      "contents_modal_title": "",
-      "contents_modal_empty_html": ""
+      "promo_final_html": "Gefeliciteerd met je bespaarde bedrag!",
+      "contents_modal_title": "Bundel inhoud",
+      "contents_modal_empty_html": "<p>Jouw bundel is momenteel leeg!</p>"
     },
     "password_page": {
-      "input_label": "",
-      "btn_label": ""
+      "input_label": "Wachtwoord",
+      "btn_label": "Verder"
     }
   },
   "collection": {
@@ -135,73 +135,73 @@
     "sort_by": "",
     "cols_selector": "",
     "count_products": {
-      "one": "",
-      "other": ""
+      "one": "{{ count }} product",
+      "other": "{{ count }} producten"
     },
     "filters": {
-      "btn_text": "",
-      "title": "",
-      "reset": "",
-      "from": "",
-      "to": "",
-      "view_more": "",
-      "remove_filter": "",
-      "remove_all": "",
-      "show_all": "",
+      "btn_text": "Filters",
+      "title": "Filters",
+      "reset": "Reset",
+      "from": "Van",
+      "to": "Naar",
+      "view_more": "Meer bekijken",
+      "remove_filter": "Verwijder filter",
+      "remove_all": "Alles verwijderen",
+      "show_all": "Laat alles zien",
       "view_results": {
-        "one": "",
-        "other": ""
+        "one": "Bekijk {{ count }} product",
+        "other": "Bekijk {{ count }} producten"
       }
     }
   },
   "product": {
-    "regular_price": "",
-    "sale_price": "",
-    "price_from": "",
-    "sold_out": "",
-    "add_to_cart": "",
-    "buy_it_now": "",
-    "unavailable": "",
-    "quick_view": "",
-    "product_details": "",
-    "color_options": "",
-    "select_variant": "",
-    "sale_badge": "",
+    "regular_price": "Adviesprijs",
+    "sale_price": "Aanbiedingsprijs",
+    "price_from": "Van",
+    "sold_out": "Uitverkocht",
+    "add_to_cart": "Toevoegen in winkelwagen",
+    "buy_it_now": "Koop nu",
+    "unavailable": "Niet beschikbaar",
+    "quick_view": "Snel bekijken",
+    "product_details": "Product informatie",
+    "color_options": "Kleur opties",
+    "select_variant": "Selecteer variant",
+    "sale_badge": "Bespaar {{ value }}",
     "quantity": {
-      "label": "",
-      "increase": "",
-      "decrease": ""
+      "label": "Aantal",
+      "increase": "Verhoog aantal",
+      "decrease": "Verlaag aantal"
     },
     "inventory_bar": {
       "low_stock_count": {
-        "one": "",
-        "other": ""
+        "one": "Nog maar [{{ count }} stuk] is op voorraad!",
+        "other": "Nog maar [{{ count }} stuks] zijn op voorraad!"
       },
-      "normal_stock_count": "",
-      "no_stock": "",
-      "untracked_stock": ""
+      "normal_stock_count": "Momenteel, [{{ count }} stuks] op voorraad!",
+      "no_stock": "Helaas, dit artikel is tijdelijk uitverkocht.",
+      "untracked_stock": "Momenteel is dit artikel op voorraad."
     },
     "cross_sells": {
-      "select_this": "",
-      "this_item": "",
-      "total_price": "",
-      "total_savings": "",
-      "add_selected_to_cart": "",
-      "additional_discount_html": ""
+      "select_this": "Selecteer dit",
+      "this_item": "Dit item",
+      "total_price": "Totale prijs",
+      "total_savings": "Je bespaard",
+      "add_selected_to_cart": "Voeg geselecteerde items toe aan winkelwagen",
+      "additional_discount_html": "<p>Koop {{ count }} of meer items om <b>Te besparen {{ discount }}</b></p>"
     }
   },
   "cart": {
-    "title": "",
-    "empty_html": "",
-    "continue_shopping": "",
-    "quantity": "",
-    "property_view_file": "",
-    "subscribe_and_save": "",
-    "applied_discounts": "",
-    "subtotal": "",
-    "regular_price": "",
-    "sale_price": "",
-    "final_price": "",
+    "title": "Winkelwagen {{ count }}",
+    "empty_html": "<p>Jouw winkelwagen is momenteel leeg!</p>",
+    "continue_shopping": "Verder winkelen",
+    "quantity": "Aantal",
+    "property_view_file": "Bekijk bestand",
+    "subscribe_and_save": "Abonneer en bespaar",
+    "applied_discounts": "Toegepaste kortingen",
+    "subtotal": "Subtotaal",
+    "regular_price": "Adviesprijs",
+    "sale_price": "Sale prijs",
+    "final_price": "Uiteindelijke prijs",
     "taxes_shipping_at_checkout_html": "",
     "checkout": "",
     "variant_switcher": {
