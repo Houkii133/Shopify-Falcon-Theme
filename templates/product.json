@@ -199,7 +199,7 @@
         "delivery_info_WHwB7m": {
           "type": "delivery_info",
           "settings": {
-            "description": "<p>Buy it now and receive it between [start] and [end]</p>",
+            "description": "<p>Koop het nu en ontvang het tussen [start] en [end]</p>",
             "start": 7,
             "end": 10,
             "date_format": "%A, %e %b",
