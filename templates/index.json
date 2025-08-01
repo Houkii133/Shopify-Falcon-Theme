@@ -21,17 +21,17 @@
             "overlay_blur": 0,
             "position_mobile": "center",
             "position_desktop": "center",
-            "subheading": "Developed by KondaSoft",
-            "heading": "Welcome to Falcon Pro Theme",
+            "subheading": "Scharrelen jouw kippen ook zo lekker rond in de tuin?",
+            "heading": "Bekijk Alle Kippensnacks",
             "heading_size": "h1",
-            "description": "<p>Inspired by the official Dawn theme, but fully loaded with  premium features.</p>",
+            "description": "<p>Zorg voor natuurlijk scharrelgedrag met natuurlijke kippensnacks, zo blijft jouw kip ook echt een kip!</p>",
             "description_size": "fs-lg",
-            "btn_primary_text": "Buy theme",
+            "btn_primary_text": "Bekijk direct",
             "btn_primary_style": "btn-primary",
-            "btn_primary_url": "https://www.kondasoft.com/products/falcon-pro",
-            "btn_secondary_text": "Learn more",
+            "btn_primary_url": "shopify://collections/natuurlijke-gezonde-kippensnacks",
+            "btn_secondary_text": "Bekijk Happy Peck Snacktrio!",
             "btn_secondary_style": "btn-outline",
-            "btn_secondary_url": "https://www.kondasoft.com/products/falcon-pro"
+            "btn_secondary_url": "shopify://products/kippensnacks-scharrel-trio-voor-gezonde-blije-kippen"
           }
         },
         "image_K9qkMN": {
