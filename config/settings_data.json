@@ -9,7 +9,7 @@
  */
 {
   "current": {
-    "container_max_width": 1400,
+    "container_max_width": 1200,
     "border_radius": 0,
     "border_opacity": 100,
     "wishlist": true,
@@ -26,8 +26,8 @@
     "product_card_img_ratio": "square",
     "product_card_img_hover": true,
     "product_card_show_form": true,
-    "product_card_atc_style": "variant_selector",
-    "product_card_form_button_style": "btn-outline",
+    "product_card_atc_style": "quick_view",
+    "product_card_form_button_style": "btn-accent",
     "social_facebook": "#",
     "social_instagram": "#",
     "social_x": "#",
@@ -186,11 +186,11 @@
     "color_schemes": {
       "scheme-1": {
         "settings": {
-          "background": "#ffffff",
+          "background": "#faf3eb",
           "background_gradient": "",
           "text": "#020617",
-          "accent": "#9e0812",
-          "btn_background": "#020617",
+          "accent": "#dc143c",
+          "btn_background": "#dc143c",
           "btn_text": "#ffffff",
           "btn_border": "#020617"
         }
@@ -219,7 +219,7 @@
       },
       "scheme-4": {
         "settings": {
-          "background": "#9e0812",
+          "background": "#df0413",
           "background_gradient": "",
           "text": "#ffffff",
           "accent": "#fad5d5",

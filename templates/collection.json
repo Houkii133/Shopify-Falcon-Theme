@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "collection_main_d9EBCD": {
@@ -28,14 +37,14 @@
         "collection_circles_ie4phP": {
           "type": "collection_circles",
           "settings": {
-            "menu": "collections",
+            "menu": "",
             "color_scheme": "scheme-1",
             "full_width": false,
             "alignment": "center",
+            "label": "Shop by collection",
             "img_size": 120,
             "item_title_font_size": "fs-sm",
             "item_show_product_count": true,
-            "label": "Shop by collection",
             "padding_top": 2,
             "padding_bottom": 0
           }

@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "product-main": {
@@ -15,7 +24,7 @@
             "letter_spacing": 8,
             "heading": "",
             "heading_size": "h3",
-            "description": "<p>{{ product.vendor }}<\/p>",
+            "description": "<p>{{ product.vendor }}</p>",
             "description_font_size": "fs-sm",
             "padding_top": 0,
             "padding_bottom": 0.2
@@ -51,7 +60,7 @@
             "letter_spacing": 0,
             "heading": "",
             "heading_size": "h3",
-            "description": "<p>{{ product.metafields.descriptors.subtitle.value }}<\/p>",
+            "description": "<p>{{ product.metafields.descriptors.subtitle.value }}</p>",
             "description_font_size": "fs-md",
             "padding_top": 0,
             "padding_bottom": 0.8
@@ -96,7 +105,7 @@
             "label": "Your Name",
             "placeholder": "E.g. John Doe",
             "options": "United States, Canada, France",
-            "info_text": "<p>Optional helper text to describe this field. NOTE: Besides inputs like this or file uploads like in the example below, you can add also other field types like selects, checkboxes, radio, etc. <\/p>",
+            "info_text": "<p>Optional helper text to describe this field. NOTE: Besides inputs like this or file uploads like in the example below, you can add also other field types like selects, checkboxes, radio, etc. </p>",
             "required": false,
             "textarea_height": 100,
             "padding_top": 0,
@@ -117,18 +126,6 @@
             "padding_bottom": 0
           }
         },
-        "subscriptions_app_block_PLReqm": {
-          "type": "shopify:\/\/apps\/subscriptions\/blocks\/app-block\/a3bfe9ec-96f8-4508-a003-df608a36d2ad",
-          "settings": {
-            "color_text_body": "#020617",
-            "dividers_color": "#020617",
-            "bacgkround_color": "#ffffff",
-            "border_thickness": 1,
-            "border_radius": 0,
-            "subscription_policy_url": "shopify:\/\/policies\/privacy-policy",
-            "product": "{{product}}"
-          }
-        },
         "countdown_AHBnzD": {
           "type": "countdown",
           "settings": {
@@ -136,7 +133,7 @@
             "color_scheme": "scheme-5",
             "heading": "Hurry up!",
             "heading_size": "h5",
-            "description": "<p>This sale is going to end soon!<\/p>",
+            "description": "<p>This sale is going to end soon!</p>",
             "description_font_size": "fs-sm",
             "padding_top": 0,
             "padding_bottom": 1
@@ -148,7 +145,7 @@
             "header_alignment": "center",
             "heading": "Buy more, save more!",
             "heading_size": "h5",
-            "description": "<p>Save up to 50% with bundled option<\/p>",
+            "description": "<p>Save up to 50% with bundled option</p>",
             "description_font_size": "fs-sm",
             "qty_break_1_qty": 1,
             "qty_break_1_discount": 0,
@@ -173,7 +170,7 @@
           "type": "upsell_checkbox",
           "settings": {
             "product": "lamp-series-1",
-            "label": "Add an amazing lamp for just <strong>[price]<\/strong>",
+            "label": "Add an amazing lamp for just <strong>[price]</strong>",
             "checked": false,
             "padding_top": 0,
             "padding_bottom": 0
@@ -183,7 +180,7 @@
           "type": "upsell_checkbox",
           "settings": {
             "product": "gift-wrap",
-            "label": "Add gift wrapping for just <strong>[price]<\/strong>",
+            "label": "Add gift wrapping for just <strong>[price]</strong>",
             "checked": false,
             "padding_top": 0,
             "padding_bottom": 1
@@ -202,7 +199,7 @@
         "delivery_info_WHwB7m": {
           "type": "delivery_info",
           "settings": {
-            "description": "<p>Buy it now and receive it between [start] and [end]<\/p>",
+            "description": "<p>Buy it now and receive it between [start] and [end]</p>",
             "start": 7,
             "end": 10,
             "date_format": "%A, %e %b",
@@ -234,12 +231,9 @@
             "description_font_size": "fs-sm",
             "img_size": 24,
             "label": "What we promise",
-            "img_1": "shopify:\/\/shop_images\/icon-trophy.svg",
-            "text_1": "<p>Commitment to<br\/>Excellence<\/p>",
-            "img_2": "shopify:\/\/shop_images\/icon-rocket-takeoff.svg",
-            "text_2": "<p>100% Satisfaction<br\/>Guarantee<\/p>",
-            "img_3": "shopify:\/\/shop_images\/icon-truck.svg",
-            "text_3": "<p>Free Shipping <br\/>Over $90<\/p>",
+            "text_1": "<p>Commitment to<br/>Excellence</p>",
+            "text_2": "<p>100% Satisfaction<br/>Guarantee</p>",
+            "text_3": "<p>Free Shipping <br/>Over $90</p>",
             "text_4": "",
             "text_5": "",
             "padding_top": 0,
@@ -253,7 +247,6 @@
             "title_font_size": 100,
             "title_text_transform": "capitalize",
             "title_letter_spacing": 0,
-            "icon": "shopify:\/\/shop_images\/icon-card-text.svg",
             "icon_size": 20,
             "description": "{{ product.description }}",
             "page": "",
@@ -272,9 +265,8 @@
             "title_font_size": 100,
             "title_text_transform": "capitalize",
             "title_letter_spacing": 0,
-            "icon": "shopify:\/\/shop_images\/icon-list-check.svg",
             "icon_size": 20,
-            "description": "<p><strong>Milk Chocolate<\/strong>: sugar; cocoa butter; whole milk powder; unsweetened chocolate; soy lecithin; natural vanilla extract. <\/p><p><strong>White Chocolate<\/strong>: Sugar, Cocoa Butter, Whole Milk Powder, Nonfat Dry Milk, Butterfat, Soy Lecithin (an emulsifier), and Vanilla Extract. <\/p><p><strong>Dark Chocolate:<\/strong> (Sugar, Chocolate Liquor, Cocoa Butter, Whole & Nonfat Milk Solids, Lecithin (an Emulsifier), Pure Vanilla Extract & Other Natural Flavors),<\/p>",
+            "description": "<p><strong>Milk Chocolate</strong>: sugar; cocoa butter; whole milk powder; unsweetened chocolate; soy lecithin; natural vanilla extract. </p><p><strong>White Chocolate</strong>: Sugar, Cocoa Butter, Whole Milk Powder, Nonfat Dry Milk, Butterfat, Soy Lecithin (an emulsifier), and Vanilla Extract. </p><p><strong>Dark Chocolate:</strong> (Sugar, Chocolate Liquor, Cocoa Butter, Whole & Nonfat Milk Solids, Lecithin (an Emulsifier), Pure Vanilla Extract & Other Natural Flavors),</p>",
             "page": "",
             "open_by_default": false,
             "btn_primary_text": "",
@@ -291,7 +283,6 @@
             "title_font_size": 100,
             "title_text_transform": "capitalize",
             "title_letter_spacing": 0,
-            "icon": "shopify:\/\/shop_images\/icon-ruler.svg",
             "icon_size": 20,
             "description": "",
             "page": "size-chart",
@@ -310,13 +301,12 @@
             "title_font_size": 100,
             "title_text_transform": "capitalize",
             "title_letter_spacing": 0,
-            "icon": "shopify:\/\/shop_images\/icon-truck.svg",
             "icon_size": 20,
-            "description": "<p>Feel free to create additional blocks like this for <strong>Shipping, Payments, etc <\/strong>through the Shopify Theme editor. Also, you may easily adjust their order by dragging and dropping.<\/p>",
+            "description": "<p>Feel free to create additional blocks like this for <strong>Shipping, Payments, etc </strong>through the Shopify Theme editor. Also, you may easily adjust their order by dragging and dropping.</p>",
             "page": "",
             "open_by_default": false,
             "btn_primary_text": "Learn more",
-            "btn_primary_url": "shopify:\/\/policies\/shipping-policy",
+            "btn_primary_url": "shopify://policies/shipping-policy",
             "btn_primary_style": "link",
             "padding_top": 0,
             "padding_bottom": 0
@@ -329,13 +319,12 @@
             "title_font_size": 100,
             "title_text_transform": "capitalize",
             "title_letter_spacing": 0,
-            "icon": "shopify:\/\/shop_images\/icon-sign-turn-left.svg",
             "icon_size": 20,
-            "description": "<p>To return an item to us, follow the directions listed on the return exchange form included with your order. If you don’t have this form available, you can download one by clicking here<\/p>",
+            "description": "<p>To return an item to us, follow the directions listed on the return exchange form included with your order. If you don’t have this form available, you can download one by clicking here</p>",
             "page": "",
             "open_by_default": false,
             "btn_primary_text": "Learn more",
-            "btn_primary_url": "shopify:\/\/policies\/refund-policy",
+            "btn_primary_url": "shopify://policies/refund-policy",
             "btn_primary_style": "link",
             "padding_top": 0,
             "padding_bottom": 0
@@ -354,7 +343,7 @@
             "header_alignment": "center",
             "heading": "Store Availability",
             "heading_size": "h5",
-            "description": "<p>This product is available for local pickup<\/p>",
+            "description": "<p>This product is available for local pickup</p>",
             "description_font_size": "fs-sm",
             "padding_top": 1,
             "padding_bottom": 0
@@ -363,7 +352,7 @@
         "prev_next_QAWaKa": {
           "type": "prev_next",
           "settings": {
-            "title": "Prev\/Next products"
+            "title": "Prev/Next products"
           }
         }
       },
@@ -377,7 +366,6 @@
         "inventory_bar_pBi9f9",
         "personalization_field_XntEjH",
         "personalization_field_7HqDpD",
-        "subscriptions_app_block_PLReqm",
         "countdown_AHBnzD",
         "qty_breaks_Xbbc3J",
         "upsell_checkbox_7tiWXf",
@@ -440,7 +428,7 @@
         "header_alignment": "center",
         "heading": "Frequently Bought Together",
         "heading_size": "h3",
-        "description": "<p><strong>Get 20% off<\/strong> when buying these products together<\/p>",
+        "description": "<p><strong>Get 20% off</strong> when buying these products together</p>",
         "description_font_size": "fs-md",
         "show_custom_badge": true,
         "show_sale_badge": true,
@@ -459,7 +447,6 @@
             "media_align_desktop": "left",
             "text_align_mobile": "left",
             "text_align_desktop": "left",
-            "img": "shopify:\/\/shop_images\/tamara-bellis-HPvN6rs86F0-unsplash.jpg",
             "img_ratio": "adapt",
             "video_autoplay": false,
             "video_loop": true,
@@ -470,13 +457,13 @@
             "subheading_font_size": "fs-sm",
             "heading": "The Most Versatile Shopify Themes",
             "heading_size": "h2",
-            "description": "<p>Suitable only for Shopify stores that are aspiring for greatness<\/p>",
+            "description": "<p>Suitable only for Shopify stores that are aspiring for greatness</p>",
             "description_font_size": "fs-md",
             "primary_btn_text": "Buy Theme",
-            "primary_btn_url": "https:\/\/www.kondasoft.com\/collections\/shopify-themes\/products\/falcon-pro",
+            "primary_btn_url": "https://www.kondasoft.com/collections/shopify-themes/products/falcon-pro",
             "primary_btn_style": "btn-primary",
             "secondary_btn_text": "Learn more",
-            "secondary_btn_url": "https:\/\/www.kondasoft.com\/collections\/shopify-themes\/products\/falcon-pro",
+            "secondary_btn_url": "https://www.kondasoft.com/collections/shopify-themes/products/falcon-pro",
             "secondary_btn_style": "btn-outline",
             "padding_top": 2,
             "padding_bottom": 2
@@ -489,7 +476,6 @@
             "media_align_desktop": "right",
             "text_align_mobile": "left",
             "text_align_desktop": "right",
-            "img": "shopify:\/\/shop_images\/nassim-boughazi-4frKet-PJss-unsplash_63437267-2de0-41b9-876e-9b413ac799b7.jpg",
             "img_ratio": "adapt",
             "video_autoplay": true,
             "video_loop": true,
@@ -500,13 +486,13 @@
             "subheading_font_size": "fs-sm",
             "heading": "The Most Dynamic Shopify Themes",
             "heading_size": "h2",
-            "description": "<p>Suitable only for Shopify stores that are aspiring for greatness<\/p>",
+            "description": "<p>Suitable only for Shopify stores that are aspiring for greatness</p>",
             "description_font_size": "fs-md",
             "primary_btn_text": "Buy Theme",
-            "primary_btn_url": "https:\/\/www.kondasoft.com\/collections\/shopify-themes\/products\/falcon-pro",
+            "primary_btn_url": "https://www.kondasoft.com/collections/shopify-themes/products/falcon-pro",
             "primary_btn_style": "btn-primary",
             "secondary_btn_text": "Learn more",
-            "secondary_btn_url": "https:\/\/www.kondasoft.com\/collections\/shopify-themes\/products\/falcon-pro",
+            "secondary_btn_url": "https://www.kondasoft.com/collections/shopify-themes/products/falcon-pro",
             "secondary_btn_style": "btn-outline",
             "padding_top": 3.4,
             "padding_bottom": 2
@@ -519,7 +505,6 @@
             "media_align_desktop": "left",
             "text_align_mobile": "left",
             "text_align_desktop": "left",
-            "img": "shopify:\/\/shop_images\/tamara-bellis-IwVRO3TLjLc-unsplash.jpg",
             "img_ratio": "adapt",
             "video_autoplay": true,
             "video_loop": true,
@@ -530,13 +515,13 @@
             "subheading_font_size": "fs-sm",
             "heading": "The Most Influential Shopify Themes",
             "heading_size": "h2",
-            "description": "<p>Suitable only for Shopify stores that are aspiring for greatness<\/p>",
+            "description": "<p>Suitable only for Shopify stores that are aspiring for greatness</p>",
             "description_font_size": "fs-md",
             "primary_btn_text": "Buy theme",
-            "primary_btn_url": "https:\/\/www.kondasoft.com\/collections\/shopify-themes\/products\/falcon-pro",
+            "primary_btn_url": "https://www.kondasoft.com/collections/shopify-themes/products/falcon-pro",
             "primary_btn_style": "btn-primary",
             "secondary_btn_text": "Learn more",
-            "secondary_btn_url": "https:\/\/www.kondasoft.com\/collections\/shopify-themes\/products\/falcon-pro",
+            "secondary_btn_url": "https://www.kondasoft.com/collections/shopify-themes/products/falcon-pro",
             "secondary_btn_style": "btn-outline",
             "padding_top": 2,
             "padding_bottom": 2
@@ -559,7 +544,7 @@
       "type": "apps",
       "blocks": {
         "judge_me_reviews_review_widget_yTCg9G": {
-          "type": "shopify:\/\/apps\/judge-me-reviews\/blocks\/review_widget\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
           "settings": {}
         }
       },
@@ -594,7 +579,7 @@
         "header_alignment": "left",
         "heading": "Recommended for you",
         "heading_size": "h3",
-        "description": "<p>An optional description for this section<\/p>",
+        "description": "<p>An optional description for this section</p>",
         "description_from_collection": false,
         "description_font_size": "fs-md",
         "carousel_mobile_cols": 2,
