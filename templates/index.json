@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero_slideshow_HEVyjq": {
@@ -6,7 +15,6 @@
         "image_nQCYNC": {
           "type": "slide",
           "settings": {
-            "img": "shopify:\/\/shop_images\/tamara-bellis-tYnqqEJrRrw-unsplash.jpg",
             "overlay_color": "#000000",
             "overlay_opacity": 30,
             "overlay_blur": 0,
@@ -15,20 +23,19 @@
             "subheading": "Developed by KondaSoft",
             "heading": "Welcome to Falcon Pro Theme",
             "heading_size": "h1",
-            "description": "<p>Inspired by the official Dawn theme, but fully loaded with  premium features.<\/p>",
+            "description": "<p>Inspired by the official Dawn theme, but fully loaded with  premium features.</p>",
             "description_size": "fs-lg",
             "btn_primary_text": "Buy theme",
             "btn_primary_style": "btn-primary",
-            "btn_primary_url": "https:\/\/www.kondasoft.com\/products\/falcon-pro",
+            "btn_primary_url": "https://www.kondasoft.com/products/falcon-pro",
             "btn_secondary_text": "Learn more",
             "btn_secondary_style": "btn-outline",
-            "btn_secondary_url": "https:\/\/www.kondasoft.com\/products\/falcon-pro"
+            "btn_secondary_url": "https://www.kondasoft.com/products/falcon-pro"
           }
         },
         "image_K9qkMN": {
           "type": "slide",
           "settings": {
-            "img": "shopify:\/\/shop_images\/nassim-boughazi-4frKet-PJss-unsplash.jpg",
             "overlay_color": "#000000",
             "overlay_opacity": 30,
             "overlay_blur": 0,
@@ -37,20 +44,19 @@
             "subheading": "★ ★ ★ ★ ★",
             "heading": "30+ Advanced Sections",
             "heading_size": "h1",
-            "description": "<p>Inspired by the official Dawn theme, but fully loaded with  premium features.<\/p>",
+            "description": "<p>Inspired by the official Dawn theme, but fully loaded with  premium features.</p>",
             "description_size": "fs-lg",
             "btn_primary_text": "Buy theme",
             "btn_primary_style": "btn-primary",
-            "btn_primary_url": "https:\/\/www.kondasoft.com\/products\/falcon-pro",
+            "btn_primary_url": "https://www.kondasoft.com/products/falcon-pro",
             "btn_secondary_text": "Learn more",
             "btn_secondary_style": "btn-outline",
-            "btn_secondary_url": "https:\/\/www.kondasoft.com\/products\/falcon-pro"
+            "btn_secondary_url": "https://www.kondasoft.com/products/falcon-pro"
           }
         },
         "image_WFmphb": {
           "type": "slide",
           "settings": {
-            "img": "shopify:\/\/shop_images\/tamara-bellis-AaASnb3rC-M-unsplash.jpg",
             "overlay_color": "#000000",
             "overlay_opacity": 30,
             "overlay_blur": 0,
@@ -59,14 +65,14 @@
             "subheading": "Developed by KondaSoft",
             "heading": "Inline with Shopify vision",
             "heading_size": "h1",
-            "description": "<p>Inspired by the official Dawn theme, but fully loaded with  premium features.<\/p>",
+            "description": "<p>Inspired by the official Dawn theme, but fully loaded with  premium features.</p>",
             "description_size": "",
             "btn_primary_text": "Buy theme",
             "btn_primary_style": "btn-primary",
-            "btn_primary_url": "https:\/\/www.kondasoft.com\/products\/falcon-pro",
+            "btn_primary_url": "https://www.kondasoft.com/products/falcon-pro",
             "btn_secondary_text": "Learn more",
             "btn_secondary_style": "btn-outline",
-            "btn_secondary_url": "https:\/\/www.kondasoft.com\/products\/falcon-pro"
+            "btn_secondary_url": "https://www.kondasoft.com/products/falcon-pro"
           }
         }
       },
@@ -314,8 +320,7 @@
           "type": "item",
           "settings": {
             "heading": "First Testimonial",
-            "description": "<p>\"Shopping at [Store Name] has been an absolute delight! The carefully curated selection of products is a testament to the store's commitment to quality. From trendy fashion pieces to unique home decor items, every product exudes style and craftsmanship.\"<\/p>",
-            "img": "shopify:\/\/shop_images\/nassim-boughazi-4frKet-PJss-unsplash_63437267-2de0-41b9-876e-9b413ac799b7.jpg",
+            "description": "<p>\"Shopping at [Store Name] has been an absolute delight! The carefully curated selection of products is a testament to the store's commitment to quality. From trendy fashion pieces to unique home decor items, every product exudes style and craftsmanship.\"</p>",
             "author": "Author's Name",
             "author_subtitle": "Verified Customer",
             "product": "glasses-series-1"
@@ -325,8 +330,7 @@
           "type": "item",
           "settings": {
             "heading": "Second Testimonial",
-            "description": "<p>\"Shopping at [Store Name] has been an absolute delight! The carefully curated selection of products is a testament to the store's commitment to quality. From trendy fashion pieces to unique home decor items, every product exudes style and craftsmanship.\"<\/p>",
-            "img": "shopify:\/\/shop_images\/tamara-bellis-HPvN6rs86F0-unsplash.jpg",
+            "description": "<p>\"Shopping at [Store Name] has been an absolute delight! The carefully curated selection of products is a testament to the store's commitment to quality. From trendy fashion pieces to unique home decor items, every product exudes style and craftsmanship.\"</p>",
             "author": "Author's Name",
             "author_subtitle": "Verified Customer",
             "product": "bag-series-2"
@@ -336,8 +340,7 @@
           "type": "item",
           "settings": {
             "heading": "Third Testimonial",
-            "description": "<p>\"Shopping at [Store Name] has been an absolute delight! The carefully curated selection of products is a testament to the store's commitment to quality. From trendy fashion pieces to unique home decor items, every product exudes style and craftsmanship.\"<\/p>",
-            "img": "shopify:\/\/shop_images\/tamara-bellis-HY1fq4ZtLTE-unsplash.jpg",
+            "description": "<p>\"Shopping at [Store Name] has been an absolute delight! The carefully curated selection of products is a testament to the store's commitment to quality. From trendy fashion pieces to unique home decor items, every product exudes style and craftsmanship.\"</p>",
             "author": "Author's Name",
             "author_subtitle": "Verified Customer",
             "product": "heat-series-1"
@@ -347,8 +350,7 @@
           "type": "item",
           "settings": {
             "heading": "Fourth Testimonial",
-            "description": "<p>\"Shopping at [Store Name] has been an absolute delight! The carefully curated selection of products is a testament to the store's commitment to quality. From trendy fashion pieces to unique home decor items, every product exudes style and craftsmanship.\"<\/p>",
-            "img": "shopify:\/\/shop_images\/pexels-adrienne-andersen-1174503-2334906.jpg",
+            "description": "<p>\"Shopping at [Store Name] has been an absolute delight! The carefully curated selection of products is a testament to the store's commitment to quality. From trendy fashion pieces to unique home decor items, every product exudes style and craftsmanship.\"</p>",
             "author": "Author's Name",
             "author_subtitle": "Verified Customer",
             "product": "lamp-series-1"
@@ -358,8 +360,7 @@
           "type": "item",
           "settings": {
             "heading": "Fifth Testimonial",
-            "description": "<p>\"Shopping at [Store Name] has been an absolute delight! The carefully curated selection of products is a testament to the store's commitment to quality. From trendy fashion pieces to unique home decor items, every product exudes style and craftsmanship.\"<\/p>",
-            "img": "shopify:\/\/shop_images\/nassim-boughazi-4frKet-PJss-unsplash.jpg",
+            "description": "<p>\"Shopping at [Store Name] has been an absolute delight! The carefully curated selection of products is a testament to the store's commitment to quality. From trendy fashion pieces to unique home decor items, every product exudes style and craftsmanship.\"</p>",
             "author": "Author's Name",
             "author_subtitle": "Verified Customer",
             "product": "watch-series-14"
@@ -369,8 +370,7 @@
           "type": "item",
           "settings": {
             "heading": "Six Testimonial",
-            "description": "<p>\"Shopping at [Store Name] has been an absolute delight! The carefully curated selection of products is a testament to the store's commitment to quality. From trendy fashion pieces to unique home decor items, every product exudes style and craftsmanship.\"<\/p>",
-            "img": "shopify:\/\/shop_images\/tamara-bellis-IwVRO3TLjLc-unsplash.jpg",
+            "description": "<p>\"Shopping at [Store Name] has been an absolute delight! The carefully curated selection of products is a testament to the store's commitment to quality. From trendy fashion pieces to unique home decor items, every product exudes style and craftsmanship.\"</p>",
             "author": "Author's Name",
             "author_subtitle": "Verified Customer",
             "product": "watch-series-1"
@@ -392,7 +392,7 @@
         "header_alignment": "left",
         "heading": "Testimonials",
         "heading_size": "h3",
-        "description": "<p>Rated <strong>5\/5<\/strong> from <strong>1,000+<\/strong> satisfied customes.<\/p>",
+        "description": "<p>Rated <strong>5/5</strong> from <strong>1,000+</strong> satisfied customes.</p>",
         "description_font_size": "fs-md",
         "carousel_mobile_cols": 1,
         "carousel_desktop_cols": 4,
@@ -420,8 +420,6 @@
       "name": "Parallax media",
       "settings": {
         "color_scheme": "",
-        "img": "shopify:\/\/shop_images\/nassim-boughazi-4frKet-PJss-unsplash_63437267-2de0-41b9-876e-9b413ac799b7.jpg",
-        "img_mobile": "shopify:\/\/shop_images\/nassim-boughazi-4frKet-PJss-unsplash_63437267-2de0-41b9-876e-9b413ac799b7.jpg",
         "media_height_mobile": 500,
         "media_height_desktop": 600,
         "overlay_color": "#000000",
@@ -431,15 +429,15 @@
         "position_desktop": "center",
         "subheading": "Developed by KondaSoft",
         "subheading_font_size": "fs-md",
-        "heading": "Parallax Media (Image\/Video)",
+        "heading": "Parallax Media (Image/Video)",
         "heading_size": "h1",
-        "description": "<p>Inspired by the official Dawn theme, but fully loaded with premium features.<\/p>",
+        "description": "<p>Inspired by the official Dawn theme, but fully loaded with premium features.</p>",
         "description_font_size": "fs-lg",
         "btn_primary_text": "Buy Theme",
-        "btn_primary_url": "https:\/\/www.kondasoft.com\/products\/falcon-pro",
+        "btn_primary_url": "https://www.kondasoft.com/products/falcon-pro",
         "btn_primary_style": "btn-primary",
         "btn_secondary_text": "Learn more",
-        "btn_secondary_url": "https:\/\/www.kondasoft.com\/products\/falcon-pro",
+        "btn_secondary_url": "https://www.kondasoft.com/products/falcon-pro",
         "btn_secondary_style": "btn-outline",
         "padding_top": 0,
         "padding_bottom": 0
@@ -451,7 +449,6 @@
         "item_dzCJfa": {
           "type": "item",
           "settings": {
-            "video": "",
             "product": "bag-series-2",
             "custom_badge": "NEW",
             "custom_badge_bg_color": "#0c4a6e"
@@ -460,7 +457,6 @@
         "item_Um6dL3": {
           "type": "item",
           "settings": {
-            "video": "",
             "product": "glasses-series-1",
             "custom_badge": "Last chance",
             "custom_badge_bg_color": "#881337"
@@ -469,7 +465,6 @@
         "item_KBEGc3": {
           "type": "item",
           "settings": {
-            "video": "",
             "product": "heat-series-1",
             "custom_badge": "Most liked",
             "custom_badge_bg_color": "#4c1d95"
@@ -478,7 +473,6 @@
         "item_BtjFtX": {
           "type": "item",
           "settings": {
-            "video": "",
             "product": "lamp-series-1",
             "custom_badge": "Trending",
             "custom_badge_bg_color": "#2f5314"
@@ -487,7 +481,6 @@
         "item_MLbnNm": {
           "type": "item",
           "settings": {
-            "video": "",
             "product": "watch-series-14",
             "custom_badge": "Summer Deal",
             "custom_badge_bg_color": "#701a75"
@@ -496,7 +489,6 @@
         "item_brGRpk": {
           "type": "item",
           "settings": {
-            "video": "",
             "product": "bag-series-2",
             "custom_badge": "NEW",
             "custom_badge_bg_color": "#0c4a6e"
@@ -505,7 +497,6 @@
         "item_zmy4dz": {
           "type": "item",
           "settings": {
-            "video": "",
             "product": "glasses-series-1",
             "custom_badge": "Last chance",
             "custom_badge_bg_color": "#0c4a6e"
@@ -514,7 +505,6 @@
         "item_Eej3TR": {
           "type": "item",
           "settings": {
-            "video": "",
             "product": "heat-series-1",
             "custom_badge": "Most liked",
             "custom_badge_bg_color": "#4c1d95"
@@ -538,7 +528,7 @@
         "header_alignment": "left",
         "heading": "Shoppable Videos",
         "heading_size": "h3",
-        "description": "<p>Enhance your store with UGC content<\/p>",
+        "description": "<p>Enhance your store with UGC content</p>",
         "description_font_size": "fs-md",
         "carousel_mobile_cols": 1,
         "carousel_desktop_cols": 5,
@@ -572,13 +562,13 @@
         "subheading_font_size": "fs-sm",
         "heading": "Animated Countdown",
         "heading_size": "h2",
-        "description": "<p>Use this section to showcase your latest offers that require a sense of urgency.<\/p>",
+        "description": "<p>Use this section to showcase your latest offers that require a sense of urgency.</p>",
         "description_font_size": "fs-lg",
         "btn_primary_text": "Buy theme",
-        "btn_primary_url": "https:\/\/www.kondasoft.com\/products\/falcon-pro",
+        "btn_primary_url": "https://www.kondasoft.com/products/falcon-pro",
         "btn_primary_style": "btn-primary",
         "btn_secondary_text": "Learn more",
-        "btn_secondary_url": "https:\/\/www.kondasoft.com\/products\/falcon-pro",
+        "btn_secondary_url": "https://www.kondasoft.com/products/falcon-pro",
         "btn_secondary_style": "btn-outline",
         "padding_top": 1.4,
         "padding_bottom": 2.8
@@ -590,7 +580,6 @@
         "slide_ywmFDr": {
           "type": "slide",
           "settings": {
-            "video": "",
             "overlay_color": "#000000",
             "overlay_opacity": 40,
             "overlay_blur": 0,
@@ -600,20 +589,19 @@
             "subheading_font_size": "fs-md",
             "heading": "The Most Versatile Shopify Themes",
             "heading_size": "h1",
-            "description": "<p>Inspired by the official Dawn theme, but fully loaded with premium features.<\/p>",
+            "description": "<p>Inspired by the official Dawn theme, but fully loaded with premium features.</p>",
             "description_font_size": "fs-lg",
             "btn_primary_text": "Buy Theme",
-            "btn_primary_url": "https:\/\/www.kondasoft.com\/collections\/shopify-themes\/products\/falcon-pro",
+            "btn_primary_url": "https://www.kondasoft.com/collections/shopify-themes/products/falcon-pro",
             "btn_primary_style": "btn-primary",
             "btn_secondary_text": "Learn more",
-            "btn_secondary_url": "https:\/\/www.kondasoft.com\/collections\/shopify-themes\/products\/falcon-pro",
+            "btn_secondary_url": "https://www.kondasoft.com/collections/shopify-themes/products/falcon-pro",
             "btn_secondary_style": "btn-outline"
           }
         },
         "slide_YY36wX": {
           "type": "slide",
           "settings": {
-            "img": "shopify:\/\/shop_images\/nassim-boughazi-4frKet-PJss-unsplash.jpg",
             "overlay_color": "#000000",
             "overlay_opacity": 50,
             "overlay_blur": 0,
@@ -623,20 +611,19 @@
             "subheading_font_size": "fs-md",
             "heading": "The Most Dynamic Shopify Themes",
             "heading_size": "h1",
-            "description": "<p>Inspired by the official Dawn theme, but fully loaded with premium features.<\/p>",
+            "description": "<p>Inspired by the official Dawn theme, but fully loaded with premium features.</p>",
             "description_font_size": "fs-lg",
             "btn_primary_text": "Primary button",
-            "btn_primary_url": "https:\/\/www.kondasoft.com\/collections\/shopify-themes\/products\/falcon-pro",
+            "btn_primary_url": "https://www.kondasoft.com/collections/shopify-themes/products/falcon-pro",
             "btn_primary_style": "btn-primary",
             "btn_secondary_text": "Secondary button",
-            "btn_secondary_url": "https:\/\/www.kondasoft.com\/collections\/shopify-themes\/products\/falcon-pro",
+            "btn_secondary_url": "https://www.kondasoft.com/collections/shopify-themes/products/falcon-pro",
             "btn_secondary_style": "btn-outline"
           }
         },
         "slide_GUaFQn": {
           "type": "slide",
           "settings": {
-            "img": "shopify:\/\/shop_images\/tamara-bellis-HPvN6rs86F0-unsplash.jpg",
             "overlay_color": "#000000",
             "overlay_opacity": 50,
             "overlay_blur": 0,
@@ -646,13 +633,13 @@
             "subheading_font_size": "fs-md",
             "heading": "The Most Influential Shopify Themes",
             "heading_size": "h1",
-            "description": "<p>Inspired by the official Dawn theme, but fully loaded with premium features.<\/p>",
+            "description": "<p>Inspired by the official Dawn theme, but fully loaded with premium features.</p>",
             "description_font_size": "fs-lg",
             "btn_primary_text": "Primary button",
-            "btn_primary_url": "https:\/\/www.kondasoft.com\/collections\/shopify-themes\/products\/falcon-pro",
+            "btn_primary_url": "https://www.kondasoft.com/collections/shopify-themes/products/falcon-pro",
             "btn_primary_style": "btn-primary",
             "btn_secondary_text": "Secondary button",
-            "btn_secondary_url": "https:\/\/www.kondasoft.com\/collections\/shopify-themes\/products\/falcon-pro",
+            "btn_secondary_url": "https://www.kondasoft.com/collections/shopify-themes/products/falcon-pro",
             "btn_secondary_style": "btn-outline"
           }
         }
@@ -675,18 +662,18 @@
       "settings": {
         "color_scheme": "scheme-2",
         "full_width": false,
-        "header_alignment": "left",
-        "heading": "Image Compare",
+        "header_alignment": "center",
+        "heading": "De Impact van Compleet Voer na 2-3 maanden. Zelfs wij waren verbaasd...",
         "heading_size": "h3",
-        "description": "<p>Before\/After image slider<\/p>",
+        "description": "<p>Een opgevangen legbatterij kip die bij ons kwam en direct op Compleet Voer i.c.m Pikmix werd gezet.</p>",
         "description_font_size": "fs-md",
-        "img_before": "shopify:\/\/shop_images\/image-compare.jpg",
-        "img_after": "shopify:\/\/shop_images\/tamara-bellis-HPvN6rs86F0-unsplash.jpg",
-        "img_ratio": "16x9",
+        "img_before": "shopify://shop_images/Voordat-deze-legbatterij-kippen-compleet-volledige-voeding-kippenpakket-kregen.png",
+        "img_after": "shopify://shop_images/4-maanden-nadat-de-opgevangen-kip-uit-een-legbatterij-producent.png",
+        "img_ratio": "adapt",
         "controls_color_scheme": "",
         "show_labels": true,
-        "label_before": "Before",
-        "label_after": "After",
+        "label_before": "Voor",
+        "label_after": "Na",
         "padding_top": 2,
         "padding_bottom": 2
       }
@@ -794,7 +781,6 @@
             "media_align_desktop": "left",
             "text_align_mobile": "left",
             "text_align_desktop": "left",
-            "img": "shopify:\/\/shop_images\/tamara-bellis-IwVRO3TLjLc-unsplash.jpg",
             "img_ratio": "16x9",
             "video_autoplay": true,
             "video_loop": true,
@@ -805,13 +791,13 @@
             "subheading_font_size": "fs-sm",
             "heading": "Media with text",
             "heading_size": "h2",
-            "description": "<p>Inspired by the official Dawn theme, but fully loaded with premium features.<\/p>",
+            "description": "<p>Inspired by the official Dawn theme, but fully loaded with premium features.</p>",
             "description_font_size": "fs-md",
             "primary_btn_text": "Buy theme",
-            "primary_btn_url": "https:\/\/www.kondasoft.com\/collections\/shopify-themes\/products\/falcon-pro",
+            "primary_btn_url": "https://www.kondasoft.com/collections/shopify-themes/products/falcon-pro",
             "primary_btn_style": "btn-primary",
             "secondary_btn_text": "Learn more",
-            "secondary_btn_url": "https:\/\/www.kondasoft.com\/collections\/shopify-themes\/products\/falcon-pro",
+            "secondary_btn_url": "https://www.kondasoft.com/collections/shopify-themes/products/falcon-pro",
             "secondary_btn_style": "btn-outline",
             "padding_top": 2,
             "padding_bottom": 2
@@ -824,7 +810,6 @@
             "media_align_desktop": "right",
             "text_align_mobile": "left",
             "text_align_desktop": "right",
-            "img": "shopify:\/\/shop_images\/nassim-boughazi-4frKet-PJss-unsplash_63437267-2de0-41b9-876e-9b413ac799b7.jpg",
             "img_ratio": "16x9",
             "video_autoplay": true,
             "video_loop": true,
@@ -835,13 +820,13 @@
             "subheading_font_size": "fs-sm",
             "heading": "Media with text",
             "heading_size": "h2",
-            "description": "<p>Inspired by the official Dawn theme, but fully loaded with premium features.<\/p>",
+            "description": "<p>Inspired by the official Dawn theme, but fully loaded with premium features.</p>",
             "description_font_size": "fs-md",
             "primary_btn_text": "Buy theme",
-            "primary_btn_url": "https:\/\/www.kondasoft.com\/collections\/shopify-themes\/products\/falcon-pro",
+            "primary_btn_url": "https://www.kondasoft.com/collections/shopify-themes/products/falcon-pro",
             "primary_btn_style": "btn-primary",
             "secondary_btn_text": "Learn more",
-            "secondary_btn_url": "https:\/\/www.kondasoft.com\/collections\/shopify-themes\/products\/falcon-pro",
+            "secondary_btn_url": "https://www.kondasoft.com/collections/shopify-themes/products/falcon-pro",
             "secondary_btn_style": "btn-outline",
             "padding_top": 2,
             "padding_bottom": 2
@@ -854,7 +839,6 @@
             "media_align_desktop": "left",
             "text_align_mobile": "left",
             "text_align_desktop": "left",
-            "img": "shopify:\/\/shop_images\/nassim-boughazi-4frKet-PJss-unsplash.jpg",
             "img_ratio": "16x9",
             "video_autoplay": true,
             "video_loop": true,
@@ -865,13 +849,13 @@
             "subheading_font_size": "fs-sm",
             "heading": "Media with text",
             "heading_size": "h2",
-            "description": "<p>Inspired by the official Dawn theme, but fully loaded with premium features.<\/p>",
+            "description": "<p>Inspired by the official Dawn theme, but fully loaded with premium features.</p>",
             "description_font_size": "fs-md",
             "primary_btn_text": "Buy theme",
-            "primary_btn_url": "https:\/\/www.kondasoft.com\/collections\/shopify-themes\/products\/falcon-pro",
+            "primary_btn_url": "https://www.kondasoft.com/collections/shopify-themes/products/falcon-pro",
             "primary_btn_style": "btn-primary",
             "secondary_btn_text": "Learn more",
-            "secondary_btn_url": "https:\/\/www.kondasoft.com\/collections\/shopify-themes\/products\/falcon-pro",
+            "secondary_btn_url": "https://www.kondasoft.com/collections/shopify-themes/products/falcon-pro",
             "secondary_btn_style": "btn-outline",
             "padding_top": 2,
             "padding_bottom": 2
@@ -966,9 +950,8 @@
         "header_alignment": "left",
         "heading": "Lookbook",
         "heading_size": "h3",
-        "description": "<p>An optional description for this section<\/p>",
+        "description": "<p>An optional description for this section</p>",
         "description_font_size": "fs-md",
-        "img": "shopify:\/\/shop_images\/lookbook.jpg",
         "point_color": "#f9eddb",
         "point_diameter": 1,
         "padding_top": 1,
@@ -983,7 +966,6 @@
           "settings": {
             "cell_1_text": "#",
             "cell_2_text": "",
-            "cell_2_img": "shopify:\/\/shop_images\/logo.png",
             "cell_3_text": "Competitor 1",
             "cell_4_text": "Competitor 2",
             "cell_5_text": "Competitor 3",
@@ -1012,7 +994,7 @@
         "row_7FwrJA": {
           "type": "row",
           "settings": {
-            "title": "Upsells\/Cross-sells",
+            "title": "Upsells/Cross-sells",
             "cell_2_checkbox": "checked-circle",
             "cell_2_text": "",
             "cell_3_checkbox": "unchecked",
@@ -1325,7 +1307,7 @@
         "header_alignment": "left",
         "heading": "Table Compare",
         "heading_size": "h3",
-        "description": "<p>An optional description for this section<\/p>",
+        "description": "<p>An optional description for this section</p>",
         "description_font_size": "fs-md",
         "table_color_scheme": "scheme-1",
         "table_border_opacity": 100,
@@ -1359,13 +1341,13 @@
     "collection_circles_FB9CDR": {
       "type": "collection-circles",
       "settings": {
-        "menu": "collections",
+        "menu": "",
         "color_scheme": "scheme-1",
         "full_width": false,
         "header_alignment": "center",
         "heading": "Shop by Collection",
         "heading_size": "h3",
-        "description": "<p>An optional description for this section<\/p>",
+        "description": "<p>An optional description for this section</p>",
         "description_font_size": "fs-md",
         "img_size": 120,
         "item_title_font_size": "fs-sm",
@@ -1380,33 +1362,29 @@
         "item_CrJfhp": {
           "type": "item",
           "settings": {
-            "img": "shopify:\/\/shop_images\/icon-rocket-takeoff.svg",
             "heading": "Outstanding Quality",
-            "description": "<p>We pride ourselves to offer the best quality in class. No compromises.<\/p>"
+            "description": "<p>We pride ourselves to offer the best quality in class. No compromises.</p>"
           }
         },
         "item_tUXKec": {
           "type": "item",
           "settings": {
-            "img": "shopify:\/\/shop_images\/icon-truck.svg",
             "heading": "Free Shipping",
-            "description": "<p>Have a treat with free shipping for all orders over $100. Ready to shop?!<\/p>"
+            "description": "<p>Have a treat with free shipping for all orders over $100. Ready to shop?!</p>"
           }
         },
         "item_apVkCP": {
           "type": "item",
           "settings": {
-            "img": "shopify:\/\/shop_images\/icon-sign-turn-left.svg",
             "heading": "Free Returns",
-            "description": "<p>Have peace of mind with our free return policy. Terms may apply.<\/p>"
+            "description": "<p>Have peace of mind with our free return policy. Terms may apply.</p>"
           }
         },
         "item_nCQd87": {
           "type": "item",
           "settings": {
-            "img": "shopify:\/\/shop_images\/icon-credit-card.svg",
             "heading": "Secure payments",
-            "description": "<p>100% secure & protected payments. Shop with your preferred option.<\/p>"
+            "description": "<p>100% secure & protected payments. Shop with your preferred option.</p>"
           }
         }
       },
@@ -1444,10 +1422,10 @@
         "header_alignment": "center",
         "heading": "Newsletter Subscribe",
         "heading_size": "h3",
-        "description": "<p>Be the first to know about our latest offers and get exclusive discounts.<\/p>",
+        "description": "<p>Be the first to know about our latest offers and get exclusive discounts.</p>",
         "description_size": "fs-md",
         "btn_style": "accent",
-        "notice": "<p>By signing up for email, you agree to our <a href=\"\/policies\/terms-of-service\">Terms of Service<\/a> and <a href=\"\/policies\/privacy-policy\">Privacy Policy<\/a>.<\/p>",
+        "notice": "<p>By signing up for email, you agree to our <a href=\"/policies/terms-of-service\">Terms of Service</a> and <a href=\"/policies/privacy-policy\">Privacy Policy</a>.</p>",
         "padding_top": 2,
         "padding_bottom": 2
       }

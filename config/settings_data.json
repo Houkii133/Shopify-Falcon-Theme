@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
     "container_max_width": 1400,
@@ -9,8 +18,8 @@
     "font_headings": "assistant_n4",
     "font_headings_size": 1,
     "font_body": "assistant_n4",
-    "logo": "shopify:\/\/shop_images\/logo.png",
-    "favicon": "shopify:\/\/shop_images\/logo-icon.png",
+    "logo": "shopify://shop_images/Logo_rond_met_achtergrond_a445a6f0-6394-4a03-8166-513e71ee0ccf.png",
+    "favicon": "shopify://shop_images/Logo_rond_met_achtergrond_a445a6f0-6394-4a03-8166-513e71ee0ccf.png",
     "product_card_color_scheme": "scheme-1",
     "product_card_style": "default",
     "product_card_alignment": "left",
@@ -36,7 +45,7 @@
           "announcement_FVX63K": {
             "type": "announcement",
             "settings": {
-              "announcement": "<p>10% OFF for your first order. Use code <strong>NEW10<\/strong><\/p>",
+              "announcement": "<p>10% OFF for your first order. Use code <strong>NEW10</strong></p>",
               "color_scheme": "scheme-5",
               "font_size": "fs-sm",
               "padding_top": 0,
@@ -48,19 +57,19 @@
             "settings": {
               "color": "#9e0812",
               "progress_height": 8,
-              "desc_completed": "<p>Congrats! You're eligible for <strong>ALL OFFERINGS.<\/strong><\/p>",
+              "desc_completed": "<p>Congrats! You're eligible for <strong>ALL OFFERINGS.</strong></p>",
               "goal_one_value": "USD:100, EUR:90, GBP:80",
               "goal_one_title": "Free Shipping",
               "goal_one_icon": "truck",
-              "goal_one_desc": "<p>You're <strong>[amount]<\/strong> away from <strong>FREE SHIPPING!<\/strong><\/p>",
+              "goal_one_desc": "<p>You're <strong>[amount]</strong> away from <strong>FREE SHIPPING!</strong></p>",
               "goal_two_value": "USD:200, EUR:180, GBP:160",
               "goal_two_title": "Free Gift",
               "goal_two_icon": "gift",
-              "goal_two_desc": "<p>You're <strong>[amount]<\/strong> away from a <strong>FREE GIFT!<\/strong><\/p>",
+              "goal_two_desc": "<p>You're <strong>[amount]</strong> away from a <strong>FREE GIFT!</strong></p>",
               "goal_three_value": "USD:300, EUR:270, GBP:240",
               "goal_three_title": "30% Off",
               "goal_three_icon": "percent",
-              "goal_three_desc": "<p>You're <strong>[amount]<\/strong> away from <strong>30% OFF!<\/strong><\/p>",
+              "goal_three_desc": "<p>You're <strong>[amount]</strong> away from <strong>30% OFF!</strong></p>",
               "padding_top": 0,
               "padding_bottom": 1.8
             }
@@ -104,7 +113,7 @@
             "settings": {
               "product": "gift-wrap",
               "title": "Add gift wrapping",
-              "description": "<p>Wrap as gifts the items in the cart for only <strong>only [price]<\/strong><\/p>",
+              "description": "<p>Wrap as gifts the items in the cart for only <strong>only [price]</strong></p>",
               "btn_style": "btn-outline"
             }
           },
@@ -155,35 +164,21 @@
           "config_path": "newsletter-popup",
           "color_scheme": "scheme-1",
           "max_width": "600",
-          "img": "shopify:\/\/shop_images\/tamara-bellis-HPvN6rs86F0-unsplash.jpg",
           "img_height": "260",
           "header_alignment": "center",
           "heading": "Newsletter Subscribe",
           "heading_size": "h3",
-          "description": "<p>Be the first to know about our latest offers<\/p>",
+          "description": "<p>Be the first to know about our latest offers</p>",
           "description_font_size": "fs-md",
           "btn_style": "text",
-          "notice": "<p>By signing up for email, you agree to our <a href=\"\/policies\/terms-of-service\">Terms of Service<\/a> and <a href=\"\/policies\/privacy-policy\">Privacy Policy<\/a>.<\/p>"
+          "notice": "<p>By signing up for email, you agree to our <a href=\"/policies/terms-of-service\">Terms of Service</a> and <a href=\"/policies/privacy-policy\">Privacy Policy</a>.</p>"
         }
       }
     },
     "content_for_index": [],
     "blocks": {
-      "1768834845299682660": {
-        "type": "shopify:\/\/apps\/subscriptions\/blocks\/app-embed-block\/a3bfe9ec-96f8-4508-a003-df608a36d2ad",
-        "disabled": true,
-        "settings": {
-          "color_text_title": "#6D7175",
-          "color_text_body": "#6D7175",
-          "dividers_color": "#8F8D8D",
-          "bacgkround_color": "#FFFFFF",
-          "border_thickness": 1,
-          "border_radius": 0,
-          "subscription_policy_url": ""
-        }
-      },
       "14060646107696862457": {
-        "type": "shopify:\/\/apps\/judge-me-reviews\/blocks\/judgeme_core\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+        "type": "shopify://apps/judge-me-reviews/blocks/judgeme_core/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
         "disabled": false,
         "settings": {}
       }
