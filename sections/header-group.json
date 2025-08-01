@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "type": "header",
   "name": "Header Group",
@@ -9,7 +18,7 @@
           "type": "slide",
           "settings": {
             "announcement": "Last chance, Huge savings!",
-            "url": "shopify:\/\/collections\/all",
+            "url": "shopify://collections/all",
             "countdown": "2026-01-01 00:00"
           }
         },
@@ -17,7 +26,7 @@
           "type": "slide",
           "settings": {
             "announcement": "Save up to 40% with Bundle Builder",
-            "url": "shopify:\/\/collections\/bundle-builder",
+            "url": "shopify://collections/bundle-builder",
             "countdown": ""
           }
         },
@@ -25,7 +34,7 @@
           "type": "slide",
           "settings": {
             "announcement": "Free Shipping For All Orders Over $100",
-            "url": "shopify:\/\/collections\/all",
+            "url": "shopify://collections/all",
             "countdown": ""
           }
         }
@@ -54,7 +63,7 @@
         "mobile_LTpecf": {
           "type": "mobile",
           "settings": {
-            "logo_height": 16,
+            "logo_height": 100,
             "menu": "main-menu",
             "menu_color_scheme": "scheme-1",
             "font_size": 100,
