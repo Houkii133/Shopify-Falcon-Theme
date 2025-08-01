@@ -37,6 +37,7 @@
         "image_K9qkMN": {
           "type": "slide",
           "settings": {
+            "video": "shopify://files/videos/Kippen_Snackend_in_een_Nette_Tuin.mp4",
             "overlay_color": "#000000",
             "overlay_opacity": 30,
             "overlay_blur": 0,
