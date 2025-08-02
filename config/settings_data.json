@@ -230,12 +230,12 @@
       },
       "scheme-5": {
         "settings": {
-          "background": "#8fbc8f",
+          "background": "#b38970",
           "background_gradient": "",
           "text": "#ffffff",
           "accent": "#f9eae1",
           "btn_background": "#ffffff",
-          "btn_text": "#8fbc8f",
+          "btn_text": "#b38970",
           "btn_border": "#ffffff"
         }
       },
