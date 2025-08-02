@@ -186,24 +186,24 @@
     "color_schemes": {
       "scheme-1": {
         "settings": {
-          "background": "#faf3eb",
+          "background": "#ffffff",
           "background_gradient": "",
           "text": "#020617",
           "accent": "#dc143c",
-          "btn_background": "#dc143c",
+          "btn_background": "#020617",
           "btn_text": "#ffffff",
           "btn_border": "#000000"
         }
       },
       "scheme-2": {
         "settings": {
-          "background": "#faf3eb",
+          "background": "#f7fafb",
           "background_gradient": "",
           "text": "#020617",
           "accent": "#dc143c",
-          "btn_background": "#dc143c",
+          "btn_background": "#020617",
           "btn_text": "#ffffff",
-          "btn_border": "#ffffff"
+          "btn_border": "#020617"
         }
       },
       "scheme-3": {
