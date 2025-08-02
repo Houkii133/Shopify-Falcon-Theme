@@ -219,12 +219,12 @@
       },
       "scheme-4": {
         "settings": {
-          "background": "#df0413",
+          "background": "#9e0812",
           "background_gradient": "",
           "text": "#ffffff",
-          "accent": "#dc143c",
-          "btn_background": "#dc143c",
-          "btn_text": "#ffffff",
+          "accent": "#fad5d5",
+          "btn_background": "#ffffff",
+          "btn_text": "#9e0812",
           "btn_border": "#ffffff"
         }
       },
