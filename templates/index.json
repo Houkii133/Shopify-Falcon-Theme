@@ -103,80 +103,40 @@
     "marquee_tXEAWQ": {
       "type": "marquee",
       "blocks": {
-        "text_iygzzQ": {
+        "text_q6UrQY": {
           "type": "text",
           "settings": {
-            "text": "Inspired by the official Dawn theme",
+            "text": "Gratis verzending vanaf €60,- tot 30 kg",
             "url": ""
           }
         },
-        "text_4pGyA4": {
+        "text_BtDYfm": {
           "type": "text",
           "settings": {
-            "text": "Best in class for customisations",
+            "text": "Vaak voor 12:00 besteld, morgen in huis -    Geen 100% garantie, neem voor spoedlevering contact op!",
             "url": ""
           }
         },
-        "text_Wf43F6": {
+        "text_xXN8B4": {
           "type": "text",
           "settings": {
-            "text": "100% coded from scratch, no dependecies",
+            "text": "24/7 bereikbaar voor spoedgevallen",
             "url": ""
           }
         },
-        "text_bwe7kL": {
+        "text_D7jg8P": {
           "type": "text",
           "settings": {
-            "text": "Extreme performance, superb loading-times",
-            "url": ""
-          }
-        },
-        "text_YqDMEm": {
-          "type": "text",
-          "settings": {
-            "text": "20+ Advanced Sections",
-            "url": ""
-          }
-        },
-        "text_Gyf6bK": {
-          "type": "text",
-          "settings": {
-            "text": "10+ Advanced Cart Features",
-            "url": ""
-          }
-        },
-        "text_rGUDHH": {
-          "type": "text",
-          "settings": {
-            "text": "Built-in upsells and cross-sells",
-            "url": ""
-          }
-        },
-        "text_tq447i": {
-          "type": "text",
-          "settings": {
-            "text": "The finest Shopify theme in the market",
-            "url": ""
-          }
-        },
-        "text_Mib3xX": {
-          "type": "text",
-          "settings": {
-            "text": "Focused on Accessibility and Usability",
+            "text": "Mis je iets in ons assortiment? Laat het weten!",
             "url": ""
           }
         }
       },
       "block_order": [
-        "text_iygzzQ",
-        "text_4pGyA4",
-        "text_Wf43F6",
-        "text_bwe7kL",
-        "text_YqDMEm",
-        "text_Gyf6bK",
-        "text_rGUDHH",
-        "text_tq447i",
-        "text_Mib3xX"
+        "text_q6UrQY",
+        "text_BtDYfm",
+        "text_xXN8B4",
+        "text_D7jg8P"
       ],
       "settings": {
         "color_scheme": "scheme-3",
