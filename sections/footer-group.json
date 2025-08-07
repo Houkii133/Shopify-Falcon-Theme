@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "type": "footer",
   "name": "Footer Group",
@@ -14,30 +23,30 @@
             "text_align": "center",
             "show_social_icons": true,
             "social_icons_size": 16,
-            "logo": "shopify:\/\/shop_images\/logo-white.png",
-            "logo_height": 16,
+            "logo": "shopify://shop_images/Logo_rond_met_achtergrond_a445a6f0-6394-4a03-8166-513e71ee0ccf.png",
+            "logo_height": 100,
             "title": "",
-            "description": "<p>Inspired by the official Dawn theme, but fully loaded with  premium features.<\/p>"
+            "description": "<p>De beste kwaliteit en service voor gezonde en gelukkige kippen(houders)!</p>"
           }
         },
         "8b92bb0f-7aaa-4462-8660-b6a23bd9c31c": {
           "type": "menu",
           "settings": {
-            "menu": "men",
+            "menu": "",
             "title": "Men"
           }
         },
         "menu_JfWbWX": {
           "type": "menu",
           "settings": {
-            "menu": "men",
+            "menu": "",
             "title": "Women"
           }
         },
         "79b0b9d4-1bf4-4490-a48e-94be1aecf12a": {
           "type": "menu",
           "settings": {
-            "menu": "resources",
+            "menu": "",
             "title": "Company"
           }
         },
@@ -45,7 +54,7 @@
           "type": "menu",
           "disabled": true,
           "settings": {
-            "menu": "men",
+            "menu": "",
             "title": "Children"
           }
         },
@@ -53,13 +62,13 @@
           "type": "richtext",
           "settings": {
             "title": "KondaSoft",
-            "description": "<p>Falcon Pro is the result of over 15 years of coding expertise.<\/p>",
+            "description": "<p>Falcon Pro is the result of over 15 years of coding expertise.</p>",
             "btn_primary_text": "Buy theme",
             "btn_primary_style": "btn-primary",
-            "btn_primary_url": "https:\/\/www.kondasoft.com\/collections\/shopify-themes\/products\/falcon-pro",
+            "btn_primary_url": "https://www.kondasoft.com/collections/shopify-themes/products/falcon-pro",
             "btn_secondary_text": "Learn more",
             "btn_secondary_style": "btn-outline",
-            "btn_secondary_url": "https:\/\/www.kondasoft.com\/collections\/shopify-themes\/products\/falcon-pro"
+            "btn_secondary_url": "https://www.kondasoft.com/collections/shopify-themes/products/falcon-pro"
           }
         }
       },
@@ -81,9 +90,9 @@
         "enable_newsletter": true,
         "newsletter_heading": "Newsletter Subscribe",
         "newsletter_heading_size": "h3",
-        "newsletter_description": "<p>Be the first to know about our latest offers and get exclusive discounts.<\/p>",
+        "newsletter_description": "<p>Be the first to know about our latest offers and get exclusive discounts.</p>",
         "newsletter_description_font_size": "fs-md",
-        "notice": "<p>By signing up for email, you agree to our <a href=\"\/policies\/terms-of-service\">Terms of Service<\/a> and <a href=\"\/policies\/privacy-policy\">Privacy Policy<\/a>.<\/p>",
+        "notice": "<p>By signing up for email, you agree to our <a href=\"/policies/terms-of-service\">Terms of Service</a> and <a href=\"/policies/privacy-policy\">Privacy Policy</a>.</p>",
         "payment_icons": true,
         "policy_links": true,
         "powered_by": true,

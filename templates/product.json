@@ -269,6 +269,7 @@
         },
         "collapse_qkxF4P": {
           "type": "collapse",
+          "disabled": true,
           "settings": {
             "title": "Ingredients",
             "title_font_size": 100,
@@ -287,6 +288,7 @@
         },
         "collapse_XR7UCP": {
           "type": "collapse",
+          "disabled": true,
           "settings": {
             "title": "Size Chart",
             "title_font_size": 100,
@@ -305,6 +307,7 @@
         },
         "collapse_HT8hND": {
           "type": "collapse",
+          "disabled": true,
           "settings": {
             "title": "Shipping Information",
             "title_font_size": 100,
@@ -323,6 +326,7 @@
         },
         "collapse_6f6jnt": {
           "type": "collapse",
+          "disabled": true,
           "settings": {
             "title": "Returns & Warranty",
             "title_font_size": 100,
@@ -336,13 +340,6 @@
             "btn_primary_url": "shopify://policies/refund-policy",
             "btn_primary_style": "link",
             "padding_top": 0,
-            "padding_bottom": 0
-          }
-        },
-        "breadcrumb_3XtBCU": {
-          "type": "breadcrumb",
-          "settings": {
-            "padding_top": 1,
             "padding_bottom": 0
           }
         },
@@ -361,7 +358,14 @@
         "prev_next_QAWaKa": {
           "type": "prev_next",
           "settings": {
-            "title": "Prev/Next products"
+            "title": "Vorige/Volgende Product"
+          }
+        },
+        "breadcrumb_3XtBCU": {
+          "type": "breadcrumb",
+          "settings": {
+            "padding_top": 1,
+            "padding_bottom": 0
           }
         }
       },
@@ -388,9 +392,9 @@
         "collapse_XR7UCP",
         "collapse_HT8hND",
         "collapse_6f6jnt",
-        "breadcrumb_3XtBCU",
         "local_delivery_JALWfa",
-        "prev_next_QAWaKa"
+        "prev_next_QAWaKa",
+        "breadcrumb_3XtBCU"
       ],
       "settings": {
         "color_scheme": "scheme-1",
@@ -542,6 +546,7 @@
         "block_VQxcBg",
         "block_FBCP4a"
       ],
+      "disabled": true,
       "name": "Media with text",
       "settings": {
         "full_width": false,
@@ -586,9 +591,9 @@
         "color_scheme": "",
         "full_width": false,
         "header_alignment": "left",
-        "heading": "Recommended for you",
+        "heading": "Aanbevolen voor jou",
         "heading_size": "h3",
-        "description": "<p>An optional description for this section</p>",
+        "description": "<p>Deze producten werden vaak samen gekocht</p>",
         "description_from_collection": false,
         "description_font_size": "fs-md",
         "carousel_mobile_cols": 2,
