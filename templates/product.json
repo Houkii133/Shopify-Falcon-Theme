@@ -100,6 +100,7 @@
         },
         "personalization_field_XntEjH": {
           "type": "personalization_field",
+          "disabled": true,
           "settings": {
             "type": "text",
             "label": "Your Name",
@@ -114,6 +115,7 @@
         },
         "personalization_field_7HqDpD": {
           "type": "personalization_field",
+          "disabled": true,
           "settings": {
             "type": "file",
             "label": "File upload",
@@ -128,6 +130,7 @@
         },
         "countdown_AHBnzD": {
           "type": "countdown",
+          "disabled": true,
           "settings": {
             "countdown": "",
             "color_scheme": "scheme-5",
@@ -141,6 +144,7 @@
         },
         "qty_breaks_Xbbc3J": {
           "type": "qty_breaks",
+          "disabled": true,
           "settings": {
             "header_alignment": "center",
             "heading": "Buy more, save more!",
@@ -168,6 +172,7 @@
         },
         "upsell_checkbox_7tiWXf": {
           "type": "upsell_checkbox",
+          "disabled": true,
           "settings": {
             "product": "lamp-series-1",
             "label": "Add an amazing lamp for just <strong>[price]</strong>",
@@ -178,6 +183,7 @@
         },
         "upsell_checkbox_GHCeAz": {
           "type": "upsell_checkbox",
+          "disabled": true,
           "settings": {
             "product": "gift-wrap",
             "label": "Add gift wrapping for just <strong>[price]</strong>",
@@ -200,11 +206,11 @@
           "type": "delivery_info",
           "settings": {
             "description": "<p>Koop het nu en ontvang het tussen [start] en [end]</p>",
-            "start": 7,
-            "end": 10,
+            "start": 2,
+            "end": 5,
             "date_format": "%A, %e %b",
             "show_icon": true,
-            "icon_size": 20,
+            "icon_size": 32,
             "description_font_size": "fs-md",
             "padding_top": 0,
             "padding_bottom": 1
@@ -214,9 +220,9 @@
           "type": "buy_buttons",
           "settings": {
             "show_qty_field": true,
-            "atc_btn_style": "btn-primary",
-            "show_buy_btn": true,
-            "buy_btn_style": "btn-outline",
+            "atc_btn_style": "btn-accent",
+            "show_buy_btn": false,
+            "buy_btn_style": "btn-link",
             "show_dynamic_buttons": false,
             "show_wishlist_btn": true,
             "padding_top": 0,
@@ -229,11 +235,14 @@
             "style": "horizontal",
             "max_width": "500",
             "description_font_size": "fs-sm",
-            "img_size": 24,
-            "label": "What we promise",
-            "text_1": "<p>Commitment to<br/>Excellence</p>",
-            "text_2": "<p>100% Satisfaction<br/>Guarantee</p>",
-            "text_3": "<p>Free Shipping <br/>Over $90</p>",
+            "img_size": 30,
+            "label": "Waar wij voor staan",
+            "img_1": "shopify://shop_images/stars.svg",
+            "text_1": "<p>Top Kwaliteit</p>",
+            "img_2": "shopify://shop_images/chat-square-heart.svg",
+            "text_2": "<p>24/7 Gratis Service</p>",
+            "img_3": "shopify://shop_images/truck.svg",
+            "text_3": "<p>Vanaf €60,- Gratis Verzonden tot 30kg</p>",
             "text_4": "",
             "text_5": "",
             "padding_top": 0,
@@ -243,7 +252,7 @@
         "collapse_heYN7L": {
           "type": "collapse",
           "settings": {
-            "title": "Product Details",
+            "title": "Productomschrijving",
             "title_font_size": 100,
             "title_text_transform": "capitalize",
             "title_letter_spacing": 0,
