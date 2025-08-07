@@ -16,9 +16,9 @@
           "type": "header",
           "settings": {
             "color_scheme": "",
-            "show_img": true,
+            "show_img": false,
             "heading_size": "h1",
-            "description_show": true,
+            "description_show": false,
             "description_size": "fs-md",
             "show_breadcrumb": true,
             "full_width": false,
@@ -37,7 +37,7 @@
         "collection_circles_ie4phP": {
           "type": "collection_circles",
           "settings": {
-            "menu": "",
+            "menu": "main-menu",
             "color_scheme": "scheme-1",
             "full_width": false,
             "alignment": "center",

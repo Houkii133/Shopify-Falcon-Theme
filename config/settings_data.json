@@ -45,7 +45,7 @@
           "announcement_FVX63K": {
             "type": "announcement",
             "settings": {
-              "announcement": "<p>10% OFF for your first order. Use code <strong>NEW10</strong></p>",
+              "announcement": "<p>Een Gratis zak Nutri Worms Van 1L Vanaf €65,-</p>",
               "color_scheme": "scheme-5",
               "font_size": "fs-sm",
               "padding_top": 0,
@@ -58,10 +58,10 @@
               "color": "#9e0812",
               "progress_height": 8,
               "desc_completed": "<p>Congrats! You're eligible for <strong>ALL OFFERINGS.</strong></p>",
-              "goal_one_value": "USD:100, EUR:90, GBP:80",
-              "goal_one_title": "Free Shipping",
+              "goal_one_value": "USD:100, EUR:60, GBP:80",
+              "goal_one_title": "Gratis Verzending",
               "goal_one_icon": "truck",
-              "goal_one_desc": "<p>You're <strong>[amount]</strong> away from <strong>FREE SHIPPING!</strong></p>",
+              "goal_one_desc": "<p>Voeg nog voor <strong>[amount]</strong> toe voor <strong>GRATIS VERZENDING </strong>TOT 30 KG</p>",
               "goal_two_value": "USD:200, EUR:180, GBP:160",
               "goal_two_title": "Free Gift",
               "goal_two_icon": "gift",
@@ -78,7 +78,7 @@
             "type": "items",
             "settings": {
               "variant_switcher": true,
-              "upgrade_to_sub": true,
+              "upgrade_to_sub": false,
               "low_stock_threshold": 5,
               "padding_top": 0,
               "padding_bottom": 1.2
@@ -97,19 +97,20 @@
           "note_eTrLYA": {
             "type": "note",
             "settings": {
-              "title": "Add a note to your order",
+              "title": "Voeg notitie toe aan je bestelling",
               "btn_style": "btn-outline"
             }
           },
           "discount_form_rTqdX9": {
             "type": "discount_form",
             "settings": {
-              "title": "Apply a discount code",
+              "title": "Kortingscode toevoegen",
               "btn_style": "btn-outline"
             }
           },
           "gift_upsell_AiTzBB": {
             "type": "gift_upsell",
+            "disabled": true,
             "settings": {
               "product": "gift-wrap",
               "title": "Add gift wrapping",
@@ -119,6 +120,7 @@
           },
           "shipping_calculator_RpBtbJ": {
             "type": "shipping_calculator",
+            "disabled": true,
             "settings": {
               "title": "Calculate shipping",
               "btn_style": "btn-outline",
@@ -128,8 +130,8 @@
           "delivery_calendar_CNcbkK": {
             "type": "delivery_date",
             "settings": {
-              "title": "Select a delivery date",
-              "min_days": 0
+              "title": "Wij verzenden je bestelling z.s.m. - Wil je een specifieke datum? Selecteer die hier...",
+              "min_days": 2
             }
           }
         },
