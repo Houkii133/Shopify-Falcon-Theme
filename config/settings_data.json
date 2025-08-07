@@ -113,7 +113,7 @@
             "settings": {
               "product": "spoedlevering-met-postnl-voor-16-00-op-werkdagen-zelfde-dag-verzonden",
               "title": "Spoedlevering met PostNL. Voor 16:00 besteld, dezelfde dag verzonden.",
-              "description": "<h3>We verzenden je bestelling met prioriteit en zorgen ervoor dat deze dezelfde dag mee gaat met PostNL voor <strong>€[price] extra verzendkosten!</strong></h3><h2><strong>Nestera is uitgesloten</strong></h2>",
+              "description": "<h3>We verzenden je bestelling met prioriteit en zorgen ervoor dat deze dezelfde dag mee gaat met PostNL voor <strong>€[price] extra verzendkosten!</strong></h3><h6><em><strong>Let op! Vertragingen bij PostNL is niet onze verantwoordelijkheid. De kosten die berekend worden zijn de daadwerkelijke extra kosten die wij moeten betalen voor PostNL-levering.</strong></em></h6><h2><strong>Nestera is uitgesloten</strong></h2>",
               "btn_style": "btn-outline"
             }
           },
