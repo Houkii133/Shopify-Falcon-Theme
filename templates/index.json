@@ -1336,15 +1336,15 @@
         "item_CrJfhp": {
           "type": "item",
           "settings": {
-            "heading": "Outstanding Quality",
-            "description": "<p>We pride ourselves to offer the best quality in class. No compromises.</p>"
+            "heading": "De Beste Kwaliteit",
+            "description": "<p>Wij zijn er trots op de beste kwaliteit in onze klasse te bieden. Zonder compromissen.</p>"
           }
         },
         "item_tUXKec": {
           "type": "item",
           "settings": {
-            "heading": "Free Shipping",
-            "description": "<p>Have a treat with free shipping for all orders over $100. Ready to shop?!</p>"
+            "heading": "Gratis Verzending",
+            "description": "<p>Geniet van gratis verzending voor alle bestellingen boven de € 60 tot 30 kg. Klaar om te shoppen?!</p>"
           }
         },
         "item_apVkCP": {
