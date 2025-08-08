@@ -16,6 +16,7 @@
       "blocks": {
         "about_xFyVHA": {
           "type": "about",
+          "disabled": true,
           "settings": {
             "bg_opacity": 5,
             "border_opacity": 10,
@@ -32,7 +33,7 @@
         "8b92bb0f-7aaa-4462-8660-b6a23bd9c31c": {
           "type": "menu",
           "settings": {
-            "menu": "",
+            "menu": "customer-account-main-menu",
             "title": "Men"
           }
         },
@@ -60,6 +61,7 @@
         },
         "richtext_iDRXYE": {
           "type": "richtext",
+          "disabled": true,
           "settings": {
             "title": "KondaSoft",
             "description": "<p>Falcon Pro is the result of over 15 years of coding expertise.</p>",
@@ -80,6 +82,7 @@
         "7468602d-7e94-4bd5-9673-02b2f8269581",
         "richtext_iDRXYE"
       ],
+      "disabled": true,
       "settings": {
         "color_scheme": "scheme-3",
         "linear_gradient": true,
