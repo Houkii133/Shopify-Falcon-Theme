@@ -90,7 +90,7 @@
         "controls_style": "minimal",
         "pagination": "dots",
         "speed": 500,
-        "autoplay": 5,
+        "autoplay": 10,
         "zoom_effect": true,
         "height_mobile": "480",
         "height_desktop": "640",
