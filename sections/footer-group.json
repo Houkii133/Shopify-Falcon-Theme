@@ -32,6 +32,7 @@
         },
         "8b92bb0f-7aaa-4462-8660-b6a23bd9c31c": {
           "type": "menu",
+          "disabled": true,
           "settings": {
             "menu": "customer-account-main-menu",
             "title": "Men"
@@ -39,6 +40,7 @@
         },
         "menu_JfWbWX": {
           "type": "menu",
+          "disabled": true,
           "settings": {
             "menu": "",
             "title": "Women"
@@ -46,6 +48,7 @@
         },
         "79b0b9d4-1bf4-4490-a48e-94be1aecf12a": {
           "type": "menu",
+          "disabled": true,
           "settings": {
             "menu": "",
             "title": "Company"
@@ -82,7 +85,6 @@
         "7468602d-7e94-4bd5-9673-02b2f8269581",
         "richtext_iDRXYE"
       ],
-      "disabled": true,
       "settings": {
         "color_scheme": "scheme-3",
         "linear_gradient": true,
