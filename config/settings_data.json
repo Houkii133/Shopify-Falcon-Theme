@@ -188,6 +188,71 @@
         "type": "shopify://apps/fomo-social-proof-sales-popup/blocks/app-embed/ea8bddfc-cb72-4fa9-99fa-826f8cccf6a0",
         "disabled": true,
         "settings": {}
+      },
+      "144831480468751239": {
+        "type": "shopify://apps/essential-upsell/blocks/app-embed/50627fd9-24fd-4250-8614-accc12826d80",
+        "disabled": false,
+        "settings": {}
+      },
+      "10020979741964962114": {
+        "type": "shopify://apps/ez-ai-seo-optimizer/blocks/lsonld_embed/e7e17452-0bb0-4d97-9074-2c8ab3bc8079",
+        "disabled": false,
+        "settings": {}
+      },
+      "17962279454735684210": {
+        "type": "shopify://apps/juphy-ai-chatbot/blocks/juphy-widget/f68438fc-3793-4355-a683-ded84ca39046",
+        "disabled": false,
+        "settings": {}
+      },
+      "10148494829067693542": {
+        "type": "shopify://apps/xo-insert-code/blocks/insert-code-body/72017b12-3679-442e-b23c-5c62460717f5",
+        "disabled": false,
+        "settings": {
+          "custom_liquid": "",
+          "custom_css": "",
+          "custom_js": ""
+        }
+      },
+      "13392549970259155148": {
+        "type": "shopify://apps/xo-insert-code/blocks/insert-code-header/72017b12-3679-442e-b23c-5c62460717f5",
+        "disabled": false,
+        "settings": {
+          "custom_liquid": "",
+          "custom_css": "",
+          "custom_js": ""
+        }
+      },
+      "1132875404383792405": {
+        "type": "shopify://apps/instaindex/blocks/seo-tags/b4acb396-1232-4a24-bdc0-89d05041b7ff",
+        "disabled": false,
+        "settings": {}
+      },
+      "14876220180117712452": {
+        "type": "shopify://apps/sea-customer-survey/blocks/app-embed/c7c6d466-0f8e-412d-b0b9-db9b3387aa92",
+        "disabled": false,
+        "settings": {}
+      },
+      "6251270934270006384": {
+        "type": "shopify://apps/stape-server-gtm/blocks/gtm/7e13c847-7971-409d-8fe0-29ec14d5f048",
+        "disabled": false,
+        "settings": {}
+      },
+      "15393088698543645836": {
+        "type": "shopify://apps/essential-preorder/blocks/app-embed/bb7e7a06-2a82-4e7d-8984-c3918deb1c2a",
+        "disabled": false,
+        "settings": {}
+      },
+      "2530237624131658027": {
+        "type": "shopify://apps/shipping-delivery-shipzip/blocks/cs-app-block/1a3d1068-6186-4cb9-936d-3cbb65a9de24",
+        "disabled": false,
+        "settings": {
+          "shippingversion": "v2"
+        }
+      },
+      "14724428607702905366": {
+        "type": "shopify://apps/webrex-seo-ai-optimizer-schema/blocks/webrexSeoEmbed/b26797ad-bb4d-48f5-8ef3-7c561521049c",
+        "disabled": false,
+        "settings": {}
       }
     },
     "color_schemes": {

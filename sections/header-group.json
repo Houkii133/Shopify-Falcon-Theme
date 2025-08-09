@@ -16,6 +16,7 @@
       "blocks": {
         "slide_bDyfCK": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "announcement": "Laatste kans, Sale loopt af over...",
             "url": "shopify://collections/all",
@@ -24,6 +25,7 @@
         },
         "slide_k8kF3w": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "announcement": "Bespaar Tot Wel 15% Met Onze Nieuwe Kippen Snackbundels",
             "url": "shopify://collections/bundle-builder",

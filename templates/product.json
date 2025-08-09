@@ -586,7 +586,7 @@
       "type": "recommended-products",
       "name": "Recommended products",
       "settings": {
-        "recommended_mode_intent": "related",
+        "recommended_mode_intent": "complementary",
         "limit": 8,
         "color_scheme": "",
         "full_width": false,
