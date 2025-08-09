@@ -115,21 +115,21 @@
         "text_BtDYfm": {
           "type": "text",
           "settings": {
-            "text": "Vaak voor 12:00 besteld, morgen in huis -    Geen 100% garantie, neem voor spoedlevering contact op!",
+            "text": "Vaak voor 12:00 besteld, morgen in huis -    Geen 100% garantie, neem voor spoedlevering contact op - Of gebruik de spoedleveringsoptie via PostNL",
             "url": ""
           }
         },
         "text_xXN8B4": {
           "type": "text",
           "settings": {
-            "text": "24/7 bereikbaar voor spoedgevallen",
+            "text": "24/7 bereikbaar voor alle vragen",
             "url": ""
           }
         },
         "text_D7jg8P": {
           "type": "text",
           "settings": {
-            "text": "Mis je iets in ons assortiment? Laat het weten!",
+            "text": "Mis je iets in ons assortiment? Laat het weten! We voegen het graag voor je toe!",
             "url": ""
           }
         }
@@ -208,21 +208,43 @@
         "collection_77TdDm": {
           "type": "collection",
           "settings": {
-            "collection": "children",
+            "collection": "kippen-gezondheid",
             "title": ""
           }
         },
         "collection_UaeYbJ": {
           "type": "collection",
           "settings": {
-            "collection": "latest-arrivals",
+            "collection": "ongedierte-bestrijding-kippen",
             "title": ""
           }
         },
         "collection_fBKC33": {
           "type": "collection",
           "settings": {
-            "collection": "best-selling",
+            "collection": "newest-products",
+            "img": "shopify://shop_images/Nieuwe_Producten_Collectie_Kippenpakket.png",
+            "title": ""
+          }
+        },
+        "collection_KKAmKF": {
+          "type": "collection",
+          "settings": {
+            "collection": "accessoires-voor-kippen",
+            "title": ""
+          }
+        },
+        "collection_V6JYtk": {
+          "type": "collection",
+          "settings": {
+            "collection": "kippen-waterbakken-drinknippels-drinktorens-kuikens",
+            "title": ""
+          }
+        },
+        "collection_QEJWbf": {
+          "type": "collection",
+          "settings": {
+            "collection": "kippen-pakketten",
             "title": ""
           }
         }
@@ -233,7 +255,10 @@
         "collection_zLAaxJ",
         "collection_77TdDm",
         "collection_UaeYbJ",
-        "collection_fBKC33"
+        "collection_fBKC33",
+        "collection_KKAmKF",
+        "collection_V6JYtk",
+        "collection_QEJWbf"
       ],
       "settings": {
         "color_scheme": "scheme-2",
@@ -393,6 +418,7 @@
     },
     "parallax_media_DYdXe4": {
       "type": "parallax-media",
+      "disabled": true,
       "name": "Parallax media",
       "settings": {
         "color_scheme": "",
@@ -497,6 +523,7 @@
         "item_zmy4dz",
         "item_Eej3TR"
       ],
+      "disabled": true,
       "name": "Shoppable Videos",
       "settings": {
         "color_scheme": "scheme-2",
@@ -524,6 +551,7 @@
     },
     "countdown_GbcYrY": {
       "type": "countdown",
+      "disabled": true,
       "name": "Countdown",
       "settings": {
         "countdown": "2025-12-31 23:59",
@@ -556,27 +584,29 @@
         "slide_ywmFDr": {
           "type": "slide",
           "settings": {
+            "video": "shopify://files/videos/Video_Klaar_Meelwormen_Eten_POV.mp4",
             "overlay_color": "#000000",
             "overlay_opacity": 40,
             "overlay_blur": 0,
             "position": "center",
             "text_align": "center",
-            "subheading": "Developed by KondaSoft",
+            "subheading": "Je kippen gemakkelijk tam maken met onze snacks voor Kuikens én Kippen!",
             "subheading_font_size": "fs-md",
-            "heading": "The Most Versatile Shopify Themes",
+            "heading": "Bekijk alle kippensnacks!",
             "heading_size": "h1",
-            "description": "<p>Inspired by the official Dawn theme, but fully loaded with premium features.</p>",
+            "description": "<p>Premium kwaliteit voor gezonde en vitale kuikens en kippen...</p>",
             "description_font_size": "fs-lg",
-            "btn_primary_text": "Buy Theme",
-            "btn_primary_url": "https://www.kondasoft.com/collections/shopify-themes/products/falcon-pro",
+            "btn_primary_text": "Bekijk Premium Kippensnacks",
+            "btn_primary_url": "shopify://collections/all",
             "btn_primary_style": "btn-primary",
-            "btn_secondary_text": "Learn more",
-            "btn_secondary_url": "https://www.kondasoft.com/collections/shopify-themes/products/falcon-pro",
+            "btn_secondary_text": "Bekijk ons kippenvoer",
+            "btn_secondary_url": "shopify://collections/kippenvoer",
             "btn_secondary_style": "btn-outline"
           }
         },
         "slide_YY36wX": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "overlay_color": "#000000",
             "overlay_opacity": 50,
@@ -599,6 +629,7 @@
         },
         "slide_GUaFQn": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "overlay_color": "#000000",
             "overlay_opacity": 50,

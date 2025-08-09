@@ -21,7 +21,7 @@
     "logo": "shopify://shop_images/Logo_rond_met_achtergrond_a445a6f0-6394-4a03-8166-513e71ee0ccf.png",
     "favicon": "shopify://shop_images/Logo_rond_met_achtergrond_a445a6f0-6394-4a03-8166-513e71ee0ccf.png",
     "product_card_color_scheme": "scheme-1",
-    "product_card_style": "default",
+    "product_card_style": "card",
     "product_card_alignment": "left",
     "product_card_img_ratio": "square",
     "product_card_img_hover": true,
