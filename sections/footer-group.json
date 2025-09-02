@@ -89,7 +89,7 @@
         "color_scheme": "scheme-3",
         "linear_gradient": true,
         "border_top_opacity": 0,
-        "full_width": false,
+        "full_width": true,
         "fixed_footer_desktop": true,
         "collapsible_blocks_mobile": true,
         "enable_newsletter": true,

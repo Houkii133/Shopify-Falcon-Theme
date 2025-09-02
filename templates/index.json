@@ -14,7 +14,6 @@
       "blocks": {
         "image_nQCYNC": {
           "type": "slide",
-          "disabled": true,
           "settings": {
             "video": "shopify://files/videos/Kip_Vriendelijke_Tuin_Ontwerp_Concept.mp4",
             "overlay_color": "#000000",
@@ -37,7 +36,6 @@
         },
         "image_K9qkMN": {
           "type": "slide",
-          "disabled": true,
           "settings": {
             "video": "shopify://files/videos/Kippen_Snackend_in_een_Nette_Tuin.mp4",
             "overlay_color": "#000000",
@@ -162,8 +160,8 @@
         "products": [],
         "limit": 8,
         "color_scheme": "scheme-1",
-        "full_width": false,
-        "view_all_link": "View all",
+        "full_width": true,
+        "view_all_link": "Bekijk alles",
         "header_alignment": "left",
         "heading": "Tijdelijke Aanbiedingen...",
         "heading_size": "h3",
@@ -262,7 +260,7 @@
       ],
       "settings": {
         "color_scheme": "scheme-2",
-        "full_width": false,
+        "full_width": true,
         "view_all_link": "View all",
         "header_alignment": "left",
         "heading": "Categorieën",
@@ -389,7 +387,7 @@
       "name": "Testimonials",
       "settings": {
         "color_scheme": "",
-        "full_width": false,
+        "full_width": true,
         "header_alignment": "left",
         "heading": "Klantbeoordelingen waar we kippenvel van krijgen!",
         "heading_size": "h3",
@@ -668,7 +666,7 @@
       "name": "Image compare",
       "settings": {
         "color_scheme": "scheme-2",
-        "full_width": false,
+        "full_width": true,
         "header_alignment": "center",
         "heading": "De Impact van Compleet Voer na 2-3 maanden. Zelfs wij waren verbaasd...",
         "heading_size": "h3",
@@ -1376,29 +1374,29 @@
         "item_CrJfhp": {
           "type": "item",
           "settings": {
-            "heading": "De Beste Kwaliteit",
-            "description": "<p>Wij zijn er trots op de beste kwaliteit in onze klasse te bieden. Zonder compromissen.</p>"
+            "heading": "Ongeëvenaarde Premium Kwaliteit",
+            "description": "<p></p><p>Onze producten zijn met zorg geselecteerd en vervaardigd uit de beste materialen. Je ervaart niet alleen duurzaamheid, maar ook verfijning en klasse in elk detail. Zo garanderen wij kwaliteit die je nergens anders vindt.</p>"
           }
         },
         "item_tUXKec": {
           "type": "item",
           "settings": {
             "heading": "Gratis Verzending",
-            "description": "<p>Geniet van gratis verzending voor alle bestellingen boven de € 60 tot 30 kg. Klaar om te shoppen?!</p>"
+            "description": "<p></p><p>Geniet van gratis verzending voor alle bestellingen boven de € 60 tot 30 kg. Klaar om te shoppen?!</p>"
           }
         },
         "item_apVkCP": {
           "type": "item",
           "settings": {
-            "heading": "Free Returns",
-            "description": "<p>Have peace of mind with our free return policy. Terms may apply.</p>"
+            "heading": "Gratis Retourneren",
+            "description": "<p></p><p>Wil je een bestelling terugsturen? Neem gerust contact met ons op. We kijken samen naar de beste oplossing: retourneren, omruilen of aanpassen. Kies je ervoor om je bestelling volledig te retourneren met terugbetaling, dan brengen we € 7,99 verzendkosten in rekening voor een door ons aangemaakt verzendlabel. Uiteraard kun je er ook voor kiezen om het pakket zelf via een andere verzendoptie terug te sturen. Kies je voor shoptegoed om te besteden bij je volgende bestelling? Dan nemen wij de retourkosten volledig op ons.</p>"
           }
         },
         "item_nCQd87": {
           "type": "item",
           "settings": {
-            "heading": "Secure payments",
-            "description": "<p>100% secure & protected payments. Shop with your preferred option.</p>"
+            "heading": "100% Veilig & Versleuteld Afrekenen",
+            "description": "<p></p><p>Bij ons reken je altijd veilig af. Al je betalingen worden versleuteld verwerkt via een beveiligde verbinding. Zo zijn je persoonlijke gegevens en betaalinformatie optimaal beschermd, zodat je met een gerust hart je bestelling kunt plaatsen.</p>"
           }
         }
       },
@@ -1411,7 +1409,7 @@
       "name": "Trust icons",
       "settings": {
         "color_scheme": "scheme-2",
-        "full_width": false,
+        "full_width": true,
         "header_alignment": "left",
         "heading": "",
         "heading_size": "h3",

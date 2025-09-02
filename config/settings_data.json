@@ -21,7 +21,7 @@
     "logo": "shopify://shop_images/Logo_rond_met_achtergrond_a445a6f0-6394-4a03-8166-513e71ee0ccf.png",
     "favicon": "shopify://shop_images/Logo_rond_met_achtergrond_a445a6f0-6394-4a03-8166-513e71ee0ccf.png",
     "product_card_color_scheme": "scheme-1",
-    "product_card_style": "card",
+    "product_card_style": "default",
     "product_card_alignment": "left",
     "product_card_img_ratio": "square",
     "product_card_img_hover": true,
@@ -184,23 +184,8 @@
         "disabled": false,
         "settings": {}
       },
-      "15522997382164843275": {
-        "type": "shopify://apps/fomo-social-proof-sales-popup/blocks/app-embed/ea8bddfc-cb72-4fa9-99fa-826f8cccf6a0",
-        "disabled": true,
-        "settings": {}
-      },
       "144831480468751239": {
         "type": "shopify://apps/essential-upsell/blocks/app-embed/50627fd9-24fd-4250-8614-accc12826d80",
-        "disabled": false,
-        "settings": {}
-      },
-      "10020979741964962114": {
-        "type": "shopify://apps/ez-ai-seo-optimizer/blocks/lsonld_embed/e7e17452-0bb0-4d97-9074-2c8ab3bc8079",
-        "disabled": false,
-        "settings": {}
-      },
-      "17962279454735684210": {
-        "type": "shopify://apps/juphy-ai-chatbot/blocks/juphy-widget/f68438fc-3793-4355-a683-ded84ca39046",
         "disabled": false,
         "settings": {}
       },
@@ -248,11 +233,6 @@
         "settings": {
           "shippingversion": "v2"
         }
-      },
-      "14724428607702905366": {
-        "type": "shopify://apps/webrex-seo-ai-optimizer-schema/blocks/webrexSeoEmbed/b26797ad-bb4d-48f5-8ef3-7c561521049c",
-        "disabled": false,
-        "settings": {}
       }
     },
     "color_schemes": {
