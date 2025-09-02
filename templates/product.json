@@ -229,30 +229,14 @@
             "padding_bottom": 1
           }
         },
-        "trust_icons_XrFegm": {
-          "type": "trust_icons",
-          "settings": {
-            "style": "horizontal",
-            "max_width": "500",
-            "description_font_size": "fs-sm",
-            "img_size": 30,
-            "label": "Waar wij voor staan",
-            "img_1": "shopify://shop_images/stars.svg",
-            "text_1": "<p>Top Kwaliteit</p>",
-            "img_2": "shopify://shop_images/chat-square-heart.svg",
-            "text_2": "<p>24/7 Gratis Service</p>",
-            "img_3": "shopify://shop_images/truck.svg",
-            "text_3": "<p>Vanaf €60,- Gratis Verzonden tot 30kg</p>",
-            "text_4": "",
-            "text_5": "",
-            "padding_top": 0,
-            "padding_bottom": 1.4
-          }
+        "conversion_bear_trust_badges_widget_7PejDA": {
+          "type": "shopify://apps/conversion-bear-trust-badges/blocks/widget/163a9b59-0ec2-4cb7-bf5c-31408b4a9420",
+          "settings": {}
         },
         "collapse_heYN7L": {
           "type": "collapse",
           "settings": {
-            "title": "Productomschrijving",
+            "title": "Informatie",
             "title_font_size": 100,
             "title_text_transform": "capitalize",
             "title_letter_spacing": 0,
@@ -386,7 +370,7 @@
         "separator_rzL9ct",
         "delivery_info_WHwB7m",
         "atc_button_r4cwcJ",
-        "trust_icons_XrFegm",
+        "conversion_bear_trust_badges_widget_7PejDA",
         "collapse_heYN7L",
         "collapse_qkxF4P",
         "collapse_XR7UCP",
@@ -559,7 +543,10 @@
       "blocks": {
         "judge_me_reviews_review_widget_yTCg9G": {
           "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "settings": {}
+          "settings": {
+            "review_data": "sample_data",
+            "max_width": 1200
+          }
         }
       },
       "block_order": [
